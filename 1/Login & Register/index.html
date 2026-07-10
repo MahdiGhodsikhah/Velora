@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>فرم لاگین و ثبت نام</title>
+</head>
+
+<body>
+    <div class="leaves">
+        <div class="set">
+            <div style="left: 20%;"><img src="image/leaf_01.png" alt=""></div>
+            <div style="left: 50%;"><img src="image/leaf_02.png" alt=""></div>
+            <div style="left: 70%;"><img src="image/leaf_03.png" alt=""></div>
+            <div style="left: 10%;"><img src="image/leaf_04.png" alt=""></div>
+        </div>
+    </div>
+
+    <section>
+        <img src="image/bg.jpg" alt="" class="bg">
+        <img src="image/trees.png" alt="" class="trees">
+        <img src="image/girl.png" alt="" class="girl">
+
+        <!-- فرم لاگین -->
+        <div class="login" id="loginForm">
+            <h2>ورود به حساب کاربری</h2>
+
+            <div class="inputBox">
+                <input type="text" placeholder="نام کاربری">
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="رمز عبور">
+            </div>
+            <div class="inputBox">
+                <input type="submit" value="ورود">
+            </div>
+
+            <div class="remember">
+                <label><input type="checkbox"> مرا به خاطر بسپار</label>
+            </div>
+
+            <div class="group">
+                <a href="#">فراموشی رمز عبور</a>
+                <a href="#" class="switch-to-register">ثبت نام</a>
+            </div>
+
+            <div class="social">
+                <p>ورود با حساب‌های دیگر</p>
+                <div class="icons">
+                    <a href="#"><i class="fab fa-google"></i></a>
+                    <a href="#"><i class="fab fa-apple"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- فرم ثبت نام -->
+        <div class="login" id="registerForm" style="display: none;">
+            <h2>ایجاد حساب کاربری</h2>
+
+            <div class="inputBox">
+                <input type="text" placeholder="نام کاربری">
+            </div>
+            <div class="inputBox">
+                <input type="tel" placeholder="شماره تلفن">
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="رمز عبور">
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="تکرار رمز عبور">
+            </div>
+            <div class="inputBox">
+                <input type="submit" value="ثبت نام">
+            </div>
+
+            <div class="remember">
+                <label><input type="checkbox"> قوانین و مقررات را می‌پذیرم</label>
+            </div>
+
+            <div class="group">
+                <a href="#" class="switch-to-login">ورود به حساب کاربری</a>
+            </div>
+
+            <div class="social">
+                <p>ثبت نام با حساب‌های دیگر</p>
+                <div class="icons">
+                    <a href="#"><i class="fab fa-google"></i></a>
+                    <a href="#"><i class="fab fa-apple"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // سوییچ بین فرم‌ها
+        document.querySelectorAll('.switch-to-register').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'flex';
+            });
+        });
+
+        document.querySelectorAll('.switch-to-login').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('registerForm').style.display = 'none';
+                document.getElementById('loginForm').style.display = 'flex';
+            });
+        });
+    </script>
+</body>
+
+</html>

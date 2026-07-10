@@ -1,0 +1,27 @@
+Options -Indexes
+ServerSignature Off
+
+# --- Rewrite ---
+RewriteEngine On
+
+# فایل‌های static را مستقیم سرو کن
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# همه چیز دیگر به index.php
+RewriteRule ^ index.php [L]
+
+# --- Security Headers ---
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header unset X-Powered-By
+</IfModule>
+
+# --- جلوگیری از دسترسی به فایل‌های حساس ---
+<FilesMatch "\.(env|log|sql|sh|bak|htpasswd)$">
+    Require all denied
+</FilesMatch>

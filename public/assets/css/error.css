@@ -1,0 +1,72 @@
+:root {
+    --bg: #1a0f1a;
+    --text: #e0e0ff;
+    --accent: #49d1d1;
+    --accent-dark: #129e9eff;
+    --gray: #6b7280;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Vazirmatn', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: 2rem;
+}
+
+.container { text-align: center; max-width: 640px; position: relative; z-index: 2; }
+
+.error-code {
+    font-size: clamp(9rem, 25vw, 18rem);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    background: linear-gradient(90deg, #49d1d1, #b0c7e7ff, #129e9eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    animation: float 7s ease-in-out infinite;
+}
+
+.message { font-size: 1.5rem; font-weight: 300; margin: 1.2rem 0 2rem; color: var(--gray); line-height: 1.6; }
+.subtitle { font-size: 1.1rem; color: #a0a0c0; margin-bottom: 2.5rem; }
+
+.btn-home {
+    display: inline-flex; align-items: center; gap: .8rem;
+    padding: .9rem 2.2rem; font-size: 1.1rem; font-weight: 500;
+    color: white; background: var(--accent); border: none; border-radius: 9999px;
+    text-decoration: none; transition: all .35s ease;
+    box-shadow: 0 10px 30px rgba(73,209,209,.25);
+}
+.btn-home:hover { background: var(--accent-dark); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(18,158,158,.4); }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-25px); }
+}
+
+.background-particles {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    background: radial-gradient(circle at 20% 30%, rgba(73,209,209,.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(73,209,209,.06) 0%, transparent 50%);
+}
+.particle {
+    position: absolute; background: rgba(73,209,209,.4); border-radius: 50%;
+    animation: drift linear infinite; box-shadow: 0 0 12px rgba(73,209,209,.6);
+}
+@keyframes drift {
+    0%   { transform: translate(0,0) scale(1); opacity: .7; }
+    100% { transform: translate(var(--tx),var(--ty)) scale(.4); opacity: 0; }
+}
+
+@media (max-width: 640px) {
+    .error-code { font-size: clamp(7rem, 22vw, 12rem); }
+    .message    { font-size: 1.3rem; }
+    .btn-home   { padding: .85rem 1.8rem; font-size: 1rem; }
+}

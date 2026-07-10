@@ -1,0 +1,355 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    /* رنگ‌های اصلی */
+    --primary-gradient-start: #8B4513;
+    --primary-gradient-1: #A0522D;
+    --primary-gradient-2: #CD853F;
+    --primary-gradient-3: #D2691E;
+    --primary-gradient-end: #8B4513;
+    
+    /* رنگ‌های طلایی و نارنجی */
+    --gold-light: #FFD700;
+    --gold-dark: #FF8C00;
+    --orange-dark: #FF4500;
+    
+    /* رنگ‌های سفید و شفاف */
+    --white: #fff;
+    --white-10: rgba(255, 255, 255, 0.1);
+    --white-20: rgba(255, 255, 255, 0.2);
+    --white-05: rgba(255, 255, 255, 0.05);
+    
+    /* سایه‌ها */
+    --btn-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+    --btn-shadow-hover: 0 8px 20px rgba(255, 69, 0, 0.6);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    --text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --logo-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    
+    /* فاصله‌ها */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 5rem;
+    
+    /* سایز فونت */
+    --font-xs: 0.875rem;
+    --font-sm: 1rem;
+    --font-md: 1.1rem;
+    --font-lg: 1.2rem;
+    --font-xl: 1.5rem;
+    --font-2xl: 2rem;
+    --font-3xl: 2.5rem;
+    --font-4xl: 3.5rem;
+    
+    /* border-radius */
+    --radius-sm: 15px;
+    --radius-md: 20px;
+    --radius-lg: 50px;
+    --radius-icon: 3rem;
+    
+    /* transitions */
+    --transition-fast: all 0.3s ease;
+    --transition-slow: all 0.4s ease;
+    
+    /* متغیرهای گرادیانت */
+    --hero-gradient: linear-gradient(to right, var(--gold-light), var(--gold-dark));
+    --btn-gradient: linear-gradient(45deg, var(--gold-dark), var(--orange-dark));
+    --body-gradient: linear-gradient(135deg, 
+        var(--primary-gradient-start) 0%, 
+        var(--primary-gradient-1) 25%, 
+        var(--primary-gradient-2) 50%, 
+        var(--primary-gradient-3) 75%, 
+        var(--primary-gradient-end) 100%);
+    --feature-border: 1px solid var(--white-10);
+    --header-border: 1px solid var(--white-20);
+    --product-border: 1px solid var(--white-20);
+}
+
+body {
+    background: var(--body-gradient);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* انیمیشن برگ‌های متحرک */
+.leaf {
+    position: absolute;
+    z-index: 1;
+    animation: fall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* صفحه اصلی */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    position: relative;
+    z-index: 10;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg) 0;
+    border-bottom: var(--header-border);
+    margin-bottom: var(--spacing-3xl);
+}
+
+.logo {
+    font-size: var(--font-2xl);
+    font-weight: bold;
+    background: var(--hero-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: var(--logo-shadow);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-xl);
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+}
+
+nav a:hover {
+    background: var(--white-20);
+    transform: translateY(-3px);
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3xl);
+    margin-bottom: var(--spacing-4xl);
+    position: relative;
+}
+
+.hero-content {
+    flex: 1;
+    animation: fadeInUp 1s ease;
+}
+
+.hero h1 {
+    font-size: var(--font-4xl);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+    text-shadow: var(--text-shadow);
+}
+
+.hero h1 span {
+    background: var(--hero-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: var(--font-lg);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-xl);
+    max-width: 600px;
+}
+
+.btn {
+    display: inline-block;
+    padding: var(--spacing-md) var(--spacing-2xl);
+    background: var(--btn-gradient);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: var(--radius-lg);
+    font-weight: bold;
+    font-size: var(--font-md);
+    transition: var(--transition-fast);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--btn-shadow);
+    animation: pulse 2s infinite;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--btn-shadow-hover);
+}
+
+.hero-image {
+    flex: 1;
+    position: relative;
+    animation: float 4s ease-in-out infinite;
+}
+
+.product-card {
+    background: var(--white-10);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+    box-shadow: var(--card-shadow);
+    border: var(--product-border);
+    animation: slideInRight 1s ease;
+}
+
+.product-card h2 {
+    font-size: var(--font-2xl);
+    margin-bottom: var(--spacing-lg);
+    color: var(--gold-light);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+    margin: var(--spacing-4xl) 0;
+}
+
+.feature-card {
+    background: var(--white-05);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    transition: var(--transition-fast);
+    animation: fadeIn 0.8s ease;
+    border: var(--feature-border);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    background: var(--white-10);
+    box-shadow: var(--hover-shadow);
+}
+
+.feature-card i {
+    font-size: var(--radius-icon);
+    margin-bottom: var(--spacing-lg);
+    color: var(--gold-light);
+    animation: rotate 8s linear infinite;
+}
+
+.feature-card h3 {
+    font-size: var(--font-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.testimonials {
+    margin: var(--spacing-4xl) 0;
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: var(--font-3xl);
+    margin-bottom: var(--spacing-3xl);
+    color: var(--gold-light);
+}
+
+.testimonial-card {
+    background: var(--white-05);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-sm);
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeIn 1s ease;
+}
+
+.testimonial-card p {
+    font-size: var(--font-lg);
+    font-style: italic;
+    margin-bottom: var(--spacing-lg);
+}
+
+.testimonial-card .author {
+    font-weight: bold;
+    color: var(--gold-light);
+}
+
+footer {
+    text-align: center;
+    padding: var(--spacing-3xl) 0;
+    border-top: var(--header-border);
+    margin-top: var(--spacing-3xl);
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* رسانه‌های کوچک */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    nav ul {
+        gap: var(--spacing-md);
+    }
+    
+    .hero h1 {
+        font-size: var(--font-2xl);
+    }
+}

@@ -1,0 +1,6 @@
+/* استایل اضافی صفحات احراز هویت - از main.css ارث‌بری می‌شود */
+body.auth-body {
+    overflow-x: hidden;
+    min-height: 100vh;
+    background: #1a0a00;
+}

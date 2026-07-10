@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محصول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- برگ‌های متحرک -->
+    <div class="leaf" style="top: 10%; left: 5%; width: 30px; height: 30px; background: #FFD700; animation-duration: 15s;"></div>
+    <div class="leaf" style="top: 20%; right: 10%; width: 25px; height: 25px; background: #FF8C00; animation-duration: 12s;"></div>
+    <div class="leaf" style="top: 5%; left: 20%; width: 40px; height: 40px; background: #FF4500; animation-duration: 18s;"></div>
+    <div class="leaf" style="top: 70%; right: 15%; width: 35px; height: 35px; background: #FFD700; animation-duration: 14s;"></div>
+    <div class="leaf" style="top: 40%; left: 10%; width: 20px; height: 20px; background: #FF8C00; animation-duration: 16s;"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">پاییزی<span>شگفت</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> خانه</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> درباره</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> محصولات</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> تماس</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>محصول <span>پاییزی</span> شگفت‌انگیز</h1>
+                <p>تجربه‌ای نوآورانه در دنیای پاییزی با ترکیب عالی از طبیعت و فناوری. این محصول با طراحی خاص و انیمیشن‌های زیبا، تجربه‌ای منحصر به فرد برای شما فراهم می‌کند.</p>
+                <a href="#" class="btn">خرید همین حالا</a>
+            </div>
+            <div class="hero-image">
+                <div class="product-card">
+                    <h2>محصول پاییزی</h2>
+                    <div style="width: 100%; height: 200px; background: linear-gradient(45deg, #FFD700, #FF8C00); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-star"></i>
+                <h3>کیفیت عالی</h3>
+                <p>با استفاده از مواد اولیه پاییزی و تکنولوژی پیشرفته</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-leaf"></i>
+                <h3>طبیعی و سالم</h3>
+                <p>بی‌خطر و مناسب برای تمامی افراد</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>انیمیشن‌های زیبا</h3>
+                <p>تجربه‌ای شگفت‌انگیز با انیمیشن‌های متحرک</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-heart"></i>
+                <h3>رضایت کامل</h3>
+                <p>ضمانت رضایت 100% از کاربران</p>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>نظرات کاربران</h2>
+            <div class="testimonial-card">
+                <p>"این محصول واقعاً شگفت‌انگیز بود! انیمیشن‌ها و طراحی‌اش هیچ‌وقت من را نادیده نگرفت."</p>
+                <div class="author">- محمد رضایی</div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2023 محصول پاییزی شگفت‌انگیز. تمامی حقوق محفوظ است.</p>
+        </footer>
+    </div>
+
+    <script>
+        // ایجاد برگ‌های متحرک
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.container');
+            
+            // ایجاد 10 برگ متحرک
+            for (let i = 0; i < 10; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                
+                // موقعیت تصادفی
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                const size = 10 + Math.random() * 30;
+                
+                leaf.style.top = `${top}%`;
+                leaf.style.left = `${left}%`;
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size}px`;
+                
+                // رنگ تصادفی
+                const colors = ['#FFD700', '#FF8C00', '#FF4500', '#FFA500'];
+                leaf.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // سرعت تصادفی
+                const duration = 10 + Math.random() * 20;
+                leaf.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(leaf);
+            }
+        });
+    </script>
+</body>
+</html>

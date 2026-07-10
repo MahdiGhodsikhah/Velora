@@ -1,0 +1,82 @@
+<?php
+$base = defined('BASE_URL') ? BASE_URL : '';
+?>
+
+<div class="leaves" aria-hidden="true">
+    <div class="set">
+        <div style="left:20%"><img src="<?= $base ?>/assets/images/leaves/leaf_01.png" alt=""></div>
+        <div style="left:50%"><img src="<?= $base ?>/assets/images/leaves/leaf_02.png" alt=""></div>
+        <div style="left:70%"><img src="<?= $base ?>/assets/images/leaves/leaf_03.png" alt=""></div>
+        <div style="left:10%"><img src="<?= $base ?>/assets/images/leaves/leaf_04.png" alt=""></div>
+    </div>
+</div>
+
+<section class="auth-section">
+    <img src="<?= $base ?>/assets/images/auth/bg.jpg" alt="" class="bg" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/trees.png" alt="" class="trees" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/girl.png" alt="" class="girl" aria-hidden="true">
+
+    <div class="auth-card" role="main">
+        <h1>ورود به حساب کاربری</h1>
+
+        <?php require BASE_PATH . '/src/Views/partials/alert.php'; ?>
+
+        <form method="POST"
+              action="<?= $base ?>/login"
+              class="auth-form"
+              novalidate
+              autocomplete="off"
+              aria-label="فرم ورود">
+
+            <?= Security::csrf_field() ?>
+
+            <div class="inputBox">
+                <label for="username" class="sr-only">نام کاربری یا ایمیل</label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       placeholder="نام کاربری یا ایمیل"
+                       required
+                       maxlength="150"
+                       autocomplete="username"
+                       aria-required="true">
+            </div>
+
+            <div class="inputBox">
+                <label for="password" class="sr-only">رمز عبور</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       placeholder="رمز عبور"
+                       required
+                       maxlength="100"
+                       autocomplete="current-password"
+                       aria-required="true">
+            </div>
+
+            <div class="inputBox">
+                <input type="submit" value="ورود" aria-label="ارسال فرم ورود">
+            </div>
+
+            <div class="remember">
+                <label>
+                    <input type="checkbox" name="remember" value="1"> مرا به خاطر بسپار
+                </label>
+            </div>
+
+            <div class="group">
+                <a href="#">فراموشی رمز عبور</a>
+                <a href="<?= $base ?>/register">ثبت نام</a>
+            </div>
+
+            <div class="social">
+                <p>ورود با حساب‌های دیگر</p>
+                <div class="icons">
+                    <a href="#" aria-label="ورود با گوگل"><i class="fab fa-google" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="ورود با اپل"><i class="fab fa-apple" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="ورود با گیت‌هاب"><i class="fab fa-github" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
