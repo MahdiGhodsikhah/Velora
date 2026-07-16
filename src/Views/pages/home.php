@@ -9,14 +9,15 @@ unset($_SESSION['auth_success']);
 
 <main id="main-content" tabindex="-1">
 
-    <!-- پیام موفقیت -->
+    <!-- پیام موفقیت به صورت نوتیفیکیشن -->
     <?php if ($success): ?>
-    <div class="container pt-3">
-        <div class="alert alert-success" role="status">
-            <i class="fas fa-check-circle" aria-hidden="true"></i>
-            <?= Security::e($success) ?>
-        </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof showNotification === 'function') {
+                showNotification(<?= json_encode($success) ?>, 'success');
+            }
+        });
+    </script>
     <?php endif; ?>
 
     <!-- بخش ویژگی‌ها -->

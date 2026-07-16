@@ -20,8 +20,7 @@ class WishlistController {
         if (empty($_SESSION['user_id']) || empty($_SESSION['logged_in'])) {
             echo json_encode([
                 'success' => false,
-                'message' => 'برای استفاده از این قابلیت ابتدا وارد شوید',
-                'redirect' => BASE_URL . '/login'
+                'message' => 'برای استفاده از این قابلیت ابتدا وارد شوید'
             ], JSON_UNESCAPED_UNICODE);
             exit;
         }

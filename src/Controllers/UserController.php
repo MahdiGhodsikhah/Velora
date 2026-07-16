@@ -26,11 +26,16 @@ class UserController {
         }
 
         // آمار کاربر
+        $cartCount = 0;
+        if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+            $cartCount = array_sum($_SESSION['cart']);
+        }
+        
         $stats = [
             'total_orders'    => $this->userModel->getTotalOrders($userId),
             'total_reviews'   => $this->userModel->getTotalReviews($userId),
             'wishlist_count'  => $this->userModel->getWishlistCount($userId),
-            'cart_count'      => 0, // بعداً از سبد خرید
+            'cart_count'      => $cartCount,
         ];
 
         // آخرین سفارشات

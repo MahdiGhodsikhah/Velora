@@ -223,8 +223,20 @@ class AuthController {
             return;
         }
 
-        $_SESSION['auth_success'] = 'ثبت‌نام با موفقیت انجام شد. اکنون می‌توانید وارد شوید.';
-        $this->redirect('/login');
+        // لاگین خودکار بعد از ثبت نام
+        $user = $this->userModel->findByUsername($username);
+        if ($user) {
+            // بازسازی session برای امنیت
+            session_regenerate_id(true);
+            
+            $_SESSION['user_id']   = (int)$user['id'];
+            $_SESSION['username']  = $user['username'];
+            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['logged_in'] = true;
+            $_SESSION['auth_success'] = 'خوش آمدید، ' . Security::e($user['username']) . '! ثبت‌نام شما با موفقیت انجام شد.';
+        }
+        
+        $this->redirect('/');
     }
 
     // -------------------------------------------------------------------

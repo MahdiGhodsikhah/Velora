@@ -177,10 +177,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // ۴. افزودن به علاقه‌مندی (Wishlist)
     // =================================================================
     
-    // توجه: event handler برای wishlist در main.js هست
-    // اینجا فقط وضعیت اولیه رو لود می‌کنیم
+    // توجه: event handler اصلی برای wishlist در main.js هست
+    // اینجا فقط رفتار خاص صفحه محصول را اضافه می‌کنیم
     
-    console.log('✅ Wishlist handling delegated to main.js');
+    console.log('✅ Wishlist handling setup for product page');
     
     // =================================================================
     // ۵. شمارنده کاراکتر برای فرم نظر

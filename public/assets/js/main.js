@@ -397,12 +397,8 @@ $(document).ready(function () {
                         showNotification(res.message, 'success');
                     }
                     
-                    // اگر redirect دارد (کاربر لاگین نیست)
-                    if (res.redirect) {
-                        setTimeout(function() {
-                            window.location.href = res.redirect;
-                        }, 1500);
-                    }
+                    // حذف redirect - فقط پیام نشان بده
+                    // اگر کاربر لاگین نیست، فقط پیام نمایش داده می‌شود
                 } else {
                     // ریورت در صورت خطا
                     $btn.toggleClass('active');
@@ -414,12 +410,7 @@ $(document).ready(function () {
                         showNotification(res.message, 'error');
                     }
                     
-                    // اگر redirect دارد
-                    if (res && res.redirect) {
-                        setTimeout(function() {
-                            window.location.href = res.redirect;
-                        }, 1500);
-                    }
+                    // حذف redirect - فقط پیام
                 }
             },
             error: function (xhr, status, error) {
