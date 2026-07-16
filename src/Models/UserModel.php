@@ -94,6 +94,7 @@ class UserModel {
         $job      = db_escape(trim($data['job'] ?? ''));
         $birthDate = !empty($data['birth_date']) ? "'" . db_escape($data['birth_date']) . "'" : 'NULL';
         $postalCode = db_escape(trim($data['postal_code'] ?? ''));
+        $profileImage = isset($data['profile_image']) ? "'" . db_escape($data['profile_image']) . "'" : 'NULL';
 
         $sql = "UPDATE `users` 
                 SET `full_name` = '$fullName', 
@@ -103,10 +104,37 @@ class UserModel {
                     `job` = '$job',
                     `birth_date` = $birthDate,
                     `postal_code` = '$postalCode',
+                    `profile_image` = $profileImage,
                     `updated_at` = NOW()
                 WHERE `id` = $userId";
 
         return db_query($sql);
+    }
+    
+    /**
+     * به‌روزرسانی عکس پروفایل
+     */
+    public function updateProfileImage(int $userId, string $imagePath): bool {
+        $userId = (int)$userId;
+        $imagePath = db_escape($imagePath);
+        
+        $sql = "UPDATE `users` 
+                SET `profile_image` = '$imagePath', 
+                    `updated_at` = NOW()
+                WHERE `id` = $userId";
+        
+        return db_query($sql);
+    }
+    
+    /**
+     * حذف عکس پروفایل قدیمی
+     */
+    public function deleteOldProfileImage(int $userId): ?string {
+        $user = $this->findById($userId);
+        if ($user && !empty($user['profile_image'])) {
+            return $user['profile_image'];
+        }
+        return null;
     }
     
     /**
