@@ -101,6 +101,9 @@ class UserController {
         $email    = trim($_POST['email'] ?? '');
         $phone    = trim($_POST['phone'] ?? '');
         $address  = trim($_POST['address'] ?? '');
+        $job      = trim($_POST['job'] ?? '');
+        $birthDate = trim($_POST['birth_date'] ?? '');
+        $postalCode = trim($_POST['postal_code'] ?? '');
 
         // اعتبارسنجی
         $errors = [];
@@ -121,6 +124,18 @@ class UserController {
             $errors[] = 'شماره موبایل باید با 09 شروع شود و 11 رقم باشد.';
         }
 
+        if (!empty($postalCode) && !preg_match('/^[0-9]{10}$/', $postalCode)) {
+            $errors[] = 'کد پستی باید 10 رقم باشد.';
+        }
+
+        if (!empty($birthDate)) {
+            // بررسی فرمت تاریخ (YYYY-MM-DD)
+            $date = \DateTime::createFromFormat('Y-m-d', $birthDate);
+            if (!$date || $date->format('Y-m-d') !== $birthDate) {
+                $errors[] = 'فرمت تاریخ تولد نامعتبر است.';
+            }
+        }
+
         if (!empty($errors)) {
             $_SESSION['error'] = implode('<br>', $errors);
             header('Location: ' . BASE_URL . '/profile');
@@ -128,7 +143,17 @@ class UserController {
         }
 
         // به‌روزرسانی
-        $result = $this->userModel->updateProfile($userId, $fullName, $email, $phone, $address);
+        $data = [
+            'full_name' => $fullName,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'job' => $job,
+            'birth_date' => $birthDate,
+            'postal_code' => $postalCode
+        ];
+        
+        $result = $this->userModel->updateProfile($userId, $data);
 
         if ($result) {
             $_SESSION['success'] = 'اطلاعات شما با موفقیت به‌روزرسانی شد.';
@@ -137,6 +162,66 @@ class UserController {
         }
 
         header('Location: ' . BASE_URL . '/profile');
+        exit;
+    }
+    
+    /**
+     * تغییر رمز عبور
+     */
+    public function changePassword(): void {
+        $this->checkAuth();
+        
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'message' => 'درخواست نامعتبر'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // بررسی CSRF Token
+        $csrfToken = $_POST['csrf_token'] ?? '';
+        if (empty($csrfToken) || !isset($_SESSION['csrf_token']) || $csrfToken !== $_SESSION['csrf_token']) {
+            echo json_encode(['success' => false, 'message' => 'توکن امنیتی نامعتبر است'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        $userId = (int)$_SESSION['user_id'];
+        $currentPassword = $_POST['current_password'] ?? '';
+        $newPassword = $_POST['new_password'] ?? '';
+        $confirmPassword = $_POST['confirm_password'] ?? '';
+
+        // اعتبارسنجی
+        if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+            echo json_encode(['success' => false, 'message' => 'تمام فیلدها الزامی است'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // بررسی رمز عبور فعلی
+        if (!$this->userModel->verifyCurrentPassword($userId, $currentPassword)) {
+            echo json_encode(['success' => false, 'message' => 'رمز عبور فعلی اشتباه است'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // بررسی تطابق رمز عبورهای جدید
+        if ($newPassword !== $confirmPassword) {
+            echo json_encode(['success' => false, 'message' => 'رمز عبور جدید و تکرار آن یکسان نیستند'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // اعتبارسنجی قدرت رمز عبور
+        if (!Security::validate_password($newPassword)) {
+            echo json_encode(['success' => false, 'message' => 'رمز عبور باید حداقل 8 کاراکتر، شامل حرف و عدد باشد'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // تغییر رمز عبور
+        $result = $this->userModel->changePassword($userId, $newPassword);
+
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'رمز عبور با موفقیت تغییر یافت'], JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'خطا در تغییر رمز عبور'], JSON_UNESCAPED_UNICODE);
+        }
         exit;
     }
 

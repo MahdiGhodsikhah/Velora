@@ -12,11 +12,34 @@ unset($_SESSION['auth_success']);
     <!-- پیام موفقیت به صورت نوتیفیکیشن -->
     <?php if ($success): ?>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof showNotification === 'function') {
-                showNotification(<?= json_encode($success) ?>, 'success');
-            }
-        });
+        // اطمینان از لود شدن کامل DOM و jQuery
+        if (typeof jQuery !== 'undefined') {
+            jQuery(document).ready(function($) {
+                // تاخیر کوتاه برای اطمینان از لود شدن کامل صفحه
+                setTimeout(function() {
+                    if (typeof showNotification === 'function') {
+                        showNotification(<?= json_encode($success, JSON_UNESCAPED_UNICODE) ?>, 'success');
+                    } else {
+                        // fallback اگر تابع لود نشده
+                        console.log('showNotification not loaded yet, retrying...');
+                        setTimeout(function() {
+                            if (typeof showNotification === 'function') {
+                                showNotification(<?= json_encode($success, JSON_UNESCAPED_UNICODE) ?>, 'success');
+                            }
+                        }, 500);
+                    }
+                }, 100);
+            });
+        } else {
+            // fallback برای زمانی که jQuery لود نشده
+            window.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    if (typeof showNotification === 'function') {
+                        showNotification(<?= json_encode($success, JSON_UNESCAPED_UNICODE) ?>, 'success');
+                    }
+                }, 300);
+            });
+        }
     </script>
     <?php endif; ?>
 

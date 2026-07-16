@@ -97,7 +97,7 @@ if (empty($_SESSION['csrf_token'])) {
                             <?php unset($_SESSION['error']); ?>
                         <?php endif; ?>
 
-                        <form method="POST" action="<?= BASE_URL ?>/profile/update">
+                        <form method="POST" action="<?= BASE_URL ?>/profile/update" id="profileForm">
                             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
                             <div class="row g-3">
@@ -117,6 +117,18 @@ if (empty($_SESSION['csrf_token'])) {
                                            placeholder="نام و نام خانوادگی خود را وارد کنید">
                                 </div>
 
+                                <!-- شغل -->
+                                <div class="col-md-6">
+                                    <label for="job" class="form-label">شغل</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="job" 
+                                           name="job" 
+                                           value="<?= Security::e($user['job'] ?? '') ?>"
+                                           maxlength="100"
+                                           placeholder="شغل خود را وارد کنید">
+                                </div>
+
                                 <!-- ایمیل -->
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">
@@ -134,7 +146,7 @@ if (empty($_SESSION['csrf_token'])) {
                                 </div>
 
                                 <!-- شماره موبایل -->
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <label for="phone" class="form-label">شماره موبایل</label>
                                     <input type="tel" 
                                            class="form-control" 
@@ -145,6 +157,32 @@ if (empty($_SESSION['csrf_token'])) {
                                            pattern="09[0-9]{9}"
                                            placeholder="09123456789">
                                     <small class="text-muted">فرمت: 09123456789</small>
+                                </div>
+
+                                <!-- تاریخ تولد -->
+                                <div class="col-md-6">
+                                    <label for="birth_date" class="form-label">تاریخ تولد</label>
+                                    <input type="date" 
+                                           class="form-control" 
+                                           id="birth_date" 
+                                           name="birth_date" 
+                                           value="<?= Security::e($user['birth_date'] ?? '') ?>"
+                                           max="<?= date('Y-m-d') ?>">
+                                    <small class="text-muted">تاریخ میلادی</small>
+                                </div>
+
+                                <!-- کد پستی -->
+                                <div class="col-md-6">
+                                    <label for="postal_code" class="form-label">کد پستی</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="postal_code" 
+                                           name="postal_code" 
+                                           value="<?= Security::e($user['postal_code'] ?? '') ?>"
+                                           maxlength="10"
+                                           pattern="[0-9]{10}"
+                                           placeholder="1234567890">
+                                    <small class="text-muted">کد پستی 10 رقمی</small>
                                 </div>
 
                                 <!-- آدرس -->
@@ -167,10 +205,10 @@ if (empty($_SESSION['csrf_token'])) {
                                         تغییر رمز عبور
                                     </h5>
                                     <p class="text-muted mb-3">برای تغییر رمز عبور، از دکمه زیر استفاده کنید:</p>
-                                    <a href="<?= BASE_URL ?>/change-password" class="btn btn-outline-primary">
+                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
                                         <i class="bi bi-key me-1"></i>
                                         تغییر رمز عبور
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <!-- دکمه‌ها -->
@@ -195,6 +233,183 @@ if (empty($_SESSION['csrf_token'])) {
         </div>
     </div>
 </main>
+
+<!-- مدال تغییر رمز عبور -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">
+                    <i class="bi bi-shield-lock me-2"></i>
+                    تغییر رمز عبور
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                    
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        رمز عبور باید حداقل 8 کاراکتر، شامل حرف و عدد باشد.
+                    </div>
+                    
+                    <div id="passwordChangeMessage" class="alert d-none" role="alert"></div>
+                    
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">
+                            رمز عبور فعلی
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="current_password" 
+                                   name="current_password" 
+                                   required
+                                   placeholder="رمز عبور فعلی خود را وارد کنید">
+                            <button class="btn btn-outline-secondary toggle-password" type="button" data-target="current_password">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">
+                            رمز عبور جدید
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="new_password" 
+                                   name="new_password" 
+                                   required
+                                   minlength="8"
+                                   placeholder="رمز عبور جدید">
+                            <button class="btn btn-outline-secondary toggle-password" type="button" data-target="new_password">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">
+                            تکرار رمز عبور جدید
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="confirm_password" 
+                                   name="confirm_password" 
+                                   required
+                                   minlength="8"
+                                   placeholder="رمز عبور جدید را دوباره وارد کنید">
+                            <button class="btn btn-outline-secondary toggle-password" type="button" data-target="confirm_password">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle me-1"></i>
+                    انصراف
+                </button>
+                <button type="button" class="btn btn-primary" id="submitPasswordChange">
+                    <i class="bi bi-check-circle me-1"></i>
+                    تغییر رمز عبور
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// تغییر رمز عبور با AJAX
+document.getElementById('submitPasswordChange').addEventListener('click', function() {
+    const form = document.getElementById('changePasswordForm');
+    const formData = new FormData(form);
+    const messageDiv = document.getElementById('passwordChangeMessage');
+    const submitBtn = this;
+    
+    // بررسی تطابق رمز عبورها
+    const newPassword = document.getElementById('new_password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+    
+    if (newPassword !== confirmPassword) {
+        messageDiv.className = 'alert alert-danger';
+        messageDiv.textContent = 'رمز عبور جدید و تکرار آن یکسان نیستند';
+        messageDiv.classList.remove('d-none');
+        return;
+    }
+    
+    // غیرفعال کردن دکمه
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> در حال پردازش...';
+    
+    // ارسال درخواست
+    fetch('<?= BASE_URL ?>/profile/change-password', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            messageDiv.className = 'alert alert-success';
+            messageDiv.innerHTML = '<i class="bi bi-check-circle me-2"></i>' + data.message;
+            messageDiv.classList.remove('d-none');
+            
+            // پاک کردن فرم
+            form.reset();
+            
+            // بستن مدال بعد از 2 ثانیه
+            setTimeout(() => {
+                bootstrap.Modal.getInstance(document.getElementById('changePasswordModal')).hide();
+                messageDiv.classList.add('d-none');
+            }, 2000);
+        } else {
+            messageDiv.className = 'alert alert-danger';
+            messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>' + data.message;
+            messageDiv.classList.remove('d-none');
+        }
+    })
+    .catch(error => {
+        messageDiv.className = 'alert alert-danger';
+        messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>خطا در ارتباط با سرور';
+        messageDiv.classList.remove('d-none');
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>تغییر رمز عبور';
+    });
+});
+
+// نمایش/مخفی کردن رمز عبور
+document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const input = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'bi bi-eye-slash';
+        } else {
+            input.type = 'password';
+            icon.className = 'bi bi-eye';
+        }
+    });
+});
+
+// پاک کردن پیام‌ها هنگام بسته شدن مدال
+document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal', function() {
+    document.getElementById('changePasswordForm').reset();
+    document.getElementById('passwordChangeMessage').classList.add('d-none');
+});
+</script>
 
 <style>
 .avatar-circle {

@@ -85,22 +85,54 @@ class UserModel {
     /**
      * به‌روزرسانی پروفایل کاربر
      */
-    public function updateProfile(int $userId, string $fullName, string $email, string $phone, string $address): bool {
+    public function updateProfile(int $userId, array $data): bool {
         $userId   = (int)$userId;
-        $fullName = db_escape(trim($fullName));
-        $email    = db_escape(trim($email));
-        $phone    = db_escape(trim($phone));
-        $address  = db_escape(trim($address));
+        $fullName = db_escape(trim($data['full_name'] ?? ''));
+        $email    = db_escape(trim($data['email'] ?? ''));
+        $phone    = db_escape(trim($data['phone'] ?? ''));
+        $address  = db_escape(trim($data['address'] ?? ''));
+        $job      = db_escape(trim($data['job'] ?? ''));
+        $birthDate = !empty($data['birth_date']) ? "'" . db_escape($data['birth_date']) . "'" : 'NULL';
+        $postalCode = db_escape(trim($data['postal_code'] ?? ''));
 
         $sql = "UPDATE `users` 
                 SET `full_name` = '$fullName', 
                     `email` = '$email', 
                     `phone` = '$phone', 
                     `address` = '$address',
+                    `job` = '$job',
+                    `birth_date` = $birthDate,
+                    `postal_code` = '$postalCode',
                     `updated_at` = NOW()
                 WHERE `id` = $userId";
 
         return db_query($sql);
+    }
+    
+    /**
+     * تغییر رمز عبور کاربر
+     */
+    public function changePassword(int $userId, string $newPassword): bool {
+        $userId = (int)$userId;
+        $hash = db_escape(Security::hash_password($newPassword));
+        
+        $sql = "UPDATE `users` 
+                SET `password_hash` = '$hash', 
+                    `updated_at` = NOW()
+                WHERE `id` = $userId";
+        
+        return db_query($sql);
+    }
+    
+    /**
+     * بررسی صحت رمز عبور فعلی
+     */
+    public function verifyCurrentPassword(int $userId, string $password): bool {
+        $user = $this->findById($userId);
+        if (!$user) {
+            return false;
+        }
+        return Security::verify_password($password, $user['password_hash']);
     }
 
     /**
