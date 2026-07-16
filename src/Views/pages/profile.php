@@ -162,13 +162,14 @@ if (empty($_SESSION['csrf_token'])) {
                                 <!-- تاریخ تولد -->
                                 <div class="col-md-6">
                                     <label for="birth_date" class="form-label">تاریخ تولد</label>
-                                    <input type="date" 
-                                           class="form-control" 
+                                    <input type="text" 
+                                           class="form-control persian-datepicker" 
                                            id="birth_date" 
                                            name="birth_date" 
                                            value="<?= Security::e($user['birth_date'] ?? '') ?>"
-                                           max="<?= date('Y-m-d') ?>">
-                                    <small class="text-muted">تاریخ میلادی</small>
+                                           placeholder="تاریخ تولد خود را انتخاب کنید"
+                                           autocomplete="off">
+                                    <small class="text-muted">تاریخ شمسی</small>
                                 </div>
 
                                 <!-- کد پستی -->
@@ -219,7 +220,7 @@ if (empty($_SESSION['csrf_token'])) {
                                             <i class="bi bi-x-circle me-1"></i>
                                             انصراف
                                         </a>
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary" id="submitProfileBtn">
                                             <i class="bi bi-check-circle me-1"></i>
                                             ذخیره تغییرات
                                         </button>
@@ -327,9 +328,154 @@ if (empty($_SESSION['csrf_token'])) {
     </div>
 </div>
 
+<!-- Persian Date Picker CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+
+<!-- Persian Date Picker JS -->
+<script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+
 <script>
-// تغییر رمز عبور با AJAX
+// فیلد تاریخ تولد با Persian DatePicker
+$(document).ready(function() {
+    // تبدیل تاریخ میلادی به شمسی اگر وجود دارد
+    var gregorianDate = $('#birth_date').val();
+    var persianDateValue = '';
+    
+    if (gregorianDate) {
+        try {
+            // تبدیل تاریخ میلادی به شمسی
+            var parts = gregorianDate.split('-');
+            if (parts.length === 3) {
+                var pd = new persianDate([parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2])]);
+                persianDateValue = pd.format('YYYY/MM/DD');
+            }
+        } catch (e) {
+            console.error('خطا در تبدیل تاریخ:', e);
+        }
+    }
+    
+    // Initialize Persian DatePicker
+    $('.persian-datepicker').persianDatepicker({
+        initialValue: persianDateValue !== '' ? true : false,
+        initialValueType: 'persian',
+        format: 'YYYY/MM/DD',
+        autoClose: true,
+        calendar: {
+            persian: {
+                locale: 'fa',
+                showHint: true,
+                leapYearMode: 'algorithmic'
+            }
+        },
+        observer: true,
+        altField: '#birth_date_hidden',
+        altFormat: 'YYYY-MM-DD',
+        altFieldFormatter: function(unixDate) {
+            var pd = new persianDate(unixDate);
+            var gd = pd.toCalendar('gregorian');
+            return gd.format('YYYY-MM-DD');
+        }
+    });
+    
+    // اگر مقدار اولیه داشتیم، set کنیم
+    if (persianDateValue) {
+        $('.persian-datepicker').val(persianDateValue);
+    }
+});
+
+// جلوگیری از ارسال مکرر فرم پروفایل
+var isProfileSubmitting = false;
+var lastProfileSubmitTime = 0;
+var MIN_SUBMIT_INTERVAL = 3000; // 3 ثانیه
+
+$('#profileForm').on('submit', function(e) {
+    var now = Date.now();
+    var timeSinceLastSubmit = now - lastProfileSubmitTime;
+    
+    // بررسی زمان از آخرین ارسال
+    if (timeSinceLastSubmit < MIN_SUBMIT_INTERVAL) {
+        e.preventDefault();
+        var remainingTime = Math.ceil((MIN_SUBMIT_INTERVAL - timeSinceLastSubmit) / 1000);
+        
+        if (typeof showNotification === 'function') {
+            showNotification('لطفاً ' + remainingTime + ' ثانیه صبر کنید', 'error');
+        } else {
+            alert('لطفاً ' + remainingTime + ' ثانیه صبر کنید');
+        }
+        return false;
+    }
+    
+    // اگر در حال ارسال است
+    if (isProfileSubmitting) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // تبدیل تاریخ شمسی به میلادی برای ارسال
+    var persianDate = $('#birth_date').val();
+    if (persianDate) {
+        try {
+            var parts = persianDate.split('/');
+            if (parts.length === 3) {
+                var pd = new persianDate(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]));
+                var gd = pd.toCalendar('gregorian');
+                var gregorianDate = gd.format('YYYY-MM-DD');
+                
+                // اضافه کردن فیلد مخفی برای تاریخ میلادی
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'birth_date',
+                    value: gregorianDate
+                }).appendTo('#profileForm');
+                
+                // غیرفعال کردن فیلد اصلی
+                $('#birth_date').prop('disabled', true);
+            }
+        } catch (error) {
+            console.error('خطا در تبدیل تاریخ:', error);
+        }
+    }
+    
+    // علامت‌گذاری که در حال ارسال است
+    isProfileSubmitting = true;
+    lastProfileSubmitTime = now;
+    
+    // غیرفعال کردن دکمه
+    var $btn = $('#submitProfileBtn');
+    $btn.prop('disabled', true)
+        .html('<i class="bi bi-hourglass-split me-1"></i> در حال ذخیره...');
+    
+    // بعد از 3 ثانیه دوباره فعال شود (برای safety)
+    setTimeout(function() {
+        isProfileSubmitting = false;
+        $btn.prop('disabled', false)
+            .html('<i class="bi bi-check-circle me-1"></i> ذخیره تغییرات');
+    }, 3000);
+});
+
+// تغییر رمز عبور با AJAX و Rate Limiting
+var isPasswordChanging = false;
+var lastPasswordChangeTime = 0;
+
 document.getElementById('submitPasswordChange').addEventListener('click', function() {
+    var now = Date.now();
+    var timeSinceLastChange = now - lastPasswordChangeTime;
+    
+    // بررسی Rate Limiting
+    if (timeSinceLastChange < MIN_SUBMIT_INTERVAL) {
+        var remainingTime = Math.ceil((MIN_SUBMIT_INTERVAL - timeSinceLastChange) / 1000);
+        var messageDiv = document.getElementById('passwordChangeMessage');
+        messageDiv.className = 'alert alert-warning';
+        messageDiv.textContent = 'لطفاً ' + remainingTime + ' ثانیه صبر کنید';
+        messageDiv.classList.remove('d-none');
+        return;
+    }
+    
+    if (isPasswordChanging) {
+        return;
+    }
+    
     const form = document.getElementById('changePasswordForm');
     const formData = new FormData(form);
     const messageDiv = document.getElementById('passwordChangeMessage');
@@ -345,6 +491,10 @@ document.getElementById('submitPasswordChange').addEventListener('click', functi
         messageDiv.classList.remove('d-none');
         return;
     }
+    
+    // علامت‌گذاری که در حال پردازش است
+    isPasswordChanging = true;
+    lastPasswordChangeTime = now;
     
     // غیرفعال کردن دکمه
     submitBtn.disabled = true;
@@ -369,17 +519,20 @@ document.getElementById('submitPasswordChange').addEventListener('click', functi
             setTimeout(() => {
                 bootstrap.Modal.getInstance(document.getElementById('changePasswordModal')).hide();
                 messageDiv.classList.add('d-none');
+                isPasswordChanging = false;
             }, 2000);
         } else {
             messageDiv.className = 'alert alert-danger';
             messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>' + data.message;
             messageDiv.classList.remove('d-none');
+            isPasswordChanging = false;
         }
     })
     .catch(error => {
         messageDiv.className = 'alert alert-danger';
         messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>خطا در ارتباط با سرور';
         messageDiv.classList.remove('d-none');
+        isPasswordChanging = false;
     })
     .finally(() => {
         submitBtn.disabled = false;
@@ -408,6 +561,7 @@ document.querySelectorAll('.toggle-password').forEach(button => {
 document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal', function() {
     document.getElementById('changePasswordForm').reset();
     document.getElementById('passwordChangeMessage').classList.add('d-none');
+    isPasswordChanging = false;
 });
 </script>
 
@@ -463,4 +617,27 @@ document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
 }
+
+/* استایل Persian DatePicker */
+.pwt-btn-today,
+.pwt-btn-submit,
+.pwt-btn-cancel,
+.pwt-btn-calendar {
+    font-family: 'Vazirmatn', sans-serif !important;
+}
+
+.pwt-datepicker-input-element {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.persian-datepicker {
+    cursor: pointer;
+}
+
+.persian-datepicker:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
 </style>

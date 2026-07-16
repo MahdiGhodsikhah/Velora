@@ -88,6 +88,16 @@ class UserController {
             exit;
         }
 
+        // Rate Limiting - جلوگیری از ارسال مکرر
+        $userId = (int)$_SESSION['user_id'];
+        $rateLimitKey = 'profile_update_' . $userId;
+        
+        if (!Security::rate_limit($rateLimitKey, 1, 3)) {
+            $_SESSION['error'] = 'شما بیش از حد مجاز درخواست ارسال کرده‌اید. لطفاً چند ثانیه صبر کنید.';
+            header('Location: ' . BASE_URL . '/profile');
+            exit;
+        }
+
         // بررسی CSRF Token
         $csrfToken = $_POST['csrf_token'] ?? '';
         if (empty($csrfToken) || !isset($_SESSION['csrf_token']) || $csrfToken !== $_SESSION['csrf_token']) {
@@ -96,7 +106,6 @@ class UserController {
             exit;
         }
 
-        $userId   = (int)$_SESSION['user_id'];
         $fullName = trim($_POST['full_name'] ?? '');
         $email    = trim($_POST['email'] ?? '');
         $phone    = trim($_POST['phone'] ?? '');
@@ -133,6 +142,11 @@ class UserController {
             $date = \DateTime::createFromFormat('Y-m-d', $birthDate);
             if (!$date || $date->format('Y-m-d') !== $birthDate) {
                 $errors[] = 'فرمت تاریخ تولد نامعتبر است.';
+            }
+            
+            // بررسی اینکه تاریخ در آینده نباشد
+            if ($date && $date > new \DateTime()) {
+                $errors[] = 'تاریخ تولد نمی‌تواند در آینده باشد.';
             }
         }
 
@@ -178,6 +192,18 @@ class UserController {
             exit;
         }
 
+        // Rate Limiting - جلوگیری از حمله Brute Force
+        $userId = (int)$_SESSION['user_id'];
+        $rateLimitKey = 'password_change_' . $userId;
+        
+        if (!Security::rate_limit($rateLimitKey, 3, 300)) {
+            echo json_encode([
+                'success' => false, 
+                'message' => 'تعداد تلاش‌های شما بیش از حد مجاز است. لطفاً 5 دقیقه دیگر تلاش کنید.'
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
         // بررسی CSRF Token
         $csrfToken = $_POST['csrf_token'] ?? '';
         if (empty($csrfToken) || !isset($_SESSION['csrf_token']) || $csrfToken !== $_SESSION['csrf_token']) {
@@ -185,7 +211,6 @@ class UserController {
             exit;
         }
 
-        $userId = (int)$_SESSION['user_id'];
         $currentPassword = $_POST['current_password'] ?? '';
         $newPassword = $_POST['new_password'] ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';
@@ -218,6 +243,8 @@ class UserController {
         $result = $this->userModel->changePassword($userId, $newPassword);
 
         if ($result) {
+            // ریست کردن rate limit در صورت موفقیت
+            Security::rate_limit_reset($rateLimitKey);
             echo json_encode(['success' => true, 'message' => 'رمز عبور با موفقیت تغییر یافت'], JSON_UNESCAPED_UNICODE);
         } else {
             echo json_encode(['success' => false, 'message' => 'خطا در تغییر رمز عبور'], JSON_UNESCAPED_UNICODE);
