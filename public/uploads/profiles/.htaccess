@@ -1,0 +1,19 @@
+# محافظت از دایرکتوری آپلود
+# فقط اجازه دسترسی به فایل‌های تصویری
+
+<FilesMatch "\.(jpg|jpeg|png|gif|webp)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# جلوگیری از اجرای اسکریپت‌های PHP
+<FilesMatch "\.php$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# غیرفعال کردن Directory Listing
+Options -Indexes
+
+# غیرفعال کردن اجرای PHP
+php_flag engine off

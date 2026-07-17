@@ -4,6 +4,9 @@
  * اضافه کردن فیلد profile_image به جدول users
  */
 
+// تعریف BASE_PATH
+define('BASE_PATH', dirname(__DIR__));
+
 require_once __DIR__ . '/database.php';
 
 echo "<h2>🔧 راه‌اندازی دیتابیس - نسخه 7</h2>";
@@ -12,18 +15,21 @@ echo "<hr>";
 
 // 1. اضافه کردن فیلد profile_image
 echo "<h3>1️⃣ اضافه کردن فیلد profile_image</h3>";
-$sql = "ALTER TABLE `users` 
-        ADD COLUMN `profile_image` VARCHAR(255) DEFAULT NULL 
-        COMMENT 'مسیر عکس پروفایل' 
-        AFTER `full_name`";
 
-if (db_query($sql)) {
-    echo "<p style='color:green;'>✅ فیلد profile_image با موفقیت اضافه شد.</p>";
+// ابتدا بررسی کنیم که فیلد وجود دارد یا نه
+$checkSql = "SHOW COLUMNS FROM `users` LIKE 'profile_image'";
+$result = db_query($checkSql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    echo "<p style='color:orange;'>⚠️ فیلد profile_image از قبل وجود دارد.</p>";
 } else {
-    $checkSql = "SHOW COLUMNS FROM `users` LIKE 'profile_image'";
-    $result = db_query($checkSql);
-    if ($result && mysqli_num_rows($result) > 0) {
-        echo "<p style='color:orange;'>⚠️ فیلد profile_image از قبل وجود دارد.</p>";
+    $sql = "ALTER TABLE `users` 
+            ADD COLUMN `profile_image` VARCHAR(255) DEFAULT NULL 
+            COMMENT 'مسیر عکس پروفایل' 
+            AFTER `full_name`";
+    
+    if (db_query($sql)) {
+        echo "<p style='color:green;'>✅ فیلد profile_image با موفقیت اضافه شد.</p>";
     } else {
         echo "<p style='color:red;'>❌ خطا در اضافه کردن فیلد profile_image</p>";
     }

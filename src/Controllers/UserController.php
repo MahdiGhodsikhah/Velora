@@ -88,6 +88,28 @@ class UserController {
             exit;
         }
 
+        $userId = (int)$_SESSION['user_id'];
+
+        // Rate Limiting - حداکثر 3 تلاش، سپس cooldown 60 ثانیه
+        $rateLimitKey = 'profile_update_' . $userId;
+        
+        // بررسی cooldown
+        if (isset($_SESSION['profile_cooldown_until']) && time() < $_SESSION['profile_cooldown_until']) {
+            $remainingTime = $_SESSION['profile_cooldown_until'] - time();
+            $_SESSION['error'] = "تعداد تلاش‌های شما بیش از حد مجاز است. لطفا {$remainingTime} ثانیه صبر کنید.";
+            header('Location: ' . BASE_URL . '/profile');
+            exit;
+        }
+        
+        // بررسی rate limit
+        if (!Security::rate_limit($rateLimitKey, 3, 10)) {
+            // بعد از 3 تلاش، cooldown 60 ثانیه
+            $_SESSION['profile_cooldown_until'] = time() + 60;
+            $_SESSION['error'] = 'تعداد تلاش‌های شما بیش از حد مجاز است. لطفا 60 ثانیه صبر کنید.';
+            header('Location: ' . BASE_URL . '/profile');
+            exit;
+        }
+
         // بررسی CSRF Token
         $csrfToken = $_POST['csrf_token'] ?? '';
         if (empty($csrfToken) || !isset($_SESSION['csrf_token']) || $csrfToken !== $_SESSION['csrf_token']) {
@@ -95,8 +117,6 @@ class UserController {
             header('Location: ' . BASE_URL . '/profile');
             exit;
         }
-
-        $userId   = (int)$_SESSION['user_id'];
         $fullName = trim($_POST['full_name'] ?? '');
         $email    = trim($_POST['email'] ?? '');
         $phone    = trim($_POST['phone'] ?? '');
@@ -153,9 +173,40 @@ class UserController {
             'postal_code' => $postalCode
         ];
         
+        // مدیریت عکس پروفایل
+        $user = $this->userModel->getById($userId);
+        
+        // حذف عکس پروفایل
+        if (isset($_POST['remove_profile_image']) && $_POST['remove_profile_image'] === '1') {
+            if (!empty($user['profile_image'])) {
+                ImageUploader::deleteProfileImage($user['profile_image']);
+            }
+            $data['profile_image'] = null;
+        }
+        // آپلود عکس جدید
+        elseif (!empty($_FILES['profile_image']) && $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $uploadResult = ImageUploader::uploadProfileImage($_FILES['profile_image'], $userId);
+            
+            if ($uploadResult['success']) {
+                // حذف عکس قبلی
+                if (!empty($user['profile_image'])) {
+                    ImageUploader::deleteProfileImage($user['profile_image']);
+                }
+                $data['profile_image'] = $uploadResult['path'];
+            } else {
+                $_SESSION['error'] = $uploadResult['error'];
+                header('Location: ' . BASE_URL . '/profile');
+                exit;
+            }
+        }
+        
         $result = $this->userModel->updateProfile($userId, $data);
 
         if ($result) {
+            // پاک کردن cooldown در صورت موفقیت
+            unset($_SESSION['profile_cooldown_until']);
+            Security::rate_limit_reset('profile_update_' . $userId);
+            
             $_SESSION['success'] = 'اطلاعات شما با موفقیت به‌روزرسانی شد.';
         } else {
             $_SESSION['error'] = 'خطا در به‌روزرسانی اطلاعات.';
@@ -178,14 +229,20 @@ class UserController {
             exit;
         }
 
+        $userId = (int)$_SESSION['user_id'];
+
+        // Rate Limiting - 3 تلاش هر 5 دقیقه
+        if (!Security::rate_limit('password_change_' . $userId, 3, 300)) {
+            echo json_encode(['success' => false, 'message' => 'تعداد تلاش‌های شما بیش از حد مجاز است. لطفا 5 دقیقه دیگر تلاش کنید'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
         // بررسی CSRF Token
         $csrfToken = $_POST['csrf_token'] ?? '';
         if (empty($csrfToken) || !isset($_SESSION['csrf_token']) || $csrfToken !== $_SESSION['csrf_token']) {
             echo json_encode(['success' => false, 'message' => 'توکن امنیتی نامعتبر است'], JSON_UNESCAPED_UNICODE);
             exit;
         }
-
-        $userId = (int)$_SESSION['user_id'];
         $currentPassword = $_POST['current_password'] ?? '';
         $newPassword = $_POST['new_password'] ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';

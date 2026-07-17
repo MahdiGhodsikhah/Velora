@@ -18,7 +18,13 @@ if (empty($_SESSION['csrf_token'])) {
                     <div class="card-body">
                         <div class="text-center mb-4">
                             <div class="avatar-circle mx-auto mb-3">
-                                <i class="bi bi-person-fill fs-1"></i>
+                                <?php if (!empty($user['profile_image'])): ?>
+                                    <img src="<?= BASE_URL . Security::e($user['profile_image']) ?>" 
+                                         alt="<?= Security::e($user['full_name'] ?? $user['username']) ?>"
+                                         class="profile-avatar-img">
+                                <?php else: ?>
+                                    <i class="bi bi-person-fill fs-1"></i>
+                                <?php endif; ?>
                             </div>
                             <h5 class="mb-1"><?= Security::e($user['full_name'] ?? $user['username']) ?></h5>
                             <p class="text-muted small mb-0"><?= Security::e($user['email']) ?></p>
@@ -97,10 +103,48 @@ if (empty($_SESSION['csrf_token'])) {
                             <?php unset($_SESSION['error']); ?>
                         <?php endif; ?>
 
-                        <form method="POST" action="<?= BASE_URL ?>/profile/update" id="profileForm">
+                        <form method="POST" action="<?= BASE_URL ?>/profile/update" id="profileForm" enctype="multipart/form-data">
                             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
                             <div class="row g-3">
+                                <!-- آپلود عکس پروفایل -->
+                                <div class="col-12 mb-3">
+                                    <label class="form-label fw-bold">
+                                        <i class="bi bi-image me-2"></i>
+                                        عکس پروفایل
+                                    </label>
+                                    <div class="profile-image-upload">
+                                        <div class="current-profile-image">
+                                            <?php if (!empty($user['profile_image'])): ?>
+                                                <img src="<?= BASE_URL . Security::e($user['profile_image']) ?>" alt="Profile" id="profileImagePreview">
+                                            <?php else: ?>
+                                                <div class="default-avatar">
+                                                    <i class="bi bi-person-fill"></i>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="profile-upload-controls">
+                                            <input type="file" 
+                                                   class="form-control" 
+                                                   id="profile_image" 
+                                                   name="profile_image" 
+                                                   accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                                                   onchange="previewProfileImage(this)">
+                                            <small class="text-muted d-block mt-2">
+                                                <i class="bi bi-info-circle me-1"></i>
+                                                فرمت‌های مجاز: JPG, PNG, GIF, WEBP | حداکثر حجم: 2MB
+                                            </small>
+                                            <?php if (!empty($user['profile_image'])): ?>
+                                                <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removeProfileImage()">
+                                                    <i class="bi bi-trash me-1"></i>
+                                                    حذف عکس
+                                                </button>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12"><hr></div>
                                 <!-- نام و نام خانوادگی -->
                                 <div class="col-md-6">
                                     <label for="full_name" class="form-label">
@@ -328,6 +372,66 @@ if (empty($_SESSION['csrf_token'])) {
 </div>
 
 <script>
+// پیش‌نمایش عکس پروفایل
+function previewProfileImage(input) {
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        
+        // بررسی نوع فایل
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('فقط فایل‌های تصویری (JPG, PNG, GIF, WEBP) مجاز هستند');
+            input.value = '';
+            return;
+        }
+        
+        // بررسی حجم فایل (2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            alert('حجم فایل نباید بیشتر از 2 مگابایت باشد');
+            input.value = '';
+            return;
+        }
+        
+        // نمایش پیش‌نمایش
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageContainer = document.querySelector('.current-profile-image');
+            imageContainer.innerHTML = '<img src="' + e.target.result + '" alt="پیش‌نمایش" id="profileImagePreview">';
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// حذف عکس پروفایل
+function removeProfileImage() {
+    if (confirm('آیا مطمئن هستید که می‌خواهید عکس پروفایل خود را حذف کنید؟')) {
+        // اضافه کردن فیلد hidden برای اطلاع به سرور
+        const form = document.getElementById('profileForm');
+        let removeInput = document.getElementById('remove_profile_image_input');
+        
+        if (!removeInput) {
+            removeInput = document.createElement('input');
+            removeInput.type = 'hidden';
+            removeInput.name = 'remove_profile_image';
+            removeInput.id = 'remove_profile_image_input';
+            removeInput.value = '1';
+            form.appendChild(removeInput);
+        } else {
+            removeInput.value = '1';
+        }
+        
+        // نمایش آواتار پیش‌فرض
+        const imageContainer = document.querySelector('.current-profile-image');
+        imageContainer.innerHTML = '<div class="default-avatar"><i class="bi bi-person-fill"></i></div>';
+        
+        // پاک کردن ورودی فایل
+        document.getElementById('profile_image').value = '';
+        
+        // ارسال فرم
+        form.submit();
+    }
+}
+
 // تغییر رمز عبور با AJAX
 document.getElementById('submitPasswordChange').addEventListener('click', function() {
     const form = document.getElementById('changePasswordForm');
@@ -411,6 +515,9 @@ document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal
 });
 </script>
 
+<!-- بارگذاری اسکریپت محافظت از فرم -->
+<script src="<?= BASE_URL ?>/assets/js/profile-protection.js"></script>
+
 <style>
 .avatar-circle {
     width: 100px;
@@ -462,5 +569,70 @@ document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal
     background: linear-gradient(135deg, #5568d3 0%, #63408a 100%);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* استایل آپلود عکس پروفایل */
+.profile-image-upload {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+}
+
+.current-profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #667eea;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.current-profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.default-avatar {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 4rem;
+}
+
+.profile-upload-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .profile-image-upload {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .current-profile-image {
+        width: 120px;
+        height: 120px;
+    }
 }
 </style>
