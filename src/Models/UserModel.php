@@ -21,6 +21,14 @@ class UserModel {
     }
 
     /**
+     * پیدا کردن کاربر با شماره موبایل
+     */
+    public function findByPhone(string $phone): ?array {
+        $p = db_escape($phone);
+        return db_fetch_one("SELECT * FROM `users` WHERE `phone` = '$p' LIMIT 1");
+    }
+
+    /**
      * پیدا کردن کاربر با ID
      */
     public function findById(int $id): ?array {
@@ -146,6 +154,27 @@ class UserModel {
         
         $sql = "UPDATE `users` 
                 SET `password_hash` = '$hash', 
+                    `updated_at` = NOW()
+                WHERE `id` = $userId";
+        
+        return db_query($sql);
+    }
+    
+    /**
+     * تغییر نام کاربری
+     */
+    public function changeUsername(int $userId, string $newUsername): bool {
+        $userId = (int)$userId;
+        $username = db_escape($newUsername);
+        
+        // بررسی یکتا بودن نام کاربری
+        $existing = $this->findByUsername($newUsername);
+        if ($existing && $existing['id'] != $userId) {
+            return false;
+        }
+        
+        $sql = "UPDATE `users` 
+                SET `username` = '$username', 
                     `updated_at` = NOW()
                 WHERE `id` = $userId";
         

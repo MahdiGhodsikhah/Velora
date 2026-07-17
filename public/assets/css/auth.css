@@ -6,38 +6,61 @@ body.auth-body {
 }
 
 /* Password Toggle Icon */
-.password-field {
-    position: relative;
+.inputBox.password-field {
+    display: flex;
+    flex-direction: column;
 }
 
-.password-field .toggle-password {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
+.inputBox.password-field .password-wrapper {
+    position: relative;
+    display: block;
+}
+
+.inputBox.password-field .password-wrapper .toggle-password {
+    position: absolute !important;
+    left: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 20px;
-    transition: color 0.3s ease;
-    z-index: 10;
-    padding: 10px;
+    color: #8b5a3a;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    z-index: 100 !important;
+    padding: 8px;
+    width: auto;
+    height: auto;
     user-select: none;
-    margin-top: 0;
-    display: flex;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
+    background: transparent;
+    border: none;
+    margin: 0 !important;
+    line-height: 1;
 }
 
-.password-field .toggle-password:hover {
-    color: rgba(255, 255, 255, 0.8);
+.inputBox.password-field .password-wrapper .toggle-password:hover {
+    color: #5a2e0e;
 }
 
-.password-field input {
-    padding-left: 50px !important;
+.inputBox.password-field .password-wrapper .toggle-password i {
+    display: block;
+    line-height: 1;
 }
 
-.password-field .input-hint {
-    padding-left: 50px;
+.inputBox.password-field .password-wrapper input[type="password"],
+.inputBox.password-field .password-wrapper input[type="text"] {
+    padding-left: 45px !important;
+    padding-right: 18px !important;
+    width: 100%;
+}
+
+.inputBox.password-field .input-hint {
+    padding-left: 0;
+    display: block;
+    margin-top: 5px;
+    color: rgba(139, 90, 58, 0.9);
+    font-size: 0.85rem;
 }
 
 /* Terms Link */
@@ -70,7 +93,7 @@ body.auth-body {
     border-bottom-color: #e76f51;
 }
 
-/* Modal Styles */
+/* Modal Styles - طراحی مشابه فرم ثبت‌نام */
 .modal {
     display: none;
     position: fixed;
@@ -95,16 +118,19 @@ body.auth-body {
     }
 }
 
-.modal-content {
-    background: linear-gradient(135deg, rgba(26, 10, 0, 0.98), rgba(51, 25, 10, 0.98));
-    border: 2px solid rgba(244, 162, 97, 0.4);
+/* کارت مدال مشابه auth-card */
+.terms-card {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 25px;
+    padding: 0;
     width: 90%;
     max-width: 650px;
     max-height: 85vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 60px rgba(244, 162, 97, 0.4), 0 0 100px rgba(244, 162, 97, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
     animation: slideUp 0.4s ease;
     direction: rtl;
     overflow: hidden;
@@ -121,43 +147,41 @@ body.auth-body {
     }
 }
 
-.modal-header {
+/* هدر مدال */
+.modal-header-custom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 35px;
-    border-bottom: 2px solid rgba(244, 162, 97, 0.3);
-    background: linear-gradient(135deg, rgba(244, 162, 97, 0.1), rgba(231, 111, 81, 0.1));
+    padding: 30px 35px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.modal-header h2 {
+.modal-header-custom h1 {
     margin: 0;
     color: #f4a261;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: bold;
-    text-shadow: 0 2px 10px rgba(244, 162, 97, 0.3);
 }
 
-.close-modal {
-    font-size: 36px;
-    color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    line-height: 1;
-    user-select: none;
-    width: 40px;
-    height: 40px;
+.close-modal-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
 }
 
-.close-modal:hover {
+.close-modal-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
     color: #f4a261;
-    transform: rotate(90deg);
-    background: rgba(244, 162, 97, 0.2);
+    transform: scale(1.1);
 }
 
 .modal-body {
@@ -197,47 +221,31 @@ body.auth-body {
     padding-right: 20px;
 }
 
-.modal-footer {
+/* فوتر مدال */
+.modal-footer-custom {
     padding: 25px 35px;
-    border-top: 2px solid rgba(244, 162, 97, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    background: linear-gradient(135deg, rgba(244, 162, 97, 0.05), rgba(231, 111, 81, 0.05));
+    justify-content: center;
 }
 
-.modal-footer button {
-    padding: 14px 35px;
+.btn-accept-custom {
+    padding: 16px 50px;
     border: none;
-    border-radius: 12px;
-    font-size: 16px;
+    border-radius: 15px;
+    font-size: 18px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
     font-family: inherit;
-}
-
-.btn-close {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.btn-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.4);
-    transform: translateY(-2px);
-}
-
-.btn-accept {
     background: linear-gradient(135deg, #f4a261, #e76f51);
     color: #fff;
     box-shadow: 0 5px 20px rgba(244, 162, 97, 0.5);
-    border: 2px solid transparent;
+    width: 100%;
+    max-width: 300px;
 }
 
-.btn-accept:hover {
+.btn-accept-custom:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(244, 162, 97, 0.7);
     filter: brightness(1.1);
@@ -266,26 +274,23 @@ body.auth-body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .modal-content {
+    .terms-card {
         width: 95%;
         max-height: 85vh;
     }
     
-    .modal-header,
+    .modal-header-custom,
     .modal-body,
-    .modal-footer {
-        padding: 15px 20px;
+    .modal-footer-custom {
+        padding: 20px 25px;
     }
     
-    .modal-header h2 {
-        font-size: 20px;
+    .modal-header-custom h1 {
+        font-size: 22px;
     }
     
-    .modal-footer {
-        flex-direction: column;
-    }
-    
-    .modal-footer button {
-        width: 100%;
+    .btn-accept-custom {
+        padding: 14px 40px;
+        font-size: 16px;
     }
 }

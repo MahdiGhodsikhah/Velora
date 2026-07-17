@@ -24,7 +24,6 @@ $base = defined('BASE_URL') ? BASE_URL : '';
         
         // بازیابی داده‌های فرم
         $formData = $_SESSION['form_data'] ?? [];
-        $username = $formData['username'] ?? '';
         $phone = $formData['phone'] ?? '';
         unset($_SESSION['form_data']);
         ?>
@@ -39,68 +38,57 @@ $base = defined('BASE_URL') ? BASE_URL : '';
             <?= Security::csrf_field() ?>
 
             <div class="inputBox">
-                <label for="reg-username" class="sr-only">نام کاربری</label>
-                <input type="text"
-                       id="reg-username"
-                       name="username"
-                       value="<?= htmlspecialchars($username) ?>"
-                       placeholder="نام کاربری (انگلیسی)"
-                       required
-                       minlength="3"
-                       maxlength="50"
-                       autocomplete="username"
-                       pattern="[a-zA-Z0-9_\-\.]{3,50}"
-                       aria-required="true"
-                       aria-describedby="username-hint">
-                <small id="username-hint" class="input-hint">۳ تا ۵۰ کاراکتر انگلیسی، عدد، خط تیره یا نقطه</small>
-            </div>
-
-            <div class="inputBox">
                 <label for="reg-phone" class="sr-only">شماره موبایل</label>
                 <input type="tel"
                        id="reg-phone"
                        name="phone"
                        value="<?= htmlspecialchars($phone) ?>"
-                       placeholder="شماره موبایل (اختیاری)"
+                       placeholder="شماره موبایل"
+                       required
                        maxlength="11"
                        pattern="09[0-9]{9}"
                        autocomplete="tel"
+                       aria-required="true"
                        aria-describedby="phone-hint">
                 <small id="phone-hint" class="input-hint">مثال: ۰۹۱۲۱۲۳۴۵۶۷</small>
             </div>
 
             <div class="inputBox password-field">
                 <label for="reg-password" class="sr-only">رمز عبور</label>
-                <input type="password"
-                       id="reg-password"
-                       name="password"
-                       placeholder="رمز عبور"
-                       required
-                       minlength="8"
-                       maxlength="100"
-                       autocomplete="new-password"
-                       aria-required="true"
-                       aria-describedby="pass-hint">
-                <span class="toggle-password" onclick="togglePassword('reg-password', this)" aria-label="نمایش/مخفی کردن رمز عبور">
-                    <i class="far fa-eye"></i>
-                </span>
+                <div class="password-wrapper">
+                    <input type="password"
+                           id="reg-password"
+                           name="password"
+                           placeholder="رمز عبور"
+                           required
+                           minlength="8"
+                           maxlength="100"
+                           autocomplete="new-password"
+                           aria-required="true"
+                           aria-describedby="pass-hint">
+                    <span class="toggle-password" onclick="togglePassword('reg-password', this)" aria-label="نمایش/مخفی کردن رمز عبور">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
                 <small id="pass-hint" class="input-hint">حداقل ۸ کاراکتر، شامل حرف و عدد</small>
             </div>
 
             <div class="inputBox password-field">
                 <label for="reg-password2" class="sr-only">تکرار رمز عبور</label>
-                <input type="password"
-                       id="reg-password2"
-                       name="password2"
-                       placeholder="تکرار رمز عبور"
-                       required
-                       minlength="8"
-                       maxlength="100"
-                       autocomplete="new-password"
-                       aria-required="true">
-                <span class="toggle-password" onclick="togglePassword('reg-password2', this)" aria-label="نمایش/مخفی کردن رمز عبور">
-                    <i class="far fa-eye"></i>
-                </span>
+                <div class="password-wrapper">
+                    <input type="password"
+                           id="reg-password2"
+                           name="password2"
+                           placeholder="تکرار رمز عبور"
+                           required
+                           minlength="8"
+                           maxlength="100"
+                           autocomplete="new-password"
+                           aria-required="true">
+                    <span class="toggle-password" onclick="togglePassword('reg-password2', this)" aria-label="نمایش/مخفی کردن رمز عبور">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
             </div>
 
             <div class="inputBox">
@@ -132,11 +120,14 @@ $base = defined('BASE_URL') ? BASE_URL : '';
 
 <!-- مدال قوانین و مقررات -->
 <div id="terms-modal" class="modal" onclick="closeModalOnOutside(event)">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>قوانین و مقررات</h2>
-            <span class="close-modal" onclick="closeTermsModal()">&times;</span>
+    <div class="modal-content terms-card">
+        <div class="modal-header-custom">
+            <h1>قوانین و مقررات</h1>
+            <button type="button" class="close-modal-btn" onclick="closeTermsModal()" aria-label="بستن">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        
         <div class="modal-body">
             <h3>۱. پذیرش شرایط</h3>
             <p>با استفاده از این وب‌سایت، شما تمام شرایط و قوانین ذکر شده را می‌پذیرید. این قوانین برای محافظت از حقوق شما و سایر کاربران تدوین شده است.</p>
@@ -162,9 +153,9 @@ $base = defined('BASE_URL') ? BASE_URL : '';
             <h3>۸. پشتیبانی و ارتباط با ما</h3>
             <p>تیم پشتیبانی ما آماده پاسخگویی به سوالات و مشکلات شماست. برای تماس با ما می‌توانید از فرم تماس، ایمیل یا شماره تلفن پشتیبانی استفاده کنید. ما تلاش می‌کنیم در کوتاه‌ترین زمان ممکن به درخواست‌های شما رسیدگی کنیم.</p>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn-close" onclick="closeTermsModal()">بستن</button>
-            <button type="button" class="btn-accept" onclick="acceptTerms()">می‌پذیرم</button>
+        
+        <div class="modal-footer-custom">
+            <button type="button" class="btn-accept-custom" onclick="acceptTerms()">می‌پذیرم</button>
         </div>
     </div>
 </div>

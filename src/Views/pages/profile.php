@@ -163,6 +163,26 @@
                                            placeholder="نام و نام خانوادگی خود را وارد کنید">
                                 </div>
 
+                                <!-- نام کاربری -->
+                                <div class="col-md-6">
+                                    <label for="username" class="form-label">
+                                        نام کاربری
+                                        <span class="text-muted small">(قابل تغییر)</span>
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="username" 
+                                           name="username" 
+                                           value="<?= Security::e($user['username']) ?>"
+                                           maxlength="50"
+                                           pattern="[a-zA-Z0-9_\-\.]{3,50}"
+                                           placeholder="نام کاربری خود را وارد کنید">
+                                    <small class="text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>
+                                        ۳ تا ۵۰ کاراکتر انگلیسی، عدد، خط تیره یا نقطه
+                                    </small>
+                                </div>
+
                                 <!-- شغل -->
                                 <div class="col-md-6">
                                     <label for="job" class="form-label">شغل</label>

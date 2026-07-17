@@ -57,32 +57,29 @@ class AuthController {
             return;
         }
 
-        $username = trim($_POST['username'] ?? '');
+        $phone = trim($_POST['phone'] ?? '');
         $password = $_POST['password'] ?? '';
 
         // اعتبارسنجی ابتدایی
-        if (empty($username) || empty($password)) {
-            $_SESSION['auth_error'] = 'نام کاربری و رمز عبور الزامی است.';
+        if (empty($phone) || empty($password)) {
+            $_SESSION['auth_error'] = 'شماره موبایل و رمز عبور الزامی است.';
             $this->redirect('/login');
             return;
         }
 
-        // اعتبارسنجی فرمت
-        if (!Security::validate_username($username) && !Security::validate_email($username)) {
-            $_SESSION['auth_error'] = 'نام کاربری یا رمز عبور اشتباه است.';
+        // اعتبارسنجی فرمت شماره
+        if (!Security::validate_phone($phone)) {
+            $_SESSION['auth_error'] = 'شماره موبایل یا رمز عبور اشتباه است.';
             $this->redirect('/login');
             return;
         }
 
-        // یافتن کاربر
-        $user = $this->userModel->findByUsername($username);
-        if (!$user) {
-            $user = $this->userModel->findByEmail($username);
-        }
+        // یافتن کاربر با شماره موبایل
+        $user = $this->userModel->findByPhone($phone);
 
         if (!$user || !$user['is_active']) {
             // پیام مبهم برای جلوگیری از user enumeration
-            $_SESSION['auth_error'] = 'نام کاربری یا رمز عبور اشتباه است.';
+            $_SESSION['auth_error'] = 'شماره موبایل یا رمز عبور اشتباه است.';
             $this->redirect('/login');
             return;
         }
@@ -104,7 +101,7 @@ class AuthController {
                 $this->userModel->lockAccount((int)$user['id'], 15);
                 $_SESSION['auth_error'] = 'حساب شما به مدت ۱۵ دقیقه قفل شد.';
             } else {
-                $_SESSION['auth_error'] = 'نام کاربری یا رمز عبور اشتباه است.';
+                $_SESSION['auth_error'] = 'شماره موبایل یا رمز عبور اشتباه است.';
             }
             $this->redirect('/login');
             return;
@@ -172,7 +169,6 @@ class AuthController {
             return;
         }
 
-        $username  = trim($_POST['username'] ?? '');
         $phone     = trim($_POST['phone'] ?? '');
         $password  = $_POST['password'] ?? '';
         $password2 = $_POST['password2'] ?? '';
@@ -180,7 +176,6 @@ class AuthController {
 
         // ذخیره مقادیر برای نمایش مجدد در صورت خطا
         $_SESSION['form_data'] = [
-            'username' => $username,
             'phone' => $phone
         ];
 
@@ -188,20 +183,16 @@ class AuthController {
         $errors = [];
 
         // بررسی خالی بودن همه فیلدها
-        if (empty($username) && empty($password) && empty($password2)) {
+        if (empty($phone) && empty($password) && empty($password2)) {
             $_SESSION['auth_error'] = 'لطفاً اطلاعات را تکمیل کنید.';
             $this->redirect('/register');
             return;
         }
 
         // بررسی خالی نبودن فیلدهای الزامی
-        if (empty($username)) {
-            $errors[] = 'نام کاربری الزامی است.';
-        } elseif (!Security::validate_username($username)) {
-            $errors[] = 'نام کاربری باید ۳ تا ۵۰ کاراکتر و فقط شامل حروف انگلیسی، اعداد، خط تیره و نقطه باشد.';
-        }
-
-        if (!empty($phone) && !Security::validate_phone($phone)) {
+        if (empty($phone)) {
+            $errors[] = 'شماره موبایل الزامی است.';
+        } elseif (!Security::validate_phone($phone)) {
             $errors[] = 'شماره موبایل باید با ۰۹ شروع شده و ۱۱ رقم باشد.';
         }
 
@@ -227,12 +218,15 @@ class AuthController {
             return;
         }
 
-        // بررسی تکراری نبودن
-        if ($this->userModel->findByUsername($username)) {
-            $_SESSION['auth_error'] = 'این نام کاربری قبلاً ثبت شده است.';
+        // بررسی تکراری نبودن شماره
+        if ($this->userModel->findByPhone($phone)) {
+            $_SESSION['auth_error'] = 'این شماره موبایل قبلاً ثبت شده است.';
             $this->redirect('/register');
             return;
         }
+
+        // تولید نام کاربری یکتا
+        $username = $this->generateUniqueUsername();
 
         // ثبت کاربر - ایمیل خالی
         $userId = $this->userModel->create($username, '', $phone, $password);
@@ -276,6 +270,19 @@ class AuthController {
     // -------------------------------------------------------------------
     // کمکی
     // -------------------------------------------------------------------
+    
+    /**
+     * تولید نام کاربری یکتا
+     */
+    private function generateUniqueUsername(): string {
+        do {
+            // تولید نام کاربری با فرمت: user + 8 رقم تصادفی
+            $username = 'user' . rand(10000000, 99999999);
+        } while ($this->userModel->findByUsername($username));
+        
+        return $username;
+    }
+    
     private function isLoggedIn(): bool {
         return !empty($_SESSION['logged_in']) && !empty($_SESSION['user_id']);
     }

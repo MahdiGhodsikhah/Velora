@@ -104,6 +104,7 @@ class UserController {
         
         $_SESSION['last_profile_update'] = time();
         $fullName = trim($_POST['full_name'] ?? '');
+        $username = trim($_POST['username'] ?? '');
         $email    = trim($_POST['email'] ?? '');
         $phone    = trim($_POST['phone'] ?? '');
         $address  = trim($_POST['address'] ?? '');
@@ -118,6 +119,19 @@ class UserController {
             $errors[] = 'نام و نام خانوادگی الزامی است.';
         } elseif (mb_strlen($fullName) < 3 || mb_strlen($fullName) > 100) {
             $errors[] = 'نام باید بین 3 تا 100 کاراکتر باشد.';
+        }
+
+        // بررسی نام کاربری
+        if (!empty($username)) {
+            if (!Security::validate_username($username)) {
+                $errors[] = 'نام کاربری باید ۳ تا ۵۰ کاراکتر و فقط شامل حروف انگلیسی، اعداد، خط تیره و نقطه باشد.';
+            } else {
+                // بررسی تکراری نبودن
+                $existingUser = $this->userModel->findByUsername($username);
+                if ($existingUser && $existingUser['id'] != $userId) {
+                    $errors[] = 'این نام کاربری قبلاً استفاده شده است.';
+                }
+            }
         }
 
         if (empty($email)) {
@@ -158,6 +172,15 @@ class UserController {
             'birth_date' => $birthDate,
             'postal_code' => $postalCode
         ];
+        
+        // به‌روزرسانی نام کاربری اگر تغییر کرده باشد
+        $currentUser = $this->userModel->getById($userId);
+        if (!empty($username) && $username !== $currentUser['username']) {
+            $usernameChanged = $this->userModel->changeUsername($userId, $username);
+            if ($usernameChanged) {
+                $_SESSION['username'] = $username; // به‌روزرسانی session
+            }
+        }
         
         // مدیریت عکس پروفایل
         $user = $this->userModel->getById($userId);

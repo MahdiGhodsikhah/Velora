@@ -31,30 +31,33 @@ $base = defined('BASE_URL') ? BASE_URL : '';
             <?= Security::csrf_field() ?>
 
             <div class="inputBox">
-                <label for="username" class="sr-only">نام کاربری یا ایمیل</label>
-                <input type="text"
-                       id="username"
-                       name="username"
-                       placeholder="نام کاربری یا ایمیل"
+                <label for="phone" class="sr-only">شماره موبایل</label>
+                <input type="tel"
+                       id="phone"
+                       name="phone"
+                       placeholder="شماره موبایل"
                        required
-                       maxlength="150"
-                       autocomplete="username"
+                       maxlength="11"
+                       pattern="09[0-9]{9}"
+                       autocomplete="tel"
                        aria-required="true">
             </div>
 
             <div class="inputBox password-field">
                 <label for="password" class="sr-only">رمز عبور</label>
-                <input type="password"
-                       id="password"
-                       name="password"
-                       placeholder="رمز عبور"
-                       required
-                       maxlength="100"
-                       autocomplete="current-password"
-                       aria-required="true">
-                <span class="toggle-password" onclick="togglePassword('password', this)" aria-label="نمایش/مخفی کردن رمز عبور">
-                    <i class="far fa-eye"></i>
-                </span>
+                <div class="password-wrapper">
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           placeholder="رمز عبور"
+                           required
+                           maxlength="100"
+                           autocomplete="current-password"
+                           aria-required="true">
+                    <span class="toggle-password" onclick="togglePassword('password', this)" aria-label="نمایش/مخفی کردن رمز عبور">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
             </div>
 
             <div class="inputBox">
