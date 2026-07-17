@@ -90,33 +90,19 @@ class UserController {
 
         $userId = (int)$_SESSION['user_id'];
 
-        // Rate Limiting - حداکثر 3 تلاش، سپس cooldown 60 ثانیه
-        $rateLimitKey = 'profile_update_' . $userId;
-        
-        // بررسی cooldown
-        if (isset($_SESSION['profile_cooldown_until']) && time() < $_SESSION['profile_cooldown_until']) {
-            $remainingTime = $_SESSION['profile_cooldown_until'] - time();
-            $_SESSION['error'] = "تعداد تلاش‌های شما بیش از حد مجاز است. لطفا {$remainingTime} ثانیه صبر کنید.";
-            header('Location: ' . BASE_URL . '/profile');
-            exit;
+        // Rate Limiting ساده - فقط PHP (3 ثانیه بین هر درخواست)
+        if (!isset($_SESSION['last_profile_update'])) {
+            $_SESSION['last_profile_update'] = 0;
         }
         
-        // بررسی rate limit
-        if (!Security::rate_limit($rateLimitKey, 3, 10)) {
-            // بعد از 3 تلاش، cooldown 60 ثانیه
-            $_SESSION['profile_cooldown_until'] = time() + 60;
-            $_SESSION['error'] = 'تعداد تلاش‌های شما بیش از حد مجاز است. لطفا 60 ثانیه صبر کنید.';
+        $timeSinceLastUpdate = time() - $_SESSION['last_profile_update'];
+        if ($timeSinceLastUpdate < 3) {
+            $_SESSION['error'] = 'لطفا 3 ثانیه صبر کنید و دوباره تلاش کنید.';
             header('Location: ' . BASE_URL . '/profile');
             exit;
         }
-
-        // بررسی CSRF Token
-        $csrfToken = $_POST['csrf_token'] ?? '';
-        if (empty($csrfToken) || !isset($_SESSION['csrf_token']) || $csrfToken !== $_SESSION['csrf_token']) {
-            $_SESSION['error'] = 'درخواست نامعتبر است.';
-            header('Location: ' . BASE_URL . '/profile');
-            exit;
-        }
+        
+        $_SESSION['last_profile_update'] = time();
         $fullName = trim($_POST['full_name'] ?? '');
         $email    = trim($_POST['email'] ?? '');
         $phone    = trim($_POST['phone'] ?? '');
@@ -203,9 +189,8 @@ class UserController {
         $result = $this->userModel->updateProfile($userId, $data);
 
         if ($result) {
-            // پاک کردن cooldown در صورت موفقیت
-            unset($_SESSION['profile_cooldown_until']);
-            Security::rate_limit_reset('profile_update_' . $userId);
+            // ریست کردن تایمر
+            $_SESSION['last_profile_update'] = 0;
             
             $_SESSION['success'] = 'اطلاعات شما با موفقیت به‌روزرسانی شد.';
         } else {
@@ -231,18 +216,27 @@ class UserController {
 
         $userId = (int)$_SESSION['user_id'];
 
-        // Rate Limiting - 3 تلاش هر 5 دقیقه
-        if (!Security::rate_limit('password_change_' . $userId, 3, 300)) {
+        // Rate Limiting ساده - 5 تلاش در 5 دقیقه
+        if (!isset($_SESSION['password_change_attempts'])) {
+            $_SESSION['password_change_attempts'] = [];
+        }
+        
+        // پاک کردن تلاش‌های قدیمی (بیشتر از 5 دقیقه)
+        $_SESSION['password_change_attempts'] = array_filter(
+            $_SESSION['password_change_attempts'],
+            function($timestamp) {
+                return (time() - $timestamp) < 300; // 5 دقیقه
+            }
+        );
+        
+        // بررسی تعداد تلاش‌ها
+        if (count($_SESSION['password_change_attempts']) >= 5) {
             echo json_encode(['success' => false, 'message' => 'تعداد تلاش‌های شما بیش از حد مجاز است. لطفا 5 دقیقه دیگر تلاش کنید'], JSON_UNESCAPED_UNICODE);
             exit;
         }
-
-        // بررسی CSRF Token
-        $csrfToken = $_POST['csrf_token'] ?? '';
-        if (empty($csrfToken) || !isset($_SESSION['csrf_token']) || $csrfToken !== $_SESSION['csrf_token']) {
-            echo json_encode(['success' => false, 'message' => 'توکن امنیتی نامعتبر است'], JSON_UNESCAPED_UNICODE);
-            exit;
-        }
+        
+        // ثبت تلاش جدید
+        $_SESSION['password_change_attempts'][] = time();
         $currentPassword = $_POST['current_password'] ?? '';
         $newPassword = $_POST['new_password'] ?? '';
         $confirmPassword = $_POST['confirm_password'] ?? '';
@@ -275,6 +269,9 @@ class UserController {
         $result = $this->userModel->changePassword($userId, $newPassword);
 
         if ($result) {
+            // پاک کردن تلاش‌ها بعد از موفقیت
+            $_SESSION['password_change_attempts'] = [];
+            
             echo json_encode(['success' => true, 'message' => 'رمز عبور با موفقیت تغییر یافت'], JSON_UNESCAPED_UNICODE);
         } else {
             echo json_encode(['success' => false, 'message' => 'خطا در تغییر رمز عبور'], JSON_UNESCAPED_UNICODE);

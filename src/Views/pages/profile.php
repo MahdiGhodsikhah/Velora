@@ -3,11 +3,6 @@
  * صفحه ویرایش پروفایل کاربری
  * @var array $user اطلاعات کاربر
  */
-
-// تولید CSRF token اگر وجود ندارد
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
 ?>
 <main class="dashboard-wrapper">
     <div class="container py-5">
@@ -104,7 +99,6 @@ if (empty($_SESSION['csrf_token'])) {
                         <?php endif; ?>
 
                         <form method="POST" action="<?= BASE_URL ?>/profile/update" id="profileForm" enctype="multipart/form-data">
-                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
                             <div class="row g-3">
                                 <!-- آپلود عکس پروفایل -->
@@ -291,7 +285,6 @@ if (empty($_SESSION['csrf_token'])) {
             </div>
             <div class="modal-body">
                 <form id="changePasswordForm">
-                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     
                     <div class="alert alert-info" role="alert">
                         <i class="bi bi-info-circle me-2"></i>
@@ -515,8 +508,8 @@ document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal
 });
 </script>
 
-<!-- بارگذاری اسکریپت محافظت از فرم -->
-<script src="<?= BASE_URL ?>/assets/js/profile-protection.js"></script>
+<!-- JavaScript محافظت غیرفعال شد - حالا فقط PHP کار می‌کند -->
+<!-- <script src="<?= BASE_URL ?>/assets/js/profile-protection.js"></script> -->
 
 <style>
 .avatar-circle {
