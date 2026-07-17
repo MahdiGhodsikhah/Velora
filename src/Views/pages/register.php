@@ -71,7 +71,7 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                 <small id="phone-hint" class="input-hint">مثال: ۰۹۱۲۱۲۳۴۵۶۷</small>
             </div>
 
-            <div class="inputBox">
+            <div class="inputBox password-field">
                 <label for="reg-password" class="sr-only">رمز عبور</label>
                 <input type="password"
                        id="reg-password"
@@ -83,10 +83,13 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                        autocomplete="new-password"
                        aria-required="true"
                        aria-describedby="pass-hint">
+                <span class="toggle-password" onclick="togglePassword('reg-password', this)" aria-label="نمایش/مخفی کردن رمز عبور">
+                    <i class="far fa-eye"></i>
+                </span>
                 <small id="pass-hint" class="input-hint">حداقل ۸ کاراکتر، شامل حرف و عدد</small>
             </div>
 
-            <div class="inputBox">
+            <div class="inputBox password-field">
                 <label for="reg-password2" class="sr-only">تکرار رمز عبور</label>
                 <input type="password"
                        id="reg-password2"
@@ -97,6 +100,9 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                        maxlength="100"
                        autocomplete="new-password"
                        aria-required="true">
+                <span class="toggle-password" onclick="togglePassword('reg-password2', this)" aria-label="نمایش/مخفی کردن رمز عبور">
+                    <i class="far fa-eye"></i>
+                </span>
             </div>
 
             <div class="inputBox">
@@ -105,7 +111,8 @@ $base = defined('BASE_URL') ? BASE_URL : '';
 
             <div class="remember">
                 <label>
-                    <input type="checkbox" name="terms" required aria-required="true"> قوانین و مقررات را می‌پذیرم
+                    <input type="checkbox" name="terms" id="terms-checkbox" required aria-required="true"> 
+                    <a href="#" id="show-terms" onclick="showTermsModal(event)">قوانین و مقررات</a> را می‌پذیرم
                 </label>
             </div>
 
@@ -124,3 +131,91 @@ $base = defined('BASE_URL') ? BASE_URL : '';
         </form>
     </div>
 </section>
+
+<!-- مدال قوانین و مقررات -->
+<div id="terms-modal" class="modal" onclick="closeModalOnOutside(event)">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>قوانین و مقررات</h2>
+            <span class="close-modal" onclick="closeTermsModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <h3>۱. پذیرش شرایط</h3>
+            <p>با استفاده از این وب‌سایت، شما تمام شرایط و قوانین ذکر شده را می‌پذیرید.</p>
+            
+            <h3>۲. حریم خصوصی</h3>
+            <p>ما متعهد به حفظ حریم خصوصی شما هستیم. اطلاعات شخصی شما محرمانه بوده و بدون اجازه شما به اشتراک گذاشته نخواهد شد.</p>
+            
+            <h3>۳. مسئولیت کاربر</h3>
+            <p>شما مسئول حفظ امنیت حساب کاربری و رمز عبور خود هستید. هرگونه فعالیت تحت حساب شما، مسئولیت خود شماست.</p>
+            
+            <h3>۴. محتوای کاربران</h3>
+            <p>کاربران نباید محتوایی که نقض قوانین، توهین‌آمیز، یا غیرقانونی است را منتشر کنند.</p>
+            
+            <h3>۵. خرید و پرداخت</h3>
+            <p>تمام خریدها نهایی هستند مگر در شرایط خاص که در سیاست بازگشت کالا ذکر شده است.</p>
+            
+            <h3>۶. تغییرات در قوانین</h3>
+            <p>ما حق تغییر این قوانین را در هر زمان محفوظ می‌داریم. استفاده مداوم از سایت به معنای پذیرش تغییرات است.</p>
+            
+            <h3>۷. لغو حساب کاربری</h3>
+            <p>ما حق لغو یا تعلیق حساب کاربران را در صورت نقض قوانین داریم.</p>
+            
+            <h3>۸. تماس با ما</h3>
+            <p>برای سوالات درباره این قوانین، با ما تماس بگیرید.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-close" onclick="closeTermsModal()">بستن</button>
+            <button type="button" class="btn-accept" onclick="acceptTerms()">می‌پذیرم</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    const iconElement = icon.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        iconElement.classList.remove('fa-eye');
+        iconElement.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        iconElement.classList.remove('fa-eye-slash');
+        iconElement.classList.add('fa-eye');
+    }
+}
+
+function showTermsModal(event) {
+    event.preventDefault();
+    document.getElementById('terms-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTermsModal() {
+    document.getElementById('terms-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function closeModalOnOutside(event) {
+    if (event.target.id === 'terms-modal') {
+        closeTermsModal();
+    }
+}
+
+function acceptTerms() {
+    document.getElementById('terms-checkbox').checked = true;
+    closeTermsModal();
+}
+
+// بستن مدال با کلید Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('terms-modal');
+        if (modal.style.display === 'flex') {
+            closeTermsModal();
+        }
+    }
+});
+</script>

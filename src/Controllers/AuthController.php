@@ -177,24 +177,42 @@ class AuthController {
         $phone     = trim($_POST['phone'] ?? '');
         $password  = $_POST['password'] ?? '';
         $password2 = $_POST['password2'] ?? '';
+        $terms     = isset($_POST['terms']) && $_POST['terms'] === 'on';
 
         // اعتبارسنجی
         $errors = [];
 
-        if (!Security::validate_username($username)) {
+        // بررسی خالی نبودن فیلدهای الزامی
+        if (empty($username)) {
+            $errors[] = 'نام کاربری الزامی است.';
+        } elseif (!Security::validate_username($username)) {
             $errors[] = 'نام کاربری باید ۳ تا ۵۰ کاراکتر و فقط شامل حروف انگلیسی، اعداد، خط تیره و نقطه باشد.';
         }
-        if (!Security::validate_email($email)) {
+
+        if (empty($email)) {
+            $errors[] = 'آدرس ایمیل الزامی است.';
+        } elseif (!Security::validate_email($email)) {
             $errors[] = 'آدرس ایمیل معتبر نیست.';
         }
+
         if (!empty($phone) && !Security::validate_phone($phone)) {
             $errors[] = 'شماره موبایل باید با ۰۹ شروع شده و ۱۱ رقم باشد.';
         }
-        if (!Security::validate_password($password)) {
+
+        if (empty($password)) {
+            $errors[] = 'رمز عبور الزامی است.';
+        } elseif (!Security::validate_password($password)) {
             $errors[] = 'رمز عبور باید حداقل ۸ کاراکتر، شامل حرف و عدد باشد.';
         }
-        if ($password !== $password2) {
+
+        if (empty($password2)) {
+            $errors[] = 'تکرار رمز عبور الزامی است.';
+        } elseif ($password !== $password2) {
             $errors[] = 'رمز عبور و تکرار آن یکسان نیستند.';
+        }
+
+        if (!$terms) {
+            $errors[] = 'برای ثبت نام باید قوانین و مقررات را بپذیرید.';
         }
 
         if (!empty($errors)) {

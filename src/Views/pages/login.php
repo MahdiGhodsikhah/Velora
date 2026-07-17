@@ -42,7 +42,7 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                        aria-required="true">
             </div>
 
-            <div class="inputBox">
+            <div class="inputBox password-field">
                 <label for="password" class="sr-only">رمز عبور</label>
                 <input type="password"
                        id="password"
@@ -52,6 +52,9 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                        maxlength="100"
                        autocomplete="current-password"
                        aria-required="true">
+                <span class="toggle-password" onclick="togglePassword('password', this)" aria-label="نمایش/مخفی کردن رمز عبور">
+                    <i class="far fa-eye"></i>
+                </span>
             </div>
 
             <div class="inputBox">
@@ -80,3 +83,20 @@ $base = defined('BASE_URL') ? BASE_URL : '';
         </form>
     </div>
 </section>
+
+<script>
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    const iconElement = icon.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        iconElement.classList.remove('fa-eye');
+        iconElement.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        iconElement.classList.remove('fa-eye-slash');
+        iconElement.classList.add('fa-eye');
+    }
+}
+</script>
