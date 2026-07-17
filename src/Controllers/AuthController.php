@@ -164,35 +164,41 @@ class AuthController {
             return;
         }
 
-        // Rate Limiting
+        // Rate Limiting - 3 تلاش در 1 دقیقه
         $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
-        if (!Security::rate_limit('register_' . $ip, 3, 3600)) {
-            $_SESSION['auth_error'] = 'تعداد ثبت‌نام‌های شما بیش از حد مجاز است.';
+        if (!Security::rate_limit('register_' . $ip, 3, 60)) {
+            $_SESSION['auth_error'] = 'تعداد ثبت‌نام‌های شما بیش از حد مجاز است. لطفاً 1 دقیقه صبر کنید.';
             $this->redirect('/register');
             return;
         }
 
         $username  = trim($_POST['username'] ?? '');
-        $email     = trim($_POST['email'] ?? '');
         $phone     = trim($_POST['phone'] ?? '');
         $password  = $_POST['password'] ?? '';
         $password2 = $_POST['password2'] ?? '';
         $terms     = isset($_POST['terms']) && $_POST['terms'] === 'on';
 
+        // ذخیره مقادیر برای نمایش مجدد در صورت خطا
+        $_SESSION['form_data'] = [
+            'username' => $username,
+            'phone' => $phone
+        ];
+
         // اعتبارسنجی
         $errors = [];
+
+        // بررسی خالی بودن همه فیلدها
+        if (empty($username) && empty($password) && empty($password2)) {
+            $_SESSION['auth_error'] = 'لطفاً اطلاعات را تکمیل کنید.';
+            $this->redirect('/register');
+            return;
+        }
 
         // بررسی خالی نبودن فیلدهای الزامی
         if (empty($username)) {
             $errors[] = 'نام کاربری الزامی است.';
         } elseif (!Security::validate_username($username)) {
             $errors[] = 'نام کاربری باید ۳ تا ۵۰ کاراکتر و فقط شامل حروف انگلیسی، اعداد، خط تیره و نقطه باشد.';
-        }
-
-        if (empty($email)) {
-            $errors[] = 'آدرس ایمیل الزامی است.';
-        } elseif (!Security::validate_email($email)) {
-            $errors[] = 'آدرس ایمیل معتبر نیست.';
         }
 
         if (!empty($phone) && !Security::validate_phone($phone)) {
@@ -227,20 +233,18 @@ class AuthController {
             $this->redirect('/register');
             return;
         }
-        if ($this->userModel->findByEmail($email)) {
-            $_SESSION['auth_error'] = 'این ایمیل قبلاً ثبت شده است.';
-            $this->redirect('/register');
-            return;
-        }
 
-        // ثبت کاربر
-        $userId = $this->userModel->create($username, $email, $phone, $password);
+        // ثبت کاربر - ایمیل خالی
+        $userId = $this->userModel->create($username, '', $phone, $password);
         if (!$userId) {
             $_SESSION['auth_error'] = 'خطا در ثبت‌نام. لطفاً دوباره تلاش کنید.';
             $this->redirect('/register');
             return;
         }
 
+        // پاک کردن داده‌های فرم
+        unset($_SESSION['form_data']);
+        
         // لاگین خودکار بعد از ثبت نام
         $user = $this->userModel->findByUsername($username);
         if ($user) {

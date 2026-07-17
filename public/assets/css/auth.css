@@ -10,38 +10,64 @@ body.auth-body {
     position: relative;
 }
 
-.toggle-password {
+.password-field .toggle-password {
     position: absolute;
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     color: rgba(255, 255, 255, 0.5);
-    font-size: 18px;
+    font-size: 20px;
     transition: color 0.3s ease;
     z-index: 10;
-    padding: 5px;
+    padding: 10px;
     user-select: none;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.toggle-password:hover {
+.password-field .toggle-password:hover {
     color: rgba(255, 255, 255, 0.8);
 }
 
 .password-field input {
-    padding-left: 45px;
+    padding-left: 50px !important;
+}
+
+.password-field .input-hint {
+    padding-left: 50px;
 }
 
 /* Terms Link */
+.remember label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.remember label input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
 #show-terms {
     color: #f4a261;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
 }
 
 #show-terms:hover {
     color: #e76f51;
+    border-bottom-color: #e76f51;
 }
 
 /* Modal Styles */
@@ -70,17 +96,18 @@ body.auth-body {
 }
 
 .modal-content {
-    background: linear-gradient(135deg, rgba(26, 10, 0, 0.95), rgba(51, 25, 10, 0.95));
-    border: 2px solid rgba(244, 162, 97, 0.3);
-    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(26, 10, 0, 0.98), rgba(51, 25, 10, 0.98));
+    border: 2px solid rgba(244, 162, 97, 0.4);
+    border-radius: 25px;
     width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
+    max-width: 650px;
+    max-height: 85vh;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 50px rgba(244, 162, 97, 0.3);
+    box-shadow: 0 20px 60px rgba(244, 162, 97, 0.4), 0 0 100px rgba(244, 162, 97, 0.2);
     animation: slideUp 0.4s ease;
     direction: rtl;
+    overflow: hidden;
 }
 
 @keyframes slideUp {
@@ -98,44 +125,64 @@ body.auth-body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
-    border-bottom: 1px solid rgba(244, 162, 97, 0.2);
+    padding: 25px 35px;
+    border-bottom: 2px solid rgba(244, 162, 97, 0.3);
+    background: linear-gradient(135deg, rgba(244, 162, 97, 0.1), rgba(231, 111, 81, 0.1));
 }
 
 .modal-header h2 {
     margin: 0;
     color: #f4a261;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
+    text-shadow: 0 2px 10px rgba(244, 162, 97, 0.3);
 }
 
 .close-modal {
-    font-size: 32px;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 36px;
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     line-height: 1;
     user-select: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .close-modal:hover {
     color: #f4a261;
     transform: rotate(90deg);
+    background: rgba(244, 162, 97, 0.2);
 }
 
 .modal-body {
-    padding: 30px;
+    padding: 35px 40px;
     overflow-y: auto;
     flex: 1;
     color: rgba(255, 255, 255, 0.9);
-    line-height: 1.8;
+    line-height: 1.9;
 }
 
 .modal-body h3 {
     color: #f4a261;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    font-size: 19px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-body h3::before {
+    content: "●";
+    color: #e76f51;
+    font-size: 12px;
 }
 
 .modal-body h3:first-child {
@@ -143,67 +190,78 @@ body.auth-body {
 }
 
 .modal-body p {
-    margin-bottom: 15px;
-    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 15px;
+    text-align: justify;
+    padding-right: 20px;
 }
 
 .modal-footer {
-    padding: 20px 30px;
-    border-top: 1px solid rgba(244, 162, 97, 0.2);
+    padding: 25px 35px;
+    border-top: 2px solid rgba(244, 162, 97, 0.3);
     display: flex;
     justify-content: flex-end;
     gap: 15px;
+    background: linear-gradient(135deg, rgba(244, 162, 97, 0.05), rgba(231, 111, 81, 0.05));
 }
 
 .modal-footer button {
-    padding: 12px 30px;
+    padding: 14px 35px;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
+    font-family: inherit;
 }
 
 .btn-close {
     background: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-close:hover {
     background: rgba(255, 255, 255, 0.2);
     color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
 }
 
 .btn-accept {
     background: linear-gradient(135deg, #f4a261, #e76f51);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(244, 162, 97, 0.4);
+    box-shadow: 0 5px 20px rgba(244, 162, 97, 0.5);
+    border: 2px solid transparent;
 }
 
 .btn-accept:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(244, 162, 97, 0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(244, 162, 97, 0.7);
+    filter: brightness(1.1);
 }
 
 /* Scrollbar for modal */
 .modal-body::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 .modal-body::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+    margin: 10px 0;
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-    background: rgba(244, 162, 97, 0.5);
+    background: linear-gradient(135deg, rgba(244, 162, 97, 0.6), rgba(231, 111, 81, 0.6));
     border-radius: 10px;
+    border: 2px solid rgba(26, 10, 0, 0.3);
 }
 
 .modal-body::-webkit-scrollbar-thumb:hover {
-    background: rgba(244, 162, 97, 0.7);
+    background: linear-gradient(135deg, rgba(244, 162, 97, 0.8), rgba(231, 111, 81, 0.8));
 }
 
 /* Responsive */
