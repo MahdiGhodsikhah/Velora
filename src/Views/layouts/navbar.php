@@ -69,15 +69,17 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                 // دریافت اطلاعات کاربر برای نمایش عکس
                 $userModel = new UserModel();
                 $currentUser = $userModel->getById($_SESSION['user_id']);
-                $profileImage = !empty($currentUser['profile_image']) ? BASE_URL . $currentUser['profile_image'] : '';
+                $profileImage = !empty($currentUser['profile_image']) ? $currentUser['profile_image'] : '';
             ?>
             <div class="user-menu has-dropdown">
                 <button class="icon-btn user-btn" aria-label="منوی کاربر" aria-expanded="false">
                     <?php if ($profileImage): ?>
-                        <img src="<?= Security::e($profileImage) ?>" 
+                        <img src="<?= $base . Security::e($profileImage) ?>" 
                              alt="<?= $username ?>" 
                              class="user-avatar-nav"
-                             style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-left: 8px;">
+                             style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-left: 8px;"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <i class="fas fa-user-circle" aria-hidden="true" style="display: none;"></i>
                     <?php else: ?>
                         <i class="fas fa-user-circle" aria-hidden="true"></i>
                     <?php endif; ?>

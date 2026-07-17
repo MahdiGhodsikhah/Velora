@@ -35,7 +35,16 @@ $base = defined('BASE_URL') ? BASE_URL : '';
         <!-- هدر پنل -->
         <div class="dashboard-header">
             <div class="welcome-box">
-                <i class="fas fa-user-circle welcome-icon"></i>
+                <?php if (!empty($user['profile_image'])): ?>
+                    <img src="<?= BASE_URL . $user['profile_image'] ?>" 
+                         alt="<?= Security::e($user['full_name'] ?? $user['username']) ?>" 
+                         class="welcome-icon"
+                         style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #667eea;"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                    <i class="fas fa-user-circle welcome-icon" style="display: none;"></i>
+                <?php else: ?>
+                    <i class="fas fa-user-circle welcome-icon"></i>
+                <?php endif; ?>
                 <div>
                     <h1>سلام، <?= Security::e($user['full_name'] ?? $user['username']) ?>!</h1>
                     <p>خوش آمدید به پنل کاربری خود</p>

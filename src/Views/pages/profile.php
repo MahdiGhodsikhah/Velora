@@ -14,9 +14,11 @@
                         <div class="text-center mb-4">
                             <div class="avatar-circle mx-auto mb-3">
                                 <?php if (!empty($user['profile_image'])): ?>
-                                    <img src="<?= BASE_URL . Security::e($user['profile_image']) ?>" 
+                                    <img src="<?= BASE_URL . $user['profile_image'] ?>" 
                                          alt="<?= Security::e($user['full_name'] ?? $user['username']) ?>"
-                                         class="profile-avatar-img">
+                                         class="profile-avatar-img"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <i class="bi bi-person-fill fs-1" style="display: none;"></i>
                                 <?php else: ?>
                                     <i class="bi bi-person-fill fs-1"></i>
                                 <?php endif; ?>
@@ -110,7 +112,13 @@
                                     <div class="profile-image-upload">
                                         <div class="current-profile-image">
                                             <?php if (!empty($user['profile_image'])): ?>
-                                                <img src="<?= BASE_URL . Security::e($user['profile_image']) ?>" alt="Profile" id="profileImagePreview">
+                                                <img src="<?= BASE_URL . $user['profile_image'] ?>" 
+                                                     alt="Profile" 
+                                                     id="profileImagePreview"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                <div class="default-avatar" style="display: none;">
+                                                    <i class="bi bi-person-fill"></i>
+                                                </div>
                                             <?php else: ?>
                                                 <div class="default-avatar">
                                                     <i class="bi bi-person-fill"></i>
@@ -122,11 +130,11 @@
                                                    class="form-control" 
                                                    id="profile_image" 
                                                    name="profile_image" 
-                                                   accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                                                   accept="image/jpeg,image/jpg,image/png,image/webp"
                                                    onchange="previewProfileImage(this)">
                                             <small class="text-muted d-block mt-2">
                                                 <i class="bi bi-info-circle me-1"></i>
-                                                فرمت‌های مجاز: JPG, PNG, GIF, WEBP | حداکثر حجم: 2MB
+                                                فرمت‌های مجاز: JPG, JPEG, PNG, WEBP | حداکثر حجم: 1MB
                                             </small>
                                             <?php if (!empty($user['profile_image'])): ?>
                                                 <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removeProfileImage()">
@@ -371,16 +379,16 @@ function previewProfileImage(input) {
         const file = input.files[0];
         
         // بررسی نوع فایل
-        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
         if (!allowedTypes.includes(file.type)) {
-            alert('فقط فایل‌های تصویری (JPG, PNG, GIF, WEBP) مجاز هستند');
+            alert('فقط فایل‌های تصویری (JPG, JPEG, PNG, WEBP) مجاز هستند');
             input.value = '';
             return;
         }
         
-        // بررسی حجم فایل (2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            alert('حجم فایل نباید بیشتر از 2 مگابایت باشد');
+        // بررسی حجم فایل (1MB)
+        if (file.size > 1 * 1024 * 1024) {
+            alert('حجم فایل نباید بیشتر از 1 مگابایت باشد');
             input.value = '';
             return;
         }

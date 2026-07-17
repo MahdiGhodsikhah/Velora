@@ -4,13 +4,13 @@
  */
 class ImageUploader {
     
-    private const MAX_SIZE = 2 * 1024 * 1024; // 2MB
-    private const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    private const MAX_SIZE = 1 * 1024 * 1024; // 1MB
+    private const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     
     /**
      * آپلود عکس پروفایل
      */
-    public static function uploadProfileImage(array $file, int $userId): array {
+    public static function uploadProfileImage(array $file, int $userId, string $username = ''): array {
         // بررسی خطاهای آپلود
         if ($file['error'] !== UPLOAD_ERR_OK) {
             return ['success' => false, 'error' => 'خطا در آپلود فایل'];
@@ -18,7 +18,7 @@ class ImageUploader {
 
         // بررسی حجم
         if ($file['size'] > self::MAX_SIZE) {
-            return ['success' => false, 'error' => 'حجم فایل نباید بیشتر از 2 مگابایت باشد'];
+            return ['success' => false, 'error' => 'حجم فایل نباید بیشتر از 1 مگابایت باشد'];
         }
 
         // بررسی نوع فایل
@@ -27,7 +27,7 @@ class ImageUploader {
         finfo_close($finfo);
 
         if (!in_array($mimeType, self::ALLOWED_TYPES)) {
-            return ['success' => false, 'error' => 'فقط فایل‌های تصویری (JPG, PNG, GIF, WEBP) مجاز هستند'];
+            return ['success' => false, 'error' => 'فقط فایل‌های تصویری (JPG, JPEG, PNG, WEBP) مجاز هستند'];
         }
 
         // بررسی اینکه واقعاً تصویر است
@@ -36,9 +36,13 @@ class ImageUploader {
             return ['success' => false, 'error' => 'فایل آپلود شده یک تصویر معتبر نیست'];
         }
 
-        // تولید نام فایل یکتا
+        // تولید نام فایل یکتا با نام کاربر
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $fileName = 'profile_' . $userId . '_' . time() . '.' . $extension;
+        $safeName = preg_replace('/[^a-zA-Z0-9_-]/', '_', $username); // حذف کاراکترهای غیرمجاز
+        if (empty($safeName)) {
+            $safeName = 'user';
+        }
+        $fileName = 'profile_' . $userId . '_' . $safeName . '_' . time() . '.' . $extension;
         
         // مسیر ذخیره
         $uploadDir = BASE_PATH . '/public/uploads/profiles';

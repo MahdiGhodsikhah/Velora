@@ -171,7 +171,11 @@ class UserController {
         }
         // آپلود عکس جدید
         elseif (!empty($_FILES['profile_image']) && $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE) {
-            $uploadResult = ImageUploader::uploadProfileImage($_FILES['profile_image'], $userId);
+            $uploadResult = ImageUploader::uploadProfileImage(
+                $_FILES['profile_image'], 
+                $userId,
+                $user['username'] ?? '' // ارسال نام کاربر
+            );
             
             if ($uploadResult['success']) {
                 // حذف عکس قبلی
