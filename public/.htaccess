@@ -1,6 +1,9 @@
 Options -Indexes
 ServerSignature Off
 
+# --- Custom Error Pages ---
+ErrorDocument 404 /Velora/public/index.php
+
 # --- Rewrite ---
 RewriteEngine On
 

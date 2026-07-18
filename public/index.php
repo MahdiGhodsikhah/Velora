@@ -80,11 +80,12 @@ if (class_exists($controllerName)) {
     if (method_exists($controller, $actionName)) {
         call_user_func_array([$controller, $actionName], $params);
     } else {
+        // اگر اکشن وجود نداشت به 404 برو
         $err = new ErrorController();
         $err->notFound();
     }
 } else {
-    // fallback به HomeController
-    $home = new HomeController();
-    $home->index();
+    // اگر کنترلر وجود نداشت به 404 برو
+    $err = new ErrorController();
+    $err->notFound();
 }
