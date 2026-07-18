@@ -102,8 +102,8 @@ class UserModel {
         $job      = db_escape(trim($data['job'] ?? ''));
         $birthDate = !empty($data['birth_date']) ? "'" . db_escape($data['birth_date']) . "'" : 'NULL';
         $postalCode = db_escape(trim($data['postal_code'] ?? ''));
-        $profileImage = isset($data['profile_image']) ? "'" . db_escape($data['profile_image']) . "'" : 'NULL';
 
+        // ساخت query با یا بدون profile_image
         $sql = "UPDATE `users` 
                 SET `full_name` = '$fullName', 
                     `email` = '$email', 
@@ -111,10 +111,15 @@ class UserModel {
                     `address` = '$address',
                     `job` = '$job',
                     `birth_date` = $birthDate,
-                    `postal_code` = '$postalCode',
-                    `profile_image` = $profileImage,
-                    `updated_at` = NOW()
-                WHERE `id` = $userId";
+                    `postal_code` = '$postalCode'";
+        
+        // فقط اگر profile_image در data باشد، آن را به‌روز کن
+        if (isset($data['profile_image'])) {
+            $profileImage = $data['profile_image'] === null ? 'NULL' : "'" . db_escape($data['profile_image']) . "'";
+            $sql .= ", `profile_image` = $profileImage";
+        }
+        
+        $sql .= ", `updated_at` = NOW() WHERE `id` = $userId";
 
         return db_query($sql);
     }

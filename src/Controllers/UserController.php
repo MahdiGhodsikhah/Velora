@@ -97,7 +97,7 @@ class UserController {
         
         $timeSinceLastUpdate = time() - $_SESSION['last_profile_update'];
         if ($timeSinceLastUpdate < 3) {
-            $_SESSION['error'] = 'لطفا 3 ثانیه صبر کنید و دوباره تلاش کنید.';
+            $_SESSION['profile_error'] = 'لطفا 3 ثانیه صبر کنید و دوباره تلاش کنید.';
             header('Location: ' . BASE_URL . '/profile');
             exit;
         }
@@ -157,7 +157,7 @@ class UserController {
         }
 
         if (!empty($errors)) {
-            $_SESSION['error'] = implode('<br>', $errors);
+            $_SESSION['profile_error'] = implode('<br>', $errors);
             header('Location: ' . BASE_URL . '/profile');
             exit;
         }
@@ -192,8 +192,8 @@ class UserController {
             }
             $data['profile_image'] = null;
         }
-        // آپلود عکس جدید
-        elseif (!empty($_FILES['profile_image']) && $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+        // آپلود عکس جدید - فقط اگر واقعا فایلی آپلود شده باشد
+        elseif (!empty($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
             $uploadResult = ImageUploader::uploadProfileImage(
                 $_FILES['profile_image'], 
                 $userId,
@@ -207,11 +207,12 @@ class UserController {
                 }
                 $data['profile_image'] = $uploadResult['path'];
             } else {
-                $_SESSION['error'] = $uploadResult['error'];
+                $_SESSION['profile_error'] = $uploadResult['error'];
                 header('Location: ' . BASE_URL . '/profile');
                 exit;
             }
         }
+        // اگر هیچ فایلی آپلود نشده، عکس قبلی را حفظ کن (profile_image را در $data نگذار)
         
         $result = $this->userModel->updateProfile($userId, $data);
 
@@ -219,9 +220,9 @@ class UserController {
             // ریست کردن تایمر
             $_SESSION['last_profile_update'] = 0;
             
-            $_SESSION['success'] = 'اطلاعات شما با موفقیت به‌روزرسانی شد.';
+            $_SESSION['profile_success'] = 'اطلاعات شما با موفقیت به‌روزرسانی شد.';
         } else {
-            $_SESSION['error'] = 'خطا در به‌روزرسانی اطلاعات.';
+            $_SESSION['profile_error'] = 'خطا در به‌روزرسانی اطلاعات.';
         }
 
         header('Location: ' . BASE_URL . '/profile');
@@ -302,6 +303,98 @@ class UserController {
             echo json_encode(['success' => true, 'message' => 'رمز عبور با موفقیت تغییر یافت'], JSON_UNESCAPED_UNICODE);
         } else {
             echo json_encode(['success' => false, 'message' => 'خطا در تغییر رمز عبور'], JSON_UNESCAPED_UNICODE);
+        }
+        exit;
+    }
+
+    /**
+     * آپلود عکس پروفایل (AJAX)
+     */
+    public function uploadProfileImage(): void {
+        $this->checkAuth();
+        
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'message' => 'درخواست نامعتبر'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        $userId = (int)$_SESSION['user_id'];
+        $user = $this->userModel->getById($userId);
+
+        if (!$user) {
+            echo json_encode(['success' => false, 'message' => 'کاربر یافت نشد'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // بررسی وجود فایل
+        if (empty($_FILES['profile_image']) || $_FILES['profile_image']['error'] === UPLOAD_ERR_NO_FILE) {
+            echo json_encode(['success' => false, 'message' => 'لطفا یک تصویر انتخاب کنید'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // آپلود عکس جدید
+        $uploadResult = ImageUploader::uploadProfileImage(
+            $_FILES['profile_image'], 
+            $userId,
+            $user['username'] ?? ''
+        );
+        
+        if ($uploadResult['success']) {
+            // حذف عکس قبلی
+            if (!empty($user['profile_image'])) {
+                ImageUploader::deleteProfileImage($user['profile_image']);
+            }
+            
+            // به‌روزرسانی فقط فیلد profile_image در دیتابیس
+            $result = $this->userModel->updateProfileImage($userId, $uploadResult['path']);
+            
+            if ($result) {
+                echo json_encode(['success' => true, 'message' => 'عکس پروفایل با موفقیت آپلود شد', 'path' => $uploadResult['path']], JSON_UNESCAPED_UNICODE);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'خطا در ذخیره‌سازی اطلاعات'], JSON_UNESCAPED_UNICODE);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => $uploadResult['error']], JSON_UNESCAPED_UNICODE);
+        }
+        exit;
+    }
+
+    /**
+     * حذف عکس پروفایل (AJAX)
+     */
+    public function removeProfileImage(): void {
+        $this->checkAuth();
+        
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'message' => 'درخواست نامعتبر'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        $userId = (int)$_SESSION['user_id'];
+        $user = $this->userModel->getById($userId);
+
+        if (!$user) {
+            echo json_encode(['success' => false, 'message' => 'کاربر یافت نشد'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // حذف فایل عکس
+        if (!empty($user['profile_image'])) {
+            ImageUploader::deleteProfileImage($user['profile_image']);
+        }
+
+        // به‌روزرسانی فقط فیلد profile_image در دیتابیس (set to NULL)
+        $sql = "UPDATE `users` SET `profile_image` = NULL, `updated_at` = NOW() WHERE `id` = " . (int)$userId;
+        $result = db_query($sql);
+
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'عکس پروفایل با موفقیت حذف شد'], JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'خطا در حذف عکس'], JSON_UNESCAPED_UNICODE);
         }
         exit;
     }

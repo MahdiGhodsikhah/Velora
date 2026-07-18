@@ -30,6 +30,8 @@ $routes = [
     'POST:/profile'             => ['UserController', 'updateProfile'],
     'POST:/profile/update'      => ['UserController', 'updateProfile'],
     'POST:/profile/change-password' => ['UserController', 'changePassword'],
+    'POST:/profile/upload-image'    => ['UserController', 'uploadProfileImage'],
+    'POST:/profile/remove-image'    => ['UserController', 'removeProfileImage'],
     'GET:/wishlist'             => ['UserController', 'wishlist'],
 
     // سبد خرید

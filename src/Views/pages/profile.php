@@ -82,71 +82,9 @@
                         </h4>
                     </div>
                     <div class="card-body p-4">
-                        <?php if (isset($_SESSION['success'])): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="bi bi-check-circle-fill me-2"></i>
-                                <?= $_SESSION['success'] ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                            <?php unset($_SESSION['success']); ?>
-                        <?php endif; ?>
-
-                        <?php if (isset($_SESSION['error'])): ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                                <?= $_SESSION['error'] ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                            <?php unset($_SESSION['error']); ?>
-                        <?php endif; ?>
-
-                        <form method="POST" action="<?= BASE_URL ?>/profile/update" id="profileForm" enctype="multipart/form-data">
+                        <form method="POST" action="<?= BASE_URL ?>/profile/update" id="profileForm">
 
                             <div class="row g-3">
-                                <!-- آپلود عکس پروفایل -->
-                                <div class="col-12 mb-3">
-                                    <label class="form-label fw-bold">
-                                        <i class="bi bi-image me-2"></i>
-                                        عکس پروفایل
-                                    </label>
-                                    <div class="profile-image-upload">
-                                        <div class="current-profile-image">
-                                            <?php if (!empty($user['profile_image'])): ?>
-                                                <img src="<?= BASE_URL . $user['profile_image'] ?>" 
-                                                     alt="Profile" 
-                                                     id="profileImagePreview"
-                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                                <div class="default-avatar" style="display: none;">
-                                                    <i class="bi bi-person-fill"></i>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="default-avatar">
-                                                    <i class="bi bi-person-fill"></i>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="profile-upload-controls">
-                                            <input type="file" 
-                                                   class="form-control" 
-                                                   id="profile_image" 
-                                                   name="profile_image" 
-                                                   accept="image/jpeg,image/jpg,image/png,image/webp"
-                                                   onchange="previewProfileImage(this)">
-                                            <small class="text-muted d-block mt-2">
-                                                <i class="bi bi-info-circle me-1"></i>
-                                                فرمت‌های مجاز: JPG, JPEG, PNG, WEBP | حداکثر حجم: 1MB
-                                            </small>
-                                            <?php if (!empty($user['profile_image'])): ?>
-                                                <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removeProfileImage()">
-                                                    <i class="bi bi-trash me-1"></i>
-                                                    حذف عکس
-                                                </button>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12"><hr></div>
                                 <!-- نام و نام خانوادگی -->
                                 <div class="col-md-6">
                                     <label for="full_name" class="form-label">
@@ -263,18 +201,36 @@
                                     <small class="text-muted">این آدرس برای ارسال سفارشات استفاده خواهد شد</small>
                                 </div>
 
-                                <!-- بخش تغییر رمز عبور -->
+                                <!-- بخش تغییر رمز عبور و آپلود عکس پروفایل -->
                                 <div class="col-12">
                                     <hr class="my-4">
-                                    <h5 class="mb-3">
-                                        <i class="bi bi-shield-lock me-2"></i>
-                                        تغییر رمز عبور
-                                    </h5>
-                                    <p class="text-muted mb-3">برای تغییر رمز عبور، از دکمه زیر استفاده کنید:</p>
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                                        <i class="bi bi-key me-1"></i>
-                                        تغییر رمز عبور
-                                    </button>
+                                    <div class="row">
+                                        <!-- تغییر رمز عبور -->
+                                        <div class="col-md-6">
+                                            <h5 class="mb-3">
+                                                <i class="bi bi-shield-lock me-2"></i>
+                                                تغییر رمز عبور
+                                            </h5>
+                                            <p class="text-muted mb-3">برای تغییر رمز عبور، از دکمه زیر استفاده کنید:</p>
+                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                                <i class="bi bi-key me-1"></i>
+                                                تغییر رمز عبور
+                                            </button>
+                                        </div>
+
+                                        <!-- آپلود عکس پروفایل -->
+                                        <div class="col-md-6">
+                                            <h5 class="mb-3">
+                                                <i class="bi bi-image me-2"></i>
+                                                عکس پروفایل
+                                            </h5>
+                                            <p class="text-muted mb-3">برای تغییر یا آپلود عکس پروفایل، از دکمه زیر استفاده کنید:</p>
+                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#uploadProfileImageModal">
+                                                <i class="bi bi-camera me-1"></i>
+                                                آپلود عکس پروفایل
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- دکمه‌ها -->
@@ -392,23 +348,94 @@
     </div>
 </div>
 
+<!-- مدال آپلود عکس پروفایل -->
+<div class="modal fade" id="uploadProfileImageModal" tabindex="-1" aria-labelledby="uploadProfileImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadProfileImageModalLabel">
+                    <i class="bi bi-camera me-2"></i>
+                    آپلود عکس پروفایل
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="uploadProfileImageForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        فرمت‌های مجاز: JPG, JPEG, PNG, WEBP | حداکثر حجم: 1MB
+                    </div>
+                    
+                    <div class="profile-image-upload-modal">
+                        <div class="current-profile-image-modal">
+                            <?php if (!empty($user['profile_image'])): ?>
+                                <img src="<?= BASE_URL . $user['profile_image'] ?>" 
+                                     alt="Profile" 
+                                     id="profileImagePreviewModal"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="default-avatar-modal" style="display: none;">
+                                    <i class="bi bi-person-fill"></i>
+                                </div>
+                            <?php else: ?>
+                                <div class="default-avatar-modal">
+                                    <i class="bi bi-person-fill"></i>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        
+                        <div class="profile-upload-controls-modal">
+                            <label for="profile_image_modal" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-upload me-2"></i>
+                                انتخاب عکس جدید
+                            </label>
+                            <input type="file" 
+                                   class="d-none" 
+                                   id="profile_image_modal" 
+                                   name="profile_image" 
+                                   accept="image/jpeg,image/jpg,image/png,image/webp"
+                                   onchange="previewProfileImageModal(this)">
+                            
+                            <?php if (!empty($user['profile_image'])): ?>
+                                <button type="button" class="btn btn-outline-danger w-100 mt-2" onclick="removeProfileImageModal()">
+                                    <i class="bi bi-trash me-1"></i>
+                                    حذف عکس فعلی
+                                </button>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>
+                        انصراف
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitProfileImage">
+                        <i class="bi bi-check-circle me-1"></i>
+                        ذخیره تغییرات
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
-// پیش‌نمایش عکس پروفایل
-function previewProfileImage(input) {
+// پیش‌نمایش عکس پروفایل در مدال
+function previewProfileImageModal(input) {
     if (input.files && input.files[0]) {
         const file = input.files[0];
         
         // بررسی نوع فایل
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
         if (!allowedTypes.includes(file.type)) {
-            alert('فقط فایل‌های تصویری (JPG, JPEG, PNG, WEBP) مجاز هستند');
+            showNotification('فقط فایل‌های تصویری (JPG, JPEG, PNG, WEBP) مجاز هستند', 'error');
             input.value = '';
             return;
         }
         
         // بررسی حجم فایل (1MB)
         if (file.size > 1 * 1024 * 1024) {
-            alert('حجم فایل نباید بیشتر از 1 مگابایت باشد');
+            showNotification('حجم فایل نباید بیشتر از 1 مگابایت باشد', 'error');
             input.value = '';
             return;
         }
@@ -416,42 +443,97 @@ function previewProfileImage(input) {
         // نمایش پیش‌نمایش
         const reader = new FileReader();
         reader.onload = function(e) {
-            const imageContainer = document.querySelector('.current-profile-image');
-            imageContainer.innerHTML = '<img src="' + e.target.result + '" alt="پیش‌نمایش" id="profileImagePreview">';
+            const imageContainer = document.querySelector('.current-profile-image-modal');
+            imageContainer.innerHTML = '<img src="' + e.target.result + '" alt="پیش‌نمایش" id="profileImagePreviewModal">';
         };
         reader.readAsDataURL(file);
     }
 }
 
-// حذف عکس پروفایل
-function removeProfileImage() {
+// حذف عکس پروفایل در مدال
+function removeProfileImageModal() {
     if (confirm('آیا مطمئن هستید که می‌خواهید عکس پروفایل خود را حذف کنید؟')) {
-        // اضافه کردن فیلد hidden برای اطلاع به سرور
-        const form = document.getElementById('profileForm');
-        let removeInput = document.getElementById('remove_profile_image_input');
+        const submitBtn = document.getElementById('submitProfileImage');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> در حال حذف...';
         
-        if (!removeInput) {
-            removeInput = document.createElement('input');
-            removeInput.type = 'hidden';
-            removeInput.name = 'remove_profile_image';
-            removeInput.id = 'remove_profile_image_input';
-            removeInput.value = '1';
-            form.appendChild(removeInput);
-        } else {
-            removeInput.value = '1';
-        }
-        
-        // نمایش آواتار پیش‌فرض
-        const imageContainer = document.querySelector('.current-profile-image');
-        imageContainer.innerHTML = '<div class="default-avatar"><i class="bi bi-person-fill"></i></div>';
-        
-        // پاک کردن ورودی فایل
-        document.getElementById('profile_image').value = '';
-        
-        // ارسال فرم
-        form.submit();
+        // ارسال درخواست حذف
+        fetch('<?= BASE_URL ?>/profile/remove-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification(data.message || 'عکس پروفایل با موفقیت حذف شد', 'success');
+                
+                // بستن مدال
+                setTimeout(() => {
+                    bootstrap.Modal.getInstance(document.getElementById('uploadProfileImageModal')).hide();
+                    // رفرش صفحه
+                    location.reload();
+                }, 1500);
+            } else {
+                showNotification(data.message || 'خطا در حذف عکس', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>ذخیره تغییرات';
+            }
+        })
+        .catch(error => {
+            showNotification('خطا در ارتباط با سرور', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>ذخیره تغییرات';
+        });
     }
 }
+
+// آپلود عکس پروفایل
+document.getElementById('submitProfileImage').addEventListener('click', function() {
+    const form = document.getElementById('uploadProfileImageForm');
+    const formData = new FormData(form);
+    const submitBtn = this;
+    
+    // بررسی انتخاب فایل
+    const fileInput = document.getElementById('profile_image_modal');
+    if (!fileInput.files || !fileInput.files[0]) {
+        showNotification('لطفا یک تصویر انتخاب کنید', 'error');
+        return;
+    }
+    
+    // غیرفعال کردن دکمه
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> در حال آپلود...';
+    
+    // ارسال درخواست
+    fetch('<?= BASE_URL ?>/profile/upload-image', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification(data.message || 'عکس پروفایل با موفقیت آپلود شد', 'success');
+            
+            // بستن مدال
+            setTimeout(() => {
+                bootstrap.Modal.getInstance(document.getElementById('uploadProfileImageModal')).hide();
+                // رفرش صفحه
+                location.reload();
+            }, 1500);
+        } else {
+            showNotification(data.message || 'خطا در آپلود عکس', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>ذخیره تغییرات';
+        }
+    })
+    .catch(error => {
+        showNotification('خطا در ارتباط با سرور', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-check-circle me-1"></i>ذخیره تغییرات';
+    });
+});
 
 // تغییر رمز عبور با AJAX
 document.getElementById('submitPasswordChange').addEventListener('click', function() {
@@ -483,28 +565,22 @@ document.getElementById('submitPasswordChange').addEventListener('click', functi
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            messageDiv.className = 'alert alert-success';
-            messageDiv.innerHTML = '<i class="bi bi-check-circle me-2"></i>' + data.message;
-            messageDiv.classList.remove('d-none');
+            showNotification(data.message || 'رمز عبور با موفقیت تغییر یافت', 'success');
             
             // پاک کردن فرم
             form.reset();
+            messageDiv.classList.add('d-none');
             
             // بستن مدال بعد از 2 ثانیه
             setTimeout(() => {
                 bootstrap.Modal.getInstance(document.getElementById('changePasswordModal')).hide();
-                messageDiv.classList.add('d-none');
             }, 2000);
         } else {
-            messageDiv.className = 'alert alert-danger';
-            messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>' + data.message;
-            messageDiv.classList.remove('d-none');
+            showNotification(data.message || 'خطا در تغییر رمز عبور', 'error');
         }
     })
     .catch(error => {
-        messageDiv.className = 'alert alert-danger';
-        messageDiv.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>خطا در ارتباط با سرور';
-        messageDiv.classList.remove('d-none');
+        showNotification('خطا در ارتباط با سرور', 'error');
     })
     .finally(() => {
         submitBtn.disabled = false;
@@ -529,12 +605,39 @@ document.querySelectorAll('.toggle-password').forEach(button => {
     });
 });
 
-// پاک کردن پیام‌ها هنگام بسته شدن مدال
+// پاک کردن فرم‌ها هنگام بسته شدن مدال‌ها
 document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal', function() {
     document.getElementById('changePasswordForm').reset();
     document.getElementById('passwordChangeMessage').classList.add('d-none');
 });
+
+document.getElementById('uploadProfileImageModal').addEventListener('hidden.bs.modal', function() {
+    document.getElementById('uploadProfileImageForm').reset();
+});
 </script>
+
+<!-- نمایش پیغام‌های session -->
+<?php if (isset($_SESSION['profile_success'])): ?>
+<script>
+window.addEventListener('load', function() {
+    if (typeof showNotification === 'function') {
+        showNotification('<?= addslashes($_SESSION['profile_success']) ?>', 'success');
+    }
+});
+</script>
+<?php unset($_SESSION['profile_success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['profile_error'])): ?>
+<script>
+window.addEventListener('load', function() {
+    if (typeof showNotification === 'function') {
+        showNotification('<?= addslashes($_SESSION['profile_error']) ?>', 'error');
+    }
+});
+</script>
+<?php unset($_SESSION['profile_error']); ?>
+<?php endif; ?>
 
 <!-- JavaScript محافظت غیرفعال شد - حالا فقط PHP کار می‌کند -->
 <!-- <script src="<?= BASE_URL ?>/assets/js/profile-protection.js"></script> -->
@@ -592,35 +695,32 @@ document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal
     box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
 }
 
-/* استایل آپلود عکس پروفایل */
-.profile-image-upload {
+/* استایل مدال آپلود عکس پروفایل */
+.profile-image-upload-modal {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     gap: 24px;
     padding: 20px;
-    background: #f8f9fa;
-    border-radius: 12px;
-    border: 2px dashed #dee2e6;
 }
 
-.current-profile-image {
-    width: 150px;
-    height: 150px;
+.current-profile-image-modal {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid #667eea;
     box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
-    flex-shrink: 0;
     position: relative;
 }
 
-.current-profile-image img {
+.current-profile-image-modal img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.default-avatar {
+.default-avatar-modal {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -628,32 +728,19 @@ document.getElementById('changePasswordModal').addEventListener('hidden.bs.modal
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 4rem;
+    font-size: 5rem;
 }
 
-.profile-upload-controls {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.profile-upload-controls-modal {
+    width: 100%;
+    max-width: 300px;
 }
 
 .profile-avatar-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     border-radius: 50%;
-}
-
-@media (max-width: 768px) {
-    .profile-image-upload {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .current-profile-image {
-        width: 120px;
-        height: 120px;
-    }
+    border: solid black;
+    object-fit: cover;
 }
 </style>
