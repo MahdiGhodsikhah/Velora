@@ -910,13 +910,7 @@ input:focus-visible {
 .btn-cta-modern:hover i {
     transform: translateX(-5px);
 }
-    color: var(--gold);
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    margin-bottom: 8px;
-}
 
-.stat-label {
-    font-size: 1rem;
 /* ===== بخش بلاگ ===== */
 .blog-section {
     padding: 60px 0;
