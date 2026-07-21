@@ -47,6 +47,7 @@ require_once BASE_PATH . '/src/Libs/jdf.php';
 require_once BASE_PATH . '/src/Libs/ImageUploader.php';
 require_once BASE_PATH . '/src/Models/UserModel.php';
 require_once BASE_PATH . '/src/Models/ProductModel.php';
+require_once BASE_PATH . '/src/Models/OrderModel.php';
 require_once BASE_PATH . '/src/Controllers/HomeController.php';
 require_once BASE_PATH . '/src/Controllers/ProductController.php';
 require_once BASE_PATH . '/src/Controllers/AuthController.php';
@@ -54,6 +55,7 @@ require_once BASE_PATH . '/src/Controllers/AboutController.php';
 require_once BASE_PATH . '/src/Controllers/ErrorController.php';
 require_once BASE_PATH . '/src/Controllers/UserController.php';
 require_once BASE_PATH . '/src/Controllers/CartController.php';
+require_once BASE_PATH . '/src/Controllers/CheckoutController.php';
 require_once BASE_PATH . '/src/Controllers/WishlistController.php';
 
 // -------------------------------------------------------------------

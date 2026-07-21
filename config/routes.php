@@ -40,6 +40,13 @@ $routes = [
     'POST:/cart/remove'         => ['CartController', 'remove'],
     'POST:/cart/update'         => ['CartController', 'update'],
 
+    // تکمیل خرید
+    'GET:/checkout'             => ['CheckoutController', 'index'],
+    'POST:/checkout/process'    => ['CheckoutController', 'process'],
+
+    // سفارشات
+    'GET:/orders'               => ['UserController', 'orders'],
+
     // علاقه‌مندی‌ها
     'POST:/wishlist/toggle'     => ['WishlistController', 'toggle'],
     'GET:/wishlist/status'      => ['WishlistController', 'getStatus'],

@@ -424,6 +424,26 @@ class UserController {
     }
 
     /**
+     * سفارشات کاربر
+     */
+    public function orders(): void {
+        $this->checkAuth();
+        Security::set_security_headers();
+
+        $userId = (int)$_SESSION['user_id'];
+        $orderModel = new OrderModel();
+        $orders = $orderModel->getUserOrders($userId);
+
+        $pageTitle = 'سفارشات من';
+        $pageDesc  = 'مشاهده و پیگیری سفارشات';
+
+        require BASE_PATH . '/src/Views/layouts/minimal-header.php';
+        require BASE_PATH . '/src/Views/layouts/navbar.php';
+        require BASE_PATH . '/src/Views/pages/orders.php';
+        require BASE_PATH . '/src/Views/layouts/footer.php';
+    }
+
+    /**
      * بررسی لاگین بودن کاربر
      */
     private function checkAuth(): void {

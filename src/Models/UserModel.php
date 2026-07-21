@@ -268,4 +268,21 @@ class UserModel {
              ORDER BY w.added_at DESC"
         );
     }
+
+    /**
+     * به‌روزرسانی آدرس و کد پستی کاربر
+     */
+    public function updateUserAddress(int $userId, string $address, string $postalCode): bool {
+        $userId = (int)$userId;
+        $address = db_escape(trim($address));
+        $postalCode = db_escape(trim($postalCode));
+        
+        $sql = "UPDATE `users` 
+                SET `address` = '$address', 
+                    `postal_code` = '$postalCode',
+                    `updated_at` = NOW()
+                WHERE `id` = $userId";
+        
+        return db_query($sql);
+    }
 }
