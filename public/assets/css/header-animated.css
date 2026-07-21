@@ -132,6 +132,7 @@
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
+    left: auto;
     background: #fff;
     border-radius: 14px;
     border: 2px solid rgba(217, 119, 6, 0.3);
@@ -146,6 +147,18 @@
     z-index: 9999;
     transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
     display: block !important;
+}
+
+/* RTL - dropdown باید سمت راست باز شود */
+html[dir="rtl"] .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+/* برای dropdown کاربر سمت چپ */
+html[dir="rtl"] .dropdown-user {
+    left: 0;
+    right: auto;
 }
 
 /* ایجاد یک bridge نامرئی بین منو و dropdown */
@@ -263,7 +276,10 @@
 }
 
 /* جستجو */
-.search-wrap { position: relative; }
+.search-wrap { 
+    position: relative;
+    z-index: 1002;
+}
 .search-form {
     position: absolute;
     top: 50%; transform: translateY(-50%);
@@ -277,11 +293,34 @@
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
+    z-index: 100;
 }
 .search-wrap.open .search-form {
     width: 260px;
     opacity: 1;
     pointer-events: auto;
+}
+
+/* Overlay برای جستجو در موبایل */
+.search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.search-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .search-wrap.open ~ .search-overlay,
+    .search-overlay.active {
+        display: block;
+    }
 }
 .search-input {
     border: none; outline: none;
@@ -336,8 +375,8 @@
 }
 
 .dropdown-user {
-    right: 0; 
-    left: auto;
+    right: auto;
+    left: 0;
     top: calc(100% + 8px);
     margin-top: 0;
 }
@@ -361,20 +400,36 @@
     .dropdown-menu {
         min-width: 200px;
         left: auto;
-        right: 0;
+        right: auto;
         transform: translateX(0);
     }
     
     /* اطمینان از اینکه dropdown داخل صفحه بماند */
     .user-menu {
-        position: static;
+        position: relative;
     }
     
     .user-menu .dropdown-user {
-        position: fixed;
-        right: 10px;
+        position: absolute;
+        left: 0;
+        right: auto;
+        top: calc(100% + 8px);
+    }
+    
+    /* جستجو در موبایل - جلوگیری از رفتن خارج صفحه */
+    .search-wrap {
+        position: relative;
+    }
+    
+    .search-wrap.open .search-form {
+        position: absolute;
         left: auto;
-        top: 60px;
+        right: 0;
+        top: calc(100% + 10px);
+        width: max-content;
+        max-width: calc(100vw - 30px);
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 }
 
@@ -383,20 +438,40 @@
     .dropdown-menu {
         min-width: 180px;
         max-width: calc(100vw - 20px);
-        right: 10px;
-        left: auto;
+        left: 0;
+        right: auto;
     }
     
     .user-menu .dropdown-user {
-        right: 10px;
-        top: 56px;
+        left: 0;
+        right: auto;
+        top: calc(100% + 8px);
+    }
+    
+    /* جستجو - تمام عرض تقریباً */
+    .search-wrap.open .search-form {
+        width: calc(100vw - 30px);
+        max-width: 280px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
 @media (max-width: 480px) {
     .user-menu .dropdown-user {
-        right: 5px;
-        top: 52px;
+        left: 0;
+        right: auto;
+        top: calc(100% + 8px);
+    }
+    
+    /* جستجو - مرکز صفحه */
+    .search-wrap.open .search-form {
+        width: calc(100vw - 20px);
+        max-width: 260px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
     }
 }
 
@@ -1031,13 +1106,20 @@
     }
     
     /* جستجو در موبایل */
+    .search-wrap {
+        position: static;
+    }
+    
     .search-wrap.open .search-form {
-        width: 200px;
-        left: auto;
-        right: 0;
-        top: calc(100% + 10px);
-        transform: none;
+        position: fixed;
+        width: calc(100vw - 40px);
+        max-width: 300px;
+        left: 50%;
+        right: auto;
+        top: 70px;
+        transform: translateX(-50%);
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 9999;
     }
     
     /* منوی موبایل */
@@ -1104,11 +1186,7 @@
         gap: 0;
     }
     
-    /* جستجو برای موبایل کوچک */
-    .search-wrap.open .search-form {
-        width: calc(100vw - 40px);
-        max-width: 300px;
-    }
+    /* جستجو برای موبایل کوچک - تنظیم شده در media query 768px */
     
     /* badge کوچکتر */
     .badge-count {

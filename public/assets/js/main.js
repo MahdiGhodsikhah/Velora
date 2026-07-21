@@ -46,14 +46,43 @@ $(document).ready(function () {
     });
 
     // فرم جستجو
-    $('.search-toggle').on('click', function () {
+    $('.search-toggle').on('click', function (e) {
+        e.stopPropagation();
         const $wrap = $(this).closest('.search-wrap');
         const isOpen = $wrap.hasClass('open');
         $wrap.toggleClass('open');
         $(this).attr('aria-expanded', !isOpen);
+        
         if (!isOpen) {
             $wrap.find('.search-input').focus();
+            // اضافه کردن overlay در موبایل
+            if ($(window).width() <= 768) {
+                if (!$('#searchOverlay').length) {
+                    $('<div id="searchOverlay" class="search-overlay active"></div>').appendTo('body');
+                    $('#searchOverlay').on('click', function() {
+                        $wrap.removeClass('open');
+                        $('.search-toggle').attr('aria-expanded', 'false');
+                        $(this).remove();
+                    });
+                }
+            }
+        } else {
+            $('#searchOverlay').remove();
         }
+    });
+    
+    // بستن جستجو با کلیک خارج در دسکتاپ
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.search-wrap').length) {
+            $('.search-wrap').removeClass('open');
+            $('.search-toggle').attr('aria-expanded', 'false');
+            $('#searchOverlay').remove();
+        }
+    });
+    
+    // جلوگیری از بسته شدن با کلیک داخل فرم
+    $('.search-form').on('click', function(e) {
+        e.stopPropagation();
     });
 
     // =================================================================
