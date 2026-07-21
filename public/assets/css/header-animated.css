@@ -278,7 +278,7 @@ html[dir="rtl"] .dropdown-user {
 /* جستجو */
 .search-wrap { 
     position: relative;
-    z-index: 1002;
+    z-index: 10000;
 }
 .search-form {
     position: absolute;
@@ -293,7 +293,7 @@ html[dir="rtl"] .dropdown-user {
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
-    z-index: 100;
+    z-index: 10001;
 }
 .search-wrap.open .search-form {
     width: 260px;

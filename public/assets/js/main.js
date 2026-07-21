@@ -524,10 +524,10 @@ $(document).ready(function () {
     });
 
     // =================================================================
-    // ۸. شمارنده آمار هدر (Count Up)
+    // ۸. شمارنده آمار هدر و صفحه درباره ما (Count Up)
     // =================================================================
     function animateCountUp() {
-        $('.stat-num').each(function () {
+        $('.stat-num, .stat-number').each(function () {
             const $this  = $(this);
             const target = parseInt($this.data('target'), 10);
             if (!target || $this.data('animated')) return;
@@ -554,13 +554,17 @@ $(document).ready(function () {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     animateCountUp();
-                    observer.disconnect();
+                    observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.3 });
 
-        const $stats = $('.hero-stats');
-        if ($stats.length) observer.observe($stats[0]);
+        const $stats = $('.hero-stats, .stats-modern-grid');
+        if ($stats.length) {
+            $stats.each(function() {
+                observer.observe(this);
+            });
+        }
     }
 
     // =================================================================
