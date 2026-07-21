@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 21, 2026 at 05:16 PM
+-- Generation Time: Jul 21, 2026 at 06:16 PM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -199,6 +199,28 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `image_url`, `par
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coupons`
+--
+
+DROP TABLE IF EXISTS `coupons`;
+CREATE TABLE IF NOT EXISTS `coupons` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) COLLATE utf8mb4_persian_ci NOT NULL,
+  `discount_type` enum('percent','fixed') COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `discount_value` int NOT NULL,
+  `min_purchase` int DEFAULT '0',
+  `max_uses` int DEFAULT NULL,
+  `used_count` int DEFAULT '0',
+  `valid_from` date DEFAULT NULL,
+  `valid_until` date DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -211,6 +233,8 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `total_amount` bigint UNSIGNED NOT NULL,
   `discount_amt` bigint UNSIGNED DEFAULT '0',
   `shipping_cost` bigint UNSIGNED DEFAULT '0',
+  `shipping_address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci,
+  `postal_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
   `payment_method` varchar(50) COLLATE utf8mb4_persian_ci DEFAULT NULL,
   `payment_status` enum('unpaid','paid','refunded') COLLATE utf8mb4_persian_ci DEFAULT 'unpaid',
   `notes` text COLLATE utf8mb4_persian_ci,
@@ -220,7 +244,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
   UNIQUE KEY `order_number` (`order_number`),
   KEY `idx_user_orders` (`user_id`),
   KEY `idx_order_num` (`order_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `order_number`, `status`, `total_amount`, `discount_amt`, `shipping_cost`, `shipping_address`, `postal_code`, `payment_method`, `payment_status`, `notes`, `created_at`, `updated_at`) VALUES
+(1, 2, 'ORD-20260721-F9116E9A', 'pending', 2092800, 0, 0, 'مشهد رسالت 147', '9149172740', 'online', 'unpaid', '', '2026-07-21 21:11:10', NULL),
+(2, 2, 'ORD-20260721-C1116945', 'pending', 2092800, 0, 0, 'مشهد رسالت 147', '9149172740', 'cash', 'unpaid', '', '2026-07-21 21:12:39', NULL),
+(3, 2, 'ORD-20260721-2CCE15C8', 'pending', 1046400, 0, 0, 'مشهد رسالت 147', '9149172740', 'online', 'unpaid', '', '2026-07-21 21:24:54', NULL);
 
 -- --------------------------------------------------------
 
@@ -240,7 +273,16 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   PRIMARY KEY (`id`),
   KEY `idx_order_items` (`order_id`),
   KEY `fk_item_product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `unit_price`, `quantity`, `subtotal`) VALUES
+(1, 1, 1, 'هودی پاییزی مردانه برند نایک', 960000, 2, 1920000),
+(2, 2, 1, 'هودی پاییزی مردانه برند نایک', 960000, 2, 1920000),
+(3, 3, 1, 'هودی پاییزی مردانه برند نایک', 960000, 1, 960000);
 
 -- --------------------------------------------------------
 
@@ -313,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `short_desc`, `sku`, `price`, `sale_price`, `discount_pct`, `stock_qty`, `main_image`, `gallery`, `rating_avg`, `rating_count`, `is_featured`, `season`, `is_active`, `views`, `created_at`, `updated_at`) VALUES
-(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 45, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 50, 1, 'autumn', 1, 112, '2026-06-09 15:55:19', '2026-07-18 00:28:08'),
+(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 40, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 50, 1, 'autumn', 1, 115, '2026-06-09 15:55:19', '2026-07-21 21:24:54'),
 (2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 30, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 35, 1, 'autumn', 1, 19, '2026-06-09 15:55:19', '2026-07-07 15:40:06'),
 (3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 20, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 4.70, 22, 1, 'autumn', 1, 108, '2026-06-09 15:55:19', '2026-07-16 22:09:31'),
 (4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product-4-main.jpg', '[\"/assets/images/products/product-4-1.jpg\", \"/assets/images/products/product-4-2.jpg\", \"/assets/images/products/product-4-3.jpg\", \"/assets/images/products/product-4-4.jpg\"]', 4.30, 18, 1, 'autumn', 1, 2, '2026-06-09 15:55:19', '2026-07-18 19:52:55'),
@@ -444,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `address`, `postal_code`, `password_hash`, `full_name`, `profile_image`, `job`, `birth_date`, `avatar_url`, `role`, `is_active`, `email_verified`, `login_attempts`, `locked_until`, `last_login`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@autumnshop.ir', '09120000000', NULL, NULL, '$2y$12$ief.AmWpLNaKX12vFAG3j..g68qbjvh7CRuwgUOsc/LGxZD6ODBg.', 'مدیر سیستم', NULL, NULL, NULL, NULL, 'admin', 1, 1, 0, NULL, NULL, '2026-06-09 15:55:19', NULL),
-(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', '', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1784374579.jpg', 'دانشجو', NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-18 14:34:59', '2026-06-30 12:59:51', '2026-07-18 15:06:19'),
+(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت 147', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1784374579.jpg', 'دانشجو', NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-21 21:22:39', '2026-06-30 12:59:51', '2026-07-21 21:24:54'),
 (3, 'ali', 'ali@gmail.com', 'temp_3', NULL, NULL, '$2y$12$6.6NolqrdCRTJki0zuKERuru6LlcHAQHdw8UECeX1Rxjdma7ndCI.', NULL, NULL, NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-17 23:35:34', '2026-07-16 22:13:50', '2026-07-18 00:07:14'),
 (4, 'ali2', '', 'temp_4', NULL, NULL, '$2y$12$UWEQfVbOP6CrLnQLXFrG.OIofpW21Hhy3rRdOuspu7imKNN.w3ifu', NULL, NULL, NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, NULL, '2026-07-17 23:35:54', '2026-07-18 00:07:14'),
 (6, 'user89514957', '', '09929954843', NULL, NULL, '$2y$12$lVHhi1o0GOmbk.icGdKpKuv25RWQSf32DARjF4N85/w.feDLPWC96', NULL, NULL, NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-18 00:24:49', '2026-07-18 00:07:54', '2026-07-18 00:24:49');

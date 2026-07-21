@@ -148,6 +148,43 @@ class CartController {
         exit;
     }
 
+    /**
+     * اعمال کد تخفیف
+     */
+    public function applyCoupon(): void {
+        header('Content-Type: application/json; charset=utf-8');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'message' => 'درخواست نامعتبر'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        $couponCode = trim($_POST['coupon_code'] ?? '');
+
+        if (empty($couponCode)) {
+            echo json_encode(['success' => false, 'message' => 'لطفا کد تخفیف را وارد کنید'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        // در حال حاضر سیستم کد تخفیف پیاده‌سازی نشده
+        // این یک پیام نمونه است
+        echo json_encode([
+            'success' => false, 
+            'message' => 'کد تخفیف "' . Security::e($couponCode) . '" نامعتبر است یا منقضی شده'
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+
+        // TODO: در آینده می‌توانید جدول coupons ایجاد کنید و کدهای تخفیف را بررسی کنید
+        // مثال:
+        // $coupon = $this->validateCoupon($couponCode);
+        // if ($coupon) {
+        //     $_SESSION['applied_coupon'] = $coupon;
+        //     echo json_encode(['success' => true, 'message' => 'کد تخفیف با موفقیت اعمال شد', 'discount_amount' => $coupon['discount']]);
+        // } else {
+        //     echo json_encode(['success' => false, 'message' => 'کد تخفیف نامعتبر است']);
+        // }
+    }
+
     // ===== متدهای کمکی =====
 
     private function getCartItems(): array {

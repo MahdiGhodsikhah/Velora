@@ -172,5 +172,77 @@ if (typeof jQuery === 'undefined') {
                 $('.badge-count').remove();
             }
         }
+
+        // اعمال کد تخفیف
+        $('.coupon-form').on('submit', function(e) {
+            e.preventDefault();
+            
+            const $form = $(this);
+            const $input = $form.find('.coupon-input');
+            const $button = $form.find('.btn-apply-coupon');
+            const couponCode = $input.val().trim();
+            
+            if (!couponCode) {
+                if (typeof showNotification === 'function') {
+                    showNotification('لطفا کد تخفیف را وارد کنید', 'error');
+                } else {
+                    alert('لطفا کد تخفیف را وارد کنید');
+                }
+                return;
+            }
+            
+            // غیرفعال کردن دکمه
+            $button.prop('disabled', true).text('در حال بررسی...');
+            
+            $.ajax({
+                url: (window.BASE_URL || '') + '/cart/apply-coupon',
+                method: 'POST',
+                data: { coupon_code: couponCode },
+                dataType: 'json',
+                success: function(res) {
+                    console.log('✅ Coupon response:', res);
+                    
+                    if (res && res.success) {
+                        // نمایش پیام موفقیت
+                        if (typeof showNotification === 'function') {
+                            showNotification(res.message || 'کد تخفیف با موفقیت اعمال شد', 'success');
+                        } else {
+                            alert(res.message || 'کد تخفیف با موفقیت اعمال شد');
+                        }
+                        
+                        // محاسبه مجدد با تخفیف
+                        if (res.discount_amount) {
+                            recalculateTotals();
+                            // TODO: نمایش مقدار تخفیف در UI
+                        }
+                        
+                        // پاک کردن input
+                        $input.val('');
+                    } else {
+                        // نمایش پیام خطا
+                        if (typeof showNotification === 'function') {
+                            showNotification(res.message || 'کد تخفیف نامعتبر است', 'error');
+                        } else {
+                            alert(res.message || 'کد تخفیف نامعتبر است');
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('❌ Coupon error:', status, error);
+                    console.error('Response:', xhr.responseText);
+                    
+                    // نمایش پیام خطا
+                    if (typeof showNotification === 'function') {
+                        showNotification('کد تخفیف نامعتبر است یا منقضی شده', 'error');
+                    } else {
+                        alert('کد تخفیف نامعتبر است');
+                    }
+                },
+                complete: function() {
+                    // فعال کردن دوباره دکمه
+                    $button.prop('disabled', false).text('اعمال');
+                }
+            });
+        });
     });
 }

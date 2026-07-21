@@ -39,6 +39,7 @@ $routes = [
     'POST:/cart/add'            => ['CartController', 'add'],
     'POST:/cart/remove'         => ['CartController', 'remove'],
     'POST:/cart/update'         => ['CartController', 'update'],
+    'POST:/cart/apply-coupon'   => ['CartController', 'applyCoupon'],
 
     // تکمیل خرید
     'GET:/checkout'             => ['CheckoutController', 'index'],
