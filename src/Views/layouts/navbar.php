@@ -77,7 +77,6 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                         <img src="<?= $base . Security::e($profileImage) ?>" 
                              alt="<?= $username ?>" 
                              class="user-avatar-nav"
-                             style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin-left: 8px;"
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                         <i class="fas fa-user-circle" aria-hidden="true" style="display: none;"></i>
                     <?php else: ?>
