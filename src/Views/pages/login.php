@@ -4,17 +4,17 @@ $base = defined('BASE_URL') ? BASE_URL : '';
 
 <div class="leaves" aria-hidden="true">
     <div class="set">
-        <div style="left:20%"><img src="<?= $base ?>/assets/images/leaves/leaf_01.png" alt=""></div>
-        <div style="left:50%"><img src="<?= $base ?>/assets/images/leaves/leaf_02.png" alt=""></div>
-        <div style="left:70%"><img src="<?= $base ?>/assets/images/leaves/leaf_03.png" alt=""></div>
-        <div style="left:10%"><img src="<?= $base ?>/assets/images/leaves/leaf_04.png" alt=""></div>
+        <div style="left:20%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_01.png" alt=""></div>
+        <div style="left:50%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_02.png" alt=""></div>
+        <div style="left:70%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_03.png" alt=""></div>
+        <div style="left:10%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_04.png" alt=""></div>
     </div>
 </div>
 
 <section class="auth-section">
-    <img src="<?= $base ?>/assets/images/auth/bg.jpg" alt="" class="bg" aria-hidden="true">
-    <img src="<?= $base ?>/assets/images/auth/trees.png" alt="" class="trees" aria-hidden="true">
-    <img src="<?= $base ?>/assets/images/auth/girl.png" alt="" class="girl" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/autumn/bg.jpg" alt="" class="bg" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/autumn/trees.png" alt="" class="trees" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/autumn/girl.png" alt="" class="girl" aria-hidden="true">
 
     <div class="auth-card" role="main">
         <h1>ورود به حساب کاربری</h1>
