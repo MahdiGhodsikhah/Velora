@@ -59,6 +59,16 @@ $routes = [
     'GET:/admin/theme-settings' => ['ThemeController', 'adminThemeSettings'],
     'POST:/admin/theme-settings/save' => ['ThemeController', 'saveAdminThemeSettings'],
 
+    // پنل ادمین
+    'GET:/admin'                => ['AdminController', 'dashboard'],
+    'GET:/admin/dashboard'      => ['AdminController', 'dashboard'],
+    'GET:/admin/products'       => ['AdminController', 'products'],
+    'GET:/admin/products/add'   => ['AdminController', 'addProduct'],
+    'POST:/admin/products/add'  => ['AdminController', 'addProduct'],
+    'GET:/admin/products/edit/{id}' => ['AdminController', 'editProduct'],
+    'POST:/admin/products/edit/{id}' => ['AdminController', 'editProduct'],
+    'GET:/admin/products/delete/{id}' => ['AdminController', 'deleteProduct'],
+
     // 404
     'GET:/404'                  => ['ErrorController', 'notFound'],
 ];
