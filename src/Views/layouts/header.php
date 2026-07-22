@@ -31,9 +31,30 @@
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/header-animated.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/carousel.css">
     
+    <?php
+    // بارگذاری سیستم تم
+    if (!isset($themeManager)) {
+        require_once BASE_PATH . '/src/Libs/ThemeManager.php';
+        $themeManager = ThemeManager::getInstance();
+    }
+    
+    // دریافت تم فعال (یا تم محصول در صفحه محصول)
+    if (isset($product_theme) && !empty($product_theme)) {
+        $active_theme = $themeManager->getProductTheme($product_theme);
+    } else {
+        $active_theme = $themeManager->getActiveTheme();
+    }
+    
+    // کلاس‌های تم
+    $theme_classes = $themeManager->getThemeClasses($active_theme);
+    ?>
+    
+    <!-- CSS تم فعال -->
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/themes/theme-<?= $active_theme ?>.css" data-theme="<?= $active_theme ?>">
+    
     <!-- تعریف BASE_URL برای JavaScript -->
     <script>
         window.BASE_URL = '<?= defined('BASE_URL') ? BASE_URL : '' ?>';
     </script>
 </head>
-<body>
+<body class="<?= $theme_classes ?>" data-theme="<?= $active_theme ?>" <?php if(isset($product_theme)): ?>data-product-season="<?= $product_theme ?>"<?php endif; ?>>

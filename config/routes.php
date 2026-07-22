@@ -52,6 +52,13 @@ $routes = [
     'POST:/wishlist/toggle'     => ['WishlistController', 'toggle'],
     'GET:/wishlist/status'      => ['WishlistController', 'getStatus'],
 
+    // مدیریت تم
+    'POST:/api/set-theme'       => ['ThemeController', 'setTheme'],
+    'GET:/api/detect-season'    => ['ThemeController', 'detectSeason'],
+    'GET:/api/theme'            => ['ThemeController', 'getActiveTheme'],
+    'GET:/admin/theme-settings' => ['ThemeController', 'adminThemeSettings'],
+    'POST:/admin/theme-settings/save' => ['ThemeController', 'saveAdminThemeSettings'],
+
     // 404
     'GET:/404'                  => ['ErrorController', 'notFound'],
 ];

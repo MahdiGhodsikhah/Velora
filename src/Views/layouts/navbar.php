@@ -55,6 +55,16 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                 </form>
             </div>
 
+            <!-- انتخاب تم -->
+            <?php
+            if (!isset($themeManager)) {
+                require_once BASE_PATH . '/src/Libs/ThemeManager.php';
+                $themeManager = ThemeManager::getInstance();
+            }
+            $themeController = new ThemeController();
+            $themeController->themeSelector();
+            ?>
+
             <!-- سبد خرید -->
             <a href="<?= $base ?>/cart" class="icon-btn cart-btn" aria-label="سبد خرید">
                 <i class="fas fa-shopping-cart" aria-hidden="true"></i>

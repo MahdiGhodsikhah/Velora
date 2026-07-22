@@ -28,6 +28,9 @@ class ProductController {
             $season = '';
         }
 
+        // اگر فیلتر فصل فعال است، تم را تغییر بده
+        $product_theme = $season ?: null;
+
         // دریافت محصولات بر اساس فیلتر
         if ($season) {
             $products = $this->productModel->getBySeason($season, $limit, $offset);
@@ -80,6 +83,9 @@ class ProductController {
         $product['gallery_arr'] = json_decode($product['gallery'] ?? '[]', true) ?: [];
         $reviews    = $this->productModel->getReviews((int)$product['id']);
         $categories = $this->productModel->getCategories();
+
+        // دریافت فصل محصول برای تغییر تم
+        $product_theme = $product['season'] ?? 'autumn';
 
         // دریافت محصولات مشابه بر اساس فصل
         $similarProducts = [];

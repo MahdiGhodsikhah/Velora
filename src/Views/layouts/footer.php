@@ -76,6 +76,7 @@
 <script src="<?= $base ?>/assets/js/jquery-3.7.1.min.js"></script>
 <script src="<?= $base ?>/assets/js/slick.min.js"></script>
 <script src="<?= $base ?>/assets/js/bootstrap.min.js"></script>
+<script src="<?= $base ?>/assets/js/theme-manager.js"></script>
 <script src="<?= $base ?>/assets/js/main.js"></script>
 
 </body>

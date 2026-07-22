@@ -57,6 +57,7 @@ require_once BASE_PATH . '/src/Controllers/UserController.php';
 require_once BASE_PATH . '/src/Controllers/CartController.php';
 require_once BASE_PATH . '/src/Controllers/CheckoutController.php';
 require_once BASE_PATH . '/src/Controllers/WishlistController.php';
+require_once BASE_PATH . '/src/Controllers/ThemeController.php';
 
 // -------------------------------------------------------------------
 // روتینگ

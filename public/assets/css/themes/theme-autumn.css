@@ -1,0 +1,247 @@
+/**
+ * تم پاییزی (Autumn Theme)
+ * رنگ‌های گرم، نارنجی، قهوه‌ای و زرد طلایی
+ */
+
+:root.theme-autumn,
+.theme-autumn {
+  /* رنگ‌های اصلی */
+  --primary-color: #d97706;
+  --primary-hover: #b45309;
+  --primary-light: #fbbf24;
+  --primary-dark: #92400e;
+  
+  /* رنگ‌های ثانویه */
+  --secondary-color: #dc2626;
+  --secondary-hover: #b91c1c;
+  --accent-color: #ea580c;
+  
+  /* رنگ‌های پس‌زمینه */
+  --bg-primary: #fef3c7;
+  --bg-secondary: #fed7aa;
+  --bg-card: #ffffff;
+  --bg-hover: #fde68a;
+  
+  /* رنگ‌های متن */
+  --text-primary: #451a03;
+  --text-secondary: #78350f;
+  --text-muted: #92400e;
+  --text-light: #ffffff;
+  
+  /* سایه‌ها */
+  --shadow-sm: 0 2px 4px rgba(217, 119, 6, 0.1);
+  --shadow-md: 0 4px 8px rgba(217, 119, 6, 0.15);
+  --shadow-lg: 0 10px 25px rgba(217, 119, 6, 0.2);
+  
+  /* بوردرها */
+  --border-color: #fed7aa;
+  --border-radius: 12px;
+}
+
+/* هدر */
+.theme-autumn header,
+.theme-autumn .navbar {
+  background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-autumn .navbar-brand,
+.theme-autumn .nav-link {
+  color: var(--text-light) !important;
+}
+
+.theme-autumn .nav-link:hover {
+  color: var(--bg-primary) !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* دکمه‌ها */
+.theme-autumn .btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  border: none;
+  color: var(--text-light);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.theme-autumn .btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-hover), var(--secondary-hover));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* کارت‌های محصول */
+.theme-autumn .product-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.theme-autumn .product-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.theme-autumn .product-card .product-title {
+  color: var(--text-primary);
+}
+
+.theme-autumn .product-card .product-price {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.theme-autumn .product-card .discount-badge {
+  background: var(--secondary-color);
+  color: var(--text-light);
+}
+
+/* بنرها */
+.theme-autumn .banner,
+.theme-autumn .hero-section {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  border: 3px solid var(--primary-color);
+  border-radius: var(--border-radius);
+}
+
+/* فرم‌ها */
+.theme-autumn input,
+.theme-autumn textarea,
+.theme-autumn select {
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.theme-autumn input:focus,
+.theme-autumn textarea:focus,
+.theme-autumn select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+  outline: none;
+}
+
+/* فوتر */
+.theme-autumn footer {
+  background: linear-gradient(135deg, #78350f 0%, #451a03 100%);
+  color: var(--text-light);
+}
+
+.theme-autumn footer a {
+  color: var(--primary-light);
+}
+
+.theme-autumn footer a:hover {
+  color: var(--bg-primary);
+}
+
+/* بج‌ها */
+.theme-autumn .badge {
+  background: var(--primary-color);
+  color: var(--text-light);
+  border-radius: 20px;
+  padding: 4px 12px;
+}
+
+/* آیکون‌ها */
+.theme-autumn .icon-primary {
+  color: var(--primary-color);
+}
+
+/* لینک‌ها */
+.theme-autumn a {
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.theme-autumn a:hover {
+  color: var(--primary-hover);
+}
+
+/* نوتیفیکیشن‌ها */
+.theme-autumn .alert-success {
+  background-color: var(--bg-primary);
+  border-color: var(--primary-color);
+  color: var(--text-primary);
+}
+
+/* صفحه محصول */
+.theme-autumn .product-single {
+  background: var(--bg-card);
+}
+
+.theme-autumn .product-single .price-tag {
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+/* سبد خرید */
+.theme-autumn .cart-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* فیلترها */
+.theme-autumn .filter-section {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+}
+
+/* اسکرول‌بار */
+.theme-autumn ::-webkit-scrollbar {
+  width: 10px;
+}
+
+.theme-autumn ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.theme-autumn ::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 5px;
+}
+
+.theme-autumn ::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+/* انیمیشن‌های پاییزی */
+@keyframes autumn-leaf-fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.theme-autumn .leaf-animation {
+  animation: autumn-leaf-fall 10s infinite ease-in-out;
+}
+
+/* تم تاریک پاییز (اختیاری) */
+@media (prefers-color-scheme: dark) {
+  .theme-autumn.dark-mode {
+    --bg-primary: #451a03;
+    --bg-secondary: #78350f;
+    --bg-card: #92400e;
+    --text-primary: #fef3c7;
+    --text-secondary: #fed7aa;
+    --border-color: #92400e;
+  }
+}
