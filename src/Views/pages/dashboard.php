@@ -5,7 +5,7 @@
 $base = defined('BASE_URL') ? BASE_URL : '';
 ?>
 
-<link rel="stylesheet" href="<?= $base ?>/assets/css/dashboard.css">
+<link rel="stylesheet" href="<?= $base ?>/assets/css/dashboard.css?v=<?= time() ?>">
 
 <main id="main-content" class="dashboard-page">
     
@@ -39,7 +39,6 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                     <img src="<?= BASE_URL . $user['profile_image'] ?>" 
                          alt="<?= Security::e($user['full_name'] ?? $user['username']) ?>" 
                          class="welcome-icon"
-                         style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #667eea;"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                     <i class="fas fa-user-circle welcome-icon" style="display: none;"></i>
                 <?php else: ?>

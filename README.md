@@ -12,11 +12,10 @@ define('DB_NAME', 'autumn_shop');
 ```
 
 ### ۲. ساخت پایگاه داده
-در مرورگر باز کنید:
+فایل SQL را در phpMyAdmin یا MySQL Workbench import کنید:
 ```
-http://localhost/Project/project/config/setup_database.php
+autumn_shop.sql
 ```
-**پس از اجرا، این فایل را حذف کنید.**
 
 ### ۳. تنظیم BASE_URL
 در `public/index.php` مقدار BASE_URL را بر اساس مسیر نصب تغییر دهید:
@@ -34,8 +33,7 @@ http://localhost/Project/project/public/
 project/
 ├── config/
 │   ├── database.php      # اتصال به DB (mysqli خالص)
-│   ├── routes.php        # روتینگ
-│   └── setup_database.php # اسکریپت ساخت DB
+│   └── routes.php        # روتینگ
 ├── public/
 │   ├── .htaccess
 │   ├── index.php         # نقطه ورود (Front Controller)
