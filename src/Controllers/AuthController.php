@@ -116,7 +116,8 @@ class AuthController {
 
         $_SESSION['user_id']   = (int)$user['id'];
         $_SESSION['username']  = $user['username'];
-        $_SESSION['user_role'] = $user['role'];
+        $_SESSION['role']      = $user['role'];  // یکپارچه با بقیه کد
+        $_SESSION['user_role'] = $user['role'];  // برای سازگاری با کد قبلی
         $_SESSION['logged_in'] = true;
 
         $_SESSION['auth_success'] = 'خوش آمدید، ' . Security::e($user['username']) . '!';

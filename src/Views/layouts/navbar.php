@@ -96,7 +96,7 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                     <i class="fas fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-user" role="menu">
-                    <?php if ($_SESSION['role'] === 'admin'): ?>
+                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                     <li role="none">
                         <a href="<?= $base ?>/admin/dashboard" role="menuitem" style="color: #667eea; font-weight: bold;">
                             <i class="fas fa-crown" aria-hidden="true"></i> پنل مدیریت
