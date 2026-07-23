@@ -39,16 +39,6 @@ unset($banner);
 <!-- ===== هدر انیمیشنی پاییزی ===== -->
 <header class="animated-hero" role="banner" aria-label="بنر اصلی">
 
-    <!-- پس‌زمینه پارالاکس -->
-    <div class="hero-bg-layer" aria-hidden="true">
-        <div class="hero-bg-gradient"></div>
-        <!-- ذرات متحرک -->
-        <div class="hero-particles" id="heroParticles"></div>
-    </div>
-
-    <!-- برگ‌های متحرک -->
-    <div class="falling-leaves-container" aria-hidden="true" id="fallingLeaves"></div>
-
     <!-- محتوای اصلی -->
     <div class="hero-content-wrap">
 
@@ -106,13 +96,6 @@ unset($banner);
             <?php endif; ?>
         </div>
 
-    </div>
-
-    <!-- موج پایین هدر -->
-    <div class="hero-wave" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="var(--body-bg,#fef9f0)"/>
-        </svg>
     </div>
 
 </header>
