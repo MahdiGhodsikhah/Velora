@@ -639,9 +639,6 @@ window.addEventListener('load', function() {
 <?php unset($_SESSION['profile_error']); ?>
 <?php endif; ?>
 
-<!-- JavaScript محافظت غیرفعال شد - حالا فقط PHP کار می‌کند -->
-<!-- <script src="<?= BASE_URL ?>/assets/js/profile-protection.js"></script> -->
-
 <style>
 .avatar-circle {
     width: 100px;
