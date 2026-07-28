@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 22, 2026 at 08:52 PM
+-- Generation Time: Jul 28, 2026 at 07:04 PM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -371,14 +371,14 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `short_desc`, `sku`, `price`, `sale_price`, `discount_pct`, `stock_qty`, `main_image`, `gallery`, `rating_avg`, `rating_count`, `is_featured`, `season`, `is_active`, `views`, `created_at`, `updated_at`) VALUES
-(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 33, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 50, 1, 'autumn', 1, 122, '2026-06-09 15:55:19', '2026-07-22 21:34:14'),
-(2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 28, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 35, 1, 'autumn', 1, 19, '2026-06-09 15:55:19', '2026-07-22 09:33:09'),
-(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 18, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 4.70, 22, 1, 'autumn', 1, 108, '2026-06-09 15:55:19', '2026-07-22 10:23:57'),
+(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 33, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 50, 1, 'autumn', 1, 124, '2026-06-09 15:55:19', '2026-07-26 23:36:32'),
+(2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 28, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 35, 1, 'spring', 1, 27, '2026-06-09 15:55:19', '2026-07-26 23:15:45'),
+(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 18, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 4.70, 22, 1, 'summer', 1, 112, '2026-06-09 15:55:19', '2026-07-26 23:36:21'),
 (4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product-4-main.jpg', '[\"/assets/images/products/product-4-1.jpg\", \"/assets/images/products/product-4-2.jpg\", \"/assets/images/products/product-4-3.jpg\", \"/assets/images/products/product-4-4.jpg\"]', 4.30, 18, 1, 'autumn', 1, 3, '2026-06-09 15:55:19', '2026-07-22 10:59:55'),
-(5, 5, 'تراک‌شوت ورزشی مردانه', 'mens-tracksuit-sport', 'تراک‌شوت کامل مردانه مناسب ورزش و پیاده‌روی. شامل سویشرت و شلوار. جنس کجراه با طرح آستین راه‌راه.', 'تراک‌شوت کامل ورزشی', 'SKU-SP-001', 1800000, 1440000, 20, 25, '/assets/images/products/product-5-main.jpg', '[\"/assets/images/products/product-5-1.jpg\", \"/assets/images/products/product-5-2.jpg\", \"/assets/images/products/product-5-3.jpg\", \"/assets/images/products/product-5-4.jpg\"]', 4.20, 30, 1, 'autumn', 1, 1, '2026-06-09 15:55:19', '2026-07-07 14:36:12'),
-(6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product-6-main.jpg', '[\"/assets/images/products/product-6-1.jpg\", \"/assets/images/products/product-6-2.jpg\", \"/assets/images/products/product-6-3.jpg\", \"/assets/images/products/product-6-4.jpg\"]', 4.10, 45, 0, 'autumn', 1, 2, '2026-06-09 15:55:19', '2026-07-21 21:52:28'),
-(7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product-7-main.jpg', '[\"/assets/images/products/product-7-1.jpg\", \"/assets/images/products/product-7-2.jpg\", \"/assets/images/products/product-7-3.jpg\", \"/assets/images/products/product-7-4.jpg\"]', 4.60, 28, 0, 'autumn', 1, 1, '2026-06-09 15:55:19', '2026-07-22 09:29:03'),
-(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product-8-main.jpg', '[\"/assets/images/products/product-8-1.jpg\", \"/assets/images/products/product-8-2.jpg\", \"/assets/images/products/product-8-3.jpg\", \"/assets/images/products/product-8-4.jpg\"]', 0.00, 0, 0, 'autumn', 1, 3, '2026-06-09 15:55:19', '2026-07-21 21:52:28');
+(5, 5, 'تراک‌شوت ورزشی مردانه', 'mens-tracksuit-sport', 'تراک‌شوت کامل مردانه مناسب ورزش و پیاده‌روی. شامل سویشرت و شلوار. جنس کجراه با طرح آستین راه‌راه.', 'تراک‌شوت کامل ورزشی', 'SKU-SP-001', 1800000, 1440000, 20, 25, '/assets/images/products/product-5-main.jpg', '[\"/assets/images/products/product-5-1.jpg\", \"/assets/images/products/product-5-2.jpg\", \"/assets/images/products/product-5-3.jpg\", \"/assets/images/products/product-5-4.jpg\"]', 4.20, 30, 1, 'winter', 1, 5, '2026-06-09 15:55:19', '2026-07-23 01:19:25'),
+(6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product-6-main.jpg', '[\"/assets/images/products/product-6-1.jpg\", \"/assets/images/products/product-6-2.jpg\", \"/assets/images/products/product-6-3.jpg\", \"/assets/images/products/product-6-4.jpg\"]', 4.10, 45, 0, 'all', 1, 2, '2026-06-09 15:55:19', '2026-07-23 00:58:26'),
+(7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product-7-main.jpg', '[\"/assets/images/products/product-7-1.jpg\", \"/assets/images/products/product-7-2.jpg\", \"/assets/images/products/product-7-3.jpg\", \"/assets/images/products/product-7-4.jpg\"]', 4.60, 28, 0, 'spring', 1, 1, '2026-06-09 15:55:19', '2026-07-23 00:58:26'),
+(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product-8-main.jpg', '[\"/assets/images/products/product-8-1.jpg\", \"/assets/images/products/product-8-2.jpg\", \"/assets/images/products/product-8-3.jpg\", \"/assets/images/products/product-8-4.jpg\"]', 0.00, 0, 0, 'winter', 1, 3, '2026-06-09 15:55:19', '2026-07-23 00:58:26');
 
 -- --------------------------------------------------------
 
@@ -429,6 +429,34 @@ INSERT INTO `reviews` (`id`, `product_id`, `user_id`, `author_name`, `rating`, `
 (3, 2, NULL, 'مریم احمدی', 4, 'راحت و سبک', 'برای پیاده‌روی عالیه. پاهام خسته نمیشه.', 1, '2026-06-09 15:55:19'),
 (4, 3, NULL, 'رضا کریمی', 5, 'ساعت بینظیر', 'استیلش خیلی شیکه. همه ازش تعریف می‌کنن.', 1, '2026-06-09 15:55:19'),
 (5, 8, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 0, '2026-06-30 13:08:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `site_settings`
+--
+
+DROP TABLE IF EXISTS `site_settings`;
+CREATE TABLE IF NOT EXISTS `site_settings` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `setting_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `setting_value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci,
+  `setting_type` enum('text','number','boolean','json') CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT 'text',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `setting_key` (`setting_key`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+
+--
+-- Dumping data for table `site_settings`
+--
+
+INSERT INTO `site_settings` (`id`, `setting_key`, `setting_value`, `setting_type`, `description`, `updated_at`, `created_at`) VALUES
+(1, 'active_theme', 'spring', 'text', 'تم فعال سایت (autumn, winter, spring, summer)', '2026-07-23 14:44:29', '2026-07-23 00:55:20'),
+(2, 'theme_auto_detect', '1', 'boolean', 'تشخیص خودکار تم بر اساس فصل', NULL, '2026-07-23 00:55:20'),
+(3, 'theme_allow_user_choice', '1', 'boolean', 'اجازه انتخاب تم توسط کاربر', NULL, '2026-07-23 00:55:20');
 
 -- --------------------------------------------------------
 
@@ -502,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `address`, `postal_code`, `password_hash`, `full_name`, `profile_image`, `job`, `birth_date`, `avatar_url`, `role`, `is_active`, `email_verified`, `login_attempts`, `locked_until`, `last_login`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@autumnshop.ir', '09120000000', NULL, NULL, '$2y$12$ief.AmWpLNaKX12vFAG3j..g68qbjvh7CRuwgUOsc/LGxZD6ODBg.', 'مدیر سیستم', NULL, NULL, NULL, NULL, 'admin', 1, 1, 0, NULL, NULL, '2026-06-09 15:55:19', NULL),
-(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1784374579.jpg', 'دانشجو', NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-23 00:07:19', '2026-06-30 12:59:51', '2026-07-23 00:07:19'),
+(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1784374579.jpg', 'دانشجو', NULL, NULL, 'admin', 1, 0, 0, NULL, '2026-07-23 14:50:49', '2026-06-30 12:59:51', '2026-07-23 14:50:49'),
 (3, 'ali', 'ali@gmail.com', 'temp_3', NULL, NULL, '$2y$12$6.6NolqrdCRTJki0zuKERuru6LlcHAQHdw8UECeX1Rxjdma7ndCI.', NULL, NULL, NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-17 23:35:34', '2026-07-16 22:13:50', '2026-07-18 00:07:14'),
 (4, 'ali2', '', 'temp_4', NULL, NULL, '$2y$12$UWEQfVbOP6CrLnQLXFrG.OIofpW21Hhy3rRdOuspu7imKNN.w3ifu', NULL, NULL, NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, NULL, '2026-07-17 23:35:54', '2026-07-18 00:07:14'),
 (6, 'user89514957', '', '09929954843', NULL, NULL, '$2y$12$lVHhi1o0GOmbk.icGdKpKuv25RWQSf32DARjF4N85/w.feDLPWC96', NULL, NULL, NULL, NULL, NULL, 'customer', 1, 0, 4, NULL, '2026-07-18 00:24:49', '2026-07-18 00:07:54', '2026-07-22 09:35:35');
@@ -540,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_wish_user_product` (`user_id`,`product_id`),
   KEY `fk_wish_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `wishlist`
@@ -548,11 +576,11 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`, `added_at`) VALUES
 (41, 2, 3, '2026-07-07 15:23:02'),
-(42, 2, 4, '2026-07-07 15:44:33'),
 (43, 2, 5, '2026-07-07 15:44:34'),
 (46, 2, 8, '2026-07-07 15:44:38'),
 (47, 2, 1, '2026-07-08 10:41:01'),
-(48, 2, 2, '2026-07-22 10:20:10');
+(48, 2, 2, '2026-07-22 10:20:10'),
+(49, 2, 4, '2026-07-23 01:00:59');
 
 --
 -- Constraints for dumped tables
