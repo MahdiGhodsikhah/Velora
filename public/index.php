@@ -45,6 +45,7 @@ require_once BASE_PATH . '/config/routes.php';
 require_once BASE_PATH . '/src/Libs/Security.php';
 require_once BASE_PATH . '/src/Libs/jdf.php';
 require_once BASE_PATH . '/src/Libs/ImageUploader.php';
+require_once BASE_PATH . '/src/Libs/ThemeManager.php';
 require_once BASE_PATH . '/src/Models/UserModel.php';
 require_once BASE_PATH . '/src/Models/ProductModel.php';
 require_once BASE_PATH . '/src/Models/OrderModel.php';
@@ -57,6 +58,7 @@ require_once BASE_PATH . '/src/Controllers/UserController.php';
 require_once BASE_PATH . '/src/Controllers/CartController.php';
 require_once BASE_PATH . '/src/Controllers/CheckoutController.php';
 require_once BASE_PATH . '/src/Controllers/WishlistController.php';
+require_once BASE_PATH . '/src/Controllers/AdminController.php';
 
 // -------------------------------------------------------------------
 // روتینگ

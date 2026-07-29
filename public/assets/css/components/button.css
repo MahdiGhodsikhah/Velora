@@ -1,0 +1,66 @@
+.btn-mid-banner {
+    display:inline-flex; 
+    align-items:center; 
+    gap:8px;
+    background:#fff; 
+    color:var(--secondary); 
+    padding:14px 32px;
+    border-radius:var(--radius-full); 
+    font-weight:700; 
+    font-size:1rem;
+    transition:var(--transition);
+    box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-mid-banner::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--button-ripple);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-mid-banner:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-mid-banner:hover { 
+    background:var(--accent); 
+    transform:translateX(-4px) scale(1.05); 
+    box-shadow: var(--shadow-button);
+}
+
+.btn-cta-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gradient-primary);
+    color: #fff !important;
+    padding: 16px 40px;
+    border-radius: 999px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-button);
+    transition: all 0.3s ease;
+}
+
+.btn-cta-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-button-hover);
+}
+
+.btn-cta-modern i {
+    transition: transform 0.3s ease;
+}
+
+.btn-cta-modern:hover i {
+    transform: translateX(-5px);
+}

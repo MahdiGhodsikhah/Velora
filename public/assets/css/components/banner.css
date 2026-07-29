@@ -1,0 +1,70 @@
+.mid-banner {
+    margin:60px 0;
+    background:var(--gradient-banner);
+    border-radius:var(--radius-xl); 
+    overflow:hidden; 
+    position:relative;
+    box-shadow: var(--shadow-banner);
+}
+
+.mid-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--banner-pattern);
+    animation: bannerPattern 20s linear infinite;
+}
+
+.mid-banner-inner {
+    max-width:var(--container); 
+    margin-inline:auto; 
+    padding:60px 40px;
+    display:flex; 
+    align-items:center; 
+    justify-content:space-between;
+    position:relative; 
+    z-index:1;
+}
+
+.mid-banner-text { 
+    color:#fff; 
+    max-width:600px; 
+}
+
+.mid-banner-text h2 { 
+    font-size:2rem; 
+    font-weight:800; 
+    margin-bottom:12px; 
+    text-shadow: var(--text-shadow-strong);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+.mid-banner-text p { 
+    font-size:1.05rem; 
+    opacity:.9; 
+    margin-bottom:28px; 
+}
+
+.mid-banner-leaves {
+    position:absolute; 
+    inset:0; 
+    overflow:hidden; 
+    pointer-events:none;
+}
+
+.b-leaf {
+    position:absolute; 
+    font-size:3rem; 
+    animation:leafDrift 6s ease-in-out infinite;
+    opacity:.25;
+    filter: var(--leaf-glow);
+}
+
+.bl-1 { top:10%; left:5%; animation-delay:0s; font-size:2.5rem; color: var(--leaf-color-1); }
+.bl-2 { top:60%; left:15%; animation-delay:-2s; font-size:4rem; color: var(--leaf-color-2); }
+.bl-3 { top:30%; left:8%; animation-delay:-4s; font-size:2rem; color: var(--leaf-color-3); }
+.bl-4 { top:80%; right:10%; animation-delay:-1s; font-size:3rem; color: var(--leaf-color-4); }
+.bl-5 { top:20%; right:25%; animation-delay:-3s; font-size:2.5rem; color: var(--leaf-color-5); }

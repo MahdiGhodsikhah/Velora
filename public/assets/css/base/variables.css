@@ -1,0 +1,17 @@
+:root {
+    --transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    --transition-fast: all 0.2s ease;
+    
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-xl: 32px;
+    --radius-full: 9999px;
+    
+    --navbar-h: 72px;
+    --container: 1240px;
+    
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
+    --shadow-lg: 0 15px 40px rgba(0,0,0,0.12);
+}

@@ -1,0 +1,343 @@
+.auth-body {
+    background: var(--auth-body-bg);
+}
+
+.auth-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.auth-section .bg,
+.auth-section .trees {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.auth-section .trees {
+    z-index: 100;
+}
+
+.auth-section .girl {
+    position: absolute;
+    scale: 0.65;
+    pointer-events: none;
+    z-index: 50;
+    animation: animateGirl 10s linear infinite;
+}
+
+@keyframes animateGirl {
+    0% { transform: translateX(-100vw); }
+    100% { transform: translateX(calc(100% + 100vw)) rotateY(180deg); }
+}
+
+.auth-card {
+    position: relative;
+    z-index: 1000;
+    background: var(--auth-card-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--auth-card-border);
+    border-radius: var(--radius-xl);
+    padding: 48px 42px;
+    width: 90%;
+    max-width: 460px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--auth-card-shadow);
+}
+
+.auth-card::-webkit-scrollbar {
+    display: none;
+}
+
+.auth-card h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 28px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.inputBox {
+    position: relative;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--auth-input-bg);
+    border: 2px solid var(--auth-input-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+}
+
+.inputBox input:focus {
+    border-color: var(--primary);
+    box-shadow: var(--auth-input-focus-shadow);
+}
+
+.inputBox input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.inputBox input[type="submit"] {
+    background: var(--gradient-primary);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-size: 1.05rem;
+    padding: 16px;
+    margin-top: 8px;
+}
+
+.inputBox input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-button);
+}
+
+.inputBox.password-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputBox.password-field .password-wrapper {
+    position: relative;
+    display: block;
+}
+
+.inputBox.password-field .password-wrapper .toggle-password {
+    position: absolute !important;
+    left: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    cursor: pointer;
+    color: var(--auth-toggle-color);
+    font-size: 18px;
+    transition: all 0.3s ease;
+    z-index: 100 !important;
+    padding: 8px;
+    width: auto;
+    height: auto;
+    user-select: none;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    margin: 0 !important;
+    line-height: 1;
+}
+
+.inputBox.password-field .password-wrapper .toggle-password:hover {
+    color: var(--primary-dark);
+}
+
+.inputBox.password-field .password-wrapper input[type="password"],
+.inputBox.password-field .password-wrapper input[type="text"] {
+    padding-left: 45px !important;
+    padding-right: 18px !important;
+    width: 100%;
+}
+
+.inputBox.password-field .input-hint {
+    padding-left: 0;
+    display: block;
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.remember {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.remember label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.remember label input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+.group {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.88rem;
+}
+
+.group a {
+    color: var(--primary);
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.group a:hover {
+    color: var(--primary-dark);
+}
+
+.social {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.social p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    position: relative;
+}
+
+.social p::before,
+.social p::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: var(--auth-input-border);
+}
+
+.social p::before {
+    right: 0;
+}
+
+.social p::after {
+    left: 0;
+}
+
+.social .icons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.social .icons a {
+    width: 42px;
+    height: 42px;
+    border: 2px solid var(--auth-input-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: var(--transition-fast);
+}
+
+.social .icons a:hover {
+    background: var(--gradient-primary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: translateY(-3px);
+}
+
+.leaves {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.leaves .set {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.leaves .set div {
+    position: absolute;
+    display: block;
+}
+
+.leaves .set div:nth-child(1) {
+    animation: animate 15s linear infinite;
+    animation-delay: 0s;
+}
+
+.leaves .set div:nth-child(2) {
+    animation: animate 20s linear infinite;
+    animation-delay: -5s;
+}
+
+.leaves .set div:nth-child(3) {
+    animation: animate 25s linear infinite;
+    animation-delay: -10s;
+}
+
+.leaves .set div:nth-child(4) {
+    animation: animate 18s linear infinite;
+    animation-delay: -3s;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        top: -10%;
+        transform: translateX(20px) rotate(0deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        top: 110%;
+        transform: translateX(-20px) rotate(360deg);
+    }
+}
+
+.leaves .set div img {
+    max-width: 50px;
+    filter: var(--leaf-glow);
+}
+
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 40px 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 32px 22px;
+    }
+}

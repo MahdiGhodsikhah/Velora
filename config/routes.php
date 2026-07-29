@@ -52,7 +52,9 @@ $routes = [
     'POST:/wishlist/toggle'     => ['WishlistController', 'toggle'],
     'GET:/wishlist/status'      => ['WishlistController', 'getStatus'],
 
-    // 404
+    'GET:/admin/theme-settings' => ['AdminController', 'themeSettings'],
+    'POST:/admin/theme-settings' => ['AdminController', 'themeSettings'],
+
     'GET:/404'                  => ['ErrorController', 'notFound'],
 ];
 

@@ -1,0 +1,103 @@
+:root {
+    --primary: #d97706;
+    --primary-dark: #92400e;
+    --primary-light: #fbbf24;
+    --secondary: #78350f;
+    --accent: #f59e0b;
+    --accent-light: #fde047;
+    
+    --body-bg: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%);
+    --body-overlay: radial-gradient(circle at 20% 50%, rgba(217, 119, 6, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(185, 28, 28, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+    
+    --card-bg: #ffffff;
+    --card-overlay: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(217, 119, 6, 0.05));
+    
+    --text-dark: #451a03;
+    --text-muted: #78350f;
+    --text-light: #92400e;
+    
+    --border-color: #fed7aa;
+    --border-light: rgba(217, 119, 6, 0.1);
+    
+    --shadow-primary: 0 15px 40px rgba(217, 119, 6, 0.35);
+    --shadow-icon: 0 8px 20px rgba(217, 119, 6, 0.4);
+    --shadow-button: 0 10px 30px rgba(217, 119, 6, 0.4);
+    --shadow-button-hover: 0 15px 45px rgba(217, 119, 6, 0.5);
+    --shadow-strip: 0 4px 20px rgba(120, 53, 15, 0.3);
+    --shadow-banner: 0 20px 60px rgba(120, 53, 15, 0.4);
+    
+    --gradient-primary: linear-gradient(135deg, #d97706, #92400e);
+    --gradient-secondary: linear-gradient(135deg, #fbbf24, #dc2626);
+    --gradient-banner: linear-gradient(135deg, #78350f 0%, #92400e 35%, #b91c1c 65%, #dc2626 100%);
+    
+    --button-ripple: rgba(217, 119, 6, 0.2);
+    --strip-shimmer: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+    --banner-pattern: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(245, 158, 11, 0.05) 10px, rgba(245, 158, 11, 0.05) 20px);
+    
+    --icon-glow: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+    --leaf-glow: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+    --text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    --text-shadow-strong: 0 4px 15px rgba(0,0,0,0.3);
+    --glow-color: rgba(245, 158, 11, 0.6);
+    
+    --leaf-color-1: #d97706;
+    --leaf-color-2: #dc2626;
+    --leaf-color-3: #fbbf24;
+    --leaf-color-4: #ea580c;
+    --leaf-color-5: #f59e0b;
+    
+    --hero-bg: linear-gradient(160deg, #451a03 0%, #78350f 30%, #92400e 60%, #b45309 100%);
+    --hero-overlay: radial-gradient(ellipse at 20% 50%, rgba(217, 119, 6, 0.3) 0%, transparent 60%),
+                    radial-gradient(ellipse at 80% 20%, rgba(220, 38, 38, 0.25) 0%, transparent 50%);
+    --hero-leaf-bg: linear-gradient(135deg, rgba(217, 119, 6, 0.15), rgba(220, 38, 38, 0.1));
+    
+    --badge-bg: rgba(217, 119, 6, 0.2);
+    --badge-text: #fbbf24;
+    --badge-border: rgba(251, 191, 36, 0.3);
+    --breadcrumb-link: #fbbf24;
+    
+    --label-bg: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(217, 119, 6, 0.05));
+    --label-border: rgba(217, 119, 6, 0.2);
+    
+    --section-bg-gradient: linear-gradient(180deg, var(--body-bg) 0%, #fff9f0 100%);
+    --stats-bg: linear-gradient(180deg, transparent 0%, #fff5eb 50%, transparent 100%);
+    --contact-bg: linear-gradient(180deg, transparent 0%, #fff9f0 100%);
+    
+    --footer-bg: linear-gradient(160deg, #1c0a00, #3d1f00, #5a2e10, #713f12);
+    --footer-text: #f5e6d3;
+    --footer-overlay: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(217, 119, 6, 0.03) 2px, rgba(217, 119, 6, 0.03) 4px);
+    --footer-logo-color: #f5e6d3;
+    --footer-logo-glow: drop-shadow(0 0 15px rgba(245, 158, 11, 0.8));
+    --footer-text-glow: 0 0 10px rgba(251, 191, 36, 0.5);
+    --footer-social-bg: rgba(217, 119, 6, 0.2);
+    --footer-social-color: #fbbf24;
+    --footer-border: rgba(255, 255, 255, 0.1);
+    --footer-leaf-bg: linear-gradient(135deg, #d97706, #dc2626);
+    
+    --auth-body-bg: #1a0a00;
+    --auth-card-bg: rgba(255, 248, 240, 0.96);
+    --auth-card-border: #ffd79c;
+    --auth-card-shadow: 0 25px 60px rgba(139, 69, 19, 0.25);
+    --auth-input-bg: rgba(255, 255, 255, 0.8);
+    --auth-input-border: rgba(217, 119, 6, 0.3);
+    --auth-input-focus-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+    --auth-toggle-color: #8b5a3a;
+}
+
+.season-autumn:hover::before,
+.season-autumn.active::before {
+    background: linear-gradient(135deg, #d97706, #92400e);
+}
+.season-autumn:hover,
+.season-autumn.active {
+    color: #fff;
+}
+.season-autumn i {
+    color: #d97706;
+}
+.season-autumn:hover i,
+.season-autumn.active i {
+    color: #fbbf24;
+}

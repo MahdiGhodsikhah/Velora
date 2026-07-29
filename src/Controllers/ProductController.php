@@ -63,7 +63,6 @@ class ProductController {
     public function show(string $slug): void {
         Security::set_security_headers();
 
-        // اعتبارسنجی slug
         $slug = preg_replace('/[^a-z0-9\-]/', '', strtolower(trim($slug)));
         if (empty($slug)) {
             $this->notFound();
@@ -76,22 +75,23 @@ class ProductController {
             return;
         }
 
+        if (!empty($product['season'])) {
+            $themeManager = ThemeManager::getInstance();
+            $themeManager->setProductTheme($product['season']);
+        }
+
         $this->productModel->incrementViews((int)$product['id']);
         $product['gallery_arr'] = json_decode($product['gallery'] ?? '[]', true) ?: [];
         $reviews    = $this->productModel->getReviews((int)$product['id']);
         $categories = $this->productModel->getCategories();
 
-        // دریافت محصولات مشابه بر اساس فصل
         $similarProducts = [];
         if (!empty($product['season'])) {
             $allSimilar = $this->productModel->getBySeason($product['season'], 9);
-            // حذف محصول فعلی از لیست
             $filtered = array_filter($allSimilar, function($p) use ($product) {
                 return $p['id'] != $product['id'];
             });
-            // Re-index array و محدود کردن به 8 محصول
             $similarProducts = array_values(array_slice($filtered, 0, 8));
-            // پردازش گالری
             foreach ($similarProducts as &$p) {
                 $p['gallery_arr'] = json_decode($p['gallery'] ?? '[]', true) ?: [];
             }
@@ -101,7 +101,6 @@ class ProductController {
         $pageTitle = Security::e($product['name']) . ' - فروشگاه پاییزی';
         $pageDesc  = Security::e($product['short_desc'] ?? $product['name']);
 
-        // استفاده از minimal-header برای حذف Hero و دسته‌بندی‌ها
         require BASE_PATH . '/src/Views/layouts/minimal-header.php';
         require BASE_PATH . '/src/Views/layouts/navbar.php';
         require BASE_PATH . '/src/Views/pages/product-single.php';

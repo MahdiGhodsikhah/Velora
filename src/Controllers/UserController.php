@@ -90,7 +90,6 @@ class UserController {
 
         $userId = (int)$_SESSION['user_id'];
 
-        // Rate Limiting ساده - فقط PHP (3 ثانیه بین هر درخواست)
         if (!isset($_SESSION['last_profile_update'])) {
             $_SESSION['last_profile_update'] = 0;
         }
@@ -173,31 +172,36 @@ class UserController {
             'postal_code' => $postalCode
         ];
         
-        // به‌روزرسانی نام کاربری اگر تغییر کرده باشد
+        if (isset($_POST['preferred_theme'])) {
+            $theme = trim($_POST['preferred_theme']);
+            $validThemes = ['automatic', 'spring', 'summer', 'autumn', 'winter'];
+            if (in_array($theme, $validThemes)) {
+                $themeField = db_escape($theme);
+                db_query("UPDATE `users` SET `preferred_theme` = '$themeField' WHERE `id` = $userId");
+            }
+        }
+        
         $currentUser = $this->userModel->getById($userId);
         if (!empty($username) && $username !== $currentUser['username']) {
             $usernameChanged = $this->userModel->changeUsername($userId, $username);
             if ($usernameChanged) {
-                $_SESSION['username'] = $username; // به‌روزرسانی session
+                $_SESSION['username'] = $username;
             }
         }
         
-        // مدیریت عکس پروفایل
         $user = $this->userModel->getById($userId);
         
-        // حذف عکس پروفایل
         if (isset($_POST['remove_profile_image']) && $_POST['remove_profile_image'] === '1') {
             if (!empty($user['profile_image'])) {
                 ImageUploader::deleteProfileImage($user['profile_image']);
             }
             $data['profile_image'] = null;
         }
-        // آپلود عکس جدید - فقط اگر واقعا فایلی آپلود شده باشد
         elseif (!empty($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
             $uploadResult = ImageUploader::uploadProfileImage(
                 $_FILES['profile_image'], 
                 $userId,
-                $user['username'] ?? '' // ارسال نام کاربر
+                $user['username'] ?? ''
             );
             
             if ($uploadResult['success']) {

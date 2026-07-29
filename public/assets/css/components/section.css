@@ -1,0 +1,101 @@
+.section-title {
+    text-align:center; 
+    font-size:1.6rem; 
+    font-weight:700;
+    color:var(--secondary); 
+    margin-bottom:36px;
+    display:flex; 
+    align-items:center; 
+    justify-content:center; 
+    gap:10px;
+}
+
+.title-icon { 
+    color:var(--primary); 
+    font-size:1.4rem; 
+}
+
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--label-bg);
+    padding: 8px 16px;
+    border-radius: 999px;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border: 1px solid var(--label-border);
+}
+
+.about-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    color: var(--secondary);
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.title-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.section-title-big {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 900;
+    color: var(--secondary);
+    margin-bottom: 16px;
+}
+
+.section-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.categories-section { 
+    padding:60px 0 30px; 
+}
+
+.categories-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:16px; 
+    margin-top:24px;
+}
+
+.blog-section {
+    padding: 60px 0;
+    background: var(--section-bg-gradient);
+}
+
+.about-page {
+    padding: 80px 0;
+    background: var(--body-bg);
+}
+
+.about-intro {
+    padding: 0 0 80px;
+}
+
+.about-stats-modern {
+    padding: 60px 0;
+    background: var(--stats-bg);
+}
+
+.about-features-modern {
+    padding: 80px 0;
+}
+
+.about-contact-modern {
+    padding: 80px 0;
+    background: var(--contact-bg);
+}
+
+.products-page { 
+    padding-bottom:60px; 
+}

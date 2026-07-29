@@ -188,6 +188,19 @@
                                            placeholder="1234567890">
                                     <small class="text-muted">کد پستی 10 رقمی</small>
                                 </div>
+                                
+                                <!-- انتخاب تم -->
+                                <div class="col-md-6">
+                                    <label for="preferred_theme" class="form-label">تم دلخواه</label>
+                                    <select class="form-select" id="preferred_theme" name="preferred_theme">
+                                        <option value="automatic" <?= ($user['preferred_theme'] ?? 'automatic') === 'automatic' ? 'selected' : '' ?>>خودکار (بر اساس فصل)</option>
+                                        <option value="spring" <?= ($user['preferred_theme'] ?? '') === 'spring' ? 'selected' : '' ?>>بهار</option>
+                                        <option value="summer" <?= ($user['preferred_theme'] ?? '') === 'summer' ? 'selected' : '' ?>>تابستان</option>
+                                        <option value="autumn" <?= ($user['preferred_theme'] ?? '') === 'autumn' ? 'selected' : '' ?>>پاییز</option>
+                                        <option value="winter" <?= ($user['preferred_theme'] ?? '') === 'winter' ? 'selected' : '' ?>>زمستان</option>
+                                    </select>
+                                    <small class="text-muted">انتخاب ظاهر سایت</small>
+                                </div>
 
                                 <!-- آدرس -->
                                 <div class="col-12">
