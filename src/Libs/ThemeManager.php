@@ -33,7 +33,15 @@ class ThemeManager {
     }
     
     private function resolveTheme(): string {
+        if (isset($_SESSION['user_selected_theme'])) {
+            $theme = $_SESSION['user_selected_theme'];
+            if (in_array($theme, $this->availableThemes)) {
+                return $theme;
+            }
+        }
+        
         if (isset($_GET['theme']) && in_array($_GET['theme'], $this->availableThemes)) {
+            $_SESSION['user_selected_theme'] = $_GET['theme'];
             return $_GET['theme'];
         }
         
@@ -86,9 +94,15 @@ class ThemeManager {
     
     public function setProductTheme(?string $season): void {
         if ($season && in_array($season, $this->availableThemes)) {
+            unset($_SESSION['user_selected_theme']);
             $_SESSION['product_theme'] = $season;
             $this->activeTheme = $season;
         }
+    }
+    
+    public function clearUserSelectedTheme(): void {
+        unset($_SESSION['user_selected_theme']);
+        $this->activeTheme = $this->resolveTheme();
     }
     
     public function getThemeCssPath(): string {

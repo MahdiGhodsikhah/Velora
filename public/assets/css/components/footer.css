@@ -121,8 +121,35 @@
 }
 
 .footer-social a:hover {
-    transform: translateY(-4px) scale(1.1) rotate(360deg);
+    transform: translateY(-4px) scale(1.1);
     box-shadow: var(--shadow-icon);
+}
+
+.footer-social a[href*="instagram"]:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+}
+
+.footer-social a[href*="instagram"]:hover::before {
+    display: none;
+}
+
+.footer-social a[href*="telegram"]:hover {
+    background: #0088cc;
+    color: #fff;
+}
+
+.footer-social a[href*="telegram"]:hover::before {
+    display: none;
+}
+
+.footer-social a[href*="whatsapp"]:hover {
+    background: #25d366;
+    color: #fff;
+}
+
+.footer-social a[href*="whatsapp"]:hover::before {
+    display: none;
 }
 
 .footer-heading {

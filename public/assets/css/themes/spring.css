@@ -65,6 +65,22 @@
     --stats-bg: linear-gradient(180deg, transparent 0%, #d1fae5 50%, transparent 100%);
     --contact-bg: linear-gradient(180deg, transparent 0%, #ecfdf5 100%);
     
+    --navbar-bg: rgba(236, 253, 245, 0.98);
+    --navbar-bg-scrolled: rgba(236, 253, 245, 1);
+    --navbar-border: rgba(16, 185, 129, 0.2);
+    --navbar-border-scrolled: rgba(16, 185, 129, 0.3);
+    --navbar-shadow: 0 4px 30px rgba(6, 95, 70, 0.15);
+    --navbar-shadow-scrolled: 0 6px 40px rgba(6, 95, 70, 0.25);
+    --navbar-text: #064e3b;
+    --navbar-link: #064e3b;
+    --navbar-icon-bg: rgba(16, 185, 129, 0.1);
+    --navbar-icon-color: #064e3b;
+    --navbar-dropdown-border: rgba(16, 185, 129, 0.3);
+    --navbar-dropdown-hover: rgba(16, 185, 129, 0.1);
+    --navbar-dropdown-active: rgba(16, 185, 129, 0.15);
+    --logo-glow: 0 0 10px rgba(16, 185, 129, 0.3);
+    --shadow-icon-hover: 0 8px 30px rgba(167, 243, 208, 0.8);
+    
     --footer-bg: linear-gradient(160deg, #064e3b, #065f46, #047857, #059669);
     --footer-text: #d1fae5;
     --footer-overlay: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(16, 185, 129, 0.03) 2px, rgba(16, 185, 129, 0.03) 4px);

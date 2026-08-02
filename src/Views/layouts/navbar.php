@@ -44,6 +44,53 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
 
         <!-- بخش راست نوار ناوبری -->
         <div class="navbar-actions">
+            <!-- Theme Switcher -->
+            <?php 
+            $themeManager = ThemeManager::getInstance();
+            $currentTheme = $themeManager->getActiveTheme();
+            $themeIcons = [
+                'spring' => 'fa-seedling',
+                'summer' => 'fa-sun',
+                'autumn' => 'fa-leaf',
+                'winter' => 'fa-snowflake'
+            ];
+            $themeNames = [
+                'spring' => 'بهار',
+                'summer' => 'تابستان',
+                'autumn' => 'پاییز',
+                'winter' => 'زمستان'
+            ];
+            ?>
+            <div class="theme-switcher has-dropdown">
+                <button class="icon-btn theme-btn" aria-label="تغییر تم" aria-expanded="false">
+                    <i class="fas <?= $themeIcons[$currentTheme] ?? 'fa-palette' ?>" aria-hidden="true"></i>
+                    <i class="fas fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-theme" role="menu">
+                    <li class="theme-menu-header">انتخاب تم</li>
+                    <li role="none" class="<?= $currentTheme === 'spring' ? 'active' : '' ?>">
+                        <a href="?theme=spring" role="menuitem" class="theme-spring">
+                            <i class="fas fa-seedling" aria-hidden="true"></i> بهار
+                        </a>
+                    </li>
+                    <li role="none" class="<?= $currentTheme === 'summer' ? 'active' : '' ?>">
+                        <a href="?theme=summer" role="menuitem" class="theme-summer">
+                            <i class="fas fa-sun" aria-hidden="true"></i> تابستان
+                        </a>
+                    </li>
+                    <li role="none" class="<?= $currentTheme === 'autumn' ? 'active' : '' ?>">
+                        <a href="?theme=autumn" role="menuitem" class="theme-autumn">
+                            <i class="fas fa-leaf" aria-hidden="true"></i> پاییز
+                        </a>
+                    </li>
+                    <li role="none" class="<?= $currentTheme === 'winter' ? 'active' : '' ?>">
+                        <a href="?theme=winter" role="menuitem" class="theme-winter">
+                            <i class="fas fa-snowflake" aria-hidden="true"></i> زمستان
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
             <!-- جستجو -->
             <div class="search-wrap">
                 <button class="icon-btn search-toggle" aria-label="جستجو" aria-expanded="false">
@@ -141,6 +188,14 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
             <li><a href="<?= $base ?>/products?season=summer"><i class="fas fa-sun"></i> محصولات تابستانی</a></li>
             <li><a href="<?= $base ?>/products?season=winter"><i class="fas fa-snowflake"></i> محصولات زمستانی</a></li>
             <li><a href="<?= $base ?>/about"><i class="fas fa-info-circle"></i> درباره ما</a></li>
+            
+            <!-- Theme Switcher Mobile -->
+            <li class="mobile-theme-header">انتخاب تم</li>
+            <li><a href="?theme=spring" class="theme-spring"><i class="fas fa-seedling"></i> بهار</a></li>
+            <li><a href="?theme=summer" class="theme-summer"><i class="fas fa-sun"></i> تابستان</a></li>
+            <li><a href="?theme=autumn" class="theme-autumn"><i class="fas fa-leaf"></i> پاییز</a></li>
+            <li><a href="?theme=winter" class="theme-winter"><i class="fas fa-snowflake"></i> زمستان</a></li>
+            
             <?php if ($loggedIn): ?>
             <li><a href="<?= $base ?>/dashboard"><i class="fas fa-th-large"></i> پنل کاربری</a></li>
             <li><a href="<?= $base ?>/profile"><i class="fas fa-user-edit"></i> ویرایش حساب</a></li>
