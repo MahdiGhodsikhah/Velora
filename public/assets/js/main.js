@@ -86,61 +86,26 @@ $(document).ready(function () {
     });
 
     // =================================================================
-    // Dropdown منوها (دسته‌بندی و کاربر)
+    // Dropdown منوها - فقط برای کلیک خارج
     // =================================================================
     
-    console.log('🔧 Setting up dropdown handlers...');
-    console.log('Found dropdowns:', $('.has-dropdown').length);
-    console.log('Found dropdown buttons:', $('.has-dropdown > button').length);
-    console.log('Found dropdown links:', $('.has-dropdown > a').length);
-    
-    // Toggle dropdown با کلیک
-    $('.has-dropdown > a, .has-dropdown > button').on('click', function(e) {
-        console.log('🖱️ Dropdown clicked!', $(this).text());
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const $parent = $(this).parent('.has-dropdown');
-        const isOpen = $parent.hasClass('open');
-        
-        console.log('Current state:', isOpen ? 'open' : 'closed');
-        console.log('Parent element:', $parent[0]);
-        
-        // بستن همه dropdownها
-        $('.has-dropdown').removeClass('open');
-        $('.has-dropdown > a, .has-dropdown > button').attr('aria-expanded', 'false');
-        
-        // باز کردن این dropdown
-        if (!isOpen) {
-            $parent.addClass('open');
-            $(this).attr('aria-expanded', 'true');
-            console.log('✅ Dropdown opened! Classes:', $parent.attr('class'));
-            
-            // بررسی dropdown menu
-            const $menu = $parent.find('.dropdown-menu');
-            console.log('Dropdown menu found:', $menu.length);
-            console.log('Dropdown menu styles:', {
-                display: $menu.css('display'),
-                opacity: $menu.css('opacity'),
-                visibility: $menu.css('visibility'),
-                position: $menu.css('position')
-            });
-        } else {
-            console.log('❌ Dropdown closed!');
-        }
-    });
-    
-    // بستن dropdown با کلیک خارج
+    // بستن dropdown با کلیک خارج (فقط برای موبایل)
     $(document).on('click', function(e) {
-        if (!$(e.target).closest('.has-dropdown').length) {
-            $('.has-dropdown').removeClass('open');
-            $('.has-dropdown > a, .has-dropdown > button').attr('aria-expanded', 'false');
+        if ($(window).width() < 1024) {
+            if (!$(e.target).closest('.has-dropdown').length) {
+                $('.has-dropdown').removeClass('clicked');
+            }
         }
     });
     
-    // جلوگیری از بسته شدن با کلیک داخل dropdown
-    $('.dropdown-menu').on('click', function(e) {
-        e.stopPropagation();
+    // Toggle با کلیک در موبایل
+    $('.has-dropdown > a, .has-dropdown > button').on('click', function(e) {
+        if ($(window).width() < 1024) {
+            e.preventDefault();
+            const $parent = $(this).parent('.has-dropdown');
+            $parent.toggleClass('clicked');
+            $('.has-dropdown').not($parent).removeClass('clicked');
+        }
     });
 
     // =================================================================

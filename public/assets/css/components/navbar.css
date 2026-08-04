@@ -116,16 +116,17 @@
 
 .dropdown-arrow {
     font-size: 0.65rem;
-    transition: transform 0.25s;
+    transition: transform 0.25s ease;
 }
 
-.has-dropdown:hover .dropdown-arrow {
+.has-dropdown:hover .dropdown-arrow,
+.has-dropdown.clicked .dropdown-arrow {
     transform: rotate(-180deg);
 }
 
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 4px);
     right: 0;
     left: auto;
     background: var(--card-bg);
@@ -140,15 +141,47 @@
     transform: translateY(-10px);
     pointer-events: none;
     z-index: 999;
-    transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
-    display: block !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    display: none;
 }
 
-.has-dropdown.open .dropdown-menu {
+/* ایجاد پل نامرئی بین trigger و dropdown */
+.has-dropdown::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: transparent;
+    z-index: 998;
+}
+
+/* Hover در دسکتاپ */
+.has-dropdown:hover > .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
+    display: block;
+}
+
+/* کلیک در موبایل */
+.has-dropdown.clicked > .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    display: block;
+}
+
+/* نگه داشتن dropdown باز وقتی ماوس روی menu است */
+.dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    display: block;
 }
 
 html[dir="rtl"] .dropdown-menu {
@@ -159,48 +192,6 @@ html[dir="rtl"] .dropdown-menu {
 html[dir="rtl"] .dropdown-user {
     left: 0;
     right: auto;
-}
-
-.has-dropdown::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    height: 12px;
-    background: transparent;
-    z-index: 9998;
-    display: block;
-}
-
-.has-dropdown:hover,
-.has-dropdown:focus-within,
-.has-dropdown.open {
-    position: relative;
-}
-
-.has-dropdown:hover > .dropdown-menu,
-.has-dropdown:focus-within > .dropdown-menu,
-.has-dropdown.open > .dropdown-menu,
-.has-dropdown > .dropdown-menu:hover {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
-    pointer-events: auto !important;
-}
-
-.user-menu:hover > .dropdown-menu,
-.user-menu:focus-within > .dropdown-menu,
-.theme-switcher:hover > .dropdown-menu,
-.theme-switcher:focus-within > .dropdown-menu {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
-    pointer-events: auto !important;
-}
-
-.has-dropdown.open .dropdown-arrow {
-    transform: rotate(-180deg);
 }
 
 .dropdown-menu a {
