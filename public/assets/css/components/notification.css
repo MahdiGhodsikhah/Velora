@@ -29,6 +29,7 @@
 .notification-success {
     border-color: #10b981;
     color: #065f46;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
 }
 
 .notification-success i {
@@ -38,10 +39,21 @@
 .notification-error {
     border-color: #ef4444;
     color: #7f1d1d;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
 }
 
 .notification-error i {
     color: #ef4444;
+}
+
+.notification-info {
+    border-color: var(--primary);
+    color: var(--text-dark);
+    background: var(--label-bg);
+}
+
+.notification-info i {
+    color: var(--primary);
 }
 
 @media (max-width: 768px) {

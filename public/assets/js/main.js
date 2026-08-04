@@ -144,6 +144,36 @@ $(document).ready(function () {
     });
 
     // =================================================================
+    // Theme Switcher - Handle page reload for theme change
+    // =================================================================
+    
+    $('.dropdown-theme a').on('click', function(e) {
+        e.preventDefault();
+        const themeUrl = $(this).attr('href');
+        
+        // نمایش loading
+        const $btn = $('.theme-btn');
+        const originalIcon = $btn.find('i').first().attr('class');
+        $btn.find('i').first().attr('class', 'fas fa-spinner fa-spin');
+        
+        // انتقال به URL جدید (باعث reload صفحه می‌شود)
+        window.location.href = themeUrl;
+    });
+    
+    // Theme Switcher Mobile
+    $('.mobile-menu a[href*="theme="]').on('click', function(e) {
+        e.preventDefault();
+        const themeUrl = $(this).attr('href');
+        
+        // نمایش loading
+        const $hamburger = $('#hamburgerBtn');
+        $hamburger.addClass('loading');
+        
+        // انتقال به URL جدید
+        window.location.href = themeUrl;
+    });
+
+    // =================================================================
     // ۲. هدر انیمیشنی - برگ‌های ریزان (با Font Awesome)
     // =================================================================
     const leafIcons = ['fas fa-leaf', 'fas fa-seedling', 'fab fa-pagelines', 'fas fa-spa'];

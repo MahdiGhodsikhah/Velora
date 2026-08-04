@@ -33,21 +33,21 @@ class ThemeManager {
     }
     
     private function resolveTheme(): string {
-        if (isset($_SESSION['user_selected_theme'])) {
-            $theme = $_SESSION['user_selected_theme'];
-            if (in_array($theme, $this->availableThemes)) {
-                return $theme;
-            }
-        }
-        
         if (isset($_GET['theme']) && in_array($_GET['theme'], $this->availableThemes)) {
             $_SESSION['user_selected_theme'] = $_GET['theme'];
+            unset($_SESSION['product_theme']);
             return $_GET['theme'];
         }
         
         if (isset($_SESSION['product_theme'])) {
             $theme = $_SESSION['product_theme'];
-            unset($_SESSION['product_theme']);
+            if (in_array($theme, $this->availableThemes)) {
+                return $theme;
+            }
+        }
+        
+        if (isset($_SESSION['user_selected_theme'])) {
+            $theme = $_SESSION['user_selected_theme'];
             if (in_array($theme, $this->availableThemes)) {
                 return $theme;
             }

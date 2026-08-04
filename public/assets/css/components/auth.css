@@ -36,11 +36,20 @@
 }
 
 @keyframes animateGirl {
-    0% { 
-        transform: translateX(-100vw); 
+    0% {
+        transform: translateX(calc(100% + 100vw));
     }
-    100% { 
-        transform: translateX(calc(100% + 100vw)) rotateY(180deg); 
+
+    50% {
+        transform: translateX(calc(-100% - 100vw));
+    }
+
+    50.01% {
+        transform: translateX(calc(-100% - 100vw)) rotateY(180deg);
+    }
+
+    100% {
+        transform: translateX(calc(100% + 100vw)) rotateY(180deg);
     }
 }
 
