@@ -248,6 +248,8 @@ $(document).ready(function () {
     let slideTimer   = null;
     const $slides    = $('.hero-slide');
     const $dots      = $('.hero-dot');
+    const $arrowPrev = $('.hero-arrow-prev');
+    const $arrowNext = $('.hero-arrow-next');
     const SLIDE_DELAY = 5000;
 
     function goToSlide(index) {
@@ -268,37 +270,43 @@ $(document).ready(function () {
     }
 
     if ($slides.length > 1) {
+        // دات‌ها
         $dots.on('click', function () {
             goToSlide($(this).data('slide'));
             startSlideTimer();
         });
 
-        $('.hero-next').on('click', function () {
-            goToSlide(currentSlide + 1);
-            startSlideTimer();
-        });
-
-        $('.hero-prev').on('click', function () {
+        // فلش قبلی
+        $arrowPrev.on('click', function () {
             goToSlide(currentSlide - 1);
             startSlideTimer();
         });
 
-        // keyboard navigation
+        // فلش بعدی
+        $arrowNext.on('click', function () {
+            goToSlide(currentSlide + 1);
+            startSlideTimer();
+        });
+
+        // کیبورد ناوبری
         $(document).on('keydown', function (e) {
-            if ($('.hero-banner-slider').length) {
-                if (e.key === 'ArrowLeft')  { goToSlide(currentSlide + 1); startSlideTimer(); }
-                if (e.key === 'ArrowRight') { goToSlide(currentSlide - 1); startSlideTimer(); }
+            if (e.key === 'ArrowRight') {
+                goToSlide(currentSlide - 1);
+                startSlideTimer();
+            } else if (e.key === 'ArrowLeft') {
+                goToSlide(currentSlide + 1);
+                startSlideTimer();
             }
         });
 
-        startSlideTimer();
-
-        // پوز روی hover
+        // Pause اسلایدر با هاور
         $('.hero-banner-slider').on('mouseenter', function () {
             clearInterval(slideTimer);
         }).on('mouseleave', function () {
             startSlideTimer();
         });
+
+        startSlideTimer();
     }
 
     // =================================================================
