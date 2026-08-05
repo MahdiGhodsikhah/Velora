@@ -86,26 +86,42 @@ $(document).ready(function () {
     });
 
     // =================================================================
-    // Dropdown منوها - فقط برای کلیک خارج
+    // Dropdown منوها - Hover + Click
     // =================================================================
     
-    // بستن dropdown با کلیک خارج (فقط برای موبایل)
+    // نگه داشتن dropdown باز وقتی ماوس روی menu است
+    $('.dropdown-menu').on('mouseenter', function() {
+        $(this).parent('.has-dropdown').addClass('keep-open');
+    });
+    
+    $('.dropdown-menu').on('mouseleave', function() {
+        $(this).parent('.has-dropdown').removeClass('keep-open');
+    });
+    
+    // Toggle با کلیک
+    $('.has-dropdown > a, .has-dropdown > button').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const $parent = $(this).parent('.has-dropdown');
+        
+        // بستن سایر dropdownها
+        $('.has-dropdown').not($parent).removeClass('clicked keep-open');
+        
+        // Toggle این dropdown
+        $parent.toggleClass('clicked');
+    });
+    
+    // بستن dropdown با کلیک خارج
     $(document).on('click', function(e) {
-        if ($(window).width() < 1024) {
-            if (!$(e.target).closest('.has-dropdown').length) {
-                $('.has-dropdown').removeClass('clicked');
-            }
+        if (!$(e.target).closest('.has-dropdown').length) {
+            $('.has-dropdown').removeClass('clicked keep-open');
         }
     });
     
-    // Toggle با کلیک در موبایل
-    $('.has-dropdown > a, .has-dropdown > button').on('click', function(e) {
-        if ($(window).width() < 1024) {
-            e.preventDefault();
-            const $parent = $(this).parent('.has-dropdown');
-            $parent.toggleClass('clicked');
-            $('.has-dropdown').not($parent).removeClass('clicked');
-        }
+    // جلوگیری از بسته شدن با کلیک داخل dropdown
+    $('.dropdown-menu').on('click', function(e) {
+        e.stopPropagation();
     });
 
     // =================================================================
