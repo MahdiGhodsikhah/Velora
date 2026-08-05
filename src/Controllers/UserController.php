@@ -17,6 +17,10 @@ class UserController {
         $this->checkAuth();
         Security::set_security_headers();
 
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
+
         $userId = (int)$_SESSION['user_id'];
         $user   = $this->userModel->getById($userId);
 
@@ -410,6 +414,10 @@ class UserController {
         $this->checkAuth();
         Security::set_security_headers();
 
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
+
         $userId = (int)$_SESSION['user_id'];
         $wishlistProducts = $this->userModel->getWishlist($userId);
 
@@ -433,6 +441,10 @@ class UserController {
     public function orders(): void {
         $this->checkAuth();
         Security::set_security_headers();
+
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
 
         $userId = (int)$_SESSION['user_id'];
         $orderModel = new OrderModel();

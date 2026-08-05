@@ -1,0 +1,339 @@
+/* =======================================
+   استایل‌های ریسپانسیو کلی
+   ======================================= */
+
+/* تضمین عدم Horizontal Scroll */
+* {
+    max-width: 100%;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+}
+
+/* اطمینان از responsive بودن تصاویر */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Container ها */
+.container,
+.section-container {
+    width: 100%;
+    max-width: var(--container);
+    padding-inline: 20px;
+    margin-inline: auto;
+}
+
+/* =======================================
+   موبایل - کمتر از 768px
+   ======================================= */
+
+@media (max-width: 768px) {
+    /* فونت‌ها */
+    html {
+        font-size: 15px;
+    }
+    
+    /* Container ها */
+    .container,
+    .section-container {
+        padding-inline: 15px;
+    }
+    
+    /* Padding و Margin کلی */
+    .categories-section,
+    .blog-section,
+    .about-intro,
+    .about-stats-modern,
+    .about-features-modern,
+    .about-contact-modern {
+        padding: 40px 0;
+    }
+    
+    /* عناوین */
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    h4 {
+        font-size: 1.1rem;
+    }
+    
+    /* دکمه‌ها */
+    .btn,
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+    
+    /* کارت‌ها */
+    .card,
+    .product-card,
+    .blog-card {
+        margin-bottom: 16px;
+    }
+    
+    /* هیرو */
+    .animated-hero {
+        min-height: 450px;
+    }
+    
+    .hero-banner-slider {
+        height: 450px;
+    }
+    
+    /* About Page */
+    .page-hero-about {
+        min-height: 40vh;
+        padding: 60px 15px 40px;
+    }
+    
+    /* فیلتر صفحه محصولات */
+    .products-layout {
+        flex-direction: column;
+        padding: 20px 15px;
+    }
+    
+    .filter-sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    /* Toolbar محصولات */
+    .products-toolbar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px;
+    }
+    
+    /* Stat cards */
+    .stat-modern-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+    
+    .stat-modern-card .stat-icon {
+        margin-bottom: 12px;
+    }
+    
+    /* Feature cards */
+    .feature-modern-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+    
+    .feature-visual {
+        margin-bottom: 16px;
+    }
+    
+    /* Contact cards */
+    .contact-modern-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+    }
+    
+    .contact-modern-card .contact-icon {
+        margin-bottom: 12px;
+    }
+    
+    /* Breadcrumb */
+    .breadcrumb {
+        font-size: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* =======================================
+   تبلت - بین 768px تا 1024px
+   ======================================= */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container,
+    .section-container {
+        padding-inline: 30px;
+    }
+    
+    .navbar-inner {
+        padding: 0 30px;
+    }
+    
+    .products-layout {
+        gap: 20px;
+    }
+    
+    .filter-sidebar {
+        width: 200px;
+    }
+}
+
+/* =======================================
+   موبایل کوچک - کمتر از 480px
+   ======================================= */
+
+@media (max-width: 480px) {
+    /* فونت‌ها */
+    html {
+        font-size: 14px;
+    }
+    
+    /* Container ها */
+    .container,
+    .section-container {
+        padding-inline: 12px;
+    }
+    
+    /* هیرو */
+    .animated-hero {
+        min-height: 350px;
+    }
+    
+    .hero-banner-slider {
+        height: 350px;
+    }
+    
+    .slide-content {
+        padding: 0 15px;
+    }
+    
+    /* عناوین */
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+    
+    h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* دکمه‌ها */
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    .hero-cta-btn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+    
+    /* About Page */
+    .page-hero-about {
+        min-height: 35vh;
+        padding: 50px 12px 30px;
+    }
+    
+    /* Section Padding */
+    .categories-section,
+    .blog-section,
+    .about-intro,
+    .about-stats-modern,
+    .about-features-modern,
+    .about-contact-modern {
+        padding: 30px 0;
+    }
+    
+    /* Stat cards */
+    .stat-modern-card .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    /* Icons */
+    .cat-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
+}
+
+/* =======================================
+   Landscape Mode برای موبایل
+   ======================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .animated-hero {
+        min-height: 100vh;
+    }
+    
+    .hero-banner-slider {
+        height: 100vh;
+    }
+    
+    .page-hero-about {
+        min-height: 100vh;
+    }
+}
+
+/* =======================================
+   تصحیح مشکلات خاص
+   ======================================= */
+
+/* جلوگیری از Overflow در عناصر Position Fixed */
+.navbar,
+.main-navbar {
+    max-width: 100vw;
+    width: 100%;
+}
+
+/* اطمینان از Responsive بودن Grid ها */
+.products-grid,
+.blog-grid,
+.categories-grid,
+.stats-modern-grid,
+.features-modern-grid,
+.contact-modern-grid {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Modal و Dropdown ها */
+.dropdown-menu,
+.mobile-menu,
+.search-form {
+    max-width: 100vw;
+}
+
+/* تصاویر داخل Card ها */
+.product-card img,
+.blog-card img,
+.category-card img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* انیمیشن‌های Leaf در موبایل */
+@media (max-width: 768px) {
+    .falling-leaf,
+    .b-leaf,
+    .hero-leaf,
+    .footer-leaf {
+        display: none;
+    }
+}

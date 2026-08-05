@@ -10,6 +10,10 @@ class CartController {
     public function index(): void {
         Security::set_security_headers();
 
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
+
         // دریافت آیتم‌های سبد خرید
         $cartItems = $this->getCartItems();
         

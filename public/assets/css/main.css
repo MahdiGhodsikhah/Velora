@@ -52,6 +52,8 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body {
@@ -64,6 +66,8 @@ body {
     direction: rtl;
     position: relative;
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* برگ‌های پاییزی شناور در پس‌زمینه سایت */

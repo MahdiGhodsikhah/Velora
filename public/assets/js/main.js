@@ -363,9 +363,11 @@ $(document).ready(function () {
                     touchThreshold: 10,
                     accessibility: true,
                     pauseOnHover:  true,
+                    centerMode:    false,
+                    edgeFriction:  0.15,
                     responsive: [
-                        { breakpoint: 992, settings: { slidesToShow: 2, arrows: true } },
-                        { breakpoint: 576, settings: { slidesToShow: 1, arrows: false } }
+                        { breakpoint: 992, settings: { slidesToShow: 2, arrows: true, centerMode: false } },
+                        { breakpoint: 576, settings: { slidesToShow: 1, arrows: false, centerMode: false } }
                     ]
                 });
             }

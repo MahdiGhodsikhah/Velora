@@ -16,6 +16,10 @@ class ProductController {
     public function index(): void {
         Security::set_security_headers();
 
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
+
         $catId  = isset($_GET['cat'])    ? (int)$_GET['cat']  : 0;
         $season = isset($_GET['season']) ? trim($_GET['season']) : '';
         $page   = isset($_GET['page'])   ? max(1, (int)$_GET['page']) : 1;

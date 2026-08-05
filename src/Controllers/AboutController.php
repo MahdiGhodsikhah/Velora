@@ -7,6 +7,10 @@ class AboutController {
     public function index(): void {
         Security::set_security_headers();
 
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
+
         $pageTitle = 'درباره ما - فروشگاه Velora';
         $pageDesc  = 'آشنایی با فروشگاه پاییزی Velora و خدمات ما';
 

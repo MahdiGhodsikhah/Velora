@@ -1,9 +1,16 @@
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     background: var(--body-bg);
     background-attachment: fixed;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 body::before {
@@ -30,4 +37,13 @@ body::before {
     max-width: var(--container);
     margin-inline: auto;
     padding-inline: 20px;
+    width: 100%;
+    overflow: visible; /* اجازه نمایش shadow و عناصر خارج از مرز */
+}
+
+@media (max-width: 768px) {
+    .section-container,
+    .container {
+        padding-inline: 15px;
+    }
 }

@@ -10,6 +10,10 @@ class CheckoutController {
     public function index(): void {
         Security::set_security_headers();
 
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
+
         // بررسی ورود کاربر
         if (!isset($_SESSION['user_id'])) {
             $_SESSION['redirect_after_login'] = '/checkout';

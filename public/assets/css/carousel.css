@@ -5,19 +5,19 @@
 /* ===== کارت محصول - نسخه بهبود یافته ===== */
 .product-card {
     width: 100%;
-    max-width: 320px;
+    max-width: 100%; /* عرض کامل داخل slick-slide */
     background: var(--card-bg);
     position: relative;
     box-shadow: var(--shadow-primary);
-    padding: 20px 20px 52px;
+    padding: 20px 20px 80px;
     transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
     border-radius: 16px;
-    margin: 10px auto;
+    margin: 0 auto;
     border: 2px solid var(--border-light);
     outline: none;
     display: flex;
     flex-direction: column;
-    min-height: 520px;
+    height: 100%;
 }
 
 .product-card:hover {
@@ -373,7 +373,7 @@
 /* دکمه افزودن به سبد - بهبود یافته */
 .btn-add {
     position: absolute;
-    bottom: -20px;
+    bottom: 16px;
     right: 50%;
     transform: translateX(50%);
     background: var(--gradient-primary);
@@ -429,9 +429,12 @@
 .main-product-slider {
     width: 100%;
     position: relative;
+    padding: 50px 60px 90px; /* padding بیشتر در بالا برای hover و shadow، کناره‌ها برای دکمه‌ها و پایین برای دات‌ها */
+    margin: 0 auto;
+    max-width: 100%;
 }
 .main-product-slider .slick-slide {
-    padding: 50px 12px;
+    padding: 0 10px; /* padding افقی برای فاصله بین کارت‌ها */
     box-sizing: border-box;
 }
 .main-product-slider .slick-track {
@@ -443,14 +446,21 @@
     justify-content: center;
     height: 100%;
 }
+.main-product-slider .slick-list {
+    overflow-x: hidden; /* مخفی کردن آیتم‌های کناری */
+    overflow-y: visible; /* اجازه نمایش shadow و hover effect */
+    padding: 15px 0 !important; /* padding عمودی برای shadow */
+}
 
 /* Slick Dots - بهبود یافته برای کاروسل اصلی */
 .main-product-slider .slick-dots {
-    bottom: -45px;
+    bottom: 20px; /* قرار دادن دات‌ها داخل فضای carousel */
     display: flex !important;
     justify-content: center;
     align-items: center;
     gap: 8px;
+    position: absolute;
+    width: 100%;
 }
 
 .main-product-slider .slick-dots li {
@@ -514,11 +524,11 @@
 }
 
 .main-product-slider .slick-prev { 
-    right: -20px; 
+    right: 10px; 
 }
 
 .main-product-slider .slick-next { 
-    left: -20px; 
+    left: 10px; 
 }
 
 .main-product-slider .slick-prev::before,
@@ -534,28 +544,46 @@
 /* ===== ریسپانسیو ===== */
 @media (max-width: 992px) {
     .product-card { 
-        max-width: 290px; 
-        padding: 16px 16px 50px;
-        min-height: 500px;
+        max-width: 100%; 
+        padding: 16px 16px 75px;
     }
-    .main-product-slider .slick-prev { right: -10px; }
-    .main-product-slider .slick-next { left: -10px; }
+    .main-product-slider {
+        padding: 40px 40px 80px;
+    }
+    .main-product-slider .slick-slide {
+        padding: 0 8px;
+    }
+    .main-product-slider .slick-prev { right: 5px; }
+    .main-product-slider .slick-next { left: 5px; }
+    .btn-add { bottom: 14px; }
 }
 @media (max-width: 768px) {
     .product-card { 
-        padding: 16px 16px 48px; 
-        min-height: 480px;
+        padding: 16px 16px 70px; 
     }
     .side-icons   { left: -10px; top: 40px; padding: 8px 6px; }
+    .main-product-slider {
+        padding: 35px 30px 70px;
+    }
+    .main-product-slider .slick-slide {
+        padding: 0 5px;
+    }
     .main-product-slider .custom-arrow { width: 38px; height: 38px; }
-    .main-product-slider .slick-dots { bottom: -40px; }
+    .main-product-slider .slick-dots { bottom: 15px; }
+    .btn-add { bottom: 12px; font-size: 0.85rem; padding: 11px 20px; }
 }
 @media (max-width: 576px) {
     .product-card { 
         max-width: 100%; 
-        min-height: auto;
+        padding: 16px 16px 65px;
+    }
+    .main-product-slider {
+        padding: 30px 10px 60px;
+    }
+    .main-product-slider .slick-slide {
+        padding: 0 5px;
     }
     .main-product-slider .slick-prev,
     .main-product-slider .slick-next { display: none !important; }
-    .btn-add { font-size: 0.82rem; padding: 10px 14px; }
+    .btn-add { font-size: 0.82rem; padding: 10px 14px; bottom: 10px; }
 }

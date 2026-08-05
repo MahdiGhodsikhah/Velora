@@ -13,6 +13,10 @@ class HomeController {
     public function index(): void {
         Security::set_security_headers();
 
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        $themeManager = ThemeManager::getInstance();
+        $themeManager->clearProductTheme();
+
         $featuredProducts = $this->productModel->getFeatured(8);
         $categories       = $this->productModel->getCategories();
         $banners          = $this->productModel->getBanners('hero');

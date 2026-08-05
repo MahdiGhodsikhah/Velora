@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/base/reset.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/base/typography.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/base/animations.css">
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/base/layout.css">
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/base/responsive.css">
     
     <!-- Components -->
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/alert.css">
@@ -57,7 +59,6 @@
     <link rel="stylesheet" href="<?= $themeCss ?>">
     
     <!-- Page Specific Styles -->
-    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/base/layout.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/carousel.css">
     
     <!-- تعریف BASE_URL برای JavaScript -->

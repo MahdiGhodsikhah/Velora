@@ -33,19 +33,14 @@ class ThemeManager {
     }
     
     private function resolveTheme(): string {
+        // اگر کاربر از navbar تم جدید انتخاب کرده
         if (isset($_GET['theme']) && in_array($_GET['theme'], $this->availableThemes)) {
             $_SESSION['user_selected_theme'] = $_GET['theme'];
             unset($_SESSION['product_theme']);
             return $_GET['theme'];
         }
         
-        if (isset($_SESSION['product_theme'])) {
-            $theme = $_SESSION['product_theme'];
-            if (in_array($theme, $this->availableThemes)) {
-                return $theme;
-            }
-        }
-        
+        // اولویت اول: انتخاب کاربر از navbar (حفظ انتخاب کاربر)
         if (isset($_SESSION['user_selected_theme'])) {
             $theme = $_SESSION['user_selected_theme'];
             if (in_array($theme, $this->availableThemes)) {
@@ -53,6 +48,15 @@ class ThemeManager {
             }
         }
         
+        // اولویت دوم: تم محصول (فقط برای صفحه محصول)
+        if (isset($_SESSION['product_theme'])) {
+            $theme = $_SESSION['product_theme'];
+            if (in_array($theme, $this->availableThemes)) {
+                return $theme;
+            }
+        }
+        
+        // اولویت سوم: تم ذخیره شده کاربر در دیتابیس
         if (isset($_SESSION['user_id'])) {
             $userTheme = $this->getUserTheme($_SESSION['user_id']);
             if ($userTheme && $userTheme !== 'automatic' && in_array($userTheme, $this->availableThemes)) {
@@ -60,11 +64,13 @@ class ThemeManager {
             }
         }
         
+        // اولویت چهارم: تم انتخاب شده توسط ادمین
         if (!empty($this->themeConfig['admin_selected_theme']) && 
             in_array($this->themeConfig['admin_selected_theme'], $this->availableThemes)) {
             return $this->themeConfig['admin_selected_theme'];
         }
         
+        // پیش‌فرض: تم فصلی
         return $this->getCurrentSeasonTheme();
     }
     
@@ -93,11 +99,18 @@ class ThemeManager {
     }
     
     public function setProductTheme(?string $season): void {
+        // فقط تم محصول رو تنظیم می‌کنیم بدون پاک کردن انتخاب کاربر
         if ($season && in_array($season, $this->availableThemes)) {
-            unset($_SESSION['user_selected_theme']);
             $_SESSION['product_theme'] = $season;
+            // انتخاب کاربر رو حفظ می‌کنیم و پاک نمی‌کنیم
             $this->activeTheme = $season;
         }
+    }
+    
+    public function clearProductTheme(): void {
+        // پاک کردن تم محصول برای برگشت به تم انتخابی کاربر
+        unset($_SESSION['product_theme']);
+        $this->activeTheme = $this->resolveTheme();
     }
     
     public function clearUserSelectedTheme(): void {

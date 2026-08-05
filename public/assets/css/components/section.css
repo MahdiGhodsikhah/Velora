@@ -58,7 +58,58 @@
 }
 
 .categories-section { 
-    padding:60px 0 30px; 
+    padding:60px 0 30px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* استایل بخش کاروسل محصولات */
+.products-carousel-section {
+    padding: 40px 0;
+    width: 100%;
+    overflow: visible; /* اجازه نمایش shadow و دکمه‌ها */
+    position: relative; /* برای موقعیت‌یابی دات‌ها */
+}
+
+.section-container .products-carousel-section {
+    padding: 40px 0;
+}
+
+/* حل مشکل overflow در section-container */
+.section-container {
+    overflow: visible;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-header .section-title {
+    margin-bottom: 0; /* حذف margin پایین زیرا در section-header است */
+}
+
+.see-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(217, 119, 6, 0.1);
+}
+
+.see-all-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateX(-3px);
 }
 
 .categories-grid {
@@ -66,6 +117,30 @@
     grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
     gap:16px; 
     margin-top:24px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .categories-section {
+        padding: 40px 0 20px;
+    }
+    
+    .categories-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
 }
 
 .blog-section {

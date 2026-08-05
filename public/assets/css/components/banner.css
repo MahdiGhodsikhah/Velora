@@ -5,6 +5,8 @@
     overflow:hidden; 
     position:relative;
     box-shadow: var(--shadow-banner);
+    width: 100%;
+    max-width: 100%;
 }
 
 .mid-banner::before {
@@ -27,6 +29,7 @@
     justify-content:space-between;
     position:relative; 
     z-index:1;
+    width: 100%;
 }
 
 .mid-banner-text { 
@@ -68,3 +71,64 @@
 .bl-3 { top:30%; left:8%; animation-delay:-4s; font-size:2rem; color: var(--leaf-color-3); }
 .bl-4 { top:80%; right:10%; animation-delay:-1s; font-size:3rem; color: var(--leaf-color-4); }
 .bl-5 { top:20%; right:25%; animation-delay:-3s; font-size:2.5rem; color: var(--leaf-color-5); }
+
+@media (max-width: 1024px) {
+    .mid-banner {
+        margin: 40px 0;
+        border-radius: var(--radius-lg);
+    }
+    
+    .mid-banner-inner {
+        padding: 40px 30px;
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .mid-banner-text {
+        max-width: 100%;
+    }
+    
+    .mid-banner-text h2 {
+        font-size: 1.6rem;
+    }
+    
+    .mid-banner-text p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .mid-banner {
+        margin: 30px 0;
+        border-radius: var(--radius-md);
+    }
+    
+    .mid-banner-inner {
+        padding: 30px 20px;
+    }
+    
+    .mid-banner-text h2 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+    
+    .mid-banner-text p {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .b-leaf {
+        font-size: 2rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .mid-banner-inner {
+        padding: 25px 15px;
+    }
+    
+    .mid-banner-text h2 {
+        font-size: 1.2rem;
+    }
+}

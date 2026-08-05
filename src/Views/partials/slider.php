@@ -16,9 +16,9 @@ $base        = defined('BASE_URL') ? BASE_URL : '';
 $products = $products ?? $featuredProducts ?? [];
 ?>
 
-<section class="products-carousel-section" aria-labelledby="carousel-heading">
+<section class="products-carousel-section" aria-labelledby="carousel-heading-<?= md5($sliderTitle) ?>">
     <div class="section-header">
-        <h2 class="section-title" id="carousel-heading">
+        <h2 class="section-title" id="carousel-heading-<?= md5($sliderTitle) ?>">
             <span class="title-icon"><i class="<?= $sliderIcon ?>" aria-hidden="true"></i></span>
             <?= Security::e($sliderTitle) ?>
             <span class="title-leaf" aria-hidden="true"><i class="fas fa-leaf"></i></span>
@@ -37,7 +37,7 @@ $products = $products ?? $featuredProducts ?? [];
 
     <div class="main-product-slider" role="region" aria-label="<?= Security::e($sliderTitle) ?>" aria-roledescription="carousel">
         <?php foreach ($products as $product): ?>
-        <div role="group" aria-roledescription="slide">
+        <div role="group" aria-roledescription="slide" aria-label="محصول <?= Security::e($product['name']) ?>">
             <?php require __DIR__ . '/product-card.php'; ?>
         </div>
         <?php endforeach; ?>
