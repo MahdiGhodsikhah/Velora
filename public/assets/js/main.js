@@ -484,7 +484,8 @@ $(document).ready(function () {
     
     console.log('🛒 Setting up cart handlers...');
     
-    $(document).on('click', '.btn-add', function () {
+    $(document).on('click', '.btn-add', function (e) {
+        e.preventDefault();
         console.log('🛒 Add to cart clicked!');
         
         const $btn = $(this);
@@ -498,26 +499,29 @@ $(document).ready(function () {
         
         if (!productId) {
             console.log('❌ No product ID');
+            showNotification('شناسه محصول یافت نشد', 'error');
             return;
         }
 
-        const originalText = $btn.text();
-        $btn.text('در حال افزودن...').prop('disabled', true);
+        const originalHtml = $btn.html();
+        $btn.html('<i class="fas fa-spinner fa-spin"></i> در حال افزودن...').prop('disabled', true);
 
-        const csrfToken = $('meta[name="csrf-token"]').attr('content') || '';
-        console.log('CSRF Token:', csrfToken);
         console.log('Sending to:', window.BASE_URL + '/cart/add');
         
         $.ajax({
             url:    (window.BASE_URL || '') + '/cart/add',
             method: 'POST',
-            data:   { product_id: productId, quantity: 1, csrf_token: csrfToken },
+            data:   { product_id: productId, quantity: 1 },
             dataType: 'json',
             success: function (res) {
                 console.log('✅ Cart response:', res);
                 
                 if (res && res.success) {
-                    $btn.text('✓ افزوده شد');
+                    $btn.html('<i class="fas fa-check"></i> افزوده شد');
+                    
+                    // نمایش notification - همیشه نمایش داده می‌شود
+                    showNotification(res.message || 'محصول به سبد خرید اضافه شد', 'success');
+                    
                     // به‌روزرسانی badge سبد خرید
                     if (res.cart_count !== undefined) {
                         const $badge = $('.badge-count');
@@ -527,19 +531,24 @@ $(document).ready(function () {
                             $('.cart-btn').append('<span class="badge-count">' + parseInt(res.cart_count, 10) + '</span>');
                         }
                     }
+                    
                     setTimeout(function () {
-                        $btn.text(originalText).prop('disabled', false);
+                        $btn.html(originalHtml).prop('disabled', false);
                     }, 2000);
                 } else {
-                    console.log('❌ Success but no data');
-                    $btn.text('خطا در افزودن').prop('disabled', false);
-                    setTimeout(function () { $btn.text(originalText); }, 2000);
+                    console.log('❌ Response not successful:', res);
+                    $btn.html('<i class="fas fa-times"></i> خطا').prop('disabled', false);
+                    showNotification(res.message || 'خطا در افزودن محصول', 'error');
+                    setTimeout(function () { 
+                        $btn.html(originalHtml).prop('disabled', false); 
+                    }, 2000);
                 }
             },
             error: function (xhr, status, error) {
                 console.error('❌ AJAX Error:', status, error);
                 console.error('Response:', xhr.responseText);
-                $btn.text(originalText).prop('disabled', false);
+                $btn.html(originalHtml).prop('disabled', false);
+                showNotification('خطا در ارتباط با سرور', 'error');
             }
         });
     });
@@ -589,40 +598,83 @@ $(document).ready(function () {
     }
 
     // =================================================================
-    // ۹. نوتیفیکیشن‌ها و آلرت‌ها
+    // ۹. نوتیفیکیشن‌ها
     // =================================================================
     
-    // تابع نمایش نوتیفیکیشن
+    // تابع نمایش نوتیفیکیشن - دقیقاً مثل product-single.js (Vanilla JS)
     window.showNotification = function(message, type) {
+        console.log('📢 Showing notification:', message, type);
+        
         type = type || 'info';
         
-        const $notification = $('<div>')
-            .addClass('notification notification-' + type)
-            .html('<i class="fas fa-' + (type === 'success' ? 'check-circle' : 'exclamation-circle') + '"></i> ' + message)
-            .appendTo('body');
+        // حذف نوتیفیکیشن‌های قبلی
+        const oldNotifications = document.querySelectorAll('.notification');
+        oldNotifications.forEach(function(notif) {
+            notif.remove();
+        });
         
-        setTimeout(function() {
-            $notification.addClass('show');
-        }, 100);
+        const notification = document.createElement('div');
+        notification.className = 'notification notification-' + type;
         
+        const icon = type === 'success' ? 'check-circle' : (type === 'error' ? 'exclamation-circle' : 'info-circle');
+        
+        const iconEl = document.createElement('i');
+        iconEl.className = 'fas fa-' + icon;
+        
+        const textEl = document.createElement('span');
+        textEl.textContent = message;
+        
+        notification.appendChild(iconEl);
+        notification.appendChild(textEl);
+        
+        document.body.appendChild(notification);
+        
+        // نمایش با انیمیشن
         setTimeout(function() {
-            $notification.removeClass('show');
+            notification.classList.add('show');
+        }, 50);
+        
+        // حذف بعد از 3 ثانیه
+        setTimeout(function() {
+            notification.classList.remove('show');
             setTimeout(function() {
-                $notification.remove();
+                notification.remove();
             }, 300);
         }, 3000);
     };
+    
+    // تست notification در console
+    console.log('✅ showNotification function is ready!');
+    console.log('Test it with: showNotification("تست پیام", "success")');
+    
+    // تبدیل alert‌های موجود به notification
+    setTimeout(function() {
+        $('.alert').each(function() {
+            const $alert = $(this);
+            const message = $alert.find('span').text().trim() || $alert.text().replace('×', '').trim();
+            
+            if (!message) return;
+            
+            let type = 'info';
+            if ($alert.hasClass('alert-success')) {
+                type = 'success';
+            } else if ($alert.hasClass('alert-error')) {
+                type = 'error';
+            }
+            
+            // پنهان کردن alert
+            $alert.hide();
+            
+            // نمایش به عنوان notification
+            showNotification(message, type);
+        });
+    }, 300);
     
     $(document).on('click', '.alert-close', function () {
         $(this).closest('.alert').fadeOut(300, function () {
             $(this).remove();
         });
     });
-
-    // بستن خودکار آلرت موفقیت
-    setTimeout(function () {
-        $('.alert-success').fadeOut(400, function () { $(this).remove(); });
-    }, 5000);
 
     // =================================================================
     // ۱۰. لازی‌لود تصاویر

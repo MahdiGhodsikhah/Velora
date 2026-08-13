@@ -1,35 +1,41 @@
 .notification {
     position: fixed;
-    top: 100px;
-    right: -400px;
-    background: var(--card-bg);
+    top: 20px;
+    right: 20px;
+    background: #ffffff;
     border: 2px solid var(--border-color);
-    border-radius: var(--radius-md);
+    border-radius: 12px;
     padding: 16px 20px;
-    box-shadow: var(--shadow-lg);
-    z-index: 10000;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    z-index: 99999;
     display: flex;
     align-items: center;
     gap: 12px;
     font-weight: 600;
-    min-width: 300px;
+    min-width: 320px;
     max-width: 400px;
-    transition: right 0.3s ease;
+    opacity: 0;
+    transform: translateX(450px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .notification.show {
-    right: 20px;
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .notification i {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
+}
+
+.notification span {
+    flex: 1;
 }
 
 .notification-success {
     border-color: #10b981;
     color: #065f46;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
 }
 
 .notification-success i {
@@ -38,8 +44,7 @@
 
 .notification-error {
     border-color: #ef4444;
-    color: #7f1d1d;
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+    color: #991b1b;
 }
 
 .notification-error i {
@@ -49,22 +54,29 @@
 .notification-info {
     border-color: var(--primary);
     color: var(--text-dark);
-    background: var(--label-bg);
 }
 
 .notification-info i {
     color: var(--primary);
 }
 
+/* Alert های قدیمی - پنهان می‌کنیم چون به notification تبدیل می‌شوند */
+.alert {
+    display: none !important;
+}
+
 @media (max-width: 768px) {
     .notification {
-        right: -100%;
-        left: 10px;
+        top: 70px;
         right: 10px;
+        left: 10px;
         min-width: auto;
+        transform: translateY(-100px);
+        opacity: 0;
     }
     
     .notification.show {
-        right: 10px;
+        transform: translateY(0);
+        opacity: 1;
     }
 }
