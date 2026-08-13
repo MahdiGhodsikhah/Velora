@@ -86,9 +86,9 @@ if (isset($_SESSION['admin_success'])): ?>
                     <?php if (!empty($stats['recent_orders'])): ?>
                         <?php foreach ($stats['recent_orders'] as $order): ?>
                             <tr>
-                                <td style="font-weight: 600; color: #4f46e5;">#<?= Security::e($order['order_number']) ?></td>
+                                <td style="font-weight: 600; color: #4f46e5;">#<?= Security::e($order['order_number'] ?? 'N/A') ?></td>
                                 <td><?= Security::e($order['full_name'] ?? $order['username'] ?? 'ناشناس') ?></td>
-                                <td><?= number_format($order['total_amount']) ?> تومان</td>
+                                <td><?= number_format($order['total_amount'] ?? 0) ?> تومان</td>
                                 <td>
                                     <?php
                                     $statusLabels = [
@@ -97,7 +97,8 @@ if (isset($_SESSION['admin_success'])): ?>
                                         'completed' => ['label' => 'تکمیل شده', 'class' => 'success'],
                                         'cancelled' => ['label' => 'لغو شده', 'class' => 'danger']
                                     ];
-                                    $status = $statusLabels[$order['status']] ?? ['label' => $order['status'], 'class' => 'info'];
+                                    $orderStatus = $order['status'] ?? 'pending';
+                                    $status = $statusLabels[$orderStatus] ?? ['label' => $orderStatus, 'class' => 'info'];
                                     ?>
                                     <span class="badge badge-<?= $status['class'] ?>"><?= $status['label'] ?></span>
                                 </td>
@@ -145,7 +146,7 @@ if (isset($_SESSION['admin_success'])): ?>
                             <tr>
                                 <td>
                                     <div style="font-weight: 600; color: #1e293b;">
-                                        <?= Security::e($user['username']) ?>
+                                        <?= Security::e($user['username'] ?? 'ناشناس') ?>
                                     </div>
                                     <?php if (!empty($user['full_name'])): ?>
                                         <div style="font-size: 0.75rem; color: #94a3b8;">
@@ -160,7 +161,8 @@ if (isset($_SESSION['admin_success'])): ?>
                                         'moderator' => ['label' => 'ناظر', 'class' => 'warning'],
                                         'customer' => ['label' => 'مشتری', 'class' => 'info']
                                     ];
-                                    $role = $roleLabels[$user['role']] ?? ['label' => $user['role'], 'class' => 'info'];
+                                    $userRole = $user['role'] ?? 'customer';
+                                    $role = $roleLabels[$userRole] ?? ['label' => $userRole, 'class' => 'info'];
                                     ?>
                                     <span class="badge badge-<?= $role['class'] ?>"><?= $role['label'] ?></span>
                                 </td>

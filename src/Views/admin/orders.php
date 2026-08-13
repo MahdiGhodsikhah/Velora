@@ -20,7 +20,7 @@
             <?php if (!empty($orders)): ?>
                 <?php foreach ($orders as $order): ?>
                     <tr>
-                        <td style="font-weight: 600; color: #4f46e5;">#<?= Security::e($order['order_number']) ?></td>
+                        <td style="font-weight: 600; color: #4f46e5;">#<?= Security::e($order['order_number'] ?? 'N/A') ?></td>
                         <td>
                             <div style="font-weight: 600; color: #1e293b;">
                                 <?= Security::e($order['full_name'] ?? $order['username'] ?? 'ناشناس') ?>
@@ -35,16 +35,18 @@
                             <?= Security::e($order['phone'] ?? '-') ?>
                         </td>
                         <td style="font-weight: 600;">
-                            <?= number_format($order['total_amount']) ?> تومان
+                            <?= number_format($order['total_amount'] ?? 0) ?> تومان
                         </td>
                         <td>
-                            <?php if ($order['discount_amt'] > 0): ?>
-                                <span style="color: #dc2626;"><?= number_format($order['discount_amt']) ?> تومان</span>
+                            <?php 
+                            $discountAmt = $order['discount_amt'] ?? 0;
+                            if ($discountAmt > 0): ?>
+                                <span style="color: #dc2626;"><?= number_format($discountAmt) ?> تومان</span>
                             <?php else: ?>
                                 <span style="color: #94a3b8;">-</span>
                             <?php endif; ?>
                         </td>
-                        <td><?= number_format($order['shipping_cost']) ?> تومان</td>
+                        <td><?= number_format($order['shipping_cost'] ?? 0) ?> تومان</td>
                         <td>
                             <?php
                             $statusLabels = [
@@ -53,7 +55,8 @@
                                 'completed' => ['label' => 'تکمیل شده', 'class' => 'success'],
                                 'cancelled' => ['label' => 'لغو شده', 'class' => 'danger']
                             ];
-                            $status = $statusLabels[$order['status']] ?? ['label' => $order['status'], 'class' => 'info'];
+                            $orderStatus = $order['status'] ?? 'pending';
+                            $status = $statusLabels[$orderStatus] ?? ['label' => $orderStatus, 'class' => 'info'];
                             ?>
                             <span class="badge badge-<?= $status['class'] ?>"><?= $status['label'] ?></span>
                         </td>
@@ -64,7 +67,8 @@
                                 'unpaid' => ['label' => 'پرداخت نشده', 'class' => 'danger'],
                                 'refunded' => ['label' => 'بازگشت داده شده', 'class' => 'warning']
                             ];
-                            $payment = $paymentLabels[$order['payment_status']] ?? ['label' => $order['payment_status'], 'class' => 'info'];
+                            $paymentStatus = $order['payment_status'] ?? 'unpaid';
+                            $payment = $paymentLabels[$paymentStatus] ?? ['label' => $paymentStatus, 'class' => 'info'];
                             ?>
                             <span class="badge badge-<?= $payment['class'] ?>"><?= $payment['label'] ?></span>
                         </td>

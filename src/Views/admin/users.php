@@ -21,20 +21,22 @@
             <?php if (!empty($users)): ?>
                 <?php foreach ($users as $user): ?>
                     <tr>
-                        <td style="font-weight: 600; color: #4f46e5;">#<?= $user['id'] ?></td>
+                        <td style="font-weight: 600; color: #4f46e5;">#<?= $user['id'] ?? 0 ?></td>
                         <td>
                             <div style="font-weight: 600; color: #1e293b;">
-                                <?= Security::e($user['username']) ?>
+                                <?= Security::e($user['username'] ?? 'ناشناس') ?>
                             </div>
-                            <?php if ($user['login_attempts'] > 0): ?>
+                            <?php 
+                            $loginAttempts = $user['login_attempts'] ?? 0;
+                            if ($loginAttempts > 0): ?>
                                 <div style="font-size: 0.75rem; color: #dc2626;">
-                                    <?= $user['login_attempts'] ?> تلاش ناموفق
+                                    <?= $loginAttempts ?> تلاش ناموفق
                                 </div>
                             <?php endif; ?>
                         </td>
                         <td><?= Security::e($user['full_name'] ?? '-') ?></td>
                         <td style="direction: ltr; text-align: right; font-family: monospace;">
-                            <?= Security::e($user['phone']) ?>
+                            <?= Security::e($user['phone'] ?? '-') ?>
                         </td>
                         <td style="direction: ltr; text-align: right;">
                             <?= Security::e($user['email'] ?? '-') ?>
@@ -46,12 +48,13 @@
                                 'moderator' => ['label' => 'ناظر', 'class' => 'warning'],
                                 'customer' => ['label' => 'مشتری', 'class' => 'info']
                             ];
-                            $role = $roleLabels[$user['role']] ?? ['label' => $user['role'], 'class' => 'info'];
+                            $userRole = $user['role'] ?? 'customer';
+                            $role = $roleLabels[$userRole] ?? ['label' => $userRole, 'class' => 'info'];
                             ?>
                             <span class="badge badge-<?= $role['class'] ?>"><?= $role['label'] ?></span>
                         </td>
                         <td>
-                            <?php if ($user['is_active']): ?>
+                            <?php if ($user['is_active'] ?? 0): ?>
                                 <span class="badge badge-success">فعال</span>
                             <?php else: ?>
                                 <span class="badge badge-danger">غیرفعال</span>
