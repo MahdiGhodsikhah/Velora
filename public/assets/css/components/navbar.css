@@ -127,6 +127,7 @@
 .dropdown-arrow {
     font-size: 0.65rem;
     transition: transform 0.25s ease;
+    pointer-events: none;
 }
 
 .has-dropdown:hover .dropdown-arrow,
@@ -172,17 +173,19 @@
     pointer-events: auto;
 }
 
-/* Hover */
-.has-dropdown:hover > .dropdown-menu,
-.has-dropdown.keep-open > .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
-    display: block;
+/* Hover برای دسکتاپ */
+@media (min-width: 1025px) {
+    .has-dropdown:hover > .dropdown-menu,
+    .has-dropdown.keep-open > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+        display: block;
+    }
 }
 
-/* کلیک */
+/* کلیک برای موبایل و تبلت */
 .has-dropdown.clicked > .dropdown-menu {
     opacity: 1;
     visibility: visible;

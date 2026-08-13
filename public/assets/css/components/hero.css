@@ -315,11 +315,13 @@
 }
 
 .hero-arrow-prev {
-    right: 30px;
+    right: 55px;
+    top: 555px;
 }
 
 .hero-arrow-next {
-    left: 30px;
+    right: 120px;
+    top: 555px;
 }
 
 /* =======================================

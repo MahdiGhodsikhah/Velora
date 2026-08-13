@@ -86,19 +86,37 @@ $(document).ready(function () {
     });
 
     // =================================================================
-    // Dropdown منوها - Hover + Click
+    // Dropdown منوها - Hover + Click با رفع مشکل بسته نشدن
     // =================================================================
     
-    // نگه داشتن dropdown باز وقتی ماوس روی menu است
-    $('.dropdown-menu').on('mouseenter', function() {
-        $(this).parent('.has-dropdown').addClass('keep-open');
+    console.log('🔽 Setting up dropdown handlers...');
+    
+    let isDesktop = $(window).width() > 1024;
+    console.log('isDesktop:', isDesktop);
+    
+    // تشخیص تغییر سایز صفحه
+    $(window).on('resize', function() {
+        isDesktop = $(window).width() > 1024;
+        if (isDesktop) {
+            // در دسکتاپ، همه کلیک‌ها رو حذف کن
+            $('.has-dropdown').removeClass('clicked keep-open');
+        }
     });
     
-    $('.dropdown-menu').on('mouseleave', function() {
-        $(this).parent('.has-dropdown').removeClass('keep-open');
+    // Hover برای دسکتاپ
+    $('.has-dropdown').on('mouseenter', function() {
+        if (isDesktop && !$(this).hasClass('clicked')) {
+            $(this).addClass('keep-open');
+        }
     });
     
-    // Toggle با کلیک - با قابلیت بستن با کلیک دوباره
+    $('.has-dropdown').on('mouseleave', function() {
+        if (isDesktop) {
+            $(this).removeClass('keep-open');
+        }
+    });
+    
+    // Click برای موبایل و تبلت
     $('.has-dropdown > a, .has-dropdown > button').on('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -106,26 +124,31 @@ $(document).ready(function () {
         const $parent = $(this).parent('.has-dropdown');
         const wasOpen = $parent.hasClass('clicked');
         
-        // بستن سایر dropdownها
-        $('.has-dropdown').not($parent).removeClass('clicked keep-open');
+        console.log('🔽 Dropdown clicked, wasOpen:', wasOpen);
         
-        // Toggle این dropdown
-        if (wasOpen) {
-            // اگر باز بود، ببندش
-            $parent.removeClass('clicked keep-open');
-            $(this).attr('aria-expanded', 'false');
-        } else {
-            // اگر بسته بود، بازش کن
+        // بستن تمام dropdownها
+        $('.has-dropdown').removeClass('clicked keep-open');
+        $('.has-dropdown > a, .has-dropdown > button').attr('aria-expanded', 'false');
+        
+        // اگر بسته بود، بازش کن
+        if (!wasOpen) {
             $parent.addClass('clicked');
             $(this).attr('aria-expanded', 'true');
+            console.log('✅ Opening dropdown');
+        } else {
+            console.log('❌ Closing dropdown');
         }
     });
     
     // بستن dropdown با کلیک خارج
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.has-dropdown').length) {
+            const hadOpen = $('.has-dropdown.clicked').length > 0;
             $('.has-dropdown').removeClass('clicked keep-open');
             $('.has-dropdown > a, .has-dropdown > button').attr('aria-expanded', 'false');
+            if (hadOpen) {
+                console.log('🔽 Closed all dropdowns (click outside)');
+            }
         }
     });
     
@@ -133,6 +156,8 @@ $(document).ready(function () {
     $('.dropdown-menu').on('click', function(e) {
         e.stopPropagation();
     });
+    
+    console.log('✅ Dropdown handlers ready!');
 
     // =================================================================
     // Theme Switcher - Handle page reload for theme change
