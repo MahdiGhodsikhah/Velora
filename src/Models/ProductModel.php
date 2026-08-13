@@ -252,14 +252,16 @@ class ProductModel {
     }
     
     /**
-     * لیست تمام محصولات - برای پنل ادمین
+     * لیست تمام محصولات - برای پنل ادمین (با صفحه‌بندی)
      */
-    public function getAllForAdmin(): array {
+    public function getAllForAdmin(int $page = 1, int $perPage = 5): array {
+        $offset = ($page - 1) * $perPage;
         return db_fetch_all(
             "SELECT p.*, c.`name` AS category_name
              FROM `products` p
              LEFT JOIN `categories` c ON p.`category_id` = c.`id`
-             ORDER BY p.`created_at` DESC"
+             ORDER BY p.`created_at` DESC
+             LIMIT $perPage OFFSET $offset"
         );
     }
     

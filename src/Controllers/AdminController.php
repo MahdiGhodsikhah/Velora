@@ -59,7 +59,19 @@ class AdminController {
     public function products(): void {
         $this->checkAdminAccess();
         
-        $products = $this->productModel->getAllForAdmin();
+        // صفحه‌بندی
+        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $perPage = isset($_GET['per_page']) ? max(5, min(50, (int)$_GET['per_page'])) : 5; // بین 5 تا 50
+        
+        $totalProducts = $this->productModel->getTotalCount();
+        $totalPages = ceil($totalProducts / $perPage);
+        
+        // اطمینان از اینکه شماره صفحه معتبر است
+        if ($page > $totalPages && $totalPages > 0) {
+            $page = $totalPages;
+        }
+        
+        $products = $this->productModel->getAllForAdmin($page, $perPage);
         
         $pageTitle = 'مدیریت محصولات';
         require BASE_PATH . '/src/Views/admin/layout/header.php';

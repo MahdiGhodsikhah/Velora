@@ -13,19 +13,43 @@
 <?php endif; ?>
 
 <div class="admin-table">
-    <div style="padding: 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">
-            لیست محصولات (<?= count($products) ?> محصول)
-        </h3>
-        <a href="<?= BASE_URL ?>/admin/products/create" class="btn btn-primary btn-sm">
-            ➕ افزودن محصول جدید
-        </a>
+    <div style="padding: 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">
+                لیست محصولات
+            </h3>
+            <p style="margin: 0.25rem 0 0; font-size: 0.875rem; color: #64748b;">
+                کل: <?= number_format($totalProducts) ?> محصول | 
+                صفحه <?= $page ?> از <?= $totalPages ?>
+            </p>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+            <!-- انتخاب تعداد نمایش -->
+            <form method="GET" action="<?= BASE_URL ?>/admin/products" style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="hidden" name="page" value="1">
+                <label for="per_page" style="font-size: 0.875rem; color: #64748b; white-space: nowrap;">نمایش:</label>
+                <select id="per_page" 
+                        name="per_page" 
+                        onchange="this.form.submit()"
+                        style="padding: 0.375rem 0.5rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.875rem; cursor: pointer;">
+                    <option value="5" <?= $perPage == 5 ? 'selected' : '' ?>>5</option>
+                    <option value="10" <?= $perPage == 10 ? 'selected' : '' ?>>10</option>
+                    <option value="20" <?= $perPage == 20 ? 'selected' : '' ?>>20</option>
+                    <option value="50" <?= $perPage == 50 ? 'selected' : '' ?>>50</option>
+                </select>
+            </form>
+            
+            <a href="<?= BASE_URL ?>/admin/products/create" class="btn btn-primary btn-sm">
+                ➕ افزودن محصول جدید
+            </a>
+        </div>
     </div>
     
     <!-- جدول محصولات -->
-    <div style="overflow-x: auto;">
+    <div style="overflow-x: auto; position: relative;">
         <table style="min-width: 1800px;">
-            <thead>
+            <thead style="position: sticky; top: 0; z-index: 10; background: #f8fafc;">
                 <tr>
                     <th>شناسه</th>
                     <th>تصویر</th>
@@ -236,6 +260,146 @@
         </table>
     </div>
 </div>
+
+<!-- صفحه‌بندی -->
+<?php if ($totalPages > 1): ?>
+    <div style="padding: 1.5rem; background: white; border-radius: 12px; margin-top: 1.5rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+        <nav aria-label="صفحه‌بندی محصولات">
+            <ul style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; list-style: none; padding: 0; margin: 0; flex-wrap: wrap;">
+                
+                <!-- دکمه صفحه اول -->
+                <?php if ($page > 1): ?>
+                    <li>
+                        <a href="<?= BASE_URL ?>/admin/products?page=1&per_page=<?= $perPage ?>" 
+                           style="display: inline-block; padding: 0.5rem 0.875rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.875rem; transition: all 0.2s;">
+                            ⏮️ اول
+                        </a>
+                    </li>
+                <?php endif; ?>
+                
+                <!-- دکمه قبلی -->
+                <?php if ($page > 1): ?>
+                    <li>
+                        <a href="<?= BASE_URL ?>/admin/products?page=<?= $page - 1 ?>&per_page=<?= $perPage ?>" 
+                           style="display: inline-block; padding: 0.5rem 1rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.2s;">
+                            ← قبلی
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li>
+                        <span style="display: inline-block; padding: 0.5rem 1rem; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; color: #cbd5e1; font-size: 0.875rem; font-weight: 600; cursor: not-allowed;">
+                            ← قبلی
+                        </span>
+                    </li>
+                <?php endif; ?>
+                
+                <!-- شماره صفحات -->
+                <?php
+                // محاسبه محدوده صفحات برای نمایش
+                $rangeStart = max(1, $page - 2);
+                $rangeEnd = min($totalPages, $page + 2);
+                
+                // اگر در ابتدا هستیم، محدوده را بیشتر کن
+                if ($page <= 3) {
+                    $rangeEnd = min($totalPages, 5);
+                }
+                
+                // اگر در انتها هستیم، محدوده را از اول بیشتر کن
+                if ($page > $totalPages - 3) {
+                    $rangeStart = max(1, $totalPages - 4);
+                }
+                
+                // نمایش ... اگر صفحه اول نمایش داده نشده
+                if ($rangeStart > 1): ?>
+                    <li>
+                        <span style="display: inline-block; padding: 0.5rem 0.875rem; color: #94a3b8;">...</span>
+                    </li>
+                <?php endif; ?>
+                
+                <?php for ($i = $rangeStart; $i <= $rangeEnd; $i++): ?>
+                    <li>
+                        <?php if ($i == $page): ?>
+                            <span style="display: inline-block; padding: 0.5rem 0.875rem; background: #4f46e5; color: white; border-radius: 6px; font-weight: 600; font-size: 0.875rem;">
+                                <?= $i ?>
+                            </span>
+                        <?php else: ?>
+                            <a href="<?= BASE_URL ?>/admin/products?page=<?= $i ?>&per_page=<?= $perPage ?>" 
+                               style="display: inline-block; padding: 0.5rem 0.875rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.875rem; transition: all 0.2s;">
+                                <?= $i ?>
+                            </a>
+                        <?php endif; ?>
+                    </li>
+                <?php endfor; ?>
+                
+                <!-- نمایش ... اگر صفحه آخر نمایش داده نشده -->
+                <?php if ($rangeEnd < $totalPages): ?>
+                    <li>
+                        <span style="display: inline-block; padding: 0.5rem 0.875rem; color: #94a3b8;">...</span>
+                    </li>
+                <?php endif; ?>
+                
+                <!-- دکمه بعدی -->
+                <?php if ($page < $totalPages): ?>
+                    <li>
+                        <a href="<?= BASE_URL ?>/admin/products?page=<?= $page + 1 ?>&per_page=<?= $perPage ?>" 
+                           style="display: inline-block; padding: 0.5rem 1rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.2s;">
+                            بعدی →
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li>
+                        <span style="display: inline-block; padding: 0.5rem 1rem; background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; color: #cbd5e1; font-size: 0.875rem; font-weight: 600; cursor: not-allowed;">
+                            بعدی →
+                        </span>
+                    </li>
+                <?php endif; ?>
+                
+                <!-- دکمه صفحه آخر -->
+                <?php if ($page < $totalPages): ?>
+                    <li>
+                        <a href="<?= BASE_URL ?>/admin/products?page=<?= $totalPages ?>&per_page=<?= $perPage ?>" 
+                           style="display: inline-block; padding: 0.5rem 0.875rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; font-size: 0.875rem; transition: all 0.2s;">
+                            آخر ⏭️
+                        </a>
+                    </li>
+                <?php endif; ?>
+                
+            </ul>
+        </nav>
+        
+        <!-- اطلاعات صفحه فعلی -->
+        <div style="text-align: center; margin-top: 1rem; color: #64748b; font-size: 0.875rem;">
+            نمایش <?= ($page - 1) * $perPage + 1 ?> تا <?= min($page * $perPage, $totalProducts) ?> از <?= number_format($totalProducts) ?> محصول
+        </div>
+        
+        <!-- پرش به صفحه -->
+        <div style="text-align: center; margin-top: 1rem;">
+            <form method="GET" action="<?= BASE_URL ?>/admin/products" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                <input type="hidden" name="per_page" value="<?= $perPage ?>">
+                <label for="jumpToPage" style="font-size: 0.875rem; color: #64748b;">پرش به صفحه:</label>
+                <input type="number" 
+                       id="jumpToPage" 
+                       name="page" 
+                       min="1" 
+                       max="<?= $totalPages ?>" 
+                       value="<?= $page ?>" 
+                       style="width: 70px; padding: 0.375rem 0.5rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.875rem;">
+                <button type="submit" 
+                        style="padding: 0.375rem 0.75rem; background: #4f46e5; color: white; border: none; border-radius: 6px; font-size: 0.875rem; cursor: pointer; font-weight: 600;">
+                    برو
+                </button>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
+
+<style>
+    /* Hover effects */
+    nav ul li a:hover {
+        background: #e2e8f0 !important;
+        border-color: #cbd5e1 !important;
+    }
+</style>
 
 <!-- فرم حذف مخفی -->
 <form id="deleteForm" method="POST" action="<?= BASE_URL ?>/admin/products/delete" style="display: none;">
