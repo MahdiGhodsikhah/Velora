@@ -98,24 +98,34 @@ $(document).ready(function () {
         $(this).parent('.has-dropdown').removeClass('keep-open');
     });
     
-    // Toggle با کلیک
+    // Toggle با کلیک - با قابلیت بستن با کلیک دوباره
     $('.has-dropdown > a, .has-dropdown > button').on('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         
         const $parent = $(this).parent('.has-dropdown');
+        const wasOpen = $parent.hasClass('clicked');
         
         // بستن سایر dropdownها
         $('.has-dropdown').not($parent).removeClass('clicked keep-open');
         
         // Toggle این dropdown
-        $parent.toggleClass('clicked');
+        if (wasOpen) {
+            // اگر باز بود، ببندش
+            $parent.removeClass('clicked keep-open');
+            $(this).attr('aria-expanded', 'false');
+        } else {
+            // اگر بسته بود، بازش کن
+            $parent.addClass('clicked');
+            $(this).attr('aria-expanded', 'true');
+        }
     });
     
     // بستن dropdown با کلیک خارج
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.has-dropdown').length) {
             $('.has-dropdown').removeClass('clicked keep-open');
+            $('.has-dropdown > a, .has-dropdown > button').attr('aria-expanded', 'false');
         }
     });
     

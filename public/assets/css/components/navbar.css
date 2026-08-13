@@ -295,6 +295,7 @@ html[dir="rtl"] .dropdown-user {
     border: none;
     cursor: pointer;
     position: relative;
+    gap: 6px;
 }
 
 .icon-btn:hover {
@@ -302,6 +303,26 @@ html[dir="rtl"] .dropdown-user {
     color: #fff;
     transform: translateY(-2px);
     box-shadow: var(--shadow-button);
+}
+
+/* استایل دکمه تم با متن */
+.theme-btn {
+    width: auto;
+    padding: 0 12px;
+    gap: 6px;
+}
+
+.theme-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* فاصله بین عکس کاربر و فلش */
+.user-btn {
+    width: auto;
+    padding: 0 12px;
+    gap: 8px;
 }
 
 .badge-count {
@@ -322,8 +343,11 @@ html[dir="rtl"] .dropdown-user {
 .user-avatar-nav {
     width: 32px;
     height: 32px;
+    min-width: 32px;
+    min-height: 32px;
     border-radius: 50%;
     object-fit: cover;
+    display: inline-block;
 }
 
 .user-name-nav {
@@ -336,10 +360,8 @@ html[dir="rtl"] .dropdown-user {
     white-space: nowrap;
 }
 
-.user-btn {
-    width: auto;
-    padding: 0 12px;
-    gap: 8px;
+.dropdown-arrow {
+    margin-inline-start: 2px;
 }
 
 .btn-nav-login {
@@ -429,8 +451,8 @@ html[dir="rtl"] .dropdown-user {
     position: fixed;
     top: 72px;
     left: -100%;
-    width: 300px;
-    height: calc(100vh - 72px);
+    width: 267px;
+    /* height: calc(100vh - 72px); */
     background: var(--card-bg);
     border-left: 2px solid var(--border-color);
     box-shadow: var(--shadow-lg);
@@ -587,13 +609,20 @@ html[dir="rtl"] .dropdown-user {
     }
     
     .navbar-actions {
-        gap: 6px;
+        gap: 15px;
     }
     
     .icon-btn {
         width: 38px;
         height: 38px;
         font-size: 1rem;
+    }
+    
+    .theme-btn,
+    .user-btn {
+        width: 70px;
+        padding: 0;
+        gap: 4px;
     }
     
     .search-form {

@@ -63,6 +63,7 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
             ?>
             <div class="theme-switcher has-dropdown">
                 <button class="icon-btn theme-btn" aria-label="تغییر تم" aria-expanded="false">
+                    <span class="theme-text">تم</span>
                     <i class="fas <?= $themeIcons[$currentTheme] ?? 'fa-palette' ?>" aria-hidden="true"></i>
                     <i class="fas fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
                 </button>
@@ -189,20 +190,7 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
             <li><a href="<?= $base ?>/products?season=winter"><i class="fas fa-snowflake"></i> محصولات زمستانی</a></li>
             <li><a href="<?= $base ?>/about"><i class="fas fa-info-circle"></i> درباره ما</a></li>
             
-            <!-- Theme Switcher Mobile -->
-            <li class="mobile-theme-header">انتخاب تم</li>
-            <li><a href="?theme=spring" class="theme-spring"><i class="fas fa-seedling"></i> بهار</a></li>
-            <li><a href="?theme=summer" class="theme-summer"><i class="fas fa-sun"></i> تابستان</a></li>
-            <li><a href="?theme=autumn" class="theme-autumn"><i class="fas fa-leaf"></i> پاییز</a></li>
-            <li><a href="?theme=winter" class="theme-winter"><i class="fas fa-snowflake"></i> زمستان</a></li>
-            
-            <?php if ($loggedIn): ?>
-            <li><a href="<?= $base ?>/dashboard"><i class="fas fa-th-large"></i> پنل کاربری</a></li>
-            <li><a href="<?= $base ?>/profile"><i class="fas fa-user-edit"></i> ویرایش حساب</a></li>
-            <li><a href="<?= $base ?>/wishlist"><i class="fas fa-heart"></i> علاقه‌مندی‌ها</a></li>
-            <li><a href="<?= $base ?>/orders"><i class="fas fa-shopping-bag"></i> سفارش‌ها</a></li>
-            <li><a href="<?= $base ?>/logout"><i class="fas fa-sign-out-alt"></i> خروج از حساب</a></li>
-            <?php else: ?>
+            <?php if (!$loggedIn): ?>
             <li><a href="<?= $base ?>/login"><i class="fas fa-sign-in-alt"></i> ورود</a></li>
             <li><a href="<?= $base ?>/register"><i class="fas fa-user-plus"></i> ثبت‌نام</a></li>
             <?php endif; ?>
