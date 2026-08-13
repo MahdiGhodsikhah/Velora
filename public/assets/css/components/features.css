@@ -47,7 +47,7 @@
 
 .feature-item i { 
     font-size:1.8rem; 
-    color:var(--accent); 
+    color:var(--primary-light); 
     filter: var(--icon-glow);
     animation: iconFloat 3s ease-in-out infinite;
 }

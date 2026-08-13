@@ -1,19 +1,31 @@
 <?php
 /**
- * صفحه محصول منفرد - پاییزی شگفت‌انگیز
+ * صفحه محصول منفرد - با رنگ‌بندی فصلی
  * الگو گرفته شده از 1/products page
  */
 $base = defined('BASE_URL') ? BASE_URL : '';
 $galleryAll = array_merge([$product['main_image']], $product['gallery_arr']);
+
+// رنگ‌های برگ‌های متحرک با توجه به فصل محصول
+$season = $product['season'] ?? 'autumn';
+$leafColors = [
+    'autumn' => ['#d97706', '#dc2626', '#fbbf24', '#ea580c', '#f59e0b'],
+    'winter' => ['#3b82f6', '#60a5fa', '#93c5fd', '#2563eb', '#dbeafe'],
+    'spring' => ['#10b981', '#34d399', '#6ee7b7', '#059669', '#a7f3d0'],
+    'summer' => ['#f59e0b', '#fbbf24', '#fde047', '#d97706', '#fef3c7']
+];
+$colors = $leafColors[$season] ?? $leafColors['autumn'];
 ?>
 <!-- لینک CSS اختصاصی صفحه محصول -->
 <link rel="stylesheet" href="<?= $base ?>/assets/css/product-single.css">
 
-<!-- برگ‌های متحرک پاییزی - تعداد کمتر برای جلوگیری از حواس‌پرتی -->
-<div class="leaf" style="left: 8%; width: 25px; height: 25px; background: #FFD700; animation-duration: 18s; animation-delay: -8s; opacity: 0.4;"></div>
-<div class="leaf" style="left: 85%; width: 22px; height: 22px; background: #FF8C00; animation-duration: 16s; animation-delay: -12s; opacity: 0.35;"></div>
-<div class="leaf" style="left: 45%; width: 28px; height: 28px; background: #FFA500; animation-duration: 20s; animation-delay: -6s; opacity: 0.4;"></div>
-<div class="leaf" style="left: 70%; width: 24px; height: 24px; background: #FFD700; animation-duration: 17s; animation-delay: -10s; opacity: 0.38;"></div>
+<!-- برگ‌های متحرک - 6 برگ با حرکات متنوع -->
+<div class="leaf" style="left: 8%; width: 25px; height: 25px; background: <?= $colors[0] ?>; animation-duration: 18s; animation-delay: -8s; opacity: 0.4;"></div>
+<div class="leaf" style="left: 85%; width: 22px; height: 22px; background: <?= $colors[1] ?>; animation-duration: 16s; animation-delay: -12s; opacity: 0.35;"></div>
+<div class="leaf" style="left: 45%; width: 28px; height: 28px; background: <?= $colors[2] ?>; animation-duration: 20s; animation-delay: -6s; opacity: 0.4;"></div>
+<div class="leaf" style="left: 70%; width: 24px; height: 24px; background: <?= $colors[3] ?>; animation-duration: 17s; animation-delay: -10s; opacity: 0.38;"></div>
+<div class="leaf" style="left: 20%; width: 26px; height: 26px; background: <?= $colors[4] ?>; animation-duration: 19s; animation-delay: -3s; opacity: 0.37;"></div>
+<div class="leaf" style="left: 60%; width: 23px; height: 23px; background: <?= $colors[0] ?>; animation-duration: 21s; animation-delay: -15s; opacity: 0.36;"></div>
 
 <main id="main-content" class="product-single-page">
 
@@ -86,13 +98,20 @@ $galleryAll = array_merge([$product['main_image']], $product['gallery_arr']);
             <div class="product-rating" aria-label="امتیاز: <?= (float)$product['rating_avg'] ?> از ۵">
                 <?php
                 $avg = round((float)$product['rating_avg'], 1);
+                $starColor = match($season) {
+                    'autumn' => '#fbbf24',
+                    'winter' => '#93c5fd',
+                    'spring' => '#a7f3d0',
+                    'summer' => '#fde047',
+                    default => '#fbbf24'
+                };
                 for ($s = 1; $s <= 5; $s++):
                     if ($avg >= $s): ?>
-                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                    <i class="fas fa-star" style="color: <?= $starColor ?>;"></i>
                     <?php elseif ($avg >= $s - 0.5): ?>
-                    <i class="fas fa-star-half-alt" style="color: #FFD700;"></i>
+                    <i class="fas fa-star-half-alt" style="color: <?= $starColor ?>;"></i>
                     <?php else: ?>
-                    <i class="far fa-star" style="color: #FFD700;"></i>
+                    <i class="far fa-star" style="color: <?= $starColor ?>;"></i>
                     <?php endif;
                 endfor; ?>
                 <span class="rating-text"><?= $avg ?> از ۵ (<?= (int)$product['rating_count'] ?> نظر)</span>
@@ -260,7 +279,7 @@ $galleryAll = array_merge([$product['main_image']], $product['gallery_arr']);
                     <span class="reviewer-name"><?= Security::e($review['author_name'] ?? 'کاربر ناشناس') ?></span>
                     <div class="review-rating" aria-label="امتیاز: <?= (int)$review['rating'] ?>">
                         <?php for ($s = 1; $s <= 5; $s++): ?>
-                        <i class="<?= $s <= (int)$review['rating'] ? 'fas' : 'far' ?> fa-star" style="color: #FFD700; font-size: 0.9rem;"></i>
+                        <i class="<?= $s <= (int)$review['rating'] ? 'fas' : 'far' ?> fa-star" style="color: <?= $starColor ?>; font-size: 0.9rem;"></i>
                         <?php endfor; ?>
                     </div>
                     <time class="review-date" datetime="<?= Security::e($review['created_at']) ?>">

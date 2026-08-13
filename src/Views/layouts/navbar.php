@@ -33,9 +33,9 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                     <i class="fas fa-calendar-alt" aria-hidden="true"></i> کلکسیون فصلی <i class="fas fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li role="none"><a href="<?= $base ?>/products?season=autumn" role="menuitem"><i class="fas fa-leaf"></i> محصولات پاییزی</a></li>
                     <li role="none"><a href="<?= $base ?>/products?season=spring" role="menuitem"><i class="fas fa-seedling"></i> محصولات بهاری</a></li>
                     <li role="none"><a href="<?= $base ?>/products?season=summer" role="menuitem"><i class="fas fa-sun"></i> محصولات تابستانی</a></li>
+                    <li role="none"><a href="<?= $base ?>/products?season=autumn" role="menuitem"><i class="fas fa-leaf"></i> محصولات پاییزی</a></li>
                     <li role="none"><a href="<?= $base ?>/products?season=winter" role="menuitem"><i class="fas fa-snowflake"></i> محصولات زمستانی</a></li>
                 </ul>
             </li>

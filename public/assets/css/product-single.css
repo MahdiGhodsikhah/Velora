@@ -1,6 +1,7 @@
 /* =======================================
-   استایل صفحه محصول منفرد - پاییزی شگفت‌انگیز
+   استایل صفحه محصول منفرد - تطبیق‌پذیر با فصل‌ها
    الگو گرفته شده از products page
+   رنگ‌ها با توجه به فصل محصول تغییر می‌کنند
    ======================================= */
 
 /* برگ‌های متحرک - با جلوگیری از افزایش ارتفاع صفحه */
@@ -60,9 +61,9 @@
     z-index: -1 !important;
 }
 
-/* بردکرامب کوچک - با تیرگی کمتر */
+/* بردکرامب کوچک - با رنگ‌بندی فصلی */
 .page-hero-small {
-    background: linear-gradient(135deg, #A0522D 0%, #CD853F 50%, #D2691E 100%);
+    background: var(--gradient-primary);
     color: #fff;
     padding: 10px 20px;
     margin-bottom: 0;
@@ -78,7 +79,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    background: var(--strip-shimmer);
     animation: shimmer 3s infinite;
 }
 
@@ -138,9 +139,9 @@
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-primary);
     background: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid var(--border-light);
 }
 
 .main-gallery-img {
@@ -191,9 +192,9 @@
 
 .thumb-btn.active,
 .thumb-btn:hover {
-    border-color: #FFD700;
+    border-color: var(--primary-light);
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    box-shadow: var(--shadow-button);
 }
 
 .thumb-btn img {
@@ -220,8 +221,8 @@
 
 .product-cat-badge {
     display: inline-block;
-    background: rgba(255, 215, 0, 0.15);
-    color: #B8860B;
+    background: var(--badge-bg);
+    color: var(--primary);
     padding: 6px 16px;
     border-radius: 999px;
     font-size: 0.85rem;
@@ -232,7 +233,7 @@
 .product-name {
     font-size: 2.2rem;
     font-weight: 900;
-    color: #2c2c2c;
+    color: var(--text-dark);
     margin-bottom: 16px;
     line-height: 1.2;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -253,7 +254,7 @@
 
 .rating-text {
     font-size: 0.9rem;
-    color: #7a6a5a;
+    color: var(--text-muted);
     margin-right: 8px;
 }
 
@@ -279,18 +280,18 @@
 .sale-price {
     font-size: 2.2rem;
     font-weight: 900;
-    color: #FF8C00;
-    text-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+    color: var(--accent);
+    text-shadow: var(--text-shadow);
 }
 
 .sale-badge {
-    background: linear-gradient(135deg, #FFD700, #FF8C00);
+    background: var(--gradient-primary);
     color: #fff;
     padding: 6px 14px;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 700;
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+    box-shadow: var(--shadow-button);
 }
 
 /* انیمیشن badge تخفیف */
@@ -314,11 +315,11 @@
 @keyframes badgePulse {
     0%, 100% {
         transform: scale(1);
-        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        box-shadow: var(--shadow-button);
     }
     50% {
         transform: scale(1.05);
-        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.7);
+        box-shadow: var(--shadow-button-hover);
     }
 }
 
@@ -333,14 +334,14 @@
 
 /* توضیحات کوتاه */
 .product-short-desc-full {
-    color: #5a4a3a;
+    color: var(--text-muted);
     font-size: 1.05rem;
     line-height: 1.9;
     margin-bottom: 20px;
     padding: 16px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--label-bg);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--label-border);
 }
 
 /* وضعیت موجودی */
@@ -377,7 +378,7 @@
 .quantity-wrap {
     display: flex;
     align-items: center;
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    border: 2px solid var(--border-light);
     border-radius: 12px;
     overflow: hidden;
     background: #fff;
@@ -386,17 +387,17 @@
 .qty-btn {
     width: 44px;
     height: 50px;
-    background: rgba(255, 215, 0, 0.1);
+    background: var(--badge-bg);
     font-size: 1.4rem;
     font-weight: 700;
-    color: #B8860B;
+    color: var(--primary);
     cursor: pointer;
     border: none;
     transition: all 0.3s;
 }
 
 .qty-btn:hover {
-    background: rgba(255, 215, 0, 0.25);
+    background: var(--label-bg);
     transform: scale(1.1);
 }
 
@@ -421,7 +422,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #FFD700, #FF8C00);
+    background: var(--gradient-primary);
     color: #fff;
     padding: 14px 32px;
     border-radius: 12px;
@@ -431,12 +432,12 @@
     border: none;
     cursor: pointer;
     transition: all 0.4s;
-    box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    box-shadow: var(--shadow-button);
 }
 
 .btn-add-single:hover:not(.disabled) {
     transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.6);
+    box-shadow: var(--shadow-button-hover);
 }
 
 .btn-add-single.disabled {
@@ -449,12 +450,12 @@
     width: 52px;
     height: 52px;
     border-radius: 12px;
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    border: 2px solid var(--border-light);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.4rem;
-    color: #B8860B;
+    color: var(--primary);
     cursor: pointer;
     transition: all 0.3s;
     background: #fff;
@@ -471,7 +472,7 @@
 }
 
 .btn-wishlist-single i {
-    color: #B8860B;
+    color: var(--primary);
     transition: all 0.3s;
 }
 
@@ -486,9 +487,9 @@
 /* متا */
 .product-meta {
     font-size: 0.9rem;
-    color: #7a6a5a;
+    color: var(--text-muted);
     padding: 12px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-light);
 }
 
 /* بخش ویژگی‌های محصول - گلسی با پس‌زمینه روشن‌تر */
@@ -502,31 +503,31 @@
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid var(--border-light);
     border-radius: 20px;
     padding: 32px 24px;
     text-align: center;
     transition: all 0.4s ease;
     animation: fadeIn 0.8s ease;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-primary);
 }
 
 .feature-card:hover {
     transform: translateY(-10px) scale(1.02);
-    background: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
-    border-color: rgba(255, 215, 0, 0.4);
+    background: var(--card-overlay);
+    box-shadow: var(--shadow-button-hover);
+    border-color: var(--border-light);
 }
 
 .feature-card i {
     font-size: 3rem;
     margin-bottom: 16px;
-    color: #FFD700;
+    color: var(--primary-light);
     animation: iconFloat 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    filter: var(--icon-glow);
 }
 
 @keyframes iconFloat {
@@ -541,14 +542,14 @@
 .feature-card h3 {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #2c2c2c;
+    color: var(--text-dark);
     margin-bottom: 12px;
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
 }
 
 .feature-card p {
     font-size: 0.95rem;
-    color: #5a4a3a;
+    color: var(--text-muted);
     line-height: 1.7;
 }
 
@@ -571,7 +572,7 @@
 .product-single-page .section-title {
     font-size: 2rem;
     font-weight: 800;
-    color: #2c2c2c;
+    color: var(--text-dark);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -580,23 +581,22 @@
 }
 
 .product-single-page .title-icon {
-    color: #FFD700;
+    color: var(--primary-light);
     font-size: 1.8rem;
     animation: iconFloat 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+    filter: var(--icon-glow);
 }
 
 .product-single-page .title-leaf {
     font-size: 1.8rem;
-    color: #FFD700;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
+    color: var(--primary-light);
+    filter: var(--icon-glow);
 }
 
 .product-single-page .see-all-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #e1e1e1;
     font-weight: 600;
     font-size: 0.95rem;
     transition: all 0.3s;
@@ -627,20 +627,20 @@
 .product-full-desc h2 {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #2c2c2c;
+    color: var(--text-dark);
     margin-bottom: 20px;
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
 }
 
 .desc-content {
     line-height: 2;
-    color: #5a4a3a;
-    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-muted);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
     padding: 28px;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-primary);
 }
 
 /* نظرات */
@@ -653,26 +653,26 @@
 .reviews-section h2 {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #2c2c2c;
+    color: var(--text-dark);
     margin-bottom: 28px;
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
 }
 
 /* فرم ثبت نظر */
 .review-form-wrap {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 32px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--border-light);
     margin-bottom: 40px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-primary);
 }
 
 .review-form-wrap h3 {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #2c2c2c;
+    color: var(--text-dark);
     margin-bottom: 24px;
 }
 
@@ -683,7 +683,7 @@
 .review-form label {
     display: block;
     font-weight: 600;
-    color: #2c2c2c;
+    color: var(--text-dark);
     margin-bottom: 8px;
     font-size: 0.95rem;
 }
@@ -695,7 +695,7 @@
 .review-form .form-control {
     width: 100%;
     padding: 12px 16px;
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    border: 2px solid var(--border-light);
     border-radius: 10px;
     font-size: 0.95rem;
     font-family: 'Vazirmatn', sans-serif;
@@ -705,8 +705,8 @@
 
 .review-form .form-control:focus {
     outline: none;
-    border-color: #FFD700;
-    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+    border-color: var(--primary);
+    box-shadow: var(--auth-input-focus-shadow);
     background: #fff;
 }
 
@@ -718,7 +718,7 @@
 .char-counter {
     display: block;
     text-align: left;
-    color: #7a6a5a;
+    color: var(--text-muted);
     font-size: 0.85rem;
     margin-top: 4px;
 }
@@ -747,17 +747,17 @@
 .star-rating-input label:hover,
 .star-rating-input label:hover ~ label,
 .star-rating-input input:checked ~ label {
-    color: #FFD700;
+    color: var(--primary-light);
     transform: scale(1.1);
 }
 
 .star-rating-input label:hover {
-    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+    filter: var(--icon-glow);
 }
 
 .rating-text {
     font-size: 0.9rem;
-    color: #7a6a5a;
+    color: var(--text-muted);
     font-weight: 600;
 }
 
@@ -766,7 +766,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #FFD700, #FF8C00);
+    background: var(--gradient-primary);
     color: #fff;
     padding: 14px 32px;
     border-radius: 12px;
@@ -776,12 +776,12 @@
     border: none;
     cursor: pointer;
     transition: all 0.4s;
-    box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    box-shadow: var(--shadow-button);
 }
 
 .btn-submit-review:hover {
     transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 12px 32px rgba(255, 215, 0, 0.6);
+    box-shadow: var(--shadow-button-hover);
 }
 
 /* پیام لاگین */
@@ -816,7 +816,7 @@
 .no-reviews {
     text-align: center;
     padding: 60px 20px;
-    color: #7a6a5a;
+    color: var(--text-muted);
 }
 
 .no-reviews i {
@@ -836,20 +836,20 @@
 }
 
 .review-card {
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid var(--border-light);
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-primary);
     transition: all 0.3s;
 }
 
 .review-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.18);
+    box-shadow: var(--shadow-button-hover);
+    background: var(--card-overlay);
 }
 
 .review-header {
@@ -862,24 +862,24 @@
 
 .reviewer-name {
     font-weight: 700;
-    color: #2c2c2c;
+    color: var(--text-dark);
 }
 
 .review-date {
     font-size: 0.85rem;
-    color: #7a6a5a;
+    color: var(--text-muted);
     margin-right: auto;
 }
 
 .review-title {
     font-weight: 600;
-    color: #D2691E;
+    color: var(--primary);
     margin-bottom: 8px;
 }
 
 .review-body {
     font-size: 0.95rem;
-    color: #5a4a3a;
+    color: var(--text-muted);
     line-height: 1.8;
 }
 

@@ -301,35 +301,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // =================================================================
-    // ۸. ایجاد برگ‌های متحرک پاییزی
-    // =================================================================
-    const body = document.body;
-    const colors = ['#FFD700', '#FF8C00', '#FFA500'];
-    
-    for (let i = 0; i < 4; i++) {
-        const leaf = document.createElement('div');
-        leaf.className = 'leaf';
-        
-        const left = 15 + Math.random() * 70;
-        const size = 18 + Math.random() * 12;
-        const duration = 15 + Math.random() * 10;
-        const delay = -(Math.random() * duration);
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        leaf.style.cssText = [
-            'left:' + left + '%',
-            'width:' + size + 'px',
-            'height:' + size + 'px',
-            'opacity:0.35',
-            'background:' + color,
-            'animation-duration:' + duration + 's',
-            'animation-delay:' + delay + 's'
-        ].join(';');
-        
-        body.appendChild(leaf);
-    }
-    
-    // =================================================================
     // ۹. Initialize کردن کاروسل محصولات مشابه (Slick)
     // =================================================================
     
