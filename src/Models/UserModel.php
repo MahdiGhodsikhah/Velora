@@ -285,4 +285,37 @@ class UserModel {
         
         return db_query($sql);
     }
+    
+    /**
+     * تعداد کل کاربران - برای پنل ادمین
+     */
+    public function getTotalCount(): int {
+        $result = db_fetch_one("SELECT COUNT(*) as total FROM `users`");
+        return (int)($result['total'] ?? 0);
+    }
+    
+    /**
+     * آخرین کاربران ثبت نام شده - برای پنل ادمین
+     */
+    public function getRecentUsers(int $limit = 5): array {
+        $limit = (int)$limit;
+        return db_fetch_all(
+            "SELECT id, username, full_name, phone, email, role, created_at, last_login
+             FROM `users` 
+             ORDER BY `created_at` DESC 
+             LIMIT $limit"
+        );
+    }
+    
+    /**
+     * لیست تمام کاربران - برای پنل ادمین
+     */
+    public function getAllForAdmin(): array {
+        return db_fetch_all(
+            "SELECT id, username, full_name, phone, email, role, is_active, 
+                    created_at, last_login, login_attempts
+             FROM `users` 
+             ORDER BY `created_at` DESC"
+        );
+    }
 }

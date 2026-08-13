@@ -146,4 +146,46 @@ class OrderModel {
         
         return db_query($sql) !== false;
     }
+    
+    /**
+     * تعداد کل سفارشات - برای پنل ادمین
+     */
+    public function getTotalCount(): int {
+        $result = db_fetch_one("SELECT COUNT(*) as total FROM `orders`");
+        return (int)($result['total'] ?? 0);
+    }
+    
+    /**
+     * تعداد سفارشات در انتظار - برای پنل ادمین
+     */
+    public function getPendingCount(): int {
+        $result = db_fetch_one("SELECT COUNT(*) as total FROM `orders` WHERE `status` = 'pending'");
+        return (int)($result['total'] ?? 0);
+    }
+    
+    /**
+     * آخرین سفارشات - برای پنل ادمین
+     */
+    public function getRecentOrders(int $limit = 5): array {
+        $limit = (int)$limit;
+        return db_fetch_all(
+            "SELECT o.*, u.username, u.full_name
+             FROM `orders` o
+             LEFT JOIN `users` u ON o.user_id = u.id
+             ORDER BY o.`created_at` DESC 
+             LIMIT $limit"
+        );
+    }
+    
+    /**
+     * لیست تمام سفارشات - برای پنل ادمین
+     */
+    public function getAllForAdmin(): array {
+        return db_fetch_all(
+            "SELECT o.*, u.username, u.full_name, u.phone
+             FROM `orders` o
+             LEFT JOIN `users` u ON o.user_id = u.id
+             ORDER BY o.`created_at` DESC"
+        );
+    }
 }

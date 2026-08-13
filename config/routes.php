@@ -52,8 +52,14 @@ $routes = [
     'POST:/wishlist/toggle'     => ['WishlistController', 'toggle'],
     'GET:/wishlist/status'      => ['WishlistController', 'getStatus'],
 
-    'GET:/admin/theme-settings' => ['AdminController', 'themeSettings'],
-    'POST:/admin/theme-settings' => ['AdminController', 'themeSettings'],
+    // پنل ادمین
+    'GET:/admin'                     => ['AdminController', 'dashboard'],
+    'GET:/admin/dashboard'           => ['AdminController', 'dashboard'],
+    'GET:/admin/products'            => ['AdminController', 'products'],
+    'GET:/admin/orders'              => ['AdminController', 'orders'],
+    'GET:/admin/users'               => ['AdminController', 'users'],
+    'GET:/admin/theme-settings'      => ['AdminController', 'themeSettings'],
+    'POST:/admin/theme-settings'     => ['AdminController', 'themeSettings'],
 
     'GET:/404'                  => ['ErrorController', 'notFound'],
 ];

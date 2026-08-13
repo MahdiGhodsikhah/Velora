@@ -2,6 +2,16 @@
 
 class AdminController {
     
+    private UserModel $userModel;
+    private ProductModel $productModel;
+    private OrderModel $orderModel;
+    
+    public function __construct() {
+        $this->userModel = new UserModel();
+        $this->productModel = new ProductModel();
+        $this->orderModel = new OrderModel();
+    }
+    
     /**
      * بررسی دسترسی ادمین
      */
@@ -22,11 +32,111 @@ class AdminController {
     }
     
     /**
+     * داشبورد اصلی ادمین
+     */
+    public function dashboard(): void {
+        $this->checkAdminAccess();
+        
+        // آمار کلی
+        $stats = [
+            'total_users' => $this->userModel->getTotalCount(),
+            'total_products' => $this->productModel->getTotalCount(),
+            'total_orders' => $this->orderModel->getTotalCount(),
+            'pending_orders' => $this->orderModel->getPendingCount(),
+            'recent_orders' => $this->orderModel->getRecentOrders(5),
+            'recent_users' => $this->userModel->getRecentUsers(5),
+        ];
+        
+        $pageTitle = 'پنل مدیریت';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/dashboard.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * مدیریت محصولات
+     */
+    public function products(): void {
+        $this->checkAdminAccess();
+        
+        $products = $this->productModel->getAllForAdmin();
+        
+        $pageTitle = 'مدیریت محصولات';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/products.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * مدیریت سفارشات
+     */
+    public function orders(): void {
+        $this->checkAdminAccess();
+        
+        $orders = $this->orderModel->getAllForAdmin();
+        
+        $pageTitle = 'مدیریت سفارشات';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/orders.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * مدیریت کاربران
+     */
+    public function users(): void {
+        $this->checkAdminAccess();
+        
+        $users = $this->userModel->getAllForAdmin();
+        
+        $pageTitle = 'مدیریت کاربران';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/users.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
      * صفحه تنظیمات تم
      */
     public function themeSettings(): void {
         $this->checkAdminAccess();
+        
+        $configPath = BASE_PATH . '/config/theme.php';
+        $config = require $configPath;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $mode = $_POST['mode'] ?? 'automatic';
+            $adminTheme = $_POST['admin_theme'] ?? null;
+            
+            $validModes = ['automatic', 'manual'];
+            $validThemes = ['spring', 'summer', 'autumn', 'winter'];
+            
+            if (!in_array($mode, $validModes)) {
+                $mode = 'automatic';
+            }
+            
+            if ($mode === 'manual' && !in_array($adminTheme, $validThemes)) {
+                $adminTheme = null;
+                $mode = 'automatic';
+            }
+            
+            if ($mode === 'automatic') {
+                $adminTheme = null;
+            }
+            
+            $newConfig = "<?php\n\nreturn [\n    'mode' => '$mode',\n    'admin_selected_theme' => " . 
+                         ($adminTheme ? "'$adminTheme'" : 'null') . "\n];\n";
+            
+            file_put_contents($configPath, $newConfig);
+            $_SESSION['admin_success'] = 'تنظیمات تم با موفقیت ذخیره شد.';
+            $this->redirect('/admin/theme-settings');
+            exit;
+        }
+        
+        $pageTitle = 'تنظیمات تم';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
         require BASE_PATH . '/src/Views/admin/theme-settings.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
     }
     
     /**

@@ -242,4 +242,24 @@ class ProductModel {
              WHERE `id` = $productId"
         );
     }
+    
+    /**
+     * تعداد کل محصولات - برای پنل ادمین
+     */
+    public function getTotalCount(): int {
+        $result = db_fetch_one("SELECT COUNT(*) as total FROM `products`");
+        return (int)($result['total'] ?? 0);
+    }
+    
+    /**
+     * لیست تمام محصولات - برای پنل ادمین
+     */
+    public function getAllForAdmin(): array {
+        return db_fetch_all(
+            "SELECT p.*, c.`name` AS category_name
+             FROM `products` p
+             LEFT JOIN `categories` c ON p.`category_id` = c.`id`
+             ORDER BY p.`created_at` DESC"
+        );
+    }
 }
