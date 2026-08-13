@@ -320,7 +320,7 @@
 /* اسلایدر تصاویر محصول */
 .product-slider {
     margin-bottom: 12px;
-    margin-top: 10px;
+    margin-top: 30px;
     border-radius: 10px;
     overflow: hidden;
     background: #fffaf2;
@@ -597,7 +597,7 @@
         padding: 14px 14px 65px;
     }
     .product-slider {
-        margin-top: 8px;
+        margin-top: 28px;
         margin-bottom: 10px;
     }
     .product-slider .img-wrap {
@@ -622,7 +622,7 @@
         padding: 8px 6px; 
     }
     .product-slider {
-        margin-top: 6px;
+        margin-top: 26px;
         margin-bottom: 8px;
     }
     .product-slider .img-wrap {
@@ -646,7 +646,7 @@
         padding: 12px 12px 55px;
     }
     .product-slider {
-        margin-top: 5px;
+        margin-top: 24px;
         margin-bottom: 6px;
     }
     .product-slider .img-wrap {
