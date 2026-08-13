@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
+if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin') {
     header('Location: ' . BASE_URL . '/');
     exit;
 }
