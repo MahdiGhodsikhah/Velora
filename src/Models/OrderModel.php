@@ -105,28 +105,6 @@ class OrderModel {
     }
 
     /**
-     * به‌روزرسانی وضعیت سفارش
-     */
-    public function updateOrderStatus(int $orderId, string $status): bool {
-        $orderId = (int)$orderId;
-        $status = db_escape($status);
-        
-        $sql = "UPDATE orders SET status = '$status' WHERE id = $orderId";
-        return db_query($sql) !== false;
-    }
-
-    /**
-     * به‌روزرسانی وضعیت پرداخت
-     */
-    public function updatePaymentStatus(int $orderId, string $paymentStatus): bool {
-        $orderId = (int)$orderId;
-        $paymentStatus = db_escape($paymentStatus);
-        
-        $sql = "UPDATE orders SET payment_status = '$paymentStatus' WHERE id = $orderId";
-        return db_query($sql) !== false;
-    }
-
-    /**
      * تولید شماره سفارش یکتا
      */
     public function generateOrderNumber(): string {
@@ -187,5 +165,121 @@ class OrderModel {
              LEFT JOIN `users` u ON o.user_id = u.id
              ORDER BY o.`created_at` DESC"
         );
+    }
+    
+    /**
+     * لیست سفارشات با صفحه‌بندی و فیلتر
+     */
+    public function getAllForAdminPaginated(int $page = 1, int $perPage = 20, string $statusFilter = 'all', string $paymentFilter = 'all'): array {
+        $offset = ($page - 1) * $perPage;
+        
+        $whereConditions = [];
+        if ($statusFilter !== 'all') {
+            $whereConditions[] = "o.status = '" . db_escape($statusFilter) . "'";
+        }
+        if ($paymentFilter !== 'all') {
+            $whereConditions[] = "o.payment_status = '" . db_escape($paymentFilter) . "'";
+        }
+        
+        $whereClause = !empty($whereConditions) ? 'WHERE ' . implode(' AND ', $whereConditions) : '';
+        
+        return db_fetch_all(
+            "SELECT o.*, u.username, u.full_name, u.phone
+             FROM `orders` o
+             LEFT JOIN `users` u ON o.user_id = u.id
+             $whereClause
+             ORDER BY o.`created_at` DESC
+             LIMIT $perPage OFFSET $offset"
+        );
+    }
+    
+    /**
+     * تعداد کل سفارشات با فیلتر
+     */
+    public function getTotalCountWithFilter(string $statusFilter = 'all', string $paymentFilter = 'all'): int {
+        $whereConditions = [];
+        if ($statusFilter !== 'all') {
+            $whereConditions[] = "status = '" . db_escape($statusFilter) . "'";
+        }
+        if ($paymentFilter !== 'all') {
+            $whereConditions[] = "payment_status = '" . db_escape($paymentFilter) . "'";
+        }
+        
+        $whereClause = !empty($whereConditions) ? 'WHERE ' . implode(' AND ', $whereConditions) : '';
+        
+        $result = db_fetch_one("SELECT COUNT(*) as total FROM `orders` $whereClause");
+        return (int)($result['total'] ?? 0);
+    }
+    
+    /**
+     * دریافت جزئیات سفارش با آیتم‌ها
+     */
+    public function getOrderDetails(int $orderId): ?array {
+        $orderId = (int)$orderId;
+        
+        $order = db_fetch_one(
+            "SELECT o.*, u.username, u.full_name, u.phone, u.email
+             FROM `orders` o
+             LEFT JOIN `users` u ON o.user_id = u.id
+             WHERE o.id = $orderId
+             LIMIT 1"
+        );
+        
+        if (!$order) {
+            return null;
+        }
+        
+        // دریافت آیتم‌های سفارش
+        $order['items'] = db_fetch_all(
+            "SELECT oi.*, p.main_image, p.slug
+             FROM `order_items` oi
+             LEFT JOIN `products` p ON oi.product_id = p.id
+             WHERE oi.order_id = $orderId"
+        );
+        
+        return $order;
+    }
+    
+    /**
+     * به‌روزرسانی وضعیت سفارش
+     */
+    public function updateStatus(int $orderId, string $status): bool {
+        $orderId = (int)$orderId;
+        $status = db_escape($status);
+        
+        $validStatuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded'];
+        if (!in_array($status, $validStatuses)) {
+            return false;
+        }
+        
+        return db_query("UPDATE `orders` SET `status` = '$status', `updated_at` = NOW() WHERE `id` = $orderId");
+    }
+    
+    /**
+     * به‌روزرسانی وضعیت پرداخت
+     */
+    public function updatePaymentStatus(int $orderId, string $paymentStatus): bool {
+        $orderId = (int)$orderId;
+        $paymentStatus = db_escape($paymentStatus);
+        
+        $validStatuses = ['unpaid', 'paid', 'refunded'];
+        if (!in_array($paymentStatus, $validStatuses)) {
+            return false;
+        }
+        
+        return db_query("UPDATE `orders` SET `payment_status` = '$paymentStatus', `updated_at` = NOW() WHERE `id` = $orderId");
+    }
+    
+    /**
+     * حذف سفارش
+     */
+    public function deleteOrder(int $orderId): bool {
+        $orderId = (int)$orderId;
+        
+        // حذف آیتم‌های سفارش
+        db_query("DELETE FROM `order_items` WHERE `order_id` = $orderId");
+        
+        // حذف سفارش
+        return db_query("DELETE FROM `orders` WHERE `id` = $orderId");
     }
 }

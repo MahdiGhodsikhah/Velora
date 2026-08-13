@@ -478,8 +478,6 @@ class AdminController {
         
         $this->redirect('/admin/reviews');
     }
-}
-
     
     /**
      * مشاهده جزئیات سفارش
