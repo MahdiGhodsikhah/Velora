@@ -291,6 +291,8 @@
 .status-approved {
     background: #d1f2eb;
     color: #0f5132;
+    padding: 6px;
+    border-radius: 17%;
 }
 
 .order-total {

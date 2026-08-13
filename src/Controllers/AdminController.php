@@ -5,11 +5,13 @@ class AdminController {
     private UserModel $userModel;
     private ProductModel $productModel;
     private OrderModel $orderModel;
+    private ReviewModel $reviewModel;
     
     public function __construct() {
         $this->userModel = new UserModel();
         $this->productModel = new ProductModel();
         $this->orderModel = new OrderModel();
+        $this->reviewModel = new ReviewModel();
     }
     
     /**
@@ -250,7 +252,21 @@ class AdminController {
     public function orders(): void {
         $this->checkAdminAccess();
         
-        $orders = $this->orderModel->getAllForAdmin();
+        // صفحه‌بندی و فیلتر
+        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $perPage = isset($_GET['per_page']) ? max(5, min(50, (int)$_GET['per_page'])) : 20;
+        $statusFilter = $_GET['status'] ?? 'all';
+        $paymentFilter = $_GET['payment'] ?? 'all';
+        
+        $totalOrders = $this->orderModel->getTotalCountWithFilter($statusFilter, $paymentFilter);
+        $totalPages = ceil($totalOrders / $perPage);
+        
+        if ($page > $totalPages && $totalPages > 0) {
+            $page = $totalPages;
+        }
+        
+        $orders = $this->orderModel->getAllForAdminPaginated($page, $perPage, $statusFilter, $paymentFilter);
+        $pendingCount = $this->orderModel->getPendingCount();
         
         $pageTitle = 'مدیریت سفارشات';
         require BASE_PATH . '/src/Views/admin/layout/header.php';
@@ -323,5 +339,239 @@ class AdminController {
         $base = defined('BASE_URL') ? BASE_URL : '';
         header('Location: ' . $base . $path);
         exit;
+    }
+    
+    /**
+     * مدیریت نظرات
+     */
+    public function reviews(): void {
+        $this->checkAdminAccess();
+        
+        // صفحه‌بندی و فیلتر
+        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $perPage = isset($_GET['per_page']) ? max(5, min(50, (int)$_GET['per_page'])) : 20;
+        $filter = $_GET['filter'] ?? 'all'; // all, pending, approved
+        
+        $totalReviews = $this->reviewModel->getTotalCountWithFilter($filter);
+        $totalPages = ceil($totalReviews / $perPage);
+        
+        if ($page > $totalPages && $totalPages > 0) {
+            $page = $totalPages;
+        }
+        
+        $reviews = $this->reviewModel->getAllForAdmin($page, $perPage, $filter);
+        $pendingCount = $this->reviewModel->getPendingCount();
+        
+        $pageTitle = 'مدیریت نظرات';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/reviews.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * فرم ویرایش نظر
+     */
+    public function editReview(string $id): void {
+        $this->checkAdminAccess();
+        
+        $reviewId = (int)$id;
+        $review = $this->reviewModel->getById($reviewId);
+        
+        if (!$review) {
+            $_SESSION['admin_error'] = 'نظر یافت نشد.';
+            $this->redirect('/admin/reviews');
+            return;
+        }
+        
+        $pageTitle = 'ویرایش نظر';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/review-form.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * به‌روزرسانی نظر
+     */
+    public function updateReview(string $id): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/reviews');
+            return;
+        }
+        
+        $reviewId = (int)$id;
+        $success = $this->reviewModel->update($reviewId, $_POST);
+        
+        if ($success) {
+            $_SESSION['admin_success'] = 'نظر با موفقیت به‌روزرسانی شد.';
+        } else {
+            $_SESSION['admin_error'] = 'خطا در به‌روزرسانی نظر.';
+        }
+        
+        $this->redirect('/admin/reviews');
+    }
+    
+    /**
+     * تأیید یا رد نظر
+     */
+    public function approveReview(): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/reviews');
+            return;
+        }
+        
+        $reviewId = (int)($_POST['review_id'] ?? 0);
+        $action = $_POST['action'] ?? 'approve'; // approve or unapprove
+        
+        if ($reviewId <= 0) {
+            $_SESSION['admin_error'] = 'شناسه نظر نامعتبر است.';
+            $this->redirect('/admin/reviews');
+            return;
+        }
+        
+        if ($action === 'approve') {
+            $success = $this->reviewModel->approve($reviewId);
+            $message = 'نظر تأیید شد.';
+        } else {
+            $success = $this->reviewModel->unapprove($reviewId);
+            $message = 'تأیید نظر لغو شد.';
+        }
+        
+        if ($success) {
+            $_SESSION['admin_success'] = $message;
+        } else {
+            $_SESSION['admin_error'] = 'خطا در عملیات.';
+        }
+        
+        $this->redirect('/admin/reviews');
+    }
+    
+    /**
+     * حذف نظر
+     */
+    public function deleteReview(): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/reviews');
+            return;
+        }
+        
+        $reviewId = (int)($_POST['review_id'] ?? 0);
+        
+        if ($reviewId <= 0) {
+            $_SESSION['admin_error'] = 'شناسه نظر نامعتبر است.';
+            $this->redirect('/admin/reviews');
+            return;
+        }
+        
+        $success = $this->reviewModel->delete($reviewId);
+        
+        if ($success) {
+            $_SESSION['admin_success'] = 'نظر با موفقیت حذف شد.';
+        } else {
+            $_SESSION['admin_error'] = 'خطا در حذف نظر.';
+        }
+        
+        $this->redirect('/admin/reviews');
+    }
+}
+
+    
+    /**
+     * مشاهده جزئیات سفارش
+     */
+    public function viewOrder(string $id): void {
+        $this->checkAdminAccess();
+        
+        $orderId = (int)$id;
+        $order = $this->orderModel->getOrderDetails($orderId);
+        
+        if (!$order) {
+            $_SESSION['admin_error'] = 'سفارش یافت نشد.';
+            $this->redirect('/admin/orders');
+            return;
+        }
+        
+        $pageTitle = 'جزئیات سفارش #' . $order['order_number'];
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/order-detail.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * به‌روزرسانی وضعیت سفارش
+     */
+    public function updateOrderStatus(): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/orders');
+            return;
+        }
+        
+        $orderId = (int)($_POST['order_id'] ?? 0);
+        $action = $_POST['action'] ?? '';
+        $value = $_POST['value'] ?? '';
+        
+        if ($orderId <= 0) {
+            $_SESSION['admin_error'] = 'شناسه سفارش نامعتبر است.';
+            $this->redirect('/admin/orders');
+            return;
+        }
+        
+        $success = false;
+        $message = '';
+        
+        if ($action === 'status') {
+            $success = $this->orderModel->updateStatus($orderId, $value);
+            $message = 'وضعیت سفارش به‌روزرسانی شد.';
+        } elseif ($action === 'payment') {
+            $success = $this->orderModel->updatePaymentStatus($orderId, $value);
+            $message = 'وضعیت پرداخت به‌روزرسانی شد.';
+        }
+        
+        if ($success) {
+            $_SESSION['admin_success'] = $message;
+        } else {
+            $_SESSION['admin_error'] = 'خطا در به‌روزرسانی.';
+        }
+        
+        // اگر از صفحه جزئیات آمده، برگرد به همان صفحه
+        $returnUrl = $_POST['return_url'] ?? '/admin/orders';
+        $this->redirect($returnUrl);
+    }
+    
+    /**
+     * حذف سفارش
+     */
+    public function deleteOrder(): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/orders');
+            return;
+        }
+        
+        $orderId = (int)($_POST['order_id'] ?? 0);
+        
+        if ($orderId <= 0) {
+            $_SESSION['admin_error'] = 'شناسه سفارش نامعتبر است.';
+            $this->redirect('/admin/orders');
+            return;
+        }
+        
+        $success = $this->orderModel->deleteOrder($orderId);
+        
+        if ($success) {
+            $_SESSION['admin_success'] = 'سفارش با موفقیت حذف شد.';
+        } else {
+            $_SESSION['admin_error'] = 'خطا در حذف سفارش.';
+        }
+        
+        $this->redirect('/admin/orders');
     }
 }

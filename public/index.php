@@ -49,6 +49,7 @@ require_once BASE_PATH . '/src/Libs/ThemeManager.php';
 require_once BASE_PATH . '/src/Models/UserModel.php';
 require_once BASE_PATH . '/src/Models/ProductModel.php';
 require_once BASE_PATH . '/src/Models/OrderModel.php';
+require_once BASE_PATH . '/src/Models/ReviewModel.php';
 require_once BASE_PATH . '/src/Controllers/HomeController.php';
 require_once BASE_PATH . '/src/Controllers/ProductController.php';
 require_once BASE_PATH . '/src/Controllers/AuthController.php';
