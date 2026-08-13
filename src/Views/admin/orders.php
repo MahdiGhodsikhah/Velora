@@ -73,6 +73,7 @@
                         name="per_page" 
                         onchange="this.form.submit()"
                         style="padding: 0.375rem 0.5rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.875rem; cursor: pointer;">
+                    <option value="5" <?= $perPage == 5 ? 'selected' : '' ?>>5</option>
                     <option value="10" <?= $perPage == 10 ? 'selected' : '' ?>>10</option>
                     <option value="20" <?= $perPage == 20 ? 'selected' : '' ?>>20</option>
                     <option value="50" <?= $perPage == 50 ? 'selected' : '' ?>>50</option>

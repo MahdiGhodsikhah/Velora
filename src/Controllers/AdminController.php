@@ -254,7 +254,7 @@ class AdminController {
         
         // صفحه‌بندی و فیلتر
         $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-        $perPage = isset($_GET['per_page']) ? max(5, min(50, (int)$_GET['per_page'])) : 20;
+        $perPage = isset($_GET['per_page']) ? max(5, min(50, (int)$_GET['per_page'])) : 5;
         $statusFilter = $_GET['status'] ?? 'all';
         $paymentFilter = $_GET['payment'] ?? 'all';
         
@@ -349,7 +349,7 @@ class AdminController {
         
         // صفحه‌بندی و فیلتر
         $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-        $perPage = isset($_GET['per_page']) ? max(5, min(50, (int)$_GET['per_page'])) : 20;
+        $perPage = isset($_GET['per_page']) ? max(5, min(50, (int)$_GET['per_page'])) : 5;
         $filter = $_GET['filter'] ?? 'all'; // all, pending, approved
         
         $totalReviews = $this->reviewModel->getTotalCountWithFilter($filter);
