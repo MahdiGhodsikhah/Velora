@@ -51,30 +51,30 @@ $base = defined('BASE_URL') ? BASE_URL : '';
 
             <!-- فیلتر فصلی -->
             <div class="filter-box" style="margin-top: 20px;">
-                <h3 class="filter-title"><i class="fas fa-calendar-alt" aria-hidden="true"></i> فیلتر فصلی</h3>
+                <h3 class="filter-title"><i class="fas fa-calendar-alt" aria-hidden="true"></i> محصولات ویژه فصلی</h3>
                 <ul class="filter-cats filter-seasons">
-                    <li>
-                        <a href="<?= $base ?>/products?season=autumn"
-                           class="season-autumn <?= (isset($_GET['season']) && $_GET['season'] === 'autumn') ? 'active' : '' ?>">
-                            <i class="fas fa-leaf"></i> <span>پاییزی</span>
-                        </a>
-                    </li>
                     <li>
                         <a href="<?= $base ?>/products?season=spring"
                            class="season-spring <?= (isset($_GET['season']) && $_GET['season'] === 'spring') ? 'active' : '' ?>">
-                            <i class="fas fa-seedling"></i> <span>بهاری</span>
+                            <i class="fas fa-seedling"></i> <span>بهار</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= $base ?>/products?season=summer"
                            class="season-summer <?= (isset($_GET['season']) && $_GET['season'] === 'summer') ? 'active' : '' ?>">
-                            <i class="fas fa-sun"></i> <span>تابستانی</span>
+                            <i class="fas fa-sun"></i> <span>تابستان</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= $base ?>/products?season=autumn"
+                           class="season-autumn <?= (isset($_GET['season']) && $_GET['season'] === 'autumn') ? 'active' : '' ?>">
+                            <i class="fas fa-leaf"></i> <span>پاییز</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= $base ?>/products?season=winter"
                            class="season-winter <?= (isset($_GET['season']) && $_GET['season'] === 'winter') ? 'active' : '' ?>">
-                            <i class="fas fa-snowflake"></i> <span>زمستانی</span>
+                            <i class="fas fa-snowflake"></i> <span>زمستان</span>
                         </a>
                     </li>
                 </ul>

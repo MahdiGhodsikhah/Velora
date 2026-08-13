@@ -27,6 +27,20 @@ class HomeController {
         }
         unset($p);
 
+        // فیلتر محصولات بر اساس فصل
+        $springProducts = array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'spring' || $p['season'] === 'all');
+        });
+        $summerProducts = array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'summer' || $p['season'] === 'all');
+        });
+        $autumnProducts = array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'autumn' || $p['season'] === 'all');
+        });
+        $winterProducts = array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'winter' || $p['season'] === 'all');
+        });
+
         $pageTitle = 'فروشگاه پاییزی شگفت‌انگیز';
         $pageDesc  = 'جدیدترین مدل‌های پوشاک، کفش و اکسسوری با طرح‌های پاییزی';
 

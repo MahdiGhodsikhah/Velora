@@ -60,6 +60,31 @@
     left: 0;
 }
 
+/* استایل‌های رنگی فصلی */
+.filter-seasons .season-spring:hover,
+.filter-seasons .season-spring.active {
+    background: linear-gradient(135deg, #98d98e 0%, #52b788 100%);
+    color: #fff;
+}
+
+.filter-seasons .season-summer:hover,
+.filter-seasons .season-summer.active {
+    background: linear-gradient(135deg, #ffd60a 0%, #ff9a00 100%);
+    color: #fff;
+}
+
+.filter-seasons .season-autumn:hover,
+.filter-seasons .season-autumn.active {
+    background: linear-gradient(135deg, #ff6b35 0%, #e63946 100%);
+    color: #fff;
+}
+
+.filter-seasons .season-winter:hover,
+.filter-seasons .season-winter.active {
+    background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+    color: #fff;
+}
+
 .products-content { 
     flex:1; 
     min-width:0; 

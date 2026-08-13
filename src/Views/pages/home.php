@@ -103,40 +103,46 @@ unset($_SESSION['auth_success']);
         </div>
     </section>
 
-    <!-- کاروسل محصولات ویژه -->
+    <!-- کاروسل محصولات ویژه بهار -->
     <section class="section-container">
         <?php
+        $products = $springProducts ?? [];
+        $sliderTitle = 'محصولات ویژه بهار';
+        $sliderIcon = 'fas fa-seedling';
+        $seasonFilter = 'spring';
+        require BASE_PATH . '/src/Views/partials/slider.php';
+        ?>
+    </section>
+
+    <!-- کاروسل محصولات ویژه تابستان -->
+    <section class="section-container">
+        <?php
+        $products = $summerProducts ?? [];
+        $sliderTitle = 'محصولات ویژه تابستان';
+        $sliderIcon = 'fas fa-sun';
+        $seasonFilter = 'summer';
+        require BASE_PATH . '/src/Views/partials/slider.php';
+        ?>
+    </section>
+
+    <!-- کاروسل محصولات ویژه پاییز -->
+    <section class="section-container">
+        <?php
+        $products = $autumnProducts ?? [];
         $sliderTitle = 'محصولات ویژه پاییز';
-        $sliderIcon = 'fas fa-fire-alt';
-        require BASE_PATH . '/src/Views/partials/slider.php';
-        ?>
-    </section>
-
-    <!-- کاروسل کلکسیون پاییزی -->
-    <section class="section-container">
-        <?php
-        // فیلتر محصولات پاییزی (در صورت وجود فیلد season در دیتابیس)
-        $autumnProducts = array_filter($featuredProducts ?? [], function($p) {
-            return !empty($p['season']) && $p['season'] === 'autumn';
-        });
-        // اگر محصول پاییزی نداریم، همه محصولات را نشان بده
-        if (empty($autumnProducts)) {
-            $autumnProducts = array_slice($featuredProducts ?? [], 0, 6);
-        }
-        $products = $autumnProducts;
-        $sliderTitle = 'کلکسیون پاییزی';
         $sliderIcon = 'fas fa-leaf';
+        $seasonFilter = 'autumn';
         require BASE_PATH . '/src/Views/partials/slider.php';
         ?>
     </section>
 
-    <!-- کاروسل جدیدترین محصولات -->
+    <!-- کاروسل محصولات ویژه زمستان -->
     <section class="section-container">
         <?php
-        // محصولات جدید (می‌توانید از تاریخ created_at استفاده کنید)
-        $products = array_slice($featuredProducts ?? [], 0, 8);
-        $sliderTitle = 'جدیدترین محصولات';
-        $sliderIcon = 'fas fa-sparkles';
+        $products = $winterProducts ?? [];
+        $sliderTitle = 'محصولات ویژه زمستان';
+        $sliderIcon = 'fas fa-snowflake';
+        $seasonFilter = 'winter';
         require BASE_PATH . '/src/Views/partials/slider.php';
         ?>
     </section>
