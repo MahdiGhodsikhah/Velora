@@ -1,460 +1,41 @@
 /* =======================================
-   استایل کاروسل و کارت محصول
+   استایل کاروسل اصلی محصولات
    ======================================= */
-
-/* ===== کارت محصول - نسخه بهبود یافته ===== */
-.product-card {
-    width: 100%;
-    max-width: 100%; /* عرض کامل داخل slick-slide */
-    background: var(--card-bg);
-    position: relative;
-    box-shadow: var(--shadow-primary);
-    padding: 20px 20px 80px;
-    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-    border-radius: 16px;
-    margin: 0 auto;
-    border: 2px solid var(--border-light);
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.product-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: var(--shadow-button-hover);
-    border-color: var(--primary);
-}
-
-/* بج تخفیف - اصلاح موقعیت */
-.product-card .badge {
-    position: absolute;
-    top: 10px;
-    right: 24px;
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
-    z-index: 10;
-    animation: badgeFloat 3s ease-in-out infinite;
-}
-
-@keyframes badgeFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-5px) rotate(-3deg); }
-}
-
-/* آیکون‌های کناری - نسخه بهبود یافته */
-.side-icons {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    z-index: 10;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-}
-.product-card:hover .side-icons { 
-    opacity: 1;
-    transform: translateX(0); 
-}
-
-.icon-item {
-    cursor: pointer;
-    width: 38px; 
-    height: 38px;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border: none;
-    padding: 0;
-    position: relative;
-}
-
-.icon-item::before {
-    content: attr(title);
-    position: absolute;
-    left: 50px;
-    background: rgba(44,44,44,0.95);
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-10px);
-    transition: all 0.25s;
-    z-index: 100;
-}
-
-.icon-item:hover::before {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.icon-item:hover { 
-    transform: scale(1.15) rotate(8deg);
-    box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
-}
-
-.icon-item i {
-    font-size: 1rem;
-    color: var(--card-primary);
-    transition: all 0.3s;
-}
-
-.icon-item:hover i {
-    transform: scale(1.1);
-}
-
-/* آیکون علاقه‌مندی */
-.wishlist-btn i {
-    color: #e74c3c;
-}
-
-.wishlist-btn.active {
-    background: rgba(255,255,255,0.95);
-    transform: scale(1.15);
-}
-
-.wishlist-btn.active i {
-    color: #dc2626;
-    animation: heartBeat 0.5s;
-}
-
-/* آیکون اشتراک‌گذاری */
-.share-btn i {
-    color: #3498db;
-}
-
-.share-btn:hover {
-    background: #3498db;
-}
-
-.share-btn:hover i {
-    color: #fff;
-}
-
-/* آیکون مقایسه/جزئیات */
-.icon-item:last-child i {
-    color: #27ae60;
-}
-
-.icon-item:last-child:hover {
-    background: #27ae60;
-}
-
-.icon-item:last-child:hover i {
-    color: #fff;
-}
-
-/* حذف آیکون SVG قدیمی */
-.icon-item img { display: none; }
-@keyframes heartBeat {
-    0%   { transform: scale(1); }
-    30%  { transform: scale(1.4); }
-    100% { transform: scale(1); }
-}
-
-/* اسلایدر تصاویر محصول - نسخه بهبود یافته */
-.product-slider {
-    margin-bottom: 16px;
-    margin-top: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #fffaf2;
-    position: relative;
-}
-
-/* حذف نمایش اسلایدها قبل از بارگذاری slick */
-.product-slider:not(.slick-initialized) .img-wrap:not(:first-child) {
-    display: none;
-}
-
-.product-slider .img-wrap {
-    height: 200px;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-}
-
-.product-slider img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.product-card:hover .product-slider img {
-    transform: scale(1.05);
-}
-
-/* دات‌های slick برای اسلایدر تصاویر محصول - بهبود یافته */
-.product-slider .slick-dots {
-    bottom: 8px;
-    z-index: 5;
-}
-
-.product-slider .slick-dots li {
-    margin: 0 4px;
-    width: 10px;
-    height: 10px;
-}
-
-.product-slider .slick-dots li button {
-    width: 10px;
-    height: 10px;
-    padding: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.7);
-    border: 2px solid var(--primary-light);
-    transition: all 0.3s ease;
-}
-
-.product-slider .slick-dots li button::before {
-    display: none;
-}
-
-.product-slider .slick-dots li button:hover {
-    background: var(--primary-light);
-    transform: scale(1.2);
-    border-color: var(--primary);
-}
-
-.product-slider .slick-dots li.slick-active button {
-    background: var(--primary);
-    border-color: var(--primary);
-    width: 12px;
-    height: 12px;
-    box-shadow: 0 0 8px var(--glow-color);
-}
-
-/* اطلاعات کارت */
-.card-body-custome { padding: 0 4px; text-align: right; }
-
-.product-category-label {
-    font-size: 0.75rem;
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.product-title {
-    display: block;
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-    color: var(--text-dark);
-    min-height: 44px;
-    line-height: 1.5;
-    transition: color 0.2s;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-decoration: none;
-}
-
-.product-title:hover { 
-    color: var(--primary); 
-}
-
-.product-short-desc {
-    font-size: 0.82rem;
-    color: #7a6a5a;
-    line-height: 1.5;
-    margin-bottom: 8px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.product-price {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-}
-.old-price {
-    font-size: 0.8rem;
-    color: #999;
-    text-decoration: line-through;
-    font-weight: 500;
-}
-.discount-badge {
-    background: var(--primary);
-    color: #fff;
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    font-weight: 700;
-}
-
-.current-price {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-/* ستاره‌ها - نسخه Font Awesome */
-.stars {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    direction: ltr;
-    justify-content: flex-end;
-    margin-bottom: 16px;
-    flex-wrap: nowrap;
-}
-
-.stars i {
-    font-size: 0.95rem;
-    color: #fbbf24;
-    text-shadow: 0 0 3px rgba(251, 191, 36, 0.4);
-    transition: transform 0.2s;
-}
-
-.stars i.fa-star {
-    color: #fbbf24;
-}
-
-.stars i.fa-star-half-alt {
-    color: #fbbf24;
-}
-
-.stars i.far.fa-star {
-    color: #d1d5db;
-}
-
-.product-card:hover .stars i {
-    transform: scale(1.1);
-}
-
-.rating-count {
-    font-size: 0.8rem;
-    color: #888;
-    margin-right: 6px;
-    direction: rtl;
-}
-
-/* ناموجود */
-.out-of-stock-badge {
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    color: #c0392b;
-    font-size: 1.1rem;
-    border-radius: var(--card-radius);
-    z-index: 4;
-    backdrop-filter: blur(2px);
-}
-
-/* دکمه افزودن به سبد - بهبود یافته */
-.btn-add {
-    position: absolute;
-    bottom: 16px;
-    right: 50%;
-    transform: translateX(50%);
-    background: var(--gradient-primary);
-    color: #fff;
-    border-radius: 28px;
-    padding: 13px 24px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    font-family: 'Vazirmatn', sans-serif;
-    box-shadow: var(--shadow-button);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: center;
-}
-
-.btn-add::before {
-    content: '\f07a';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    font-size: 0.95rem;
-}
-
-.btn-add:hover:not(.disabled) {
-    background: var(--gradient-secondary);
-    transform: translateX(50%) translateY(-4px) scale(1.05);
-    box-shadow: var(--shadow-button-hover);
-}
-
-.btn-add:active:not(.disabled) {
-    transform: translateX(50%) translateY(-2px) scale(1.02);
-}
-
-.btn-add.disabled,
-.btn-add:disabled {
-    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-    cursor: not-allowed;
-    box-shadow: none;
-    opacity: 0.7;
-}
-
-.btn-add.disabled::before,
-.btn-add:disabled::before {
-    content: '\f05e';
-}
 
 /* ===== اسلایدر اصلی ===== */
 .main-product-slider {
     width: 100%;
     position: relative;
-    padding: 50px 60px 90px; /* padding بیشتر در بالا برای hover و shadow، کناره‌ها برای دکمه‌ها و پایین برای دات‌ها */
+    padding: 50px 60px 90px;
     margin: 0 auto;
     max-width: 100%;
 }
+
 .main-product-slider .slick-slide {
-    padding: 0 10px; /* padding افقی برای فاصله بین کارت‌ها */
+    padding: 0 10px;
     box-sizing: border-box;
 }
+
 .main-product-slider .slick-track {
     display: flex;
     align-items: stretch;
 }
+
 .main-product-slider .slick-slide > div {
     display: flex;
     justify-content: center;
     height: 100%;
 }
+
 .main-product-slider .slick-list {
-    overflow-x: hidden; /* مخفی کردن آیتم‌های کناری */
-    overflow-y: visible; /* اجازه نمایش shadow و hover effect */
-    padding: 15px 0 !important; /* padding عمودی برای shadow */
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 15px 0 !important;
 }
 
-/* Slick Dots - بهبود یافته برای کاروسل اصلی */
+/* Slick Dots - کاروسل اصلی */
 .main-product-slider .slick-dots {
-    bottom: 20px; /* قرار دادن دات‌ها داخل فضای carousel */
+    bottom: 20px;
     display: flex !important;
     justify-content: center;
     align-items: center;
@@ -497,7 +78,7 @@
     box-shadow: 0 0 15px var(--glow-color);
 }
 
-/* فلش‌های custom کاروسل */
+/* فلش‌های کاروسل */
 .main-product-slider .custom-arrow {
     position: absolute;
     top: 50%;
@@ -541,12 +122,8 @@
     pointer-events: none; 
 }
 
-/* ===== ریسپانسیو ===== */
+/* ===== ریسپانسیو کاروسل ===== */
 @media (max-width: 992px) {
-    .product-card { 
-        max-width: 100%; 
-        padding: 16px 16px 75px;
-    }
     .main-product-slider {
         padding: 40px 40px 80px;
     }
@@ -555,28 +132,25 @@
     }
     .main-product-slider .slick-prev { right: 5px; }
     .main-product-slider .slick-next { left: 5px; }
-    .btn-add { bottom: 14px; }
 }
+
 @media (max-width: 768px) {
-    .product-card { 
-        padding: 16px 16px 70px; 
-    }
-    .side-icons   { left: -10px; top: 40px; padding: 8px 6px; }
     .main-product-slider {
         padding: 35px 30px 70px;
     }
     .main-product-slider .slick-slide {
         padding: 0 5px;
     }
-    .main-product-slider .custom-arrow { width: 38px; height: 38px; }
-    .main-product-slider .slick-dots { bottom: 15px; }
-    .btn-add { bottom: 12px; font-size: 0.85rem; padding: 11px 20px; }
-}
-@media (max-width: 576px) {
-    .product-card { 
-        max-width: 100%; 
-        padding: 16px 16px 65px;
+    .main-product-slider .custom-arrow { 
+        width: 38px; 
+        height: 38px; 
     }
+    .main-product-slider .slick-dots { 
+        bottom: 15px; 
+    }
+}
+
+@media (max-width: 576px) {
     .main-product-slider {
         padding: 30px 10px 60px;
     }
@@ -584,6 +158,7 @@
         padding: 0 5px;
     }
     .main-product-slider .slick-prev,
-    .main-product-slider .slick-next { display: none !important; }
-    .btn-add { font-size: 0.82rem; padding: 10px 14px; bottom: 10px; }
+    .main-product-slider .slick-next { 
+        display: none !important; 
+    }
 }
