@@ -682,9 +682,9 @@ $(document).ready(function () {
     console.log('✅ showNotification function is ready!');
     console.log('Test it with: showNotification("تست پیام", "success")');
     
-    // تبدیل alert‌های موجود به notification
+    // تبدیل alert‌های موجود به notification - فقط alert‌های خارج از modal
     setTimeout(function() {
-        $('.alert').each(function() {
+        $('.alert').not('.modal .alert, .modal .alert-info').each(function() {
             const $alert = $(this);
             const message = $alert.find('span').text().trim() || $alert.text().replace('×', '').trim();
             

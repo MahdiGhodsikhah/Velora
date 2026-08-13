@@ -408,6 +408,11 @@
     color: #764ba2;
 }
 
+/* Override Bootstrap modal styles */
+.modal-header .btn-close {
+    margin-right: 0 !important;
+}
+
 /* ریسپانسیو */
 @media (max-width: 768px) {
     .dashboard-page {
