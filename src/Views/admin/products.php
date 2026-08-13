@@ -1,9 +1,25 @@
+<?php if (isset($_SESSION['admin_success'])): ?>
+    <div class="alert alert-success" style="margin-bottom: 1.5rem;">
+        <?= $_SESSION['admin_success'] ?>
+        <?php unset($_SESSION['admin_success']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['admin_error'])): ?>
+    <div class="alert alert-danger" style="margin-bottom: 1.5rem;">
+        <?= $_SESSION['admin_error'] ?>
+        <?php unset($_SESSION['admin_error']); ?>
+    </div>
+<?php endif; ?>
+
 <div class="admin-table">
     <div style="padding: 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
         <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #1e293b;">
             لیست محصولات (<?= count($products) ?> محصول)
         </h3>
-        <button class="btn btn-primary btn-sm" disabled>افزودن محصول جدید</button>
+        <a href="<?= BASE_URL ?>/admin/products/create" class="btn btn-primary btn-sm">
+            ➕ افزودن محصول جدید
+        </a>
     </div>
     
     <!-- جدول محصولات -->
@@ -25,6 +41,7 @@
                     <th>بازدید</th>
                     <th>وضعیت</th>
                     <th>تاریخ ایجاد</th>
+                    <th>عملیات</th>
                 </tr>
             </thead>
             <tbody>
@@ -141,11 +158,24 @@
                             <td style="font-size: 0.875rem; color: #64748b; white-space: nowrap;">
                                 <?= jdate('Y/m/d', strtotime($product['created_at'])) ?>
                             </td>
+                            <td style="white-space: nowrap;">
+                                <a href="<?= BASE_URL ?>/admin/products/edit/<?= $product['id'] ?>" 
+                                   class="btn btn-sm btn-warning" 
+                                   style="padding: 0.375rem 0.75rem; font-size: 0.875rem; text-decoration: none; display: inline-block; margin-left: 0.25rem;"
+                                   onclick="event.stopPropagation();">
+                                    ✏️ ویرایش
+                                </a>
+                                <button onclick="confirmDelete(<?= $product['id'] ?>, '<?= Security::e($product['name']) ?>'); event.stopPropagation();" 
+                                        class="btn btn-sm btn-danger" 
+                                        style="padding: 0.375rem 0.75rem; font-size: 0.875rem;">
+                                    🗑️ حذف
+                                </button>
+                            </td>
                         </tr>
                         
                         <!-- ردیف جزئیات کامل محصول (مخفی - کلیک کنید برای نمایش) -->
                         <tr id="details-<?= $product['id'] ?>" style="display: none; background: #f8fafc;">
-                            <td colspan="14" style="padding: 2rem;">
+                            <td colspan="15" style="padding: 2rem;">
                                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
                                     <!-- توضیحات کوتاه -->
                                     <div>
@@ -197,7 +227,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="14" style="text-align: center; color: #94a3b8; padding: 3rem;">
+                        <td colspan="15" style="text-align: center; color: #94a3b8; padding: 3rem;">
                             هیچ محصولی یافت نشد
                         </td>
                     </tr>
@@ -207,11 +237,23 @@
     </div>
 </div>
 
+<!-- فرم حذف مخفی -->
+<form id="deleteForm" method="POST" action="<?= BASE_URL ?>/admin/products/delete" style="display: none;">
+    <input type="hidden" name="product_id" id="deleteProductId">
+</form>
+
 <script>
 function toggleProductDetails(productId) {
     const detailsRow = document.getElementById('details-' + productId);
     if (detailsRow) {
         detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
+    }
+}
+
+function confirmDelete(productId, productName) {
+    if (confirm('آیا مطمئن هستید که می‌خواهید محصول "' + productName + '" را حذف کنید؟\n\nاین عمل قابل بازگشت نیست!')) {
+        document.getElementById('deleteProductId').value = productId;
+        document.getElementById('deleteForm').submit();
     }
 }
 </script>

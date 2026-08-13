@@ -68,6 +68,171 @@ class AdminController {
     }
     
     /**
+     * فرم ایجاد محصول جدید
+     */
+    public function createProduct(): void {
+        $this->checkAdminAccess();
+        
+        $categories = $this->productModel->getAllCategories();
+        
+        $pageTitle = 'افزودن محصول جدید';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/product-form.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * ذخیره محصول جدید
+     */
+    public function storeProduct(): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/products');
+            return;
+        }
+        
+        // اعتبارسنجی
+        $errors = [];
+        
+        if (empty($_POST['name'])) {
+            $errors[] = 'نام محصول الزامی است.';
+        }
+        
+        if (empty($_POST['slug'])) {
+            $errors[] = 'اسلاگ الزامی است.';
+        }
+        
+        if (empty($_POST['category_id'])) {
+            $errors[] = 'دسته‌بندی الزامی است.';
+        }
+        
+        if (empty($_POST['price']) || $_POST['price'] <= 0) {
+            $errors[] = 'قیمت باید بیشتر از صفر باشد.';
+        }
+        
+        if (!empty($errors)) {
+            $_SESSION['admin_error'] = implode('<br>', $errors);
+            $this->redirect('/admin/products/create');
+            return;
+        }
+        
+        // ذخیره محصول
+        $productId = $this->productModel->createProduct($_POST);
+        
+        if ($productId) {
+            $_SESSION['admin_success'] = 'محصول با موفقیت ایجاد شد.';
+            $this->redirect('/admin/products');
+        } else {
+            $_SESSION['admin_error'] = 'خطا در ایجاد محصول.';
+            $this->redirect('/admin/products/create');
+        }
+    }
+    
+    /**
+     * فرم ویرایش محصول
+     */
+    public function editProduct(string $id): void {
+        $this->checkAdminAccess();
+        
+        $productId = (int)$id;
+        $product = $this->productModel->getByIdForAdmin($productId);
+        
+        if (!$product) {
+            $_SESSION['admin_error'] = 'محصول یافت نشد.';
+            $this->redirect('/admin/products');
+            return;
+        }
+        
+        $categories = $this->productModel->getAllCategories();
+        
+        $pageTitle = 'ویرایش محصول';
+        require BASE_PATH . '/src/Views/admin/layout/header.php';
+        require BASE_PATH . '/src/Views/admin/product-form.php';
+        require BASE_PATH . '/src/Views/admin/layout/footer.php';
+    }
+    
+    /**
+     * به‌روزرسانی محصول
+     */
+    public function updateProduct(string $id): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/products');
+            return;
+        }
+        
+        $productId = (int)$id;
+        
+        // اعتبارسنجی
+        $errors = [];
+        
+        if (empty($_POST['name'])) {
+            $errors[] = 'نام محصول الزامی است.';
+        }
+        
+        if (empty($_POST['slug'])) {
+            $errors[] = 'اسلاگ الزامی است.';
+        }
+        
+        if (empty($_POST['category_id'])) {
+            $errors[] = 'دسته‌بندی الزامی است.';
+        }
+        
+        if (empty($_POST['price']) || $_POST['price'] <= 0) {
+            $errors[] = 'قیمت باید بیشتر از صفر باشد.';
+        }
+        
+        if (!empty($errors)) {
+            $_SESSION['admin_error'] = implode('<br>', $errors);
+            $this->redirect('/admin/products/edit/' . $productId);
+            return;
+        }
+        
+        // به‌روزرسانی محصول
+        $success = $this->productModel->updateProduct($productId, $_POST);
+        
+        if ($success) {
+            $_SESSION['admin_success'] = 'محصول با موفقیت به‌روزرسانی شد.';
+        } else {
+            $_SESSION['admin_error'] = 'خطا در به‌روزرسانی محصول.';
+        }
+        
+        $this->redirect('/admin/products');
+    }
+    
+    /**
+     * حذف محصول
+     */
+    public function deleteProduct(): void {
+        $this->checkAdminAccess();
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('/admin/products');
+            return;
+        }
+        
+        $productId = (int)($_POST['product_id'] ?? 0);
+        
+        if ($productId <= 0) {
+            $_SESSION['admin_error'] = 'شناسه محصول نامعتبر است.';
+            $this->redirect('/admin/products');
+            return;
+        }
+        
+        $success = $this->productModel->deleteProduct($productId);
+        
+        if ($success) {
+            $_SESSION['admin_success'] = 'محصول با موفقیت حذف شد.';
+        } else {
+            $_SESSION['admin_error'] = 'خطا در حذف محصول.';
+        }
+        
+        $this->redirect('/admin/products');
+    }
+    
+    /**
      * مدیریت سفارشات
      */
     public function orders(): void {

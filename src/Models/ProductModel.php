@@ -262,4 +262,103 @@ class ProductModel {
              ORDER BY p.`created_at` DESC"
         );
     }
+    
+    /**
+     * دریافت محصول با ID - برای ویرایش
+     */
+    public function getByIdForAdmin(int $id): ?array {
+        $id = (int)$id;
+        return db_fetch_one(
+            "SELECT p.*, c.`name` AS category_name
+             FROM `products` p
+             LEFT JOIN `categories` c ON p.`category_id` = c.`id`
+             WHERE p.`id` = $id
+             LIMIT 1"
+        );
+    }
+    
+    /**
+     * ایجاد محصول جدید
+     */
+    public function createProduct(array $data): int|false {
+        $categoryId = (int)$data['category_id'];
+        $name = db_escape($data['name']);
+        $slug = db_escape($data['slug']);
+        $description = db_escape($data['description'] ?? '');
+        $shortDesc = db_escape($data['short_desc'] ?? '');
+        $sku = db_escape($data['sku'] ?? '');
+        $price = (int)$data['price'];
+        $salePrice = !empty($data['sale_price']) ? (int)$data['sale_price'] : 'NULL';
+        $discountPct = (int)($data['discount_pct'] ?? 0);
+        $stockQty = (int)($data['stock_qty'] ?? 0);
+        $mainImage = db_escape($data['main_image'] ?? '/assets/images/products/no-image.jpg');
+        $season = db_escape($data['season'] ?? 'all');
+        $isFeatured = isset($data['is_featured']) ? 1 : 0;
+        $isActive = isset($data['is_active']) ? 1 : 0;
+        
+        $sql = "INSERT INTO `products` 
+                (`category_id`, `name`, `slug`, `description`, `short_desc`, `sku`, 
+                 `price`, `sale_price`, `discount_pct`, `stock_qty`, `main_image`, 
+                 `season`, `is_featured`, `is_active`)
+                VALUES 
+                ($categoryId, '$name', '$slug', '$description', '$shortDesc', '$sku', 
+                 $price, $salePrice, $discountPct, $stockQty, '$mainImage', 
+                 '$season', $isFeatured, $isActive)";
+        
+        return db_insert($sql);
+    }
+    
+    /**
+     * به‌روزرسانی محصول
+     */
+    public function updateProduct(int $id, array $data): bool {
+        $id = (int)$id;
+        $categoryId = (int)$data['category_id'];
+        $name = db_escape($data['name']);
+        $slug = db_escape($data['slug']);
+        $description = db_escape($data['description'] ?? '');
+        $shortDesc = db_escape($data['short_desc'] ?? '');
+        $sku = db_escape($data['sku'] ?? '');
+        $price = (int)$data['price'];
+        $salePrice = !empty($data['sale_price']) ? (int)$data['sale_price'] : 'NULL';
+        $discountPct = (int)($data['discount_pct'] ?? 0);
+        $stockQty = (int)($data['stock_qty'] ?? 0);
+        $season = db_escape($data['season'] ?? 'all');
+        $isFeatured = isset($data['is_featured']) ? 1 : 0;
+        $isActive = isset($data['is_active']) ? 1 : 0;
+        
+        $sql = "UPDATE `products` SET
+                `category_id` = $categoryId,
+                `name` = '$name',
+                `slug` = '$slug',
+                `description` = '$description',
+                `short_desc` = '$shortDesc',
+                `sku` = '$sku',
+                `price` = $price,
+                `sale_price` = $salePrice,
+                `discount_pct` = $discountPct,
+                `stock_qty` = $stockQty,
+                `season` = '$season',
+                `is_featured` = $isFeatured,
+                `is_active` = $isActive,
+                `updated_at` = NOW()
+                WHERE `id` = $id";
+        
+        return db_query($sql);
+    }
+    
+    /**
+     * حذف محصول
+     */
+    public function deleteProduct(int $id): bool {
+        $id = (int)$id;
+        return db_query("DELETE FROM `products` WHERE `id` = $id");
+    }
+    
+    /**
+     * دریافت لیست دسته‌بندی‌ها
+     */
+    public function getAllCategories(): array {
+        return db_fetch_all("SELECT * FROM `categories` WHERE `is_active` = 1 ORDER BY `sort_order`, `name`");
+    }
 }
