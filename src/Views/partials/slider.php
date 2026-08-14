@@ -30,7 +30,7 @@ if (!empty($seasonFilter)) {
         <h2 class="section-title" id="carousel-heading-<?= md5($sliderTitle) ?>">
             <span class="title-icon"><i class="<?= $sliderIcon ?>" aria-hidden="true"></i></span>
             <?= Security::e($sliderTitle) ?>
-            <span class="title-leaf" aria-hidden="true"><i class="fas fa-leaf"></i></span>
+            <span class="title-icon"><i class="<?= $sliderIcon ?>" aria-hidden="true"></i></span>
         </h2>
         <a href="<?= $viewAllLink ?>" class="see-all-btn">
             مشاهده همه <i class="fas fa-arrow-left" aria-hidden="true"></i>
