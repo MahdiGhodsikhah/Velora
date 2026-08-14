@@ -131,16 +131,105 @@ class AdminController {
             return;
         }
         
+        // مدیریت آپلود عکس اصلی
+        if (!empty($_FILES['main_image_upload']) && $_FILES['main_image_upload']['error'] === UPLOAD_ERR_OK) {
+            $uploadResult = $this->uploadProductImage($_FILES['main_image_upload'], 0);
+            if ($uploadResult['success']) {
+                $_POST['main_image'] = $uploadResult['path'];
+            } else {
+                $_SESSION['admin_error'] = $uploadResult['error'];
+                $this->redirect('/admin/products/create');
+                return;
+            }
+        }
+        
         // ذخیره محصول
         $productId = $this->productModel->createProduct($_POST);
         
         if ($productId) {
+            // مدیریت آپلود گالری تصاویر (چند عکس)
+            if (!empty($_FILES['gallery_images']['name'][0])) {
+                $galleryPaths = [];
+                $filesCount = count($_FILES['gallery_images']['name']);
+                
+                for ($i = 0; $i < $filesCount; $i++) {
+                    if ($_FILES['gallery_images']['error'][$i] === UPLOAD_ERR_OK) {
+                        $file = [
+                            'name' => $_FILES['gallery_images']['name'][$i],
+                            'type' => $_FILES['gallery_images']['type'][$i],
+                            'tmp_name' => $_FILES['gallery_images']['tmp_name'][$i],
+                            'error' => $_FILES['gallery_images']['error'][$i],
+                            'size' => $_FILES['gallery_images']['size'][$i]
+                        ];
+                        
+                        $uploadResult = $this->uploadProductImage($file, $productId, 'gallery_' . ($i + 1));
+                        if ($uploadResult['success']) {
+                            $galleryPaths[] = $uploadResult['path'];
+                        }
+                    }
+                }
+                
+                if (!empty($galleryPaths)) {
+                    $this->productModel->updateGallery($productId, json_encode($galleryPaths));
+                }
+            }
+            
             $_SESSION['admin_success'] = 'محصول با موفقیت ایجاد شد.';
             $this->redirect('/admin/products');
         } else {
             $_SESSION['admin_error'] = 'خطا در ایجاد محصول.';
             $this->redirect('/admin/products/create');
         }
+    }
+    
+    /**
+     * آپلود تصویر محصول
+     */
+    private function uploadProductImage(array $file, int $productId, string $prefix = 'main'): array {
+        // بررسی خطاهای آپلود
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            return ['success' => false, 'error' => 'خطا در آپلود فایل'];
+        }
+        
+        // بررسی نوع فایل
+        $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+        if (!in_array($file['type'], $allowedTypes)) {
+            return ['success' => false, 'error' => 'فرمت فایل مجاز نیست. فقط JPG, PNG, WEBP, GIF'];
+        }
+        
+        // بررسی حجم فایل (حداکثر 5MB)
+        $maxSize = 5 * 1024 * 1024; // 5MB
+        if ($file['size'] > $maxSize) {
+            return ['success' => false, 'error' => 'حجم فایل نباید بیشتر از 5MB باشد'];
+        }
+        
+        // بررسی واقعی بودن تصویر
+        $imageInfo = @getimagesize($file['tmp_name']);
+        if ($imageInfo === false) {
+            return ['success' => false, 'error' => 'فایل آپلود شده یک تصویر معتبر نیست'];
+        }
+        
+        // تولید نام یکتا
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $fileName = 'product_' . $productId . '_' . $prefix . '_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $extension;
+        
+        // مسیر ذخیره
+        $uploadDir = BASE_PATH . '/public/assets/images/products';
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        
+        $filePath = $uploadDir . '/' . $fileName;
+        
+        // انتقال فایل
+        if (!move_uploaded_file($file['tmp_name'], $filePath)) {
+            return ['success' => false, 'error' => 'خطا در ذخیره فایل'];
+        }
+        
+        // مسیر نسبی برای ذخیره در دیتابیس
+        $relativePath = '/assets/images/products/' . $fileName;
+        
+        return ['success' => true, 'path' => $relativePath];
     }
     
     /**
@@ -202,6 +291,45 @@ class AdminController {
             $_SESSION['admin_error'] = implode('<br>', $errors);
             $this->redirect('/admin/products/edit/' . $productId);
             return;
+        }
+        
+        // مدیریت آپلود عکس اصلی
+        if (!empty($_FILES['main_image_upload']) && $_FILES['main_image_upload']['error'] === UPLOAD_ERR_OK) {
+            $uploadResult = $this->uploadProductImage($_FILES['main_image_upload'], $productId);
+            if ($uploadResult['success']) {
+                $_POST['main_image'] = $uploadResult['path'];
+            } else {
+                $_SESSION['admin_error'] = $uploadResult['error'];
+                $this->redirect('/admin/products/edit/' . $productId);
+                return;
+            }
+        }
+        
+        // مدیریت آپلود گالری تصاویر (چند عکس)
+        if (!empty($_FILES['gallery_images']['name'][0])) {
+            $galleryPaths = [];
+            $filesCount = count($_FILES['gallery_images']['name']);
+            
+            for ($i = 0; $i < $filesCount; $i++) {
+                if ($_FILES['gallery_images']['error'][$i] === UPLOAD_ERR_OK) {
+                    $file = [
+                        'name' => $_FILES['gallery_images']['name'][$i],
+                        'type' => $_FILES['gallery_images']['type'][$i],
+                        'tmp_name' => $_FILES['gallery_images']['tmp_name'][$i],
+                        'error' => $_FILES['gallery_images']['error'][$i],
+                        'size' => $_FILES['gallery_images']['size'][$i]
+                    ];
+                    
+                    $uploadResult = $this->uploadProductImage($file, $productId, 'gallery_' . ($i + 1));
+                    if ($uploadResult['success']) {
+                        $galleryPaths[] = $uploadResult['path'];
+                    }
+                }
+            }
+            
+            if (!empty($galleryPaths)) {
+                $_POST['gallery'] = json_encode($galleryPaths);
+            }
         }
         
         // به‌روزرسانی محصول

@@ -27,19 +27,19 @@ class HomeController {
         }
         unset($p);
 
-        // فیلتر محصولات بر اساس فصل
-        $springProducts = array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'spring' || $p['season'] === 'all');
-        });
-        $summerProducts = array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'summer' || $p['season'] === 'all');
-        });
-        $autumnProducts = array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'autumn' || $p['season'] === 'all');
-        });
-        $winterProducts = array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'winter' || $p['season'] === 'all');
-        });
+        // فیلتر محصولات بر اساس فصل - array_values برای ریست کردن ایندکس‌ها
+        $springProducts = array_values(array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'spring' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
+        }));
+        $summerProducts = array_values(array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'summer' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
+        }));
+        $autumnProducts = array_values(array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'autumn' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
+        }));
+        $winterProducts = array_values(array_filter($featuredProducts, function($p) {
+            return isset($p['season']) && ($p['season'] === 'winter' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
+        }));
 
         $pageTitle = 'فروشگاه پاییزی شگفت‌انگیز';
         $pageDesc  = 'جدیدترین مدل‌های پوشاک، کفش و اکسسوری با طرح‌های پاییزی';

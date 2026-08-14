@@ -26,7 +26,7 @@ $formAction = $isEdit
         </h3>
     </div>
     
-    <form method="POST" action="<?= $formAction ?>" style="padding: 2rem;">
+    <form method="POST" action="<?= $formAction ?>" enctype="multipart/form-data" style="padding: 2rem;">
         <div class="row g-3">
             <!-- نام محصول -->
             <div class="col-md-6">
@@ -121,13 +121,89 @@ $formAction = $isEdit
                        style="padding: 0.75rem; border-radius: 8px; border: 2px solid #e2e8f0;">
             </div>
             
-            <!-- آدرس تصویر اصلی -->
-            <div class="col-md-8">
-                <label for="main_image" class="form-label fw-bold">آدرس تصویر اصلی</label>
-                <input type="text" class="form-control" id="main_image" name="main_image" 
-                       value="<?= Security::e($product['main_image'] ?? '/assets/images/products/no-image.jpg') ?>" 
-                       style="padding: 0.75rem; border-radius: 8px; border: 2px solid #e2e8f0;">
-                <small style="color: #64748b;">مثال: /assets/images/products/product-1-main.jpg</small>
+            <!-- آدرس تصویر اصلی یا آپلود -->
+            <div class="col-12">
+                <label class="form-label fw-bold">تصویر اصلی محصول</label>
+                
+                <!-- نمایش تصویر فعلی -->
+                <?php if ($isEdit && !empty($product['main_image'])): ?>
+                    <div style="margin-bottom: 1rem;">
+                        <img src="<?= BASE_URL . $product['main_image'] ?>" 
+                             alt="تصویر فعلی" 
+                             style="max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 8px; border: 2px solid #e2e8f0;">
+                        <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #64748b;">
+                            تصویر فعلی: <?= Security::e($product['main_image']) ?>
+                        </p>
+                    </div>
+                <?php endif; ?>
+                
+                <!-- آپلود تصویر جدید -->
+                <div style="margin-bottom: 1rem;">
+                    <label for="main_image_upload" class="form-label">آپلود تصویر جدید:</label>
+                    <input type="file" 
+                           class="form-control" 
+                           id="main_image_upload" 
+                           name="main_image_upload" 
+                           accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                           style="padding: 0.75rem; border-radius: 8px; border: 2px solid #e2e8f0;">
+                    <small style="color: #64748b;">فرمت‌های مجاز: JPG, PNG, WEBP, GIF | حداکثر حجم: 5MB</small>
+                </div>
+                
+                <!-- یا وارد کردن آدرس دستی -->
+                <div>
+                    <label for="main_image" class="form-label">یا آدرس تصویر را وارد کنید:</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="main_image" 
+                           name="main_image" 
+                           value="<?= Security::e($product['main_image'] ?? '/assets/images/products/no-image.jpg') ?>" 
+                           style="padding: 0.75rem; border-radius: 8px; border: 2px solid #e2e8f0;">
+                    <small style="color: #64748b;">مثال: /assets/images/products/product-1-main.jpg</small>
+                </div>
+            </div>
+            
+            <!-- گالری تصاویر (چند عکس) -->
+            <div class="col-12">
+                <label class="form-label fw-bold">گالری تصاویر (چندین عکس)</label>
+                
+                <!-- نمایش تصاویر گالری فعلی -->
+                <?php if ($isEdit && !empty($product['gallery'])): 
+                    $galleryImages = json_decode($product['gallery'], true);
+                    if (is_array($galleryImages) && !empty($galleryImages)):
+                ?>
+                    <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <?php foreach ($galleryImages as $img): ?>
+                            <div style="position: relative;">
+                                <img src="<?= BASE_URL . $img ?>" 
+                                     alt="تصویر گالری" 
+                                     style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid #e2e8f0;">
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <p style="font-size: 0.875rem; color: #64748b;">
+                        تعداد تصاویر گالری فعلی: <?= count($galleryImages) ?>
+                    </p>
+                <?php endif; endif; ?>
+                
+                <!-- آپلود تصاویر جدید برای گالری -->
+                <div style="margin-bottom: 1rem;">
+                    <label for="gallery_images" class="form-label">آپلود تصاویر جدید برای گالری:</label>
+                    <input type="file" 
+                           class="form-control" 
+                           id="gallery_images" 
+                           name="gallery_images[]" 
+                           accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                           multiple
+                           style="padding: 0.75rem; border-radius: 8px; border: 2px solid #e2e8f0;">
+                    <small style="color: #64748b;">
+                        می‌توانید یک یا چند تصویر انتخاب کنید | فرمت‌های مجاز: JPG, PNG, WEBP, GIF | حداکثر حجم هر فایل: 5MB
+                    </small>
+                </div>
+                
+                <div class="alert alert-info" style="font-size: 0.875rem; padding: 0.75rem; border-radius: 8px;">
+                    💡 <strong>توجه:</strong> اگر تصاویر جدید آپلود کنید، تصاویر قبلی جایگزین خواهند شد.
+                    <?= $isEdit ? ' اگر می‌خواهید تصاویر قبلی را حفظ کنید، هیچ فایلی انتخاب نکنید.' : '' ?>
+                </div>
             </div>
             
             <!-- توضیحات کوتاه -->
@@ -206,4 +282,112 @@ function calculateDiscount() {
         document.getElementById('discount_pct').value = discount;
     }
 }
+
+// پیش‌نمایش تصویر اصلی
+document.getElementById('main_image_upload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        // بررسی نوع فایل
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+        if (!validTypes.includes(file.type)) {
+            alert('فرمت فایل مجاز نیست. فقط JPG, PNG, WEBP, GIF');
+            this.value = '';
+            return;
+        }
+        
+        // بررسی حجم فایل (5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('حجم فایل نباید بیشتر از 5MB باشد');
+            this.value = '';
+            return;
+        }
+        
+        // نمایش پیش‌نمایش
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            // حذف پیش‌نمایش قبلی اگر وجود داشته باشد
+            const oldPreview = document.getElementById('main_image_preview');
+            if (oldPreview) {
+                oldPreview.remove();
+            }
+            
+            // ایجاد پیش‌نمایش جدید
+            const preview = document.createElement('div');
+            preview.id = 'main_image_preview';
+            preview.style.marginTop = '1rem';
+            preview.innerHTML = `
+                <p style="font-size: 0.875rem; color: #10b981; font-weight: 600;">✓ پیش‌نمایش تصویر جدید:</p>
+                <img src="${event.target.result}" 
+                     alt="پیش‌نمایش" 
+                     style="max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 8px; border: 2px solid #10b981;">
+            `;
+            document.getElementById('main_image_upload').parentElement.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// پیش‌نمایش تصاویر گالری
+document.getElementById('gallery_images').addEventListener('change', function(e) {
+    const files = Array.from(e.target.files);
+    
+    if (files.length === 0) return;
+    
+    // بررسی تعداد فایل‌ها
+    if (files.length > 10) {
+        alert('حداکثر 10 تصویر می‌توانید آپلود کنید');
+        this.value = '';
+        return;
+    }
+    
+    // حذف پیش‌نمایش قبلی
+    const oldPreview = document.getElementById('gallery_preview');
+    if (oldPreview) {
+        oldPreview.remove();
+    }
+    
+    // ایجاد کانتینر پیش‌نمایش
+    const previewContainer = document.createElement('div');
+    previewContainer.id = 'gallery_preview';
+    previewContainer.style.marginTop = '1rem';
+    previewContainer.innerHTML = `
+        <p style="font-size: 0.875rem; color: #10b981; font-weight: 600;">✓ پیش‌نمایش تصاویر جدید گالری (${files.length} تصویر):</p>
+        <div id="gallery_images_container" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;"></div>
+    `;
+    
+    this.parentElement.appendChild(previewContainer);
+    
+    const container = document.getElementById('gallery_images_container');
+    
+    // پردازش هر فایل
+    files.forEach((file, index) => {
+        // بررسی نوع فایل
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+        if (!validTypes.includes(file.type)) {
+            alert(`فایل ${index + 1} (${file.name}) فرمت مجاز ندارد`);
+            return;
+        }
+        
+        // بررسی حجم فایل
+        if (file.size > 5 * 1024 * 1024) {
+            alert(`فایل ${index + 1} (${file.name}) بیشتر از 5MB است`);
+            return;
+        }
+        
+        // نمایش پیش‌نمایش
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const imgDiv = document.createElement('div');
+            imgDiv.style.position = 'relative';
+            imgDiv.innerHTML = `
+                <img src="${event.target.result}" 
+                     alt="تصویر ${index + 1}" 
+                     style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid #10b981;">
+                <span style="position: absolute; top: -8px; right: -8px; background: #10b981; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600;">${index + 1}</span>
+            `;
+            container.appendChild(imgDiv);
+        };
+        reader.readAsDataURL(file);
+    });
+});
 </script>

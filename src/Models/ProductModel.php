@@ -345,10 +345,41 @@ class ProductModel {
                 `season` = '$season',
                 `is_featured` = $isFeatured,
                 `is_active` = $isActive,
-                `updated_at` = NOW()
-                WHERE `id` = $id";
+                `updated_at` = NOW()";
+        
+        // اگر عکس اصلی در داده‌ها موجود است، آن را هم به‌روزرسانی کن
+        if (isset($data['main_image']) && !empty($data['main_image'])) {
+            $mainImage = db_escape($data['main_image']);
+            $sql .= ", `main_image` = '$mainImage'";
+        }
+        
+        // اگر گالری در داده‌ها موجود است، آن را هم به‌روزرسانی کن
+        if (isset($data['gallery']) && !empty($data['gallery'])) {
+            $gallery = db_escape($data['gallery']);
+            $sql .= ", `gallery` = '$gallery'";
+        }
+        
+        $sql .= " WHERE `id` = $id";
         
         return db_query($sql);
+    }
+    
+    /**
+     * به‌روزرسانی گالری محصول
+     */
+    public function updateGallery(int $id, string $galleryJson): bool {
+        $id = (int)$id;
+        $gallery = db_escape($galleryJson);
+        return db_query("UPDATE `products` SET `gallery` = '$gallery', `updated_at` = NOW() WHERE `id` = $id");
+    }
+    
+    /**
+     * به‌روزرسانی عکس اصلی محصول
+     */
+    public function updateMainImage(int $id, string $imagePath): bool {
+        $id = (int)$id;
+        $image = db_escape($imagePath);
+        return db_query("UPDATE `products` SET `main_image` = '$image', `updated_at` = NOW() WHERE `id` = $id");
     }
     
     /**
