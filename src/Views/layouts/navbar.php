@@ -134,6 +134,14 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                     <i class="fas fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-user" role="menu">
+                    <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+                    <li role="none">
+                        <a href="<?= $base ?>/admin" role="menuitem" class="admin-link">
+                            <i class="fas fa-user-shield" aria-hidden="true"></i> پنل مدیریت
+                        </a>
+                    </li>
+                    <li class="menu-divider" role="separator"></li>
+                    <?php endif; ?>
                     <li role="none">
                         <a href="<?= $base ?>/dashboard" role="menuitem">
                             <i class="fas fa-th-large" aria-hidden="true"></i> پنل کاربری

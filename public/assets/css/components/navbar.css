@@ -232,6 +232,16 @@ html[dir="rtl"] .dropdown-user {
     margin: 8px 0;
 }
 
+.admin-link {
+    color: var(--primary) !important;
+    font-weight: 600 !important;
+}
+
+.admin-link:hover {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(124, 58, 237, 0.05)) !important;
+    color: var(--primary) !important;
+}
+
 .logout-link {
     color: var(--accent) !important;
 }
