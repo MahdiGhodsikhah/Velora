@@ -6,6 +6,8 @@
 $base = defined('BASE_URL') ? BASE_URL : '';
 ?>
 
+
+
 <main id="main-content" class="products-page">
     <!-- Hero Section -->
     <div class="page-hero-small">

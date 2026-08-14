@@ -49,6 +49,9 @@
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/navbar.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/notification.css">
     
+    <!-- Fix Responsive -->
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/products-fix.css">
+    
     <!-- Theme -->
     <?php 
     $themeManager = ThemeManager::getInstance();
@@ -63,5 +66,10 @@
     <script>
         window.BASE_URL = '<?= defined('BASE_URL') ? BASE_URL : '' ?>';
     </script>
+    
+    <!-- Debug Script for Products Page -->
+    <?php if(isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'products') !== false): ?>
+    <script src="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/js/products-debug.js"></script>
+    <?php endif; ?>
 </head>
 <body>

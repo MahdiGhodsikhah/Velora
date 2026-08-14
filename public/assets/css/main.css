@@ -949,7 +949,7 @@ input:focus-visible {
     transform: translateX(-5px);
 }
 
-/* ===== گرید محصولات ===== */
+/* ===== گرید محصولات - از این استایل‌ها در products.css استفاده می‌شود ===== */
 .products-grid {
     display: flex;
     flex-wrap: wrap;
@@ -959,9 +959,10 @@ input:focus-visible {
 }
 
 .products-grid > * {
-    flex: 1 1 calc(33.333% - 22px);
-    min-width: 280px;
-    max-width: 100%;
+    flex: 0 0 calc(33.333% - 22px);
+    width: calc(33.333% - 22px);
+    max-width: calc(33.333% - 22px);
+    min-width: 0;
 }
 
 /* ===== صفحه محصولات ===== */

@@ -271,16 +271,24 @@
 .products-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 32px;
+    gap: 20px;
     padding: 20px 0 60px;
     width: 100%;
+    margin: 0;
+    list-style: none;
 }
 
 .products-grid > div {
-    flex: 0 1 calc(33.333% - 22px);
-    min-width: 280px;
-    max-width: calc(33.333% - 22px);
-    display: flex;
+    flex: 0 0 calc(33.333% - 14px);
+    width: calc(33.333% - 14px);
+    max-width: calc(33.333% - 14px);
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.products-grid > div .product-card {
+    width: 100%;
+    height: 100%;
 }
 
 /* ===== حالت خالی ===== */
@@ -376,7 +384,7 @@
 }
 
 /* ===== Responsive - Tablet ===== */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
     .page-hero-small h1 {
         font-size: 2rem;
     }
@@ -402,17 +410,17 @@
     }
 
     .products-grid {
-        gap: 24px;
+        gap: 20px;
     }
 
     .products-grid > div {
-        flex: 0 1 calc(50% - 12px);
-        min-width: 240px;
-        max-width: calc(50% - 12px);
+        flex: 0 0 calc(50% - 10px);
+        width: calc(50% - 10px);
+        max-width: calc(50% - 10px);
     }
 }
 
-/* ===== Responsive - Mobile ===== */
+/* ===== Responsive - Mobile Large (600-768px) ===== */
 @media (max-width: 768px) {
     .page-hero-small {
         padding: 40px 16px 30px;
@@ -466,14 +474,14 @@
     }
 
     .products-grid {
-        gap: 20px;
+        gap: 16px;
         padding: 16px 0 40px;
     }
 
     .products-grid > div {
-        flex: 0 1 100%;
-        min-width: 100%;
-        max-width: 100%;
+        flex: 0 0 calc(50% - 8px);
+        width: calc(50% - 8px);
+        max-width: calc(50% - 8px);
     }
 
     .pagination-nav {
@@ -487,6 +495,19 @@
         height: 38px;
         padding: 0 12px;
         font-size: 0.85rem;
+    }
+}
+
+/* ===== Responsive - Mobile Medium (400-600px) ===== */
+@media (max-width: 600px) {
+    .products-grid {
+        gap: 16px;
+    }
+
+    .products-grid > div {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
     }
 }
 
@@ -518,8 +539,8 @@
     }
 
     .products-grid > div {
-        flex: 0 1 100%;
-        min-width: 100%;
+        flex: 0 0 100%;
+        width: 100%;
         max-width: 100%;
     }
 
@@ -552,3 +573,4 @@
         font-size: 0.8rem;
     }
 }
+

@@ -146,13 +146,14 @@
     padding: 16px 16px 70px;
     transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
     border-radius: var(--radius-lg);
-    margin: 0 auto;
+    margin: 0;
     border: 2px solid var(--border-light);
     outline: none;
     display: flex;
     flex-direction: column;
     height: 100%;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .product-card:hover {
@@ -333,7 +334,8 @@
     background: #fffaf2;
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    padding-bottom: 100%; /* Aspect ratio 1:1 fallback */
+    height: 0;
 }
 
 .product-slider:not(.slick-initialized) .img-wrap:not(:first-child) {
@@ -341,15 +343,16 @@
 }
 
 .product-slider .img-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100% !important;
     height: 100% !important;
-    aspect-ratio: 1 / 1;
     display: flex !important;
     align-items: center;
     justify-content: center;
     outline: none;
     background: #fffaf2;
-    position: relative;
     overflow: hidden;
 }
 
@@ -367,21 +370,18 @@
 
 .product-slider .slick-slide {
     height: auto !important;
-    aspect-ratio: 1 / 1;
 }
 
 .product-slider .slick-slide > div {
     width: 100% !important;
     height: 100% !important;
-    aspect-ratio: 1 / 1;
 }
 
 .product-slider img {
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     max-width: 100% !important;
     max-height: 100% !important;
-    aspect-ratio: 1 / 1;
     object-fit: contain !important;
     transition: transform 0.5s ease;
     display: block !important;
@@ -638,16 +638,7 @@
     .product-slider {
         margin-top: 28px;
         margin-bottom: 10px;
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider .img-wrap {
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider .slick-slide > div {
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider img {
-        aspect-ratio: 1 / 1;
+        padding-bottom: 100%;
     }
     .btn-add { 
         bottom: 10px;
@@ -669,16 +660,7 @@
     .product-slider {
         margin-top: 26px;
         margin-bottom: 8px;
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider .img-wrap {
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider .slick-slide > div {
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider img {
-        aspect-ratio: 1 / 1;
+        padding-bottom: 100%;
     }
     .btn-add { 
         bottom: 10px; 
@@ -695,16 +677,7 @@
     .product-slider {
         margin-top: 24px;
         margin-bottom: 6px;
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider .img-wrap {
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider .slick-slide > div {
-        aspect-ratio: 1 / 1;
-    }
-    .product-slider img {
-        aspect-ratio: 1 / 1;
+        padding-bottom: 100%;
     }
     .btn-add { 
         font-size: 0.75rem; 

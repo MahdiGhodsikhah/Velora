@@ -1,0 +1,53 @@
+/**
+ * اصلاح قطعی Responsive محصولات
+ * این فایل کل استایل‌های گرید را override می‌کند
+ */
+
+/* بازنویسی کامل گرید */
+.products-page .products-content .products-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px 0 60px !important;
+    box-sizing: border-box !important;
+}
+
+.products-page .products-content .products-grid > div {
+    flex: 0 0 calc(33.333% - 14px) !important;
+    width: calc(33.333% - 14px) !important;
+    max-width: calc(33.333% - 14px) !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.products-page .products-content .products-grid > div .product-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+    .products-page .products-content .products-grid > div {
+        flex: 0 0 calc(50% - 10px) !important;
+        width: calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .products-page .products-content .products-grid {
+        gap: 16px !important;
+    }
+    
+    .products-page .products-content .products-grid > div {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
