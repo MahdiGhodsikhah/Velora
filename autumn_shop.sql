@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 13, 2026 at 01:28 PM
+-- Generation Time: Aug 14, 2026 at 08:27 AM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -50,99 +50,6 @@ INSERT INTO `banners` (`id`, `title`, `subtitle`, `image_url`, `link_url`, `btn_
 (4, 'کلکسیون پاییزی شگفت‌انگیز', 'جدیدترین مدل‌های پوشاک با طراحی منحصر‌به‌فرد پاییزی - تخفیف ویژه تا ۵۰٪', '/assets/images/banners/banner-autumn-1.png', '/products', 'مشاهده محصولات', 'hero', 1, 1, '2026-06-17 08:52:19'),
 (5, 'استایل پاییزی خود را بسازید', 'با بهترین برندهای پوشاک و اکسسوری - ارسال رایگان برای خریدهای بالای ۵۰۰ هزار تومان', '/assets/images/banners/banner-normal-1.png', '/products?cat=1', 'خرید کنید', 'hero', 2, 1, '2026-06-17 08:52:19'),
 (6, 'تخفیف‌های فصلی', 'تا ۷۰٪ تخفیف روی محصولات منتخب - فقط تا پایان هفته', '/assets/images/banners/banner-autumn-1.png', '/products?sale=1', 'خرید با تخفیف', 'hero', 3, 1, '2026-06-17 08:52:19');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blog_categories`
---
-
-DROP TABLE IF EXISTS `blog_categories`;
-CREATE TABLE IF NOT EXISTS `blog_categories` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_persian_ci NOT NULL,
-  `slug` varchar(120) COLLATE utf8mb4_persian_ci NOT NULL,
-  `description` text COLLATE utf8mb4_persian_ci,
-  `sort_order` tinyint UNSIGNED DEFAULT '0',
-  `is_active` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `idx_slug` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
-
---
--- Dumping data for table `blog_categories`
---
-
-INSERT INTO `blog_categories` (`id`, `name`, `slug`, `description`, `sort_order`, `is_active`, `created_at`) VALUES
-(1, 'مد و پوشاک', 'fashion', 'مقالات مرتبط با مد و پوشاک', 1, 1, '2026-06-09 22:53:10'),
-(2, 'راهنمای خرید', 'shopping-guide', 'راهنماهای جامع خرید محصولات', 2, 1, '2026-06-09 22:53:10'),
-(3, 'نگهداری', 'care-tips', 'نکات نگهداری از محصولات', 3, 1, '2026-06-09 22:53:10'),
-(4, 'اخبار', 'news', 'آخرین اخبار دنیای مد', 4, 1, '2026-06-09 22:53:10');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blog_comments`
---
-
-DROP TABLE IF EXISTS `blog_comments`;
-CREATE TABLE IF NOT EXISTS `blog_comments` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `post_id` int UNSIGNED NOT NULL,
-  `user_id` int UNSIGNED DEFAULT NULL,
-  `author_name` varchar(80) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `author_email` varchar(150) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `comment` text COLLATE utf8mb4_persian_ci NOT NULL,
-  `parent_id` int UNSIGNED DEFAULT NULL COMMENT 'برای پاسخ به کامنت',
-  `is_approved` tinyint(1) DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `idx_post` (`post_id`),
-  KEY `idx_parent` (`parent_id`),
-  KEY `fk_comment_user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blog_posts`
---
-
-DROP TABLE IF EXISTS `blog_posts`;
-CREATE TABLE IF NOT EXISTS `blog_posts` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `category_id` int UNSIGNED DEFAULT NULL,
-  `author_id` int UNSIGNED NOT NULL,
-  `title` varchar(250) COLLATE utf8mb4_persian_ci NOT NULL,
-  `slug` varchar(270) COLLATE utf8mb4_persian_ci NOT NULL,
-  `excerpt` varchar(500) COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'خلاصه مطلب',
-  `content` text COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'محتوای اصلی',
-  `featured_image` varchar(500) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `meta_description` varchar(300) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `meta_keywords` varchar(500) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `views_count` int UNSIGNED DEFAULT '0',
-  `is_published` tinyint(1) NOT NULL DEFAULT '0',
-  `published_at` datetime DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `idx_slug` (`slug`),
-  KEY `idx_published` (`is_published`,`published_at`),
-  KEY `idx_category` (`category_id`),
-  KEY `idx_author` (`author_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
-
---
--- Dumping data for table `blog_posts`
---
-
-INSERT INTO `blog_posts` (`id`, `category_id`, `author_id`, `title`, `slug`, `excerpt`, `content`, `featured_image`, `meta_description`, `meta_keywords`, `views_count`, `is_published`, `published_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'جدیدترین ترندهای مد پاییزی ۱۴۰۳', 'autumn-fashion-trends', 'با شروع فصل پاییز، سبک‌های جدید و رنگ‌های گرم وارد دنیای مد شده‌اند. در این مقاله با جدیدترین ترندهای پاییزی آشنا می‌شوید...', '<p>فصل پاییز یکی از بهترین فصل‌ها برای تجربه سبک‌های متنوع لباس‌پوشی است. رنگ‌های گرم مانند قهوه‌ای، نارنجی سوخته، و زرشکی در این فصل بسیار محبوب هستند.</p><h3>رنگ‌های محبوب پاییز</h3><p>رنگ‌هایی مانند قهوه‌ای شکلاتی، نارنجی سوخته، و سبز ارتشی از محبوب‌ترین رنگ‌های این فصل هستند.</p><h3>لایه‌لایه پوشیدن</h3><p>استفاده از لایه‌های مختلف لباس هم استایل شما را جذاب‌تر می‌کند و هم در دمای متغیر پاییز راحتی بیشتری به شما می‌دهد.</p>', '/assets/images/blog/autumn-fashion.jpg', NULL, NULL, 245, 1, '2024-11-15 10:30:00', '2026-06-09 22:53:10', NULL),
-(2, 2, 1, '۱۰ نکته برای خرید هوشمندانه پوشاک', 'shopping-tips', 'خرید پوشاک می‌تواند چالش‌برانگیز باشد. با این ۱۰ نکته طلایی، خریدی هوشمندانه و رضایت‌بخش تجربه کنید...', '<p>خرید هوشمندانه یعنی انتخاب محصولات با کیفیت، متناسب با نیاز و بودجه. در اینجا ۱۰ نکته کلیدی را معرفی می‌کنیم:</p><ol><li><strong>کیفیت را به قیمت ترجیح دهید</strong> - یک لباس با کیفیت بالا بهتر از ۵ لباس ارزان است</li><li><strong>سایز مناسب را انتخاب کنید</strong> - لباس باید کاملاً به اندازه شما باشد</li><li><strong>به جنس پارچه توجه کنید</strong> - پارچه‌های طبیعی معمولاً دوام بیشتری دارند</li><li><strong>رنگ‌های همه‌کاره بخرید</strong> - رنگ‌هایی که با اکثر لباس‌هایتان ست می‌شوند</li><li><strong>از خریدهای هیجانی پرهیز کنید</strong> - فقط آنچه واقعاً نیاز دارید بخرید</li></ol>', '/assets/images/blog/shopping-guide.jpg', NULL, NULL, 189, 1, '2024-11-10 14:20:00', '2026-06-09 22:53:10', NULL),
-(3, 3, 1, 'راهنمای نگهداری صحیح از لباس‌های پاییزی', 'care-guide', 'برای طولانی‌تر شدن عمر لباس‌هایتان، نکاتی را باید رعایت کنید. از شستشو گرفته تا نگهداری، همه چیز را در اینجا بخوانید...', '<p>نگهداری صحیح از لباس‌ها می‌تواند عمر آن‌ها را چند برابر کند.</p><h3>شستشو</h3><p>همیشه برچسب شستشوی لباس را مطالعه کنید. اکثر لباس‌های پاییزی با آب سرد یا ولرم شسته می‌شوند.</p><h3>خشک کردن</h3><p>از خشک‌کردن مستقیم زیر نور آفتاب پرهیز کنید. بهترین روش، خشک کردن در سایه است.</p><h3>نگهداری</h3><p>لباس‌ها را تمیز و خشک نگه دارید. از قرار دادن در محیط‌های مرطوب خودداری کنید.</p>', '/assets/images/blog/care-tips.jpg', NULL, NULL, 156, 1, '2024-11-05 09:15:00', '2026-06-09 22:53:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -244,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   UNIQUE KEY `order_number` (`order_number`),
   KEY `idx_user_orders` (`user_id`),
   KEY `idx_order_num` (`order_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `orders`
@@ -261,7 +168,11 @@ INSERT INTO `orders` (`id`, `user_id`, `order_number`, `status`, `total_amount`,
 (8, 2, 'ORD-20260722-F0266D40', 'pending', 3433500, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-07-22 10:23:57', NULL),
 (9, 2, 'ORD-20260722-209F7BBB', 'pending', 3139200, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-07-22 21:25:35', NULL),
 (10, 2, 'ORD-20260729-FD582483', 'pending', 6867000, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-07-29 10:03:38', NULL),
-(11, 2, 'ORD-20260805-ACB465C3', 'pending', 1046400, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-05 11:24:12', NULL);
+(11, 2, 'ORD-20260805-ACB465C3', 'pending', 1046400, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-05 11:24:12', NULL),
+(12, 2, 'ORD-20260813-FD5B1030', 'pending', 2038300, 0, 0, 'مشهد رسالت', '9149172740', 'cash', 'unpaid', '', '2026-08-13 21:35:42', NULL),
+(13, 2, 'ORD-20260813-2E087334', 'pending', 2038300, 0, 0, 'مشهد رسالت', '9149172740', 'cash', 'unpaid', '', '2026-08-13 21:36:10', NULL),
+(14, 2, 'ORD-20260813-92FAE3A1', 'pending', 1308000, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-14 00:39:53', NULL),
+(15, 2, 'ORD-20260813-D444D6EF', 'shipped', 872000, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'paid', '', '2026-08-14 00:42:30', '2026-08-14 00:55:11');
 
 -- --------------------------------------------------------
 
@@ -281,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   PRIMARY KEY (`id`),
   KEY `idx_order_items` (`order_id`),
   KEY `fk_item_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `order_items`
@@ -302,33 +213,18 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `unit
 (12, 8, 3, 'ساعت مچی کلاسیک لوکس', 3150000, 1, 3150000),
 (13, 9, 1, 'هودی پاییزی مردانه برند نایک', 960000, 3, 2880000),
 (14, 10, 3, 'ساعت مچی کلاسیک لوکس', 3150000, 2, 6300000),
-(15, 11, 1, 'هودی پاییزی مردانه برند نایک', 960000, 1, 960000);
+(15, 11, 1, 'هودی پاییزی مردانه برند نایک', 960000, 1, 960000),
+(16, 12, 2, 'کتونی اسپرت مردانه آدیداس', 1870000, 1, 1870000),
+(17, 13, 2, 'کتونی اسپرت مردانه آدیداس', 1870000, 1, 1870000),
+(18, 14, 9, 'تست', 800000, 1, 800000),
+(19, 14, 14, 'تست3', 400000, 1, 400000),
+(20, 15, 14, 'تست3', 400000, 2, 800000);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `post_tags`
 --
-
-DROP TABLE IF EXISTS `post_tags`;
-CREATE TABLE IF NOT EXISTS `post_tags` (
-  `post_id` int UNSIGNED NOT NULL,
-  `tag_id` int UNSIGNED NOT NULL,
-  PRIMARY KEY (`post_id`,`tag_id`),
-  KEY `fk_pt_tag` (`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
-
---
--- Dumping data for table `post_tags`
---
-
-INSERT INTO `post_tags` (`post_id`, `tag_id`) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(1, 4),
-(2, 4),
-(3, 4);
 
 -- --------------------------------------------------------
 
@@ -368,21 +264,24 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `idx_slug` (`slug`),
   KEY `idx_season` (`season`),
   KEY `idx_season_category` (`season`,`category_id`,`is_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `short_desc`, `sku`, `price`, `sale_price`, `discount_pct`, `stock_qty`, `main_image`, `gallery`, `rating_avg`, `rating_count`, `is_featured`, `season`, `is_active`, `views`, `created_at`, `updated_at`) VALUES
-(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 50, 1, 'autumn', 1, 149, '2026-06-09 15:55:19', '2026-08-13 16:45:15'),
-(2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 28, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 35, 1, 'spring', 1, 62, '2026-06-09 15:55:19', '2026-08-13 16:58:07'),
-(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 16, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 4.70, 22, 1, 'summer', 1, 137, '2026-06-09 15:55:19', '2026-08-13 16:42:37'),
+(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 50, 1, 'autumn', 1, 151, '2026-06-09 15:55:19', '2026-08-14 00:43:59'),
+(2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 26, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 35, 1, 'spring', 1, 62, '2026-06-09 15:55:19', '2026-08-13 21:36:10'),
+(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 16, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 4.70, 22, 1, 'summer', 1, 144, '2026-06-09 15:55:19', '2026-08-13 20:51:40'),
 (4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product-4-main.jpg', '[\"/assets/images/products/product-4-1.jpg\", \"/assets/images/products/product-4-2.jpg\", \"/assets/images/products/product-4-3.jpg\", \"/assets/images/products/product-4-4.jpg\"]', 4.30, 18, 1, 'autumn', 1, 6, '2026-06-09 15:55:19', '2026-08-05 09:35:11'),
 (5, 5, 'تراک‌شوت ورزشی مردانه', 'mens-tracksuit-sport', 'تراک‌شوت کامل مردانه مناسب ورزش و پیاده‌روی. شامل سویشرت و شلوار. جنس کجراه با طرح آستین راه‌راه.', 'تراک‌شوت کامل ورزشی', 'SKU-SP-001', 1800000, 1440000, 20, 25, '/assets/images/products/product-5-main.jpg', '[\"/assets/images/products/product-5-1.jpg\", \"/assets/images/products/product-5-2.jpg\", \"/assets/images/products/product-5-3.jpg\", \"/assets/images/products/product-5-4.jpg\"]', 4.20, 30, 1, 'winter', 1, 30, '2026-06-09 15:55:19', '2026-08-13 16:57:38'),
 (6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product-6-main.jpg', '[\"/assets/images/products/product-6-1.jpg\", \"/assets/images/products/product-6-2.jpg\", \"/assets/images/products/product-6-3.jpg\", \"/assets/images/products/product-6-4.jpg\"]', 4.10, 45, 0, 'all', 1, 2, '2026-06-09 15:55:19', '2026-07-23 00:58:26'),
 (7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product-7-main.jpg', '[\"/assets/images/products/product-7-1.jpg\", \"/assets/images/products/product-7-2.jpg\", \"/assets/images/products/product-7-3.jpg\", \"/assets/images/products/product-7-4.jpg\"]', 4.60, 28, 0, 'spring', 1, 1, '2026-06-09 15:55:19', '2026-07-23 00:58:26'),
-(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product-8-main.jpg', '[\"/assets/images/products/product-8-1.jpg\", \"/assets/images/products/product-8-2.jpg\", \"/assets/images/products/product-8-3.jpg\", \"/assets/images/products/product-8-4.jpg\"]', 0.00, 0, 0, 'winter', 1, 4, '2026-06-09 15:55:19', '2026-07-29 09:08:26');
+(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product-8-main.jpg', '[\"/assets/images/products/product-8-1.jpg\", \"/assets/images/products/product-8-2.jpg\", \"/assets/images/products/product-8-3.jpg\", \"/assets/images/products/product-8-4.jpg\"]', 0.00, 0, 0, 'winter', 1, 6, '2026-06-09 15:55:19', '2026-08-14 00:33:50'),
+(9, 1, 'تست', 'test', 'this product for test no real', 'this for test', 'SKU-M-005', 1000000, 800000, 20, 11, '/assets/images/products/12.webp', NULL, 0.00, 0, 1, 'spring', 1, 4, '2026-08-13 23:43:09', '2026-08-14 00:39:53'),
+(13, 1, 'تست2', 'test2', 'this product for test 2', 'test 2', 'SKU-M-003', 2000000, 1000000, 50, 20, '/assets/images/products/1.jpg', NULL, 0.00, 0, 1, 'spring', 1, 1, '2026-08-13 23:49:05', '2026-08-14 00:35:57'),
+(14, 1, 'تست3', 'test3', 'this product for test 3', 'test 3', 'SKU-M-004', 500000, 400000, 20, 17, '/assets/images/products/7.jpg', NULL, 0.00, 0, 1, 'spring', 1, 2, '2026-08-13 23:50:57', '2026-08-14 00:42:30');
 
 -- --------------------------------------------------------
 
@@ -432,7 +331,7 @@ INSERT INTO `reviews` (`id`, `product_id`, `user_id`, `author_name`, `rating`, `
 (2, 1, NULL, 'حسن رضایی', 4, 'خوب بود', 'طرحش قشنگه ولی کمی گشادتر از اندازه‌ام بود.', 1, '2026-06-09 15:55:19'),
 (3, 2, NULL, 'مریم احمدی', 4, 'راحت و سبک', 'برای پیاده‌روی عالیه. پاهام خسته نمیشه.', 1, '2026-06-09 15:55:19'),
 (4, 3, NULL, 'رضا کریمی', 5, 'ساعت بینظیر', 'استیلش خیلی شیکه. همه ازش تعریف می‌کنن.', 1, '2026-06-09 15:55:19'),
-(5, 8, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 0, '2026-06-30 13:08:06');
+(5, 8, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-06-30 13:08:06');
 
 -- --------------------------------------------------------
 
@@ -461,36 +360,6 @@ INSERT INTO `site_settings` (`id`, `setting_key`, `setting_value`, `setting_type
 (1, 'active_theme', 'spring', 'text', 'تم فعال سایت (autumn, winter, spring, summer)', '2026-07-23 14:44:29', '2026-07-23 00:55:20'),
 (2, 'theme_auto_detect', '1', 'boolean', 'تشخیص خودکار تم بر اساس فصل', NULL, '2026-07-23 00:55:20'),
 (3, 'theme_allow_user_choice', '1', 'boolean', 'اجازه انتخاب تم توسط کاربر', NULL, '2026-07-23 00:55:20');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tags`
---
-
-DROP TABLE IF EXISTS `tags`;
-CREATE TABLE IF NOT EXISTS `tags` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) COLLATE utf8mb4_persian_ci NOT NULL,
-  `slug` varchar(70) COLLATE utf8mb4_persian_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `slug` (`slug`),
-  KEY `idx_slug` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
-
---
--- Dumping data for table `tags`
---
-
-INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`) VALUES
-(1, 'مد پاییزی', 'autumn-fashion', '2026-06-09 22:53:10'),
-(2, 'راهنمای خرید', 'shopping-guide', '2026-06-09 22:53:10'),
-(3, 'نگهداری', 'care-tips', '2026-06-09 22:53:10'),
-(4, 'استایل', 'style', '2026-06-09 22:53:10'),
-(5, 'لباس مردانه', 'mens-clothing', '2026-06-09 22:53:10'),
-(6, 'لباس زنانه', 'womens-clothing', '2026-06-09 22:53:10');
 
 -- --------------------------------------------------------
 
@@ -535,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `address`, `postal_code`, `password_hash`, `full_name`, `profile_image`, `preferred_theme`, `job`, `birth_date`, `avatar_url`, `role`, `is_active`, `email_verified`, `login_attempts`, `locked_until`, `last_login`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@autumnshop.ir', '09120000000', NULL, NULL, '$2y$12$ief.AmWpLNaKX12vFAG3j..g68qbjvh7CRuwgUOsc/LGxZD6ODBg.', 'مدیر سیستم', NULL, 'automatic', NULL, NULL, NULL, 'admin', 1, 1, 0, NULL, NULL, '2026-06-09 15:55:19', NULL),
-(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1786625096.jpg', 'summer', 'دانشجو', NULL, NULL, 'admin', 1, 0, 0, NULL, '2026-08-13 15:33:32', '2026-06-30 12:59:51', '2026-08-13 16:14:56'),
+(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1786625096.jpg', 'summer', 'دانشجو', NULL, NULL, 'admin', 1, 0, 0, NULL, '2026-08-13 21:44:06', '2026-06-30 12:59:51', '2026-08-14 00:42:30'),
 (3, 'ali', 'ali@gmail.com', 'temp_3', NULL, NULL, '$2y$12$6.6NolqrdCRTJki0zuKERuru6LlcHAQHdw8UECeX1Rxjdma7ndCI.', NULL, NULL, 'automatic', NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-17 23:35:34', '2026-07-16 22:13:50', '2026-07-18 00:07:14'),
 (4, 'ali2', '', 'temp_4', NULL, NULL, '$2y$12$UWEQfVbOP6CrLnQLXFrG.OIofpW21Hhy3rRdOuspu7imKNN.w3ifu', NULL, NULL, 'automatic', NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, NULL, '2026-07-17 23:35:54', '2026-07-18 00:07:14'),
 (6, 'user89514957', '', '09929954843', NULL, NULL, '$2y$12$lVHhi1o0GOmbk.icGdKpKuv25RWQSf32DARjF4N85/w.feDLPWC96', NULL, NULL, 'automatic', NULL, NULL, NULL, 'customer', 1, 0, 4, NULL, '2026-07-18 00:24:49', '2026-07-18 00:07:54', '2026-07-22 09:35:35');
@@ -593,20 +462,6 @@ INSERT INTO `wishlist` (`id`, `user_id`, `product_id`, `added_at`) VALUES
 --
 
 --
--- Constraints for table `blog_comments`
---
-ALTER TABLE `blog_comments`
-  ADD CONSTRAINT `fk_comment_post` FOREIGN KEY (`post_id`) REFERENCES `blog_posts` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_comment_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `blog_posts`
---
-ALTER TABLE `blog_posts`
-  ADD CONSTRAINT `fk_blog_author` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT,
-  ADD CONSTRAINT `fk_blog_cat` FOREIGN KEY (`category_id`) REFERENCES `blog_categories` (`id`) ON DELETE SET NULL;
-
---
 -- Constraints for table `cart`
 --
 ALTER TABLE `cart`
@@ -625,13 +480,6 @@ ALTER TABLE `orders`
 ALTER TABLE `order_items`
   ADD CONSTRAINT `fk_item_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_item_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE RESTRICT;
-
---
--- Constraints for table `post_tags`
---
-ALTER TABLE `post_tags`
-  ADD CONSTRAINT `fk_pt_post` FOREIGN KEY (`post_id`) REFERENCES `blog_posts` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pt_tag` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`

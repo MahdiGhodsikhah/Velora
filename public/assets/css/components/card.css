@@ -136,23 +136,6 @@
     border-color: var(--primary);
 }
 
-.blog-card {
-    background: var(--card-bg);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-}
-
-.blog-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-primary);
-    border-color: var(--primary);
-}
-
 /* ===== کارت محصول ===== */
 .product-card {
     width: 100%;

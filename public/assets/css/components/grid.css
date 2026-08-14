@@ -6,14 +6,6 @@
     width: 100%;
 }
 
-.blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
-    margin: 40px 0;
-    width: 100%;
-}
-
 .about-content-wrapper {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -61,12 +53,6 @@
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 20px 12px;
         padding: 15px 0 40px;
-    }
-    
-    .blog-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        margin: 30px 0;
     }
     
     .stats-modern-grid,

@@ -54,7 +54,6 @@ img {
     
     /* Padding و Margin کلی */
     .categories-section,
-    .blog-section,
     .about-intro,
     .about-stats-modern,
     .about-features-modern,
@@ -89,8 +88,7 @@ img {
     
     /* کارت‌ها */
     .card,
-    .product-card,
-    .blog-card {
+    .product-card {
         margin-bottom: 16px;
     }
     
@@ -250,7 +248,6 @@ img {
     
     /* Section Padding */
     .categories-section,
-    .blog-section,
     .about-intro,
     .about-stats-modern,
     .about-features-modern,
@@ -302,7 +299,6 @@ img {
 
 /* اطمینان از Responsive بودن Grid ها */
 .products-grid,
-.blog-grid,
 .categories-grid,
 .stats-modern-grid,
 .features-modern-grid,

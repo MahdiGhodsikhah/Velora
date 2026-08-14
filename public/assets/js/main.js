@@ -735,7 +735,7 @@ $(document).ready(function () {
             });
         }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('.feature-item, .category-card, .product-card, .feature-card, .blog-card').forEach(function (el) {
+        document.querySelectorAll('.feature-item, .category-card, .product-card, .feature-card').forEach(function (el) {
             el.classList.add('will-reveal');
             revealObserver.observe(el);
         });
