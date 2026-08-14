@@ -202,6 +202,10 @@ $colors = $leafColors[$season] ?? $leafColors['autumn'];
 
     <!-- محصولات مشابه بر اساس فصل -->
     <?php if (!empty($similarProducts) && count($similarProducts) > 0): ?>
+    <?php 
+        // ذخیره متغیر محصول اصلی قبل از لوپ
+        $mainProduct = $product;
+    ?>
     <section class="products-carousel-section" aria-labelledby="similar-products-heading">
         <div class="section-header">
             <h2 class="section-title" id="similar-products-heading">
@@ -209,19 +213,26 @@ $colors = $leafColors[$season] ?? $leafColors['autumn'];
                 محصولات مشابه
                 <span class="title-leaf" aria-hidden="true"><i class="fas fa-leaf"></i></span>
             </h2>
-            <a href="<?= $base ?>/products?cat=<?= (int)($product['category_id'] ?? 0) ?>" class="see-all-btn">
+            <a href="<?= $base ?>/products?cat=<?= (int)($mainProduct['category_id'] ?? 0) ?>" class="see-all-btn">
                 مشاهده همه <i class="fas fa-arrow-left" aria-hidden="true"></i>
             </a>
         </div>
 
         <div class="main-product-slider" role="region" aria-label="محصولات مشابه" aria-roledescription="carousel">
-            <?php foreach ($similarProducts as $product): ?>
+            <?php foreach ($similarProducts as $similarProduct): ?>
             <div role="group" aria-roledescription="slide">
-                <?php require BASE_PATH . '/src/Views/partials/product-card.php'; ?>
+                <?php 
+                    $product = $similarProduct; // برای سازگاری با product-card.php
+                    require BASE_PATH . '/src/Views/partials/product-card.php'; 
+                ?>
             </div>
             <?php endforeach; ?>
         </div>
     </section>
+    <?php 
+        // بازگردانی متغیر محصول اصلی بعد از لوپ
+        $product = $mainProduct;
+    ?>
     <?php endif; ?>
 
     <!-- نظرات -->
