@@ -1,119 +1,139 @@
 :root {
-    --primary: #10b981;
-    --primary-dark: #059669;
-    --primary-light: #34d399;
-    --secondary: #065f46;
-    --accent: #0dae63;
-    --accent-light: #d1fae5;
+    /* رنگ‌های اصلی - با افزودن سبز روشن و متریال */
+    --primary: #4CAF50;
+    --primary-dark: #388E3C;
+    --primary-light: #81C784;
+    --secondary: #00C853;
+    --accent: #00ff00;
+    --accent-light: #C8E6C9;
     
-    --body-bg: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 50%, #a7f3d0 100%);
-    --body-overlay: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.05) 0%, transparent 50%),
-                    radial-gradient(circle at 40% 80%, rgba(167, 243, 208, 0.05) 0%, transparent 50%);
+    /* پس‌زمینه بدنه با رنگ‌های سبز روشن */
+    --body-bg: linear-gradient(135deg, #E8F5E9 0%, #aee5af 50%, #A5D6A7 100%);
+    --body-overlay: radial-gradient(circle at 20% 50%, rgba(76, 175, 80, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(129, 199, 132, 0.06) 0%, transparent 50%);
     
+    /* کارت‌ها */
     --card-bg: #ffffff;
-    --card-overlay: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+    --card-overlay: linear-gradient(135deg, rgba(76, 175, 80, 0.12), rgba(76, 175, 80, 0.06));
     
-    --text-dark: #064e3b;
-    --text-muted: #065f46;
-    --text-light: #047857;
+    /* متن‌ها */
+    --text-dark: #1B5E20;
+    --text-muted: #2E7D32;
+    --text-light: #388E3C;
     
-    --border-color: #a7f3d0;
-    --border-light: rgba(16, 185, 129, 0.1);
+    /* حاشیه‌ها */
+    --border-color: #A5D6A7;
+    --border-light: rgba(76, 175, 80, 0.15);
     
-    --shadow-primary: 0 15px 40px rgba(16, 185, 129, 0.35);
-    --shadow-icon: 0 8px 20px rgba(16, 185, 129, 0.4);
-    --shadow-button: 0 10px 30px rgba(16, 185, 129, 0.4);
-    --shadow-button-hover: 0 15px 45px rgba(16, 185, 129, 0.5);
-    --shadow-strip: 0 4px 20px rgba(6, 95, 70, 0.3);
-    --shadow-banner: 0 20px 60px rgba(6, 95, 70, 0.4);
+    /* سایه‌ها با رنگ سبز روشن */
+    --shadow-primary: 0 15px 40px rgba(76, 175, 80, 0.4);
+    --shadow-icon: 0 8px 20px rgba(0, 255, 0, 0.35);
+    --shadow-button: 0 10px 30px rgba(76, 175, 80, 0.45);
+    --shadow-button-hover: 0 15px 45px rgba(0, 255, 0, 0.5);
+    --shadow-strip: 0 4px 20px rgba(46, 125, 50, 0.35);
+    --shadow-banner: 0 20px 60px rgba(46, 125, 50, 0.45);
     
-    --gradient-primary: linear-gradient(135deg, #10b981, #059669);
-    --gradient-secondary: linear-gradient(135deg, #34d399, #10b981);
-    --gradient-banner: linear-gradient(135deg, #065f46 0%, #047857 35%, #059669 65%, #10b981 100%);
+    /* گرادیانت‌ها */
+    --gradient-primary: linear-gradient(135deg, #4CAF50, #388E3C);
+    --gradient-secondary: linear-gradient(135deg, #81C784, #4CAF50);
+    --gradient-banner: linear-gradient(135deg, #1B5E20 0%, #2E7D32 35%, #388E3C 65%, #4CAF50 100%);
     
-    --button-ripple: rgba(16, 185, 129, 0.2);
-    --strip-shimmer: linear-gradient(90deg, transparent, rgba(167, 243, 208, 0.3), transparent);
-    --banner-pattern: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(167, 243, 208, 0.05) 10px, rgba(167, 243, 208, 0.05) 20px);
+    /* افکت‌ها */
+    --button-ripple: rgba(76, 175, 80, 0.25);
+    --strip-shimmer: linear-gradient(90deg, transparent, rgba(129, 199, 132, 0.4), transparent);
+    --banner-pattern: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(165, 214, 167, 0.08) 10px, rgba(165, 214, 167, 0.08) 20px);
     
-    --icon-glow: drop-shadow(0 0 8px rgba(167, 243, 208, 0.6));
-    --leaf-glow: drop-shadow(0 0 10px rgba(167, 243, 208, 0.5));
+    /* درخشش */
+    --icon-glow: drop-shadow(0 0 10px rgba(0, 255, 0, 0.6));
+    --leaf-glow: drop-shadow(0 0 12px rgba(129, 199, 132, 0.7));
     --text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     --text-shadow-strong: 0 4px 15px rgba(0,0,0,0.3);
-    --glow-color: rgba(167, 243, 208, 0.6);
+    --glow-color: rgba(0, 255, 0, 0.5);
     
-    --leaf-color-1: #10b981;
-    --leaf-color-2: #34d399;
-    --leaf-color-3: #6ee7b7;
-    --leaf-color-4: #059669;
-    --leaf-color-5: #a7f3d0;
+    /* رنگ‌های برگ */
+    --leaf-color-1: #4CAF50;
+    --leaf-color-2: #81C784;
+    --leaf-color-3: #A5D6A7;
+    --leaf-color-4: #00C853;
+    --leaf-color-5: #00ff00;
     
-    --hero-bg: linear-gradient(160deg, #064e3b 0%, #065f46 30%, #047857 60%, #059669 100%);
-    --hero-overlay: radial-gradient(ellipse at 20% 50%, rgba(16, 185, 129, 0.3) 0%, transparent 60%),
-                    radial-gradient(ellipse at 80% 20%, rgba(52, 211, 153, 0.25) 0%, transparent 50%);
-    --hero-leaf-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.1));
+    /* هیرو */
+    --hero-bg: linear-gradient(160deg, #1B5E20 0%, #2E7D32 30%, #388E3C 60%, #4CAF50 100%);
+    --hero-overlay: radial-gradient(ellipse at 20% 50%, rgba(76, 175, 80, 0.35) 0%, transparent 60%),
+                    radial-gradient(ellipse at 80% 20%, rgba(0, 255, 0, 0.25) 0%, transparent 50%);
+    --hero-leaf-bg: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(129, 199, 132, 0.15));
     
-    --badge-bg: rgba(16, 185, 129, 0.2);
-    --badge-text: #a7f3d0;
-    --badge-border: rgba(167, 243, 208, 0.3);
-    --breadcrumb-link: #a7f3d0;
+    /* بج‌ها */
+    --badge-bg: rgba(76, 175, 80, 0.25);
+    --badge-text: #00ff00;
+    --badge-border: rgba(0, 255, 0, 0.4);
+    --breadcrumb-link: #A5D6A7;
     
-    --label-bg: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
-    --label-border: rgba(16, 185, 129, 0.2);
+    /* لیبل‌ها */
+    --label-bg: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.08));
+    --label-border: rgba(76, 175, 80, 0.25);
     
-    --section-bg-gradient: linear-gradient(180deg, var(--body-bg) 0%, #ecfdf5 100%);
-    --stats-bg: linear-gradient(180deg, transparent 0%, #d1fae5 50%, transparent 100%);
-    --contact-bg: linear-gradient(180deg, transparent 0%, #ecfdf5 100%);
+    /* بخش‌ها */
+    --section-bg-gradient: linear-gradient(180deg, var(--body-bg) 0%, #E8F5E9 100%);
+    --stats-bg: linear-gradient(180deg, transparent 0%, #C8E6C9 50%, transparent 100%);
+    --contact-bg: linear-gradient(180deg, transparent 0%, #E8F5E9 100%);
     
-    --navbar-bg: rgba(236, 253, 245, 0.98);
-    --navbar-bg-scrolled: rgba(236, 253, 245, 1);
-    --navbar-border: rgba(16, 185, 129, 0.2);
-    --navbar-border-scrolled: rgba(16, 185, 129, 0.3);
-    --navbar-shadow: 0 4px 30px rgba(6, 95, 70, 0.15);
-    --navbar-shadow-scrolled: 0 6px 40px rgba(6, 95, 70, 0.25);
-    --navbar-text: #064e3b;
-    --navbar-link: #064e3b;
-    --navbar-icon-bg: rgba(16, 185, 129, 0.1);
-    --navbar-icon-color: #064e3b;
-    --navbar-dropdown-border: rgba(16, 185, 129, 0.3);
-    --navbar-dropdown-hover: rgba(16, 185, 129, 0.1);
-    --navbar-dropdown-active: rgba(16, 185, 129, 0.15);
-    --logo-glow: 0 0 10px rgba(16, 185, 129, 0.3);
-    --shadow-icon-hover: 0 8px 30px rgba(167, 243, 208, 0.8);
+    /* نوار ناوبری */
+    --navbar-bg: rgba(232, 245, 233, 0.98);
+    --navbar-bg-scrolled: rgba(232, 245, 233, 1);
+    --navbar-border: rgba(76, 175, 80, 0.25);
+    --navbar-border-scrolled: rgba(76, 175, 80, 0.35);
+    --navbar-shadow: 0 4px 30px rgba(46, 125, 50, 0.18);
+    --navbar-shadow-scrolled: 0 6px 40px rgba(46, 125, 50, 0.28);
+    --navbar-text: #1B5E20;
+    --navbar-link: #1B5E20;
+    --navbar-icon-bg: rgba(76, 175, 80, 0.15);
+    --navbar-icon-color: #1B5E20;
+    --navbar-dropdown-border: rgba(76, 175, 80, 0.35);
+    --navbar-dropdown-hover: rgba(76, 175, 80, 0.15);
+    --navbar-dropdown-active: rgba(76, 175, 80, 0.2);
+    --logo-glow: 0 0 12px rgba(0, 255, 0, 0.4);
+    --shadow-icon-hover: 0 8px 30px rgba(0, 255, 0, 0.7);
     
-    --footer-bg: linear-gradient(160deg, #064e3b, #065f46, #047857, #059669);
-    --footer-text: #d1fae5;
-    --footer-overlay: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(16, 185, 129, 0.03) 2px, rgba(16, 185, 129, 0.03) 4px);
-    --footer-logo-color: #d1fae5;
-    --footer-logo-glow: drop-shadow(0 0 15px rgba(167, 243, 208, 0.8));
-    --footer-text-glow: 0 0 10px rgba(167, 243, 208, 0.5);
-    --footer-social-bg: rgba(16, 185, 129, 0.2);
-    --footer-social-color: #a7f3d0;
-    --footer-border: rgba(255, 255, 255, 0.1);
-    --footer-leaf-bg: linear-gradient(135deg, #10b981, #34d399);
+    /* فوتر */
+    --footer-bg: linear-gradient(160deg, #1B5E20, #2E7D32, #388E3C, #4CAF50);
+    --footer-text: #C8E6C9;
+    --footer-overlay: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(76, 175, 80, 0.05) 2px, rgba(76, 175, 80, 0.05) 4px);
+    --footer-logo-color: #C8E6C9;
+    --footer-logo-glow: drop-shadow(0 0 18px rgba(0, 255, 0, 0.8));
+    --footer-text-glow: 0 0 12px rgba(129, 199, 132, 0.6);
+    --footer-social-bg: rgba(76, 175, 80, 0.25);
+    --footer-social-color: #00ff00;
+    --footer-border: rgba(255, 255, 255, 0.12);
+    --footer-leaf-bg: linear-gradient(135deg, #4CAF50, #81C784);
     
-    --auth-body-bg: #064e3b;
-    --auth-card-bg: rgba(236, 253, 245, 0.96);
-    --auth-card-border: #a7f3d0;
-    --auth-card-shadow: 0 25px 60px rgba(6, 95, 70, 0.25);
-    --auth-input-bg: rgba(255, 255, 255, 0.8);
-    --auth-input-border: rgba(16, 185, 129, 0.3);
-    --auth-input-focus-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-    --auth-toggle-color: #065f46;
+    /* صفحات احراز هویت */
+    --auth-body-bg: #1B5E20;
+    --auth-card-bg: rgba(232, 245, 233, 0.97);
+    --auth-card-border: #A5D6A7;
+    --auth-card-shadow: 0 25px 60px rgba(46, 125, 50, 0.3);
+    --auth-input-bg: rgba(255, 255, 255, 0.85);
+    --auth-input-border: rgba(76, 175, 80, 0.35);
+    --auth-input-focus-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    --auth-toggle-color: #2E7D32;
 }
 
 .season-spring:hover::before,
 .season-spring.active::before {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, #4CAF50, #00C853);
 }
 .season-spring:hover,
 .season-spring.active {
     color: #fff;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
 }
 .season-spring i {
-    color: #10b981;
+    color: #4CAF50;
+    filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.4));
 }
 .season-spring:hover i,
 .season-spring.active i {
-    color: #d1fae5;
+    color: #00ff00;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.8));
 }
