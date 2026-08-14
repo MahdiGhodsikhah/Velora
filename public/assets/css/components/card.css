@@ -136,28 +136,52 @@
     border-color: var(--primary);
 }
 
-/* ===== کارت محصول ===== */
+/* ===== کارت محصول - بازسازی شده ===== */
 .product-card {
     width: 100%;
     max-width: 100%;
     background: var(--card-bg);
     position: relative;
-    box-shadow: var(--shadow-primary);
+    box-shadow: var(--shadow-md);
     padding: 16px 16px 70px;
     transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     margin: 0 auto;
     border: 2px solid var(--border-light);
     outline: none;
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: hidden;
 }
 
 .product-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: var(--shadow-button-hover);
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: var(--shadow-primary);
     border-color: var(--primary);
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--card-overlay);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.product-card:hover::before {
+    opacity: 1;
+}
+
+.product-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* بج تخفیف */
@@ -609,6 +633,7 @@
 @media (max-width: 992px) {
     .product-card { 
         padding: 14px 14px 65px;
+        max-width: 100%;
     }
     .product-slider {
         margin-top: 28px;
@@ -624,12 +649,17 @@
     .product-slider img {
         aspect-ratio: 1 / 1;
     }
-    .btn-add { bottom: 10px; }
+    .btn-add { 
+        bottom: 10px;
+        font-size: 0.85rem;
+        padding: 10px 18px;
+    }
 }
 
 @media (max-width: 768px) {
     .product-card { 
-        padding: 12px 12px 60px; 
+        padding: 12px 12px 60px;
+        max-width: 100%;
     }
     .side-icons { 
         left: -10px; 
@@ -660,6 +690,7 @@
 @media (max-width: 576px) {
     .product-card { 
         padding: 12px 12px 55px;
+        max-width: 100%;
     }
     .product-slider {
         margin-top: 24px;

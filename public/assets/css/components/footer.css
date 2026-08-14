@@ -28,10 +28,18 @@
 }
 
 .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     margin-bottom: 48px;
+}
+
+.footer-grid > * {
+    flex: 1 1 200px;
+}
+
+.footer-grid > *:first-child {
+    flex: 2 1 300px;
 }
 
 .footer-col {

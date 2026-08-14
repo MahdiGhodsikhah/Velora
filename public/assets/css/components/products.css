@@ -1,0 +1,554 @@
+/**
+ * صفحه محصولات - استایل‌های بازسازی شده
+ * بدون استفاده از Grid - کاملاً ریسپانسیو
+ */
+
+/* ===== Container اصلی صفحه محصولات ===== */
+.products-page {
+    width: 100%;
+    min-height: calc(100vh - var(--navbar-h));
+    padding-bottom: 40px;
+}
+
+/* ===== Hero کوچک صفحه محصولات ===== */
+.page-hero-small {
+    background: var(--gradient-primary);
+    padding: 60px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-primary);
+}
+
+.page-hero-small::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--banner-pattern);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.page-hero-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.page-hero-small h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: var(--text-shadow-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.page-hero-small h1 i {
+    font-size: 2rem;
+    filter: var(--icon-glow);
+}
+
+/* Breadcrumb */
+.breadcrumb-nav {
+    margin-top: 16px;
+}
+
+.breadcrumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.breadcrumb li {
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.breadcrumb li::after {
+    content: '/';
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 12px;
+}
+
+.breadcrumb li:last-child::after {
+    display: none;
+}
+
+.breadcrumb a {
+    color: #fff;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    font-weight: 500;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-light);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ===== Layout اصلی (Sidebar + Content) ===== */
+.products-layout {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+/* ===== Sidebar فیلتر ===== */
+.filter-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    position: sticky;
+    top: calc(var(--navbar-h) + 20px);
+}
+
+.filter-box {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    border: 2px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 24px;
+    transition: var(--transition);
+}
+
+.filter-box:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+.filter-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.filter-title i {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.filter-cats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filter-cats li {
+    margin-bottom: 8px;
+}
+
+.filter-cats a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition-fast);
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-cats a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: left 0.3s ease;
+    z-index: 0;
+}
+
+.filter-cats a:hover::before,
+.filter-cats a.active::before {
+    left: 0;
+}
+
+.filter-cats a i {
+    font-size: 1rem;
+    transition: var(--transition-fast);
+    position: relative;
+    z-index: 1;
+}
+
+.filter-cats a span {
+    position: relative;
+    z-index: 1;
+}
+
+.filter-cats a:hover,
+.filter-cats a.active {
+    color: #fff;
+    font-weight: 600;
+    transform: translateX(5px);
+}
+
+.filter-cats a:hover i,
+.filter-cats a.active i {
+    filter: var(--icon-glow);
+}
+
+/* فیلترهای فصلی با رنگ‌های مخصوص */
+.filter-seasons a.season-spring::before {
+    background: linear-gradient(135deg, #98d98e 0%, #52b788 100%);
+}
+
+.filter-seasons a.season-summer::before {
+    background: linear-gradient(135deg, #ffd60a 0%, #ff9a00 100%);
+}
+
+.filter-seasons a.season-autumn::before {
+    background: linear-gradient(135deg, #ff6b35 0%, #e63946 100%);
+}
+
+.filter-seasons a.season-winter::before {
+    background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+}
+
+/* ===== محتوای اصلی ===== */
+.products-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Toolbar */
+.products-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding: 16px 20px;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.results-count {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.results-count strong {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* ===== گرید محصولات با Flexbox ===== */
+.products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding: 20px 0 60px;
+    width: 100%;
+}
+
+.products-grid > div {
+    flex: 0 1 calc(33.333% - 22px);
+    min-width: 280px;
+    max-width: calc(33.333% - 22px);
+    display: flex;
+}
+
+/* ===== حالت خالی ===== */
+.no-products-full {
+    text-align: center;
+    padding: 100px 40px;
+    color: var(--text-muted);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 2px dashed var(--border-color);
+}
+
+.no-products-full i {
+    font-size: 5rem;
+    margin-bottom: 24px;
+    opacity: 0.3;
+    color: var(--primary);
+}
+
+.no-products-full p {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+    font-weight: 500;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--gradient-primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow-button);
+}
+
+.btn-back:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-button-hover);
+}
+
+/* ===== صفحه‌بندی ===== */
+.pagination-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 48px;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--border-light);
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 16px;
+    background: var(--card-bg);
+    color: var(--text-muted);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.page-btn:hover {
+    background: var(--gradient-primary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.page-btn.active {
+    background: var(--gradient-primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: var(--shadow-primary);
+    pointer-events: none;
+}
+
+/* ===== Responsive - Tablet ===== */
+@media (max-width: 1024px) {
+    .page-hero-small h1 {
+        font-size: 2rem;
+    }
+
+    .products-layout {
+        flex-direction: column;
+        gap: 32px;
+        padding: 30px 16px;
+    }
+
+    .filter-sidebar {
+        width: 100%;
+        position: static;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .filter-box {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 280px;
+        margin-bottom: 0;
+    }
+
+    .products-grid {
+        gap: 24px;
+    }
+
+    .products-grid > div {
+        flex: 0 1 calc(50% - 12px);
+        min-width: 240px;
+        max-width: calc(50% - 12px);
+    }
+}
+
+/* ===== Responsive - Mobile ===== */
+@media (max-width: 768px) {
+    .page-hero-small {
+        padding: 40px 16px 30px;
+    }
+
+    .page-hero-small h1 {
+        font-size: 1.6rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .page-hero-small h1 i {
+        font-size: 1.5rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.85rem;
+        gap: 8px;
+    }
+
+    .breadcrumb li::after {
+        margin-left: 8px;
+    }
+
+    .products-layout {
+        padding: 20px 12px;
+    }
+
+    .filter-sidebar {
+        flex-direction: column;
+    }
+
+    .filter-box {
+        flex: 1 1 100%;
+        min-width: 100%;
+    }
+
+    .filter-title {
+        font-size: 1rem;
+    }
+
+    .filter-cats a {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    .products-toolbar {
+        flex-direction: column;
+        padding: 14px 16px;
+        text-align: center;
+    }
+
+    .products-grid {
+        gap: 20px;
+        padding: 16px 0 40px;
+    }
+
+    .products-grid > div {
+        flex: 0 1 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .pagination-nav {
+        gap: 8px;
+        padding: 16px;
+        flex-wrap: wrap;
+    }
+
+    .page-btn {
+        min-width: 38px;
+        height: 38px;
+        padding: 0 12px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ===== Responsive - Mobile Small ===== */
+@media (max-width: 480px) {
+    .page-hero-small h1 {
+        font-size: 1.4rem;
+    }
+
+    .filter-sidebar {
+        gap: 16px;
+    }
+
+    .filter-box {
+        padding: 18px;
+    }
+
+    .products-toolbar {
+        padding: 12px;
+    }
+
+    .results-count {
+        font-size: 0.85rem;
+    }
+
+    .products-grid {
+        gap: 16px;
+        padding: 12px 0 30px;
+    }
+
+    .products-grid > div {
+        flex: 0 1 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .no-products-full {
+        padding: 60px 20px;
+    }
+
+    .no-products-full i {
+        font-size: 3.5rem;
+    }
+
+    .no-products-full p {
+        font-size: 0.95rem;
+    }
+
+    .btn-back {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+
+    .pagination-nav {
+        gap: 6px;
+        padding: 12px;
+    }
+
+    .page-btn {
+        min-width: 34px;
+        height: 34px;
+        padding: 0 10px;
+        font-size: 0.8rem;
+    }
+}

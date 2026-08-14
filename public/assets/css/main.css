@@ -208,9 +208,16 @@ input:focus-visible {
 .title-icon { color:var(--primary); font-size:1.4rem; }
 
 .categories-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:16px; margin-top:24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.categories-grid > * {
+    flex: 1 1 calc(20% - 13px);
+    min-width: 140px;
+    max-width: 100%;
 }
 .category-card {
     background:var(--card-bg); border-radius:var(--radius-lg);
@@ -494,10 +501,22 @@ input:focus-visible {
 }
 
 .about-content-wrapper {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 80px;
     align-items: center;
+}
+
+.about-content-wrapper > * {
+    flex: 1 1 400px;
+}
+
+.about-text-side {
+    flex: 1.2 1 500px;
+}
+
+.about-image-side {
+    flex: 1 1 400px;
 }
 
 .section-label {
@@ -673,9 +692,14 @@ input:focus-visible {
 }
 
 .stats-modern-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 32px;
+}
+
+.stats-modern-grid > * {
+    flex: 1 1 calc(25% - 24px);
+    min-width: 220px;
 }
 
 .stat-modern-card {
@@ -753,9 +777,14 @@ input:focus-visible {
 }
 
 .features-modern-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 32px;
+}
+
+.features-modern-grid > * {
+    flex: 1 1 calc(33.333% - 22px);
+    min-width: 300px;
 }
 
 .feature-modern-card {
@@ -828,10 +857,15 @@ input:focus-visible {
 }
 
 .contact-modern-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 28px;
     margin-bottom: 50px;
+}
+
+.contact-modern-grid > * {
+    flex: 1 1 calc(33.333% - 19px);
+    min-width: 240px;
 }
 
 .contact-modern-card {
@@ -917,10 +951,17 @@ input:focus-visible {
 
 /* ===== گرید محصولات ===== */
 .products-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:40px 24px;
-    padding:20px 0 60px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding: 20px 0 60px;
+    width: 100%;
+}
+
+.products-grid > * {
+    flex: 1 1 calc(33.333% - 22px);
+    min-width: 280px;
+    max-width: 100%;
 }
 
 /* ===== صفحه محصولات ===== */
@@ -1109,8 +1150,18 @@ input:focus-visible {
     position:relative; z-index:1;
 }
 .footer-grid {
-    display:grid; grid-template-columns:2fr 1fr 1fr 1.5fr;
-    gap:40px; margin-bottom:48px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 48px;
+}
+
+.footer-grid > * {
+    flex: 1 1 200px;
+}
+
+.footer-grid > *:first-child {
+    flex: 2 1 300px;
 }
 
 /* انیمیشن ورود برای ستون‌های فوتر */
@@ -1462,11 +1513,16 @@ input:focus-visible {
 /* ===== ریسپانسیو ===== */
 @media (max-width:1024px) {
     .footer-grid { 
-        grid-template-columns:1fr 1fr; 
         gap: 36px;
     }
+    
+    .footer-grid > * {
+        flex: 1 1 calc(50% - 18px);
+    }
+    
     .footer-about {
-        grid-column: 1 / -1;
+        flex: 1 1 100%;
+    }
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -1486,24 +1542,34 @@ input:focus-visible {
     
     /* About page responsive */
     .about-content-wrapper {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 50px;
     }
+    
+    .about-content-wrapper > * {
+        flex: 1 1 100%;
+    }
+    
     .about-image-side {
         order: -1;
     }
-    .features-modern-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .features-modern-grid > * {
+        flex: 1 1 calc(50% - 16px);
     }
 }
 @media (max-width:768px) {
     .products-layout { flex-direction:column; }
     .filter-sidebar  { width:100%; }
     .footer-grid     { 
-        grid-template-columns:1fr; 
+        flex-direction: column;
         text-align: center;
         gap: 32px;
     }
+    
+    .footer-grid > * {
+        flex: 1 1 100%;
+    }
+    
     .footer-col {
         display: flex;
         flex-direction: column;
@@ -1545,11 +1611,11 @@ input:focus-visible {
         justify-content: center;
     }
     .mid-banner-inner{ flex-direction:column; text-align:center; }
-    .categories-grid { grid-template-columns:repeat(3,1fr); }
-    .blog-grid { grid-template-columns: 1fr; }
-    .features-grid { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .contact-info { grid-template-columns: 1fr; }
+    
+    .categories-grid > * {
+        flex: 1 1 calc(33.333% - 11px);
+        min-width: 110px;
+    }
     
     /* About page mobile */
     .page-hero-about {
@@ -1578,12 +1644,15 @@ input:focus-visible {
         font-size: 0.8rem;
         padding: 10px 16px;
     }
-    .stats-modern-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+    .stats-modern-grid > * {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 180px;
     }
     .features-modern-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+    .features-modern-grid > * {
+        flex: 1 1 100%;
     }
     .feature-modern-card {
         flex-direction: column;
@@ -1591,8 +1660,11 @@ input:focus-visible {
         align-items: center;
     }
     .contact-modern-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 20px;
+    }
+    .contact-modern-grid > * {
+        flex: 1 1 100%;
     }
 }
 
@@ -1613,8 +1685,12 @@ input:focus-visible {
 }
 @media (max-width:480px) {
     .auth-card { padding:32px 22px; }
-    .categories-grid { grid-template-columns:repeat(2,1fr); }
-    .stats-grid { grid-template-columns: 1fr; }
+    
+    .categories-grid > * {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 130px;
+    }
+    
     .image-wrapper { width: 200px; height: 200px; }
     .about-icon { font-size: 5rem; }
     
@@ -1646,6 +1722,13 @@ input:focus-visible {
         gap: 16px;
     }
     
+    /* About page extra small */
+    .stats-modern-grid {
+        flex-direction: column;
+    }
+    .stats-modern-grid > * {
+        flex: 1 1 100%;
+    }
     /* About page small mobile */
     .page-hero-about {
         padding: 50px 16px 40px;

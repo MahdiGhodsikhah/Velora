@@ -92,10 +92,16 @@ $base = defined('BASE_URL') ? BASE_URL : '';
 }
 
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 25px;
     margin-bottom: 40px;
+}
+
+.products-grid > * {
+    flex: 1 1 calc(33.333% - 17px);
+    min-width: 280px;
+    max-width: 100%;
 }
 
 .empty-wishlist {
@@ -155,8 +161,12 @@ $base = defined('BASE_URL') ? BASE_URL : '';
     }
     
     .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
+    }
+    
+    .products-grid > * {
+        flex: 1 1 100%;
+        min-width: 100%;
     }
 }
 </style>

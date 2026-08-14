@@ -1,11 +1,19 @@
 <?php
+/**
+ * صفحه محصولات - بازسازی شده
+ * کاملاً ریسپانسیو با Flexbox بدون Grid
+ */
 $base = defined('BASE_URL') ? BASE_URL : '';
 ?>
 
 <main id="main-content" class="products-page">
+    <!-- Hero Section -->
     <div class="page-hero-small">
         <div class="page-hero-inner">
-            <h1><i class="fas fa-shopping-bag" aria-hidden="true"></i> محصولات</h1>
+            <h1>
+                <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                <span>محصولات</span>
+            </h1>
             <nav aria-label="مسیر صفحه" class="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li><a href="<?= $base ?>/">خانه</a></li>
@@ -15,34 +23,42 @@ $base = defined('BASE_URL') ? BASE_URL : '';
         </div>
     </div>
 
+    <!-- Layout اصلی -->
     <div class="products-layout">
-        <!-- سایدبار فیلتر -->
+        <!-- Sidebar فیلتر -->
         <aside class="filter-sidebar" aria-label="فیلتر محصولات">
             <!-- فیلتر دسته‌بندی -->
             <div class="filter-box">
-                <h3 class="filter-title"><i class="fas fa-filter" aria-hidden="true"></i> دسته‌بندی</h3>
+                <h3 class="filter-title">
+                    <i class="fas fa-filter" aria-hidden="true"></i>
+                    <span>دسته‌بندی</span>
+                </h3>
                 <ul class="filter-cats">
                     <li>
                         <a href="<?= $base ?>/products"
-                           class="<?= (!isset($_GET['cat']) && !isset($_GET['season'])) ? 'active' : '' ?>">
-                            <i class="fas fa-th"></i> همه محصولات
+                           class="<?= (!isset($_GET['cat']) && !isset($_GET['season'])) ? 'active' : '' ?>"
+                           aria-label="مشاهده همه محصولات">
+                            <i class="fas fa-th"></i>
+                            <span>همه محصولات</span>
                         </a>
                     </li>
                     <?php foreach (($categories ?? []) as $cat): ?>
                     <li>
                         <a href="<?= $base ?>/products?cat=<?= (int)$cat['id'] ?>"
-                           class="<?= (isset($_GET['cat']) && (int)$_GET['cat'] === (int)$cat['id']) ? 'active' : '' ?>">
+                           class="<?= (isset($_GET['cat']) && (int)$_GET['cat'] === (int)$cat['id']) ? 'active' : '' ?>"
+                           aria-label="فیلتر بر اساس <?= Security::e($cat['name']) ?>">
                             <?php
                             $catIcons = [
                                 1 => 'fas fa-tshirt',
-                                2 => 'fas fa-female', 
+                                2 => 'fas fa-female',
                                 3 => 'fas fa-shoe-prints',
                                 4 => 'fas fa-gem',
                                 5 => 'fas fa-dumbbell'
                             ];
                             $icon = $catIcons[$cat['id']] ?? 'fas fa-tag';
                             ?>
-                            <i class="<?= $icon ?>"></i> <?= Security::e($cat['name']) ?>
+                            <i class="<?= $icon ?>"></i>
+                            <span><?= Security::e($cat['name']) ?></span>
                         </a>
                     </li>
                     <?php endforeach; ?>
@@ -50,53 +66,70 @@ $base = defined('BASE_URL') ? BASE_URL : '';
             </div>
 
             <!-- فیلتر فصلی -->
-            <div class="filter-box" style="margin-top: 20px;">
-                <h3 class="filter-title"><i class="fas fa-calendar-alt" aria-hidden="true"></i> محصولات ویژه فصلی</h3>
+            <div class="filter-box">
+                <h3 class="filter-title">
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                    <span>محصولات فصلی</span>
+                </h3>
                 <ul class="filter-cats filter-seasons">
                     <li>
                         <a href="<?= $base ?>/products?season=spring"
-                           class="season-spring <?= (isset($_GET['season']) && $_GET['season'] === 'spring') ? 'active' : '' ?>">
-                            <i class="fas fa-seedling"></i> <span>بهار</span>
+                           class="season-spring <?= (isset($_GET['season']) && $_GET['season'] === 'spring') ? 'active' : '' ?>"
+                           aria-label="محصولات بهاری">
+                            <i class="fas fa-seedling"></i>
+                            <span>بهار</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= $base ?>/products?season=summer"
-                           class="season-summer <?= (isset($_GET['season']) && $_GET['season'] === 'summer') ? 'active' : '' ?>">
-                            <i class="fas fa-sun"></i> <span>تابستان</span>
+                           class="season-summer <?= (isset($_GET['season']) && $_GET['season'] === 'summer') ? 'active' : '' ?>"
+                           aria-label="محصولات تابستانی">
+                            <i class="fas fa-sun"></i>
+                            <span>تابستان</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= $base ?>/products?season=autumn"
-                           class="season-autumn <?= (isset($_GET['season']) && $_GET['season'] === 'autumn') ? 'active' : '' ?>">
-                            <i class="fas fa-leaf"></i> <span>پاییز</span>
+                           class="season-autumn <?= (isset($_GET['season']) && $_GET['season'] === 'autumn') ? 'active' : '' ?>"
+                           aria-label="محصولات پاییزی">
+                            <i class="fas fa-leaf"></i>
+                            <span>پاییز</span>
                         </a>
                     </li>
                     <li>
                         <a href="<?= $base ?>/products?season=winter"
-                           class="season-winter <?= (isset($_GET['season']) && $_GET['season'] === 'winter') ? 'active' : '' ?>">
-                            <i class="fas fa-snowflake"></i> <span>زمستان</span>
+                           class="season-winter <?= (isset($_GET['season']) && $_GET['season'] === 'winter') ? 'active' : '' ?>"
+                           aria-label="محصولات زمستانی">
+                            <i class="fas fa-snowflake"></i>
+                            <span>زمستان</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </aside>
 
-        <!-- گرید محصولات -->
+        <!-- محتوای اصلی -->
         <div class="products-content">
+            <!-- Toolbar -->
             <div class="products-toolbar">
                 <span class="results-count">
-                    <?= number_format($total ?? 0) ?> محصول یافت شد
+                    <strong><?= number_format($total ?? 0) ?></strong> محصول یافت شد
                 </span>
             </div>
 
             <?php if (empty($products)): ?>
+            <!-- حالت خالی -->
             <div class="no-products-full" role="status">
                 <i class="fas fa-box-open" aria-hidden="true"></i>
                 <p>هیچ محصولی در این دسته‌بندی وجود ندارد.</p>
-                <a href="<?= $base ?>/products" class="btn-back">مشاهده همه محصولات</a>
+                <a href="<?= $base ?>/products" class="btn-back">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>مشاهده همه محصولات</span>
+                </a>
             </div>
             <?php else: ?>
 
+            <!-- گرید محصولات -->
             <div class="products-grid" role="list" aria-label="لیست محصولات">
                 <?php foreach ($products as $product): ?>
                 <div role="listitem">

@@ -1,8 +1,20 @@
 .about-content-wrapper {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 80px;
     align-items: center;
+}
+
+.about-content-wrapper > * {
+    flex: 1 1 400px;
+}
+
+.about-text-side {
+    flex: 1.2 1 500px;
+}
+
+.about-image-side {
+    flex: 1 1 400px;
 }
 
 .about-lead {
@@ -240,4 +252,84 @@
 .contact-cta {
     text-align: center;
     padding-top: 20px;
+}
+
+
+/* Grid layouts با Flexbox */
+.stats-modern-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    width: 100%;
+}
+
+.stats-modern-grid > * {
+    flex: 1 1 calc(25% - 24px);
+    min-width: 220px;
+}
+
+.features-modern-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    width: 100%;
+}
+
+.features-modern-grid > * {
+    flex: 1 1 calc(33.333% - 22px);
+    min-width: 300px;
+}
+
+.contact-modern-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.contact-modern-grid > * {
+    flex: 1 1 calc(33.333% - 19px);
+    min-width: 240px;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+    .about-content-wrapper {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .about-content-wrapper > * {
+        flex: 1 1 100%;
+    }
+    
+    .stats-modern-grid > * {
+        flex: 1 1 calc(50% - 16px);
+    }
+    
+    .features-modern-grid > * {
+        flex: 1 1 calc(50% - 16px);
+    }
+    
+    .contact-modern-grid > * {
+        flex: 1 1 calc(50% - 14px);
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .stats-modern-grid,
+    .features-modern-grid,
+    .contact-modern-grid {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .stats-modern-grid > *,
+    .features-modern-grid > *,
+    .contact-modern-grid > * {
+        flex: 1 1 100%;
+        min-width: 100%;
+    }
 }
