@@ -12,7 +12,12 @@
 $base          = defined('BASE_URL') ? BASE_URL : '';
 $name          = Security::e($product['name'] ?? '');
 $slug          = Security::e($product['slug'] ?? '');
-$mainImg       = Security::e($product['main_image'] ?? '/assets/images/products/no-image.jpg');
+$mainImg       = $product['main_image'] ?? '/assets/images/products/no-image.svg';
+// اضافه کردن BASE_URL اگر مسیر نسبی باشد
+if (!empty($mainImg) && strpos($mainImg, 'http') !== 0) {
+    $mainImg = $base . $mainImg;
+}
+$mainImg       = Security::e($mainImg);
 $galleryArr    = $product['gallery_arr'] ?? [];
 $price         = number_format((int)($product['price'] ?? 0));
 $salePrice     = $product['sale_price'] ? number_format((int)$product['sale_price']) : null;
@@ -49,13 +54,18 @@ $productId     = (int)($product['id'] ?? 0);
     <div class="product-slider" aria-label="تصاویر <?= $name ?>">
         <div class="img-wrap">
             <a href="<?= $base ?>/products/<?= $slug ?>" tabindex="-1" aria-hidden="true">
-                <img src="<?= $mainImg ?>" alt="<?= $name ?>" loading="lazy">
+                <img src="<?= $mainImg ?>" alt="<?= $name ?>" loading="eager">
             </a>
         </div>
-        <?php foreach ($galleryArr as $imgUrl): ?>
+        <?php foreach ($galleryArr as $imgUrl): 
+            // اضافه کردن BASE_URL به تصاویر گالری
+            if (!empty($imgUrl) && strpos($imgUrl, 'http') !== 0) {
+                $imgUrl = $base . $imgUrl;
+            }
+        ?>
         <div class="img-wrap">
             <a href="<?= $base ?>/products/<?= $slug ?>" tabindex="-1" aria-hidden="true">
-                <img src="<?= Security::e($imgUrl) ?>" alt="<?= $name ?>" loading="lazy">
+                <img src="<?= Security::e($imgUrl) ?>" alt="<?= $name ?>" loading="eager">
             </a>
         </div>
         <?php endforeach; ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 14, 2026 at 08:27 AM
+-- Generation Time: Aug 14, 2026 at 12:24 PM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -30,12 +30,12 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `banners`;
 CREATE TABLE IF NOT EXISTS `banners` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(200) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `subtitle` varchar(300) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `image_url` varchar(500) COLLATE utf8mb4_persian_ci NOT NULL,
-  `link_url` varchar(500) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `btn_text` varchar(80) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `position` enum('hero','mid','sidebar') COLLATE utf8mb4_persian_ci DEFAULT 'hero',
+  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `subtitle` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `link_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `btn_text` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `position` enum('hero','mid','sidebar') CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT 'hero',
   `sort_order` tinyint UNSIGNED DEFAULT '0',
   `is_active` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -78,10 +78,10 @@ CREATE TABLE IF NOT EXISTS `cart` (
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'نام دسته‌بندی',
-  `slug` varchar(120) COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'نامک',
-  `description` text COLLATE utf8mb4_persian_ci,
-  `image_url` varchar(500) COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'نام دسته‌بندی',
+  `slug` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'نامک',
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci,
+  `image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
   `parent_id` int UNSIGNED DEFAULT NULL COMMENT 'دسته والد',
   `sort_order` tinyint UNSIGNED DEFAULT '0',
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
@@ -112,8 +112,8 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `image_url`, `par
 DROP TABLE IF EXISTS `coupons`;
 CREATE TABLE IF NOT EXISTS `coupons` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `code` varchar(50) COLLATE utf8mb4_persian_ci NOT NULL,
-  `discount_type` enum('percent','fixed') COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `discount_type` enum('percent','fixed') CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
   `discount_value` int NOT NULL,
   `min_purchase` int DEFAULT '0',
   `max_uses` int DEFAULT NULL,
@@ -135,16 +135,16 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int UNSIGNED NOT NULL,
-  `order_number` varchar(30) COLLATE utf8mb4_persian_ci NOT NULL,
-  `status` enum('pending','processing','shipped','delivered','cancelled','refunded') COLLATE utf8mb4_persian_ci DEFAULT 'pending',
+  `order_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `status` enum('pending','processing','shipped','delivered','cancelled','refunded') CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT 'pending',
   `total_amount` bigint UNSIGNED NOT NULL,
   `discount_amt` bigint UNSIGNED DEFAULT '0',
   `shipping_cost` bigint UNSIGNED DEFAULT '0',
   `shipping_address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci,
   `postal_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `payment_method` varchar(50) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `payment_status` enum('unpaid','paid','refunded') COLLATE utf8mb4_persian_ci DEFAULT 'unpaid',
-  `notes` text COLLATE utf8mb4_persian_ci,
+  `payment_method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `payment_status` enum('unpaid','paid','refunded') CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT 'unpaid',
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `order_id` int UNSIGNED NOT NULL,
   `product_id` int UNSIGNED NOT NULL,
-  `product_name` varchar(200) COLLATE utf8mb4_persian_ci NOT NULL,
+  `product_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
   `unit_price` bigint UNSIGNED NOT NULL,
   `quantity` smallint UNSIGNED NOT NULL DEFAULT '1',
   `subtotal` bigint UNSIGNED NOT NULL,
@@ -223,12 +223,6 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `unit
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post_tags`
---
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `products`
 --
 
@@ -236,21 +230,21 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `category_id` int UNSIGNED NOT NULL,
-  `name` varchar(200) COLLATE utf8mb4_persian_ci NOT NULL,
-  `slug` varchar(220) COLLATE utf8mb4_persian_ci NOT NULL,
-  `description` text COLLATE utf8mb4_persian_ci,
-  `short_desc` varchar(500) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `sku` varchar(50) COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'کد محصول',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `slug` varchar(220) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci,
+  `short_desc` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `sku` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'کد محصول',
   `price` bigint UNSIGNED NOT NULL DEFAULT '0' COMMENT 'قیمت به تومان',
   `sale_price` bigint UNSIGNED DEFAULT NULL COMMENT 'قیمت با تخفیف',
   `discount_pct` tinyint UNSIGNED DEFAULT '0' COMMENT 'درصد تخفیف',
   `stock_qty` smallint UNSIGNED NOT NULL DEFAULT '0',
-  `main_image` varchar(500) COLLATE utf8mb4_persian_ci NOT NULL DEFAULT '/assets/images/products/no-image.jpg',
+  `main_image` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL DEFAULT '/assets/images/products/no-image.jpg',
   `gallery` json DEFAULT NULL COMMENT 'آرایه JSON آدرس تصاویر',
   `rating_avg` decimal(3,2) DEFAULT '0.00',
   `rating_count` int UNSIGNED DEFAULT '0',
   `is_featured` tinyint(1) DEFAULT '0',
-  `season` enum('spring','summer','autumn','winter','all') COLLATE utf8mb4_persian_ci DEFAULT 'all' COMMENT 'فصل مربوط به محصول',
+  `season` enum('spring','summer','autumn','winter','all') CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT 'all' COMMENT 'فصل مربوط به محصول',
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `views` int UNSIGNED DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -264,24 +258,26 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `idx_slug` (`slug`),
   KEY `idx_season` (`season`),
   KEY `idx_season_category` (`season`,`category_id`,`is_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `short_desc`, `sku`, `price`, `sale_price`, `discount_pct`, `stock_qty`, `main_image`, `gallery`, `rating_avg`, `rating_count`, `is_featured`, `season`, `is_active`, `views`, `created_at`, `updated_at`) VALUES
-(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 50, 1, 'autumn', 1, 151, '2026-06-09 15:55:19', '2026-08-14 00:43:59'),
-(2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 26, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 35, 1, 'spring', 1, 62, '2026-06-09 15:55:19', '2026-08-13 21:36:10'),
-(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 16, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 4.70, 22, 1, 'summer', 1, 144, '2026-06-09 15:55:19', '2026-08-13 20:51:40'),
-(4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product-4-main.jpg', '[\"/assets/images/products/product-4-1.jpg\", \"/assets/images/products/product-4-2.jpg\", \"/assets/images/products/product-4-3.jpg\", \"/assets/images/products/product-4-4.jpg\"]', 4.30, 18, 1, 'autumn', 1, 6, '2026-06-09 15:55:19', '2026-08-05 09:35:11'),
-(5, 5, 'تراک‌شوت ورزشی مردانه', 'mens-tracksuit-sport', 'تراک‌شوت کامل مردانه مناسب ورزش و پیاده‌روی. شامل سویشرت و شلوار. جنس کجراه با طرح آستین راه‌راه.', 'تراک‌شوت کامل ورزشی', 'SKU-SP-001', 1800000, 1440000, 20, 25, '/assets/images/products/product-5-main.jpg', '[\"/assets/images/products/product-5-1.jpg\", \"/assets/images/products/product-5-2.jpg\", \"/assets/images/products/product-5-3.jpg\", \"/assets/images/products/product-5-4.jpg\"]', 4.20, 30, 1, 'winter', 1, 30, '2026-06-09 15:55:19', '2026-08-13 16:57:38'),
-(6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product-6-main.jpg', '[\"/assets/images/products/product-6-1.jpg\", \"/assets/images/products/product-6-2.jpg\", \"/assets/images/products/product-6-3.jpg\", \"/assets/images/products/product-6-4.jpg\"]', 4.10, 45, 0, 'all', 1, 2, '2026-06-09 15:55:19', '2026-07-23 00:58:26'),
-(7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product-7-main.jpg', '[\"/assets/images/products/product-7-1.jpg\", \"/assets/images/products/product-7-2.jpg\", \"/assets/images/products/product-7-3.jpg\", \"/assets/images/products/product-7-4.jpg\"]', 4.60, 28, 0, 'spring', 1, 1, '2026-06-09 15:55:19', '2026-07-23 00:58:26'),
-(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product-8-main.jpg', '[\"/assets/images/products/product-8-1.jpg\", \"/assets/images/products/product-8-2.jpg\", \"/assets/images/products/product-8-3.jpg\", \"/assets/images/products/product-8-4.jpg\"]', 0.00, 0, 0, 'winter', 1, 6, '2026-06-09 15:55:19', '2026-08-14 00:33:50'),
-(9, 1, 'تست', 'test', 'this product for test no real', 'this for test', 'SKU-M-005', 1000000, 800000, 20, 11, '/assets/images/products/12.webp', NULL, 0.00, 0, 1, 'spring', 1, 4, '2026-08-13 23:43:09', '2026-08-14 00:39:53'),
-(13, 1, 'تست2', 'test2', 'this product for test 2', 'test 2', 'SKU-M-003', 2000000, 1000000, 50, 20, '/assets/images/products/1.jpg', NULL, 0.00, 0, 1, 'spring', 1, 1, '2026-08-13 23:49:05', '2026-08-14 00:35:57'),
-(14, 1, 'تست3', 'test3', 'this product for test 3', 'test 3', 'SKU-M-004', 500000, 400000, 20, 17, '/assets/images/products/7.jpg', NULL, 0.00, 0, 1, 'spring', 1, 2, '2026-08-13 23:50:57', '2026-08-14 00:42:30');
+(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 2, 1, 'autumn', 1, 152, '2026-06-09 15:55:19', '2026-08-14 15:26:01'),
+(2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 26, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 1, 1, 'spring', 1, 64, '2026-06-09 15:55:19', '2026-08-14 14:31:22'),
+(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 16, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 5.00, 1, 1, 'summer', 1, 145, '2026-06-09 15:55:19', '2026-08-14 13:15:29'),
+(4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product-4-main.jpg', '[\"/assets/images/products/product-4-1.jpg\", \"/assets/images/products/product-4-2.jpg\", \"/assets/images/products/product-4-3.jpg\", \"/assets/images/products/product-4-4.jpg\"]', 4.30, 18, 1, 'autumn', 1, 7, '2026-06-09 15:55:19', '2026-08-14 12:55:13'),
+(5, 5, 'تراک‌شوت ورزشی مردانه', 'mens-tracksuit-sport', 'تراک‌شوت کامل مردانه مناسب ورزش و پیاده‌روی. شامل سویشرت و شلوار. جنس کجراه با طرح آستین راه‌راه.', 'تراک‌شوت کامل ورزشی', 'SKU-SP-001', 1800000, 1440000, 20, 25, '/assets/images/products/product-5-main.jpg', '[\"/assets/images/products/product-5-1.jpg\", \"/assets/images/products/product-5-2.jpg\", \"/assets/images/products/product-5-3.jpg\", \"/assets/images/products/product-5-4.jpg\"]', 4.20, 30, 1, 'winter', 1, 33, '2026-06-09 15:55:19', '2026-08-14 12:55:03'),
+(6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product-6-main.jpg', '[\"/assets/images/products/product-6-1.jpg\", \"/assets/images/products/product-6-2.jpg\", \"/assets/images/products/product-6-3.jpg\", \"/assets/images/products/product-6-4.jpg\"]', 4.00, 1, 0, 'all', 1, 22, '2026-06-09 15:55:19', '2026-08-14 13:18:55'),
+(7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product-7-main.jpg', '[\"/assets/images/products/product-7-1.jpg\", \"/assets/images/products/product-7-2.jpg\", \"/assets/images/products/product-7-3.jpg\", \"/assets/images/products/product-7-4.jpg\"]', 0.00, 0, 0, 'spring', 1, 7, '2026-06-09 15:55:19', '2026-08-14 13:16:27'),
+(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product-8-main.jpg', '[\"/assets/images/products/product-8-1.jpg\", \"/assets/images/products/product-8-2.jpg\", \"/assets/images/products/product-8-3.jpg\", \"/assets/images/products/product-8-4.jpg\"]', 4.00, 1, 0, 'winter', 1, 44, '2026-06-09 15:55:19', '2026-08-14 13:18:53'),
+(9, 1, 'تست', 'test', 'this product for test no real', 'this for test', 'SKU-M-005', 1000000, 800000, 20, 11, '/assets/images/products/test1.webp', NULL, 0.00, 0, 1, 'winter', 1, 4, '2026-08-13 23:43:09', '2026-08-14 15:35:22'),
+(13, 1, 'تست2', 'test2', 'this product for test 2', 'test 2', 'SKU-M-003', 2000000, 1000000, 50, 20, '/assets/images/products/test2.jpg', NULL, 0.00, 0, 1, 'autumn', 1, 1, '2026-08-13 23:49:05', '2026-08-14 15:34:53'),
+(14, 1, 'تست3', 'test3', 'this product for test 3', 'test 3', 'SKU-M-004', 500000, 400000, 20, 17, '/assets/images/products/test3.jpg', NULL, 0.00, 0, 1, 'spring', 1, 7, '2026-08-13 23:50:57', '2026-08-14 15:45:51'),
+(15, 1, 'تست 4', 'test4', 'test444444', 'test', 'SKU-M-006', 1000000, 800000, 20, 25, '/assets/images/products/Men\'s autumn hoodie by Nike1.jpg', NULL, 0.00, 0, 1, 'summer', 1, 0, '2026-08-14 15:27:05', '2026-08-14 15:34:09'),
+(16, 1, 'تست 5', 'test5', 'test55555555', 'test5', 'SKU-M-007', 400000, 400000, 90, 20, '/assets/images/products/Men\'s autumn hoodie by Nike2', NULL, 0.00, 0, 1, 'spring', 1, 0, '2026-08-14 15:44:18', '2026-08-14 15:44:34');
 
 -- --------------------------------------------------------
 
@@ -293,8 +289,8 @@ DROP TABLE IF EXISTS `product_images`;
 CREATE TABLE IF NOT EXISTS `product_images` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `product_id` int UNSIGNED NOT NULL,
-  `image_url` varchar(500) COLLATE utf8mb4_persian_ci NOT NULL,
-  `alt_text` varchar(200) COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `alt_text` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
   `sort_order` tinyint UNSIGNED DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -312,15 +308,15 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `product_id` int UNSIGNED NOT NULL,
   `user_id` int UNSIGNED DEFAULT NULL,
-  `author_name` varchar(80) COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `author_name` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
   `rating` tinyint UNSIGNED NOT NULL COMMENT '1 تا 5',
-  `title` varchar(200) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `body` text COLLATE utf8mb4_persian_ci,
+  `title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci,
   `is_approved` tinyint(1) DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_product_rev` (`product_id`)
-) ;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `reviews`
@@ -331,7 +327,8 @@ INSERT INTO `reviews` (`id`, `product_id`, `user_id`, `author_name`, `rating`, `
 (2, 1, NULL, 'حسن رضایی', 4, 'خوب بود', 'طرحش قشنگه ولی کمی گشادتر از اندازه‌ام بود.', 1, '2026-06-09 15:55:19'),
 (3, 2, NULL, 'مریم احمدی', 4, 'راحت و سبک', 'برای پیاده‌روی عالیه. پاهام خسته نمیشه.', 1, '2026-06-09 15:55:19'),
 (4, 3, NULL, 'رضا کریمی', 5, 'ساعت بینظیر', 'استیلش خیلی شیکه. همه ازش تعریف می‌کنن.', 1, '2026-06-09 15:55:19'),
-(5, 8, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-06-30 13:08:06');
+(16, 8, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-08-14 13:17:38'),
+(17, 6, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-08-14 13:17:56');
 
 -- --------------------------------------------------------
 
@@ -370,19 +367,19 @@ INSERT INTO `site_settings` (`id`, `setting_key`, `setting_value`, `setting_type
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COLLATE utf8mb4_persian_ci NOT NULL,
-  `email` varchar(150) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `phone` varchar(20) COLLATE utf8mb4_persian_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL,
   `address` text CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci COMMENT 'آدرس کاربر',
-  `postal_code` varchar(10) COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'کد پستی 10 رقمی',
-  `password_hash` varchar(255) COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'هش رمز عبور با password_hash()',
-  `full_name` varchar(100) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `profile_image` varchar(255) COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'مسیر عکس پروفایل',
-  `preferred_theme` varchar(20) COLLATE utf8mb4_persian_ci DEFAULT 'automatic',
+  `postal_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'کد پستی 10 رقمی',
+  `password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'هش رمز عبور با password_hash()',
+  `full_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `profile_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'مسیر عکس پروفایل',
+  `preferred_theme` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT 'automatic',
   `job` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL COMMENT 'شغل کاربر',
   `birth_date` date DEFAULT NULL COMMENT 'تاریخ تولد (میلادی)',
-  `avatar_url` varchar(500) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `role` enum('customer','admin','moderator') COLLATE utf8mb4_persian_ci NOT NULL DEFAULT 'customer',
+  `avatar_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `role` enum('customer','admin','moderator') CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL DEFAULT 'customer',
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `email_verified` tinyint(1) NOT NULL DEFAULT '0',
   `login_attempts` tinyint UNSIGNED DEFAULT '0',
@@ -417,10 +414,10 @@ INSERT INTO `users` (`id`, `username`, `email`, `phone`, `address`, `postal_code
 
 DROP TABLE IF EXISTS `user_sessions`;
 CREATE TABLE IF NOT EXISTS `user_sessions` (
-  `id` char(64) COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'توکن امن',
+  `id` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci NOT NULL COMMENT 'توکن امن',
   `user_id` int UNSIGNED NOT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_persian_ci DEFAULT NULL,
-  `user_agent` varchar(300) COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
+  `user_agent` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_persian_ci DEFAULT NULL,
   `expires_at` datetime NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -492,12 +489,6 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_images`
   ADD CONSTRAINT `fk_img_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `reviews`
---
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `fk_rev_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `user_sessions`

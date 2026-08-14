@@ -308,6 +308,8 @@
     overflow: hidden;
     background: #fffaf2;
     position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
 
 .product-slider:not(.slick-initialized) .img-wrap:not(:first-child) {
@@ -315,11 +317,24 @@
 }
 
 .product-slider .img-wrap {
-    height: 200px !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1;
     display: flex !important;
     align-items: center;
     justify-content: center;
     outline: none;
+    background: #fffaf2;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-slider .img-wrap a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-slider .slick-track {
@@ -328,18 +343,34 @@
 
 .product-slider .slick-slide {
     height: auto !important;
+    aspect-ratio: 1 / 1;
 }
 
 .product-slider .slick-slide > div {
-    height: 200px !important;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1;
 }
 
 .product-slider img {
-    width: 100%;
-    height: 100% !important;
-    max-height: 200px !important;
-    object-fit: cover;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    aspect-ratio: 1 / 1;
+    object-fit: contain !important;
     transition: transform 0.5s ease;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fallback برای تصاویر که لود نشده‌اند */
+.product-slider img[src=""],
+.product-slider img:not([src]),
+.product-slider img[src*="no-image"] {
+    object-fit: contain;
+    opacity: 0.3;
 }
 
 .product-card:hover .product-slider img {
@@ -582,15 +613,16 @@
     .product-slider {
         margin-top: 28px;
         margin-bottom: 10px;
+        aspect-ratio: 1 / 1;
     }
     .product-slider .img-wrap {
-        height: 200px !important;
+        aspect-ratio: 1 / 1;
     }
     .product-slider .slick-slide > div {
-        height: 200px !important;
+        aspect-ratio: 1 / 1;
     }
     .product-slider img {
-        max-height: 200px !important;
+        aspect-ratio: 1 / 1;
     }
     .btn-add { bottom: 10px; }
 }
@@ -607,15 +639,16 @@
     .product-slider {
         margin-top: 26px;
         margin-bottom: 8px;
+        aspect-ratio: 1 / 1;
     }
     .product-slider .img-wrap {
-        height: 160px !important;
+        aspect-ratio: 1 / 1;
     }
     .product-slider .slick-slide > div {
-        height: 160px !important;
+        aspect-ratio: 1 / 1;
     }
     .product-slider img {
-        max-height: 160px !important;
+        aspect-ratio: 1 / 1;
     }
     .btn-add { 
         bottom: 10px; 
@@ -631,15 +664,16 @@
     .product-slider {
         margin-top: 24px;
         margin-bottom: 6px;
+        aspect-ratio: 1 / 1;
     }
     .product-slider .img-wrap {
-        height: 150px !important;
+        aspect-ratio: 1 / 1;
     }
     .product-slider .slick-slide > div {
-        height: 150px !important;
+        aspect-ratio: 1 / 1;
     }
     .product-slider img {
-        max-height: 150px !important;
+        aspect-ratio: 1 / 1;
     }
     .btn-add { 
         font-size: 0.75rem; 

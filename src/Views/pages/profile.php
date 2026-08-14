@@ -207,7 +207,7 @@
                                     <hr class="my-4">
                                     <div class="row">
                                         <!-- تغییر رمز عبور -->
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 pb-3">
                                             <h5 class="mb-3">
                                                 <i class="bi bi-shield-lock me-2"></i>
                                                 تغییر رمز عبور

@@ -339,6 +339,9 @@ $(document).ready(function () {
                 return;
             }
             
+            // حذف lazy loading از تصاویر
+            $slider.find('img[loading="lazy"]').attr('loading', 'eager');
+            
             // اگر فقط یک تصویر داره، نیازی به اسلایدر نیست
             const imageCount = $slider.find('.img-wrap').length;
             if (imageCount <= 1) {
@@ -366,6 +369,17 @@ $(document).ready(function () {
                 accessibility: true,
                 adaptiveHeight: false
             });
+            
+            // اطمینان از لود شدن تصاویر
+            $slider.find('img').each(function() {
+                if (this.complete) {
+                    $(this).css('opacity', '1');
+                } else {
+                    $(this).on('load', function() {
+                        $(this).css('opacity', '1');
+                    });
+                }
+            });
         });
     }
 
@@ -381,6 +395,9 @@ $(document).ready(function () {
     if ($('.main-product-slider').length) {
         $('.main-product-slider').each(function () {
             if (!$(this).hasClass('slick-initialized')) {
+                // حذف lazy loading از تصاویر کاروسل قبل از initialize
+                $(this).find('img[loading="lazy"]').attr('loading', 'eager');
+                
                 $(this).slick({
                     infinite:      true,
                     rtl:           true,
@@ -404,6 +421,17 @@ $(document).ready(function () {
                         { breakpoint: 992, settings: { slidesToShow: 2, arrows: true, centerMode: false } },
                         { breakpoint: 576, settings: { slidesToShow: 1, arrows: false, centerMode: false } }
                     ]
+                });
+                
+                // اطمینان از لود شدن تصاویر بعد از initialize
+                $(this).find('img').each(function() {
+                    if (this.complete) {
+                        $(this).css('opacity', '1');
+                    } else {
+                        $(this).on('load', function() {
+                            $(this).css('opacity', '1');
+                        });
+                    }
                 });
             }
         });

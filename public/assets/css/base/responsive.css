@@ -3,9 +3,9 @@
    ======================================= */
 
 /* تضمین عدم Horizontal Scroll */
-* {
+/* * {
     max-width: 100%;
-}
+} */
 
 html {
     overflow-x: hidden;
@@ -25,6 +25,18 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+/* تصاویر داخل product slider باید aspect ratio خودشان را حفظ کنند */
+.product-slider {
+    aspect-ratio: 1 / 1;
+}
+
+.product-slider img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: contain !important;
 }
 
 /* Container ها */
