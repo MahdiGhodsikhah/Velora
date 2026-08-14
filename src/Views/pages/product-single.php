@@ -276,7 +276,7 @@ $colors = $leafColors[$season] ?? $leafColors['autumn'];
             <?php foreach ($reviews as $review): ?>
             <article class="review-card">
                 <div class="review-header">
-                    <span class="reviewer-name"><?= Security::e($review['author_name'] ?? 'کاربر ناشناس') ?></span>
+                    <span class="reviewer-name"><?= Security::e($review['full_name'] ?: ($review['username'] ?? 'کاربر ناشناس')) ?></span>
                     <div class="review-rating" aria-label="امتیاز: <?= (int)$review['rating'] ?>">
                         <?php for ($s = 1; $s <= 5; $s++): ?>
                         <i class="<?= $s <= (int)$review['rating'] ? 'fas' : 'far' ?> fa-star" style="color: <?= $starColor ?>; font-size: 0.9rem;"></i>

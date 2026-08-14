@@ -266,6 +266,8 @@
 .status-pending {
     background: #fff3cd;
     color: #856404;
+    padding: 6px;
+    border-radius: 17%;
 }
 
 .status-paid, .status-processing {

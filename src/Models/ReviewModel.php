@@ -87,7 +87,19 @@ class ReviewModel {
      */
     public function approve(int $id): bool {
         $id = (int)$id;
-        return db_query("UPDATE `reviews` SET `is_approved` = 1 WHERE `id` = $id");
+        
+        // دریافت اطلاعات نظر برای به‌روزرسانی امتیاز محصول
+        $review = db_fetch_one("SELECT `product_id` FROM `reviews` WHERE `id` = $id LIMIT 1");
+        
+        $result = db_query("UPDATE `reviews` SET `is_approved` = 1 WHERE `id` = $id");
+        
+        // اگر تایید موفق بود و محصول یافت شد، امتیاز محصول را به‌روز کن
+        if ($result && $review) {
+            $productModel = new ProductModel();
+            $productModel->updateProductRating((int)$review['product_id']);
+        }
+        
+        return $result;
     }
     
     /**
@@ -95,7 +107,19 @@ class ReviewModel {
      */
     public function unapprove(int $id): bool {
         $id = (int)$id;
-        return db_query("UPDATE `reviews` SET `is_approved` = 0 WHERE `id` = $id");
+        
+        // دریافت اطلاعات نظر برای به‌روزرسانی امتیاز محصول
+        $review = db_fetch_one("SELECT `product_id` FROM `reviews` WHERE `id` = $id LIMIT 1");
+        
+        $result = db_query("UPDATE `reviews` SET `is_approved` = 0 WHERE `id` = $id");
+        
+        // اگر لغو تایید موفق بود و محصول یافت شد، امتیاز محصول را به‌روز کن
+        if ($result && $review) {
+            $productModel = new ProductModel();
+            $productModel->updateProductRating((int)$review['product_id']);
+        }
+        
+        return $result;
     }
     
     /**
@@ -103,7 +127,19 @@ class ReviewModel {
      */
     public function delete(int $id): bool {
         $id = (int)$id;
-        return db_query("DELETE FROM `reviews` WHERE `id` = $id");
+        
+        // دریافت اطلاعات نظر برای به‌روزرسانی امتیاز محصول
+        $review = db_fetch_one("SELECT `product_id` FROM `reviews` WHERE `id` = $id LIMIT 1");
+        
+        $result = db_query("DELETE FROM `reviews` WHERE `id` = $id");
+        
+        // اگر حذف موفق بود و محصول یافت شد، امتیاز محصول را به‌روز کن
+        if ($result && $review) {
+            $productModel = new ProductModel();
+            $productModel->updateProductRating((int)$review['product_id']);
+        }
+        
+        return $result;
     }
     
     /**
@@ -119,6 +155,9 @@ class ReviewModel {
         // محدود کردن rating بین 1 تا 5
         $rating = max(1, min(5, $rating));
         
+        // دریافت اطلاعات نظر برای به‌روزرسانی امتیاز محصول
+        $review = db_fetch_one("SELECT `product_id` FROM `reviews` WHERE `id` = $id LIMIT 1");
+        
         $sql = "UPDATE `reviews` SET
                 `title` = '$title',
                 `body` = '$body',
@@ -126,6 +165,14 @@ class ReviewModel {
                 `is_approved` = $isApproved
                 WHERE `id` = $id";
         
-        return db_query($sql);
+        $result = db_query($sql);
+        
+        // اگر ویرایش موفق بود و محصول یافت شد، امتیاز محصول را به‌روز کن
+        if ($result && $review) {
+            $productModel = new ProductModel();
+            $productModel->updateProductRating((int)$review['product_id']);
+        }
+        
+        return $result;
     }
 }

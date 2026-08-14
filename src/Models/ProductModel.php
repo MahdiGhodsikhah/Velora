@@ -96,9 +96,11 @@ class ProductModel {
     public function getReviews(int $productId): array {
         $id = (int)$productId;
         return db_fetch_all(
-            "SELECT * FROM `reviews`
-             WHERE `product_id` = $id AND `is_approved` = 1
-             ORDER BY `created_at` DESC"
+            "SELECT r.*, u.username, u.full_name
+             FROM `reviews` r
+             LEFT JOIN `users` u ON r.user_id = u.id
+             WHERE r.product_id = $id AND r.is_approved = 1
+             ORDER BY r.created_at DESC"
         );
     }
 
@@ -222,7 +224,7 @@ class ProductModel {
     /**
      * به‌روزرسانی میانگین امتیاز و تعداد نظرات محصول
      */
-    private function updateProductRating(int $productId): void {
+    public function updateProductRating(int $productId): void {
         $productId = (int)$productId;
         
         $stats = db_fetch_one(
