@@ -1,25 +1,63 @@
 # گزارش تغییرات و رفع مشکلات
 
-## تاریخ: 14 اوت 2026
+## تاریخ: 14 اوت 2026 (به‌روزرسانی شده)
 
 ### مشکلات برطرف شده:
 
-## ✅ 1. محصولات ویژه جدید در کاروسل‌های صفحه اصلی نمایش داده می‌شوند
+## ✅ 1. محصولات ویژه جدید در کاروسل‌های صفحه اصلی نمایش داده می‌شوند (اصلاح شده v2)
 
-**مشکل:** وقتی محصول جدیدی با علامت "محصول ویژه" اضافه می‌شد، در کاروسل‌های صفحه اصلی نمایش داده نمی‌شد.
+**مشکل اولیه:** وقتی محصول جدیدی با علامت "محصول ویژه" اضافه می‌شد، در کاروسل‌های صفحه اصلی نمایش داده نمی‌شد.
 
-**راه‌حل:**
-- فایل: `src/Controllers/HomeController.php`
-- تابع `array_filter` ایندکس‌های آرایه را حفظ می‌کرد که باعث مشکل در نمایش می‌شد
-- از `array_values()` برای ریست کردن ایندکس‌ها استفاده شد
-- اضافه شدن چک `is_featured` به فیلترها برای اطمینان از نمایش فقط محصولات ویژه
+**مشکل دوم:** کاروسل‌ها محصولات ویژه فصل خودشان را نشان نمی‌دادند.
 
-**کد جدید:**
-```php
-$springProducts = array_values(array_filter($featuredProducts, function($p) {
-    return isset($p['season']) && ($p['season'] === 'spring' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
-}));
-```
+**راه‌حل نهایی:**
+بجای گرفتن همه محصولات ویژه و فیلتر کردن آن‌ها در PHP، حالا برای **هر فصل جداگانه** از دیتابیس کوئری می‌زنیم.
+
+**تغییرات:**
+
+1. **فایل: `src/Controllers/HomeController.php`**
+   - حذف متد `getFeatured(8)` که همه محصولات را می‌گرفت
+   - استفاده از متد جدید `getFeaturedBySeason()` برای هر فصل
+   - حذف `array_filter` که در PHP فیلتر می‌کرد
+   
+   ```php
+   // کد قدیمی (اشتباه):
+   $featuredProducts = $this->productModel->getFeatured(8);
+   $winterProducts = array_filter($featuredProducts, function($p) {
+       return $p['season'] === 'winter' || $p['season'] === 'all';
+   });
+   
+   // کد جدید (صحیح):
+   $winterProducts = $this->productModel->getFeaturedBySeason('winter', 8);
+   ```
+
+2. **فایل: `src/Models/ProductModel.php`**
+   - اضافه شدن متد جدید `getFeaturedBySeason()`
+   - این متد مستقیماً از دیتابیس محصولات ویژه فصل خاص را برمی‌گرداند
+   - شامل محصولاتی با `season = 'all'` نیز می‌شود
+   
+   ```php
+   public function getFeaturedBySeason(string $season, int $limit = 8): array {
+       $season = db_escape($season);
+       $limit = (int)$limit;
+       return db_fetch_all(
+           "SELECT p.*, c.`name` AS category_name, c.`slug` AS category_slug
+            FROM `products` p
+            JOIN `categories` c ON p.`category_id` = c.`id`
+            WHERE p.`is_active` = 1 
+              AND p.`is_featured` = 1 
+              AND (p.`season` = '$season' OR p.`season` = 'all')
+            ORDER BY p.`rating_avg` DESC, p.`created_at` DESC
+            LIMIT $limit"
+       );
+   }
+   ```
+
+**مزایای راه‌حل جدید:**
+- ✅ کارایی بهتر: کوئری مستقیم از دیتابیس به جای فیلتر کردن در PHP
+- ✅ دقت بیشتر: هر کاروسل دقیقاً محصولات فصل خودش را نمایش می‌دهد
+- ✅ عدم تداخل: محصولات یک فصل تأثیری بر کاروسل فصل دیگر ندارند
+- ✅ مقیاس‌پذیری: می‌توان تا 8 محصول برای هر فصل داشت (در مجموع 32 محصول)
 
 ---
 

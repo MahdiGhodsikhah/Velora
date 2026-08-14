@@ -17,29 +17,25 @@ class HomeController {
         $themeManager = ThemeManager::getInstance();
         $themeManager->clearProductTheme();
 
-        $featuredProducts = $this->productModel->getFeatured(8);
-        $categories       = $this->productModel->getCategories();
-        $banners          = $this->productModel->getBanners('hero');
+        // دریافت محصولات ویژه برای هر فصل به طور جداگانه
+        $springProducts = $this->productModel->getFeaturedBySeason('spring', 8);
+        $summerProducts = $this->productModel->getFeaturedBySeason('summer', 8);
+        $autumnProducts = $this->productModel->getFeaturedBySeason('autumn', 8);
+        $winterProducts = $this->productModel->getFeaturedBySeason('winter', 8);
+        
+        $categories = $this->productModel->getCategories();
+        $banners = $this->productModel->getBanners('hero');
 
-        // پردازش گالری JSON محصولات
-        foreach ($featuredProducts as &$p) {
-            $p['gallery_arr'] = json_decode($p['gallery'] ?? '[]', true) ?: [];
+        // پردازش گالری JSON محصولات برای تمام لیست‌های محصولات
+        $productLists = [&$springProducts, &$summerProducts, &$autumnProducts, &$winterProducts];
+        
+        foreach ($productLists as &$productList) {
+            foreach ($productList as &$p) {
+                $p['gallery_arr'] = json_decode($p['gallery'] ?? '[]', true) ?: [];
+            }
+            unset($p); // آزادسازی رفرنس
         }
-        unset($p);
-
-        // فیلتر محصولات بر اساس فصل - array_values برای ریست کردن ایندکس‌ها
-        $springProducts = array_values(array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'spring' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
-        }));
-        $summerProducts = array_values(array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'summer' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
-        }));
-        $autumnProducts = array_values(array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'autumn' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
-        }));
-        $winterProducts = array_values(array_filter($featuredProducts, function($p) {
-            return isset($p['season']) && ($p['season'] === 'winter' || $p['season'] === 'all') && ($p['is_featured'] ?? 0);
-        }));
+        unset($productList); // آزادسازی رفرنس
 
         $pageTitle = 'فروشگاه پاییزی شگفت‌انگیز';
         $pageDesc  = 'جدیدترین مدل‌های پوشاک، کفش و اکسسوری با طرح‌های پاییزی';

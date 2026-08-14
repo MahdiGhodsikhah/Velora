@@ -30,7 +30,25 @@ class ProductModel {
              FROM `products` p
              JOIN `categories` c ON p.`category_id` = c.`id`
              WHERE p.`is_active` = 1 AND p.`is_featured` = 1
-             ORDER BY p.`rating_avg` DESC
+             ORDER BY p.`rating_avg` DESC, p.`created_at` DESC
+             LIMIT $limit"
+        );
+    }
+    
+    /**
+     * محصولات ویژه بر اساس فصل
+     */
+    public function getFeaturedBySeason(string $season, int $limit = 8): array {
+        $season = db_escape($season);
+        $limit = (int)$limit;
+        return db_fetch_all(
+            "SELECT p.*, c.`name` AS category_name, c.`slug` AS category_slug
+             FROM `products` p
+             JOIN `categories` c ON p.`category_id` = c.`id`
+             WHERE p.`is_active` = 1 
+               AND p.`is_featured` = 1 
+               AND (p.`season` = '$season' OR p.`season` = 'all')
+             ORDER BY p.`rating_avg` DESC, p.`created_at` DESC
              LIMIT $limit"
         );
     }
