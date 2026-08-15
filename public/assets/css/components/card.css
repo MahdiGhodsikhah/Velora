@@ -144,7 +144,7 @@
     position: relative;
     box-shadow: var(--shadow-md);
     padding: 16px 16px 70px;
-    transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+    transition: all 0.3s ease;
     border-radius: var(--radius-lg);
     margin: 0;
     border: 2px solid var(--border-light);
@@ -152,14 +152,15 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden;
+    overflow: visible;
     box-sizing: border-box;
 }
 
 .product-card:hover {
-    transform: translateY(-12px) scale(1.03);
+    transform: translateY(-8px);
     box-shadow: var(--shadow-primary);
     border-color: var(--primary);
+    z-index: 10;
 }
 
 .product-card::before {
@@ -334,8 +335,14 @@
     background: #fffaf2;
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* Aspect ratio 1:1 fallback */
+    padding-bottom: 100%; /* Aspect ratio 1:1 */
     height: 0;
+}
+
+.product-slider.slick-initialized {
+    padding-bottom: 0;
+    height: auto;
+    aspect-ratio: 1 / 1;
 }
 
 .product-slider:not(.slick-initialized) .img-wrap:not(:first-child) {
@@ -356,6 +363,12 @@
     overflow: hidden;
 }
 
+.product-slider.slick-initialized .img-wrap {
+    position: relative;
+    height: auto;
+    aspect-ratio: 1 / 1;
+}
+
 .product-slider .img-wrap a {
     width: 100%;
     height: 100%;
@@ -370,6 +383,7 @@
 
 .product-slider .slick-slide {
     height: auto !important;
+    aspect-ratio: 1 / 1;
 }
 
 .product-slider .slick-slide > div {
@@ -398,7 +412,7 @@
 }
 
 .product-card:hover .product-slider img {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 /* دات‌های اسلایدر تصاویر */
@@ -638,7 +652,9 @@
     .product-slider {
         margin-top: 28px;
         margin-bottom: 10px;
-        padding-bottom: 100%;
+    }
+    .product-slider.slick-initialized {
+        aspect-ratio: 1 / 1;
     }
     .btn-add { 
         bottom: 10px;
@@ -660,7 +676,9 @@
     .product-slider {
         margin-top: 26px;
         margin-bottom: 8px;
-        padding-bottom: 100%;
+    }
+    .product-slider.slick-initialized {
+        aspect-ratio: 1 / 1;
     }
     .btn-add { 
         bottom: 10px; 
@@ -677,7 +695,9 @@
     .product-slider {
         margin-top: 24px;
         margin-bottom: 6px;
-        padding-bottom: 100%;
+    }
+    .product-slider.slick-initialized {
+        aspect-ratio: 1 / 1;
     }
     .btn-add { 
         font-size: 0.75rem; 
