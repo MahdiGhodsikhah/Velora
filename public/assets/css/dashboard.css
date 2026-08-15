@@ -266,8 +266,8 @@
 .status-pending {
     background: #fff3cd;
     color: #856404;
-    padding: 6px;
-    border-radius: 17%;
+    padding: 8px;
+    border-radius: 20px;
 }
 
 .status-paid, .status-processing {
@@ -291,10 +291,12 @@
 }
 
 .status-approved {
+    font-size: 0.9.3rem;
     background: #d1f2eb;
     color: #0f5132;
-    padding: 6px;
-    border-radius: 17%;
+    padding: 3px 7px;
+    border-radius: 20px;
+    font-weight: 400;
 }
 
 .order-total {
