@@ -68,7 +68,7 @@ $colors = $leafColors[$season] ?? $leafColors['autumn'];
         <!-- ستون چپ: گالری تصاویر -->
         <div class="product-gallery">
             <div class="gallery-main">
-                <img src="<?= Security::e($galleryAll[0] ?? '/assets/images/products/no-image.jpg') ?>"
+                <img src="<?= $base ?><?= Security::e($galleryAll[0] ?? '/assets/images/products/no-image.jpg') ?>"
                      id="mainGalleryImg"
                      alt="<?= Security::e($product['name']) ?>"
                      class="main-gallery-img">
@@ -77,10 +77,10 @@ $colors = $leafColors[$season] ?? $leafColors['autumn'];
             <div class="gallery-thumbs">
                 <?php foreach ($galleryAll as $i => $img): ?>
                 <button class="thumb-btn <?= $i === 0 ? 'active' : '' ?>"
-                        data-img="<?= Security::e($img) ?>"
+                        data-img="<?= $base ?><?= Security::e($img) ?>"
                         aria-label="تصویر <?= $i + 1 ?>"
                         type="button">
-                    <img src="<?= Security::e($img) ?>"
+                    <img src="<?= $base ?><?= Security::e($img) ?>"
                          alt="تصویر <?= $i + 1 ?> از <?= Security::e($product['name']) ?>"
                          loading="lazy">
                 </button>
