@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 14, 2026 at 12:52 PM
+-- Generation Time: Aug 16, 2026 at 07:45 PM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -40,16 +40,17 @@ CREATE TABLE IF NOT EXISTS `banners` (
   `is_active` tinyint(1) DEFAULT '1',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `banners`
 --
 
 INSERT INTO `banners` (`id`, `title`, `subtitle`, `image_url`, `link_url`, `btn_text`, `position`, `sort_order`, `is_active`, `created_at`) VALUES
-(4, 'کلکسیون پاییزی شگفت‌انگیز', 'جدیدترین مدل‌های پوشاک با طراحی منحصر‌به‌فرد پاییزی - تخفیف ویژه تا ۵۰٪', '/assets/images/banners/banner-autumn-1.png', '/products', 'مشاهده محصولات', 'hero', 1, 1, '2026-06-17 08:52:19'),
-(5, 'استایل پاییزی خود را بسازید', 'با بهترین برندهای پوشاک و اکسسوری - ارسال رایگان برای خریدهای بالای ۵۰۰ هزار تومان', '/assets/images/banners/banner-normal-1.png', '/products?cat=1', 'خرید کنید', 'hero', 2, 1, '2026-06-17 08:52:19'),
-(6, 'تخفیف‌های فصلی', 'تا ۷۰٪ تخفیف روی محصولات منتخب - فقط تا پایان هفته', '/assets/images/banners/banner-autumn-1.png', '/products?sale=1', 'خرید با تخفیف', 'hero', 3, 1, '2026-06-17 08:52:19');
+(4, 'کلکسیون پاییزی شگفت‌انگیز', 'جدیدترین مدل‌های پوشاک با طراحی منحصر‌به‌فرد پاییزی - تخفیف ویژه تا ۵۰٪', '/assets/images/banners/banner-autumn-1.png', '/products', 'مشاهده محصولات', 'hero', 3, 1, '2026-06-17 08:52:19'),
+(5, 'فصل جدید، استایل جدید', 'با بهترین برندهای پوشاک و اکسسوری - ارسال رایگان برای خریدهای بالای ۵۰۰ هزار تومان', '/assets/images/banners/banner-spring-1.png', '/products?season=spring', 'خرید کنید', 'hero', 1, 1, '2026-06-17 08:52:19'),
+(6, 'تخفیف‌های فصلی', 'تا ۷۰٪ تخفیف روی محصولات منتخب - فقط تا پایان هفته', '/assets/images/banners/banner-summer-1.png', '/products?sale=1', 'خرید با تخفیف', 'hero', 2, 1, '2026-06-17 08:52:19'),
+(7, 'آنچه می‌پوشی، بخشی از توست', 'انتخابی از میان استایل‌های متنوع، برای ساختن ظاهری که واقعاً بیانگر توست.', '/assets/images/banners/banner-winter-1.png', '/products?season=winter', 'بزن بریم', 'hero', 4, 1, '2026-08-16 16:59:07');
 
 -- --------------------------------------------------------
 
@@ -170,9 +171,7 @@ INSERT INTO `orders` (`id`, `user_id`, `order_number`, `status`, `total_amount`,
 (10, 2, 'ORD-20260729-FD582483', 'pending', 6867000, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-07-29 10:03:38', NULL),
 (11, 2, 'ORD-20260805-ACB465C3', 'processing', 1046400, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'paid', '', '2026-08-05 11:24:12', '2026-08-14 15:56:59'),
 (12, 2, 'ORD-20260813-FD5B1030', 'pending', 2038300, 0, 0, 'مشهد رسالت', '9149172740', 'cash', 'unpaid', '', '2026-08-13 21:35:42', NULL),
-(13, 2, 'ORD-20260813-2E087334', 'pending', 2038300, 0, 0, 'مشهد رسالت', '9149172740', 'cash', 'unpaid', '', '2026-08-13 21:36:10', NULL),
-(14, 2, 'ORD-20260813-92FAE3A1', 'pending', 1308000, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-14 00:39:53', NULL),
-(15, 2, 'ORD-20260813-D444D6EF', 'shipped', 872000, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'paid', '', '2026-08-14 00:42:30', '2026-08-14 00:55:11');
+(13, 2, 'ORD-20260813-2E087334', 'pending', 2038300, 0, 0, 'مشهد رسالت', '9149172740', 'cash', 'unpaid', '', '2026-08-13 21:36:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -215,10 +214,7 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `unit
 (14, 10, 3, 'ساعت مچی کلاسیک لوکس', 3150000, 2, 6300000),
 (15, 11, 1, 'هودی پاییزی مردانه برند نایک', 960000, 1, 960000),
 (16, 12, 2, 'کتونی اسپرت مردانه آدیداس', 1870000, 1, 1870000),
-(17, 13, 2, 'کتونی اسپرت مردانه آدیداس', 1870000, 1, 1870000),
-(18, 14, 9, 'تست', 800000, 1, 800000),
-(19, 14, 14, 'تست3', 400000, 1, 400000),
-(20, 15, 14, 'تست3', 400000, 2, 800000);
+(17, 13, 2, 'کتونی اسپرت مردانه آدیداس', 1870000, 1, 1870000);
 
 -- --------------------------------------------------------
 
@@ -258,26 +254,31 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `idx_slug` (`slug`),
   KEY `idx_season` (`season`),
   KEY `idx_season_category` (`season`,`category_id`,`is_active`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `short_desc`, `sku`, `price`, `sale_price`, `discount_pct`, `stock_qty`, `main_image`, `gallery`, `rating_avg`, `rating_count`, `is_featured`, `season`, `is_active`, `views`, `created_at`, `updated_at`) VALUES
-(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product-1-main.jpg', '[\"/assets/images/products/product-1-1.jpg\", \"/assets/images/products/product-1-2.jpg\", \"/assets/images/products/product-1-3.jpg\", \"/assets/images/products/product-1-4.jpg\"]', 4.50, 2, 1, 'autumn', 1, 152, '2026-06-09 15:55:19', '2026-08-14 15:26:01'),
-(2, 3, 'کتونی اسپرت مردانه آدیداس', 'adidas-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 26, '/assets/images/products/product-2-main.jpg', '[\"/assets/images/products/product-2-1.jpg\", \"/assets/images/products/product-2-2.jpg\", \"/assets/images/products/product-2-3.jpg\", \"/assets/images/products/product-2-4.jpg\"]', 4.00, 1, 1, 'spring', 1, 64, '2026-06-09 15:55:19', '2026-08-14 14:31:22'),
-(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 16, '/assets/images/products/product-3-main.jpg', '[\"/assets/images/products/product-3-1.jpg\", \"/assets/images/products/product-3-2.jpg\", \"/assets/images/products/product-3-3.jpg\", \"/assets/images/products/product-3-4.jpg\"]', 5.00, 1, 1, 'summer', 1, 145, '2026-06-09 15:55:19', '2026-08-14 13:15:29'),
-(4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product-4-main.jpg', '[\"/assets/images/products/product-4-1.jpg\", \"/assets/images/products/product-4-2.jpg\", \"/assets/images/products/product-4-3.jpg\", \"/assets/images/products/product-4-4.jpg\"]', 4.30, 18, 1, 'autumn', 1, 7, '2026-06-09 15:55:19', '2026-08-14 12:55:13'),
-(5, 5, 'تراک‌شوت ورزشی مردانه', 'mens-tracksuit-sport', 'تراک‌شوت کامل مردانه مناسب ورزش و پیاده‌روی. شامل سویشرت و شلوار. جنس کجراه با طرح آستین راه‌راه.', 'تراک‌شوت کامل ورزشی', 'SKU-SP-001', 1800000, 1440000, 20, 25, '/assets/images/products/product-5-main.jpg', '[\"/assets/images/products/product-5-1.jpg\", \"/assets/images/products/product-5-2.jpg\", \"/assets/images/products/product-5-3.jpg\", \"/assets/images/products/product-5-4.jpg\"]', 4.20, 30, 1, 'winter', 1, 33, '2026-06-09 15:55:19', '2026-08-14 12:55:03'),
-(6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product-6-main.jpg', '[\"/assets/images/products/product-6-1.jpg\", \"/assets/images/products/product-6-2.jpg\", \"/assets/images/products/product-6-3.jpg\", \"/assets/images/products/product-6-4.jpg\"]', 5.00, 1, 0, 'all', 1, 22, '2026-06-09 15:55:19', '2026-08-14 15:57:23'),
-(7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product-7-main.jpg', '[\"/assets/images/products/product-7-1.jpg\", \"/assets/images/products/product-7-2.jpg\", \"/assets/images/products/product-7-3.jpg\", \"/assets/images/products/product-7-4.jpg\"]', 0.00, 0, 0, 'spring', 1, 7, '2026-06-09 15:55:19', '2026-08-14 13:16:27'),
-(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product-8-main.jpg', '[\"/assets/images/products/product-8-1.jpg\", \"/assets/images/products/product-8-2.jpg\", \"/assets/images/products/product-8-3.jpg\", \"/assets/images/products/product-8-4.jpg\"]', 4.00, 1, 0, 'winter', 1, 44, '2026-06-09 15:55:19', '2026-08-14 13:18:53'),
-(9, 1, 'تست', 'test', 'this product for test no real', 'this for test', 'SKU-M-005', 1000000, 800000, 20, 11, '/assets/images/products/test1.webp', NULL, 0.00, 0, 1, 'winter', 1, 4, '2026-08-13 23:43:09', '2026-08-14 15:35:22'),
-(13, 1, 'تست2', 'test2', 'this product for test 2', 'test 2', 'SKU-M-003', 2000000, 1000000, 50, 20, '/assets/images/products/test2.jpg', NULL, 0.00, 0, 1, 'autumn', 1, 1, '2026-08-13 23:49:05', '2026-08-14 15:34:53'),
-(14, 1, 'تست3', 'test3', 'this product for test 3', 'test 3', 'SKU-M-004', 500000, 400000, 20, 17, '/assets/images/products/test3.jpg', NULL, 0.00, 0, 1, 'spring', 1, 7, '2026-08-13 23:50:57', '2026-08-14 15:45:51'),
-(15, 2, 'تست 6', 'test6', 'test66666', 'test', 'SKU-M-008', 2000000, 1000000, 50, 49, '/assets/images/products/Men\'s autumn hoodie by Nike3.jpg', '[\"/assets/images/products/product_15_gallery_1_1786711766_8be3de5c.jpg\", \"/assets/images/products/product_15_gallery_2_1786711766_f076b0e9.jpg\"]', 0.00, 0, 1, 'summer', 1, 0, '2026-08-14 15:27:05', '2026-08-14 16:21:40'),
-(16, 1, 'تست 5', 'test5', 'test55555555', 'test5', 'SKU-M-007', 400000, 400000, 90, 20, '/assets/images/products/Men\'s autumn hoodie by Nike2', NULL, 0.00, 0, 1, 'spring', 1, 0, '2026-08-14 15:44:18', '2026-08-14 15:44:34');
+(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product_1_main_1786890774_7b705668.jpg', '[\"/assets/images/products/product_1_gallery_1_1786890774_058c2505.jpg\", \"/assets/images/products/product_1_gallery_2_1786890774_2d0e29f4.jpg\"]', 0.00, 0, 1, 'autumn', 1, 157, '2026-06-09 15:55:19', '2026-08-16 23:12:10'),
+(2, 3, 'کتونی اسپرت مردانه نایک', 'nike-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 26, '/assets/images/products/product_2_main_1786888148_e9d366c6.jpg', '[\"/assets/images/products/product_2_gallery_1_1786888148_69dc27bf.jpg\"]', 0.00, 0, 1, 'spring', 1, 67, '2026-06-09 15:55:19', '2026-08-16 23:12:00'),
+(3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 16, '/assets/images/products/product_3_main_1786889444_58eb727c.jpg', '[\"/assets/images/products/product_3_gallery_1_1786889444_6cd67e11.jpg\", \"/assets/images/products/product_3_gallery_2_1786889444_4daf73c1.jpg\"]', 0.00, 0, 1, 'summer', 1, 154, '2026-06-09 15:55:19', '2026-08-16 23:11:48'),
+(4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product_4_main_1786888967_6fa93370.jpg', '[\"/assets/images/products/product_4_gallery_1_1786888967_967d0f7c.jpg\"]', 0.00, 0, 1, 'autumn', 1, 11, '2026-06-09 15:55:19', '2026-08-16 23:09:42'),
+(5, 5, 'تراک‌شوت ورزشی مردانه', 'mens-tracksuit-sport', 'تراک‌شوت کامل مردانه مناسب ورزش و پیاده‌روی. شامل سویشرت و شلوار. جنس کجراه با طرح آستین راه‌راه.', 'تراک‌شوت کامل ورزشی', 'SKU-SP-001', 1800000, 1440000, 20, 25, '/assets/images/products/product_5_main_1786888671_109c82a4.jpg', '[\"/assets/images/products/product_5_gallery_1_1786888671_053c4d38.jpg\", \"/assets/images/products/product_5_gallery_2_1786888671_bf176ee4.jpg\", \"/assets/images/products/product_5_gallery_3_1786888671_51579d40.jpg\"]', 0.00, 0, 1, 'summer', 1, 38, '2026-06-09 15:55:19', '2026-08-16 23:10:11'),
+(6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product_6_main_1786888823_42dd3d81.jpg', '[\"/assets/images/products/product_6_gallery_1_1786888823_a6d4ea56.jpg\", \"/assets/images/products/product_6_gallery_2_1786888823_21f49380.jpg\"]', 5.00, 1, 0, 'all', 1, 46, '2026-06-09 15:55:19', '2026-08-16 17:45:06'),
+(7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product_7_main_1786888375_507b02d3.jpg', '[\"/assets/images/products/product_7_gallery_1_1786888375_c9150374.jpg\"]', 0.00, 0, 1, 'winter', 1, 9, '2026-06-09 15:55:19', '2026-08-16 19:07:08'),
+(8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product_8_main_1786890181_bc506aba.jpg', '[\"/assets/images/products/product_8_gallery_1_1786890181_34601d5c.jpg\", \"/assets/images/products/product_8_gallery_2_1786890181_77c3fa39.jpg\", \"/assets/images/products/product_8_gallery_3_1786890181_a2fe6ff7.jpg\", \"/assets/images/products/product_8_gallery_4_1786890181_ca6cb326.jpg\"]', 4.00, 1, 0, 'winter', 1, 48, '2026-06-09 15:55:19', '2026-08-16 23:10:32'),
+(19, 1, 'تی‌شرت ساده مردانه', 'mens-basic-tshirt', 'تی‌شرت ساده مردانه با طراحی مینیمال و پارچه‌ای نرم و راحت. مناسب استفاده روزمره و استایل‌های مختلف.', 'تی‌شرت مردانه - ساده و راحت', 'SKU-M-003', 750000, 637500, 15, 48, '/assets/images/products/product_19_main_1786907200_aeb92cf2.jpg', NULL, 0.00, 0, 1, 'summer', 1, 0, '2026-08-16 21:32:56', '2026-08-16 22:36:40'),
+(22, 1, 'سویشرت مردانه کژوال', 'mens-casual-sweatshirt', 'سویشرت مردانه کژوال با طراحی راحت و گرم، مناسب استفاده روزمره و استایل‌های پاییزی.', 'سویشرت مردانه - کژوال و گرم', 'SKU-M-006', 1600000, 1360000, 15, 22, '/assets/images/products/product_22_main_1786907211_ff5f676a.jpg', NULL, 0.00, 0, 1, 'autumn', 1, 1, '2026-08-16 21:32:56', '2026-08-16 22:40:24'),
+(23, 1, 'کاپشن مردانه سبک', 'mens-light-jacket', 'کاپشن مردانه سبک با طراحی کاربردی و مناسب برای روزهای سرد. انتخابی مناسب برای استایل روزمره زمستانی.', 'کاپشن مردانه - سبک و گرم', 'SKU-M-007', 2900000, 2465000, 15, 18, '/assets/images/products/product_23_main_1786907386_8704fb05.jpg', '[\"/assets/images/products/product_23_gallery_1_1786907386_4f9ca2d6.jpg\"]', 0.00, 0, 1, 'winter', 1, 0, '2026-08-16 21:32:56', '2026-08-16 22:39:46'),
+(27, 2, 'شومیز زنانه کژوال', 'womens-casual-blouse', 'شومیز زنانه کژوال با طراحی ظریف و راحت، مناسب استفاده روزمره و استایل‌های بهاری.', 'شومیز زنانه - کژوال و ظریف', 'SKU-W-002', 1200000, 1020000, 15, 24, '/assets/images/products/product_27_main_1786908050_c815b371.jpg', NULL, 0.00, 0, 1, 'spring', 1, 0, '2026-08-16 21:32:56', '2026-08-16 22:50:50'),
+(30, 2, 'کت زنانه مینیمال', 'womens-minimal-blazer', 'کت زنانه مینیمال با طراحی ساده و شیک، مناسب استایل‌های رسمی و نیمه‌رسمی.', 'کت زنانه - مینیمال و شیک', 'SKU-W-005', 2750000, 2337500, 15, 14, '/assets/images/products/product_30_main_1786908061_f7ad0ad9.jpg', '[\"/assets/images/products/product_30_gallery_1_1786908061_475a6811.jpg\"]', 0.00, 0, 1, 'spring', 1, 0, '2026-08-16 21:32:56', '2026-08-16 22:51:01'),
+(31, 2, 'بارانی زنانه کلاسیک', 'womens-classic-trench', 'بارانی زنانه کلاسیک با طراحی شیک و کاربردی، مناسب روزهای خنک و بارانی پاییز.', 'بارانی زنانه - کلاسیک و شیک', 'SKU-W-006', 2950000, 2507500, 15, 11, '/assets/images/products/product_31_main_1786908597_2cf6a51e.jpg', NULL, 0.00, 0, 1, 'autumn', 1, 0, '2026-08-16 21:32:56', '2026-08-16 22:59:57'),
+(33, 2, 'شلوار پارچه‌ای زنانه', 'womens-wide-leg-pants', 'شلوار پارچه‌ای زنانه با فرم وایدلگ و طراحی راحت، مناسب استایل‌های روزمره و نیمه‌رسمی.', 'شلوار زنانه - وایدلگ و راحت', 'SKU-W-008', 1300000, 1105000, 15, 28, '/assets/images/products/product_33_main_1786908607_be5e61c8.jpg', NULL, 0.00, 0, 1, 'spring', 1, 0, '2026-08-16 21:32:56', '2026-08-16 23:00:07'),
+(41, 3, 'نیم‌بوت مردانه چرمی', 'mens-leather-ankle-boots', 'نیم‌بوت مردانه چرمی با طراحی مقاوم و شیک، مناسب فصل زمستان و روزهای سرد.', 'نیم‌بوت مردانه - چرمی و گرم', 'SKU-S-009', 3600000, 3060000, 15, 9, '/assets/images/products/product_41_main_1786908615_506a69bd.jpg', '[\"/assets/images/products/product_41_gallery_1_1786908776_e02b2b29.jpg\", \"/assets/images/products/product_41_gallery_2_1786908776_4965d3f7.jpg\"]', 0.00, 0, 1, 'winter', 1, 0, '2026-08-16 21:32:56', '2026-08-16 23:02:56'),
+(48, 4, 'عینک آفتابی کلاسیک', 'classic-sunglasses', 'عینک آفتابی کلاسیک با طراحی ساده و جذاب، مناسب استفاده روزمره و استایل‌های تابستانی.', 'عینک آفتابی - کلاسیک و شیک', 'SKU-A-008', 1300000, 1105000, 15, 30, '/assets/images/products/product_48_main_1786908623_54fb9e0c.jpg', '[\"/assets/images/products/product_48_gallery_1_1786908851_84ed9d37.jpg\"]', 0.00, 0, 1, 'summer', 1, 0, '2026-08-16 21:32:56', '2026-08-16 23:04:11'),
+(49, 4, 'شال زنانه بافت', 'womens-knitted-scarf', 'شال زنانه بافت با طراحی گرم و زیبا، مناسب استفاده در روزهای سرد و استایل‌های زمستانی.', 'شال زنانه - بافت و گرم', 'SKU-A-009', 700000, 560000, 20, 38, '/assets/images/products/product_49_main_1786908635_7b0979d4.jpg', '[\"/assets/images/products/product_49_gallery_1_1786908635_de6fe7d5.jpg\"]', 0.00, 0, 1, 'winter', 1, 0, '2026-08-16 21:32:56', '2026-08-16 23:00:35');
 
 -- --------------------------------------------------------
 
@@ -323,10 +324,6 @@ CREATE TABLE IF NOT EXISTS `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `product_id`, `user_id`, `author_name`, `rating`, `title`, `body`, `is_approved`, `created_at`) VALUES
-(1, 1, NULL, 'علی محمدی', 5, 'عالی بود', 'خیلی گرم و راحته. کیفیتش از قیمتش بیشتره.', 1, '2026-06-09 15:55:19'),
-(2, 1, NULL, 'حسن رضایی', 4, 'خوب بود', 'طرحش قشنگه ولی کمی گشادتر از اندازه‌ام بود.', 1, '2026-06-09 15:55:19'),
-(3, 2, NULL, 'مریم احمدی', 4, 'راحت و سبک', 'برای پیاده‌روی عالیه. پاهام خسته نمیشه.', 1, '2026-06-09 15:55:19'),
-(4, 3, NULL, 'رضا کریمی', 5, 'ساعت بینظیر', 'استیلش خیلی شیکه. همه ازش تعریف می‌کنن.', 1, '2026-06-09 15:55:19'),
 (16, 8, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-08-14 13:17:38'),
 (17, 6, 2, NULL, 5, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-08-14 13:17:56');
 
@@ -400,8 +397,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `address`, `postal_code`, `password_hash`, `full_name`, `profile_image`, `preferred_theme`, `job`, `birth_date`, `avatar_url`, `role`, `is_active`, `email_verified`, `login_attempts`, `locked_until`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@autumnshop.ir', '09120000000', NULL, NULL, '$2y$12$ief.AmWpLNaKX12vFAG3j..g68qbjvh7CRuwgUOsc/LGxZD6ODBg.', 'مدیر سیستم', NULL, 'automatic', NULL, NULL, NULL, 'admin', 1, 1, 0, NULL, NULL, '2026-06-09 15:55:19', NULL),
-(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1786625096.jpg', 'summer', 'دانشجو', NULL, NULL, 'admin', 1, 0, 0, NULL, '2026-08-13 21:44:06', '2026-06-30 12:59:51', '2026-08-14 00:42:30'),
+(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1786625096.jpg', 'summer', 'دانشجو', NULL, NULL, 'admin', 1, 0, 0, NULL, '2026-08-16 21:15:31', '2026-06-30 12:59:51', '2026-08-16 21:15:31'),
 (3, 'ali', 'ali@gmail.com', 'temp_3', NULL, NULL, '$2y$12$6.6NolqrdCRTJki0zuKERuru6LlcHAQHdw8UECeX1Rxjdma7ndCI.', NULL, NULL, 'automatic', NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, '2026-07-17 23:35:34', '2026-07-16 22:13:50', '2026-07-18 00:07:14'),
 (4, 'ali2', '', 'temp_4', NULL, NULL, '$2y$12$UWEQfVbOP6CrLnQLXFrG.OIofpW21Hhy3rRdOuspu7imKNN.w3ifu', NULL, NULL, 'automatic', NULL, NULL, NULL, 'customer', 1, 0, 0, NULL, NULL, '2026-07-17 23:35:54', '2026-07-18 00:07:14'),
 (6, 'user89514957', '', '09929954843', NULL, NULL, '$2y$12$lVHhi1o0GOmbk.icGdKpKuv25RWQSf32DARjF4N85/w.feDLPWC96', NULL, NULL, 'automatic', NULL, NULL, NULL, 'customer', 1, 0, 4, NULL, '2026-07-18 00:24:49', '2026-07-18 00:07:54', '2026-07-22 09:35:35');
@@ -439,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_wish_user_product` (`user_id`,`product_id`),
   KEY `fk_wish_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `wishlist`
