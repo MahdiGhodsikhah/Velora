@@ -146,12 +146,12 @@ unset($order);
                     <div class="order-total">
                         مبلغ کل: <?= number_format((int)$order['total_amount']) ?> تومان
                     </div>
-                    <div class="order-actions">
+                    <!-- <div class="order-actions">
                         <a href="<?= $base ?>/orders/view/<?= (int)$order['id'] ?>" class="btn btn-primary">
                             <i class="fas fa-eye"></i>
                             مشاهده جزئیات
                         </a>
-                    </div>
+                    </div> -->
                 </div>
 
             </div>

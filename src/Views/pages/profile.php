@@ -649,7 +649,7 @@
     .avatar-circle {
         width: 100px;
         height: 100px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -670,7 +670,7 @@
     }
 
     .nav-pills .nav-link.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         color: white;
     }
 
@@ -683,19 +683,19 @@
     }
 
     .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem var(--button-ripple);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         border: none;
     }
 
     .btn-primary:hover {
-        background: linear-gradient(135deg, #5568d3 0%, #63408a 100%);
+        background: var(--gradient-primary);
         transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        box-shadow: var(--shadow-button);
     }
 
     /* استایل مدال آپلود عکس پروفایل */
@@ -712,8 +712,8 @@
         height: 200px;
         border-radius: 50%;
         overflow: hidden;
-        border: 4px solid #667eea;
-        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        border: 4px solid var(--primary);
+        box-shadow: var(--shadow-icon);
         position: relative;
     }
 
@@ -726,7 +726,7 @@
     .default-avatar-modal {
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         display: flex;
         align-items: center;
         justify-content: center;

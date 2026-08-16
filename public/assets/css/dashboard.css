@@ -4,7 +4,7 @@
 
 .dashboard-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: var(--body-bg);
     padding: 40px 20px 80px;
 }
 
@@ -15,11 +15,11 @@
 
 /* هدر پنل */
 .dashboard-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-primary);
     border-radius: 20px;
     padding: 40px;
     margin-bottom: 30px;
-    box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    box-shadow: var(--shadow-primary);
     color: #fff;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .stat-card {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 30px;
     display: flex;
@@ -63,6 +63,7 @@
     gap: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
 }
 
 .stat-card:hover {
@@ -105,12 +106,12 @@
     font-size: 2.5rem;
     font-weight: 800;
     margin: 0 0 5px 0;
-    color: #2c3e50;
+    color: var(--text-dark);
 }
 
 .stat-content p {
     font-size: 0.95rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
     margin: 0;
 }
 
@@ -122,7 +123,7 @@
 .section-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--text-dark);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -130,7 +131,7 @@
 }
 
 .section-title i {
-    color: #667eea;
+    color: var(--primary);
 }
 
 .actions-grid {
@@ -140,7 +141,7 @@
 }
 
 .action-card {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 25px 20px;
     display: flex;
@@ -151,18 +152,19 @@
     transition: all 0.3s ease;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
     text-decoration: none;
-    color: #2c3e50;
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
 }
 
 .action-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-    color: #667eea;
+    box-shadow: var(--shadow-button);
+    color: var(--primary);
 }
 
 .action-card i {
     font-size: 2rem;
-    color: #667eea;
+    color: var(--primary);
     transition: all 0.3s;
 }
 
@@ -187,6 +189,7 @@
 .action-logout:hover {
     color: #fff;
     transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-button-hover);
 }
 
 /* فعالیت‌ها */
@@ -197,16 +200,17 @@
 }
 
 .activity-card {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 16px;
     padding: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-light);
 }
 
 .card-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--text-dark);
     margin: 0 0 20px 0;
     display: flex;
     align-items: center;
@@ -214,7 +218,7 @@
 }
 
 .card-title i {
-    color: #667eea;
+    color: var(--primary);
 }
 
 /* لیست سفارشات */
@@ -229,13 +233,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 15px;
-    background: #f8f9fa;
+    background: var(--label-bg);
+    border: 1px solid var(--border-light);
     border-radius: 10px;
     transition: all 0.3s;
 }
 
 .order-item:hover {
-    background: #e9ecef;
+    background: var(--navbar-dropdown-hover);
     transform: translateX(-5px);
 }
 
@@ -247,13 +252,13 @@
 
 .order-id {
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--text-dark);
     font-size: 1.05rem;
 }
 
 .order-date {
     font-size: 0.85rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
 }
 
 .order-status {
@@ -301,7 +306,7 @@
 
 .order-total {
     font-weight: 700;
-    color: #667eea;
+    color: var(--primary);
     font-size: 1.05rem;
 }
 
@@ -317,13 +322,14 @@
     align-items: center;
     justify-content: space-between;
     padding: 15px;
-    background: #f8f9fa;
+    background: var(--label-bg);
+    border: 1px solid var(--border-light);
     border-radius: 10px;
     transition: all 0.3s;
 }
 
 .review-item:hover {
-    background: #e9ecef;
+    background: var(--navbar-dropdown-hover);
 }
 
 .review-product {
@@ -346,7 +352,7 @@
 
 .product-name {
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--text-dark);
     font-size: 0.95rem;
     display: block;
     margin-bottom: 5px;
@@ -354,7 +360,7 @@
 }
 
 .product-name:hover {
-    color: #667eea;
+    color: var(--primary);
 }
 
 .review-rating {
@@ -366,7 +372,7 @@
 .empty-state {
     text-align: center;
     padding: 40px 20px;
-    color: #7f8c8d;
+    color: var(--text-muted);
 }
 
 .empty-state i {
@@ -382,7 +388,7 @@
 
 .btn-start-shopping {
     display: inline-block;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-primary);
     color: #fff;
     padding: 12px 30px;
     border-radius: 25px;
@@ -393,7 +399,7 @@
 
 .btn-start-shopping:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-button-hover);
     color: #fff;
 }
 
@@ -402,7 +408,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #667eea;
+    color: var(--primary);
     font-weight: 600;
     margin-top: 15px;
     text-decoration: none;
@@ -411,7 +417,7 @@
 
 .view-all-link:hover {
     gap: 12px;
-    color: #764ba2;
+    color: var(--primary-dark);
 }
 
 /* Override Bootstrap modal styles */
