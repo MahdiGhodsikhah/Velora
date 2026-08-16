@@ -45,7 +45,11 @@ if (!empty($seasonFilter)) {
     <?php else: ?>
 
         <div class="main-product-slider" role="region" aria-label="<?= Security::e($sliderTitle) ?>" aria-roledescription="carousel">
-            <?php foreach ($products as $product): ?>
+            <?php 
+            // تنظیم متغیر برای نمایش فقط عکس اصلی در کاروسل
+            $isCarouselMode = true;
+            
+            foreach ($products as $product): ?>
                 <div role="group" aria-roledescription="slide" aria-label="محصول <?= Security::e($product['name']) ?>">
                     <?php require __DIR__ . '/product-card.php'; ?>
                 </div>

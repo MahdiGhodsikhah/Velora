@@ -339,6 +339,11 @@ $(document).ready(function () {
                 return;
             }
             
+            // اگر داخل کاروسل اصلی هست، اسلایدر نساز
+            if ($slider.closest('.main-product-slider').length > 0) {
+                return;
+            }
+            
             // حذف lazy loading از تصاویر
             $slider.find('img[loading="lazy"]').attr('loading', 'eager');
             

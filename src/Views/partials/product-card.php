@@ -57,18 +57,26 @@ $productId     = (int)($product['id'] ?? 0);
                 <img src="<?= $mainImg ?>" alt="<?= $name ?>" loading="eager">
             </a>
         </div>
-        <?php foreach ($galleryArr as $imgUrl): 
-            // اضافه کردن BASE_URL به تصاویر گالری
-            if (!empty($imgUrl) && strpos($imgUrl, 'http') !== 0) {
-                $imgUrl = $base . $imgUrl;
-            }
+        <?php 
+        // فقط اگر در صفحه محصولات یا جزئیات باشیم، گالری نمایش داده شود
+        // در کاروسل اصلی فقط عکس اصلی نمایش داده می‌شود
+        $isInCarousel = isset($isCarouselMode) && $isCarouselMode === true;
+        if (!$isInCarousel):
+            foreach ($galleryArr as $imgUrl): 
+                // اضافه کردن BASE_URL به تصاویر گالری
+                if (!empty($imgUrl) && strpos($imgUrl, 'http') !== 0) {
+                    $imgUrl = $base . $imgUrl;
+                }
         ?>
         <div class="img-wrap">
             <a href="<?= $base ?>/products/<?= $slug ?>" tabindex="-1" aria-hidden="true">
                 <img src="<?= Security::e($imgUrl) ?>" alt="<?= $name ?>" loading="eager">
             </a>
         </div>
-        <?php endforeach; ?>
+        <?php 
+            endforeach;
+        endif;
+        ?>
     </div>
 
     <!-- اطلاعات محصول -->

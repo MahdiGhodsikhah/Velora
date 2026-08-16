@@ -369,6 +369,9 @@
     height: auto;
     aspect-ratio: 1 / 1;
     border-radius: 10px;
+    overflow: hidden;
+    min-height: 0;
+    max-height: 100%;
 }
 
 .product-slider .img-wrap a {
@@ -377,18 +380,22 @@
     display: block;
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
+    aspect-ratio: 1 / 1;
 }
 
 .product-slider .slick-track {
     display: flex !important;
     border-radius: 10px;
+    align-items: stretch;
 }
 
 .product-slider .slick-slide {
     height: auto !important;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1 !important;
     border-radius: 10px;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .product-slider .slick-slide > div {
@@ -396,6 +403,7 @@
     height: 100% !important;
     border-radius: 10px;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
 }
 
 .product-slider img {
@@ -404,11 +412,13 @@
     max-width: 100% !important;
     max-height: 100% !important;
     object-fit: cover !important;
+    object-position: center !important;
     transition: transform 0.5s ease;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
     border-radius: 10px;
+    flex-shrink: 0;
 }
 
 /* Fallback برای تصاویر که لود نشده‌اند */
