@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/banner.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/hero.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/section.css">
-    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/products.css">
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/products.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/about.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/footer.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/auth.css">
@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/notification.css">
     
     <!-- Fix Responsive -->
-    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/products-fix.css">
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/products-fix.css?v=<?= time() ?>">
     
     <!-- Theme -->
     <?php 
@@ -67,7 +67,7 @@
         window.BASE_URL = '<?= defined('BASE_URL') ? BASE_URL : '' ?>';
     </script>
     
-    <!-- Debug Script for Products Page -->
+    <!-- Debug Script for Products Page - Can be removed after testing -->
     <?php if(isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'products') !== false): ?>
     <script src="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/js/products-debug.js"></script>
     <?php endif; ?>

@@ -959,7 +959,7 @@ input:focus-visible {
 }
 
 .products-grid > * {
-    flex: 0 0 calc(33.333% - 22px);
+    flex: 0 0 auto;
     width: calc(33.333% - 22px);
     max-width: calc(33.333% - 22px);
     min-width: 0;

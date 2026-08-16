@@ -269,9 +269,9 @@
 
 /* ===== گرید محصولات با Flexbox ===== */
 .products-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
     padding: 20px 0 60px;
     width: 100%;
     margin: 0;
@@ -279,15 +279,15 @@
 }
 
 .products-grid > div {
-    flex: 0 0 calc(33.333% - 14px);
-    width: calc(33.333% - 14px);
-    max-width: calc(33.333% - 14px);
-    min-width: 0;
-    box-sizing: border-box;
+    flex: 0 0 auto !important;
+    width: calc(33.333% - 14px) !important;
+    max-width: calc(33.333% - 14px) !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
 }
 
 .products-grid > div .product-card {
-    width: 100%;
+    width: 100% !important;
     height: 100%;
 }
 
@@ -410,13 +410,13 @@
     }
 
     .products-grid {
-        gap: 20px;
+        gap: 20px !important;
     }
 
     .products-grid > div {
-        flex: 0 0 calc(50% - 10px);
-        width: calc(50% - 10px);
-        max-width: calc(50% - 10px);
+        flex: 0 0 auto !important;
+        width: calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
     }
 }
 
@@ -474,14 +474,14 @@
     }
 
     .products-grid {
-        gap: 16px;
+        gap: 16px !important;
         padding: 16px 0 40px;
     }
 
     .products-grid > div {
-        flex: 0 0 calc(50% - 8px);
-        width: calc(50% - 8px);
-        max-width: calc(50% - 8px);
+        flex: 0 0 auto !important;
+        width: calc(50% - 8px) !important;
+        max-width: calc(50% - 8px) !important;
     }
 
     .pagination-nav {
@@ -501,13 +501,13 @@
 /* ===== Responsive - Mobile Medium (400-600px) ===== */
 @media (max-width: 600px) {
     .products-grid {
-        gap: 16px;
+        gap: 16px !important;
     }
 
     .products-grid > div {
-        flex: 0 0 100%;
-        width: 100%;
-        max-width: 100%;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 }
 
@@ -534,14 +534,14 @@
     }
 
     .products-grid {
-        gap: 16px;
+        gap: 16px !important;
         padding: 12px 0 30px;
     }
 
     .products-grid > div {
-        flex: 0 0 100%;
-        width: 100%;
-        max-width: 100%;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .no-products-full {

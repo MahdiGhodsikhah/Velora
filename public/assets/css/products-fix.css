@@ -1,12 +1,12 @@
 /**
  * اصلاح قطعی Responsive محصولات
- * این فایل کل استایل‌های گرید را override می‌کند
+ * استفاده از CSS Grid به جای Flexbox
  */
 
-/* بازنویسی کامل گرید */
+/* بازنویسی کامل با CSS Grid */
 .products-page .products-content .products-grid {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     gap: 20px !important;
     width: 100% !important;
     margin: 0 !important;
@@ -15,9 +15,8 @@
 }
 
 .products-page .products-content .products-grid > div {
-    flex: 0 0 calc(33.333% - 14px) !important;
-    width: calc(33.333% - 14px) !important;
-    max-width: calc(33.333% - 14px) !important;
+    width: 100% !important;
+    max-width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
     margin: 0 !important;
@@ -31,23 +30,25 @@
 }
 
 /* Tablet */
-@media (max-width: 1023px) {
-    .products-page .products-content .products-grid > div {
-        flex: 0 0 calc(50% - 10px) !important;
-        width: calc(50% - 10px) !important;
-        max-width: calc(50% - 10px) !important;
+@media (max-width: 1024px) {
+    .products-page .products-content .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+    .products-page .products-content .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
     }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
     .products-page .products-content .products-grid {
+        grid-template-columns: 1fr !important;
         gap: 16px !important;
-    }
-    
-    .products-page .products-content .products-grid > div {
-        flex: 0 0 100% !important;
-        width: 100% !important;
-        max-width: 100% !important;
     }
 }
