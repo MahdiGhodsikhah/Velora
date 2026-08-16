@@ -37,9 +37,59 @@
 }
 
 .main-product-slider .slick-list {
-    overflow-x: hidden;
-    overflow-y: visible;
+    overflow: hidden !important;
     padding: 15px 0 !important;
+    border-radius: 10px !important;
+    margin: -15px 0 !important;
+}
+
+/* حذف background در کاروسل - تصویر باید تمام فضا رو بگیره */
+.main-product-slider .product-card .product-slider {
+    background: transparent;
+    border-radius: 10px !important;
+}
+
+.main-product-slider .product-card .product-slider .img-wrap {
+    background: transparent;
+    border-radius: 10px !important;
+}
+
+.main-product-slider .product-card .product-slider .slick-list {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+}
+
+/* اجبار گرد شدن تمام گوشه‌های تصویر در کاروسل */
+.main-product-slider .product-card .product-slider,
+.main-product-slider .product-card .product-slider .slick-list,
+.main-product-slider .product-card .product-slider .slick-track,
+.main-product-slider .product-card .product-slider .slick-slide,
+.main-product-slider .product-card .product-slider .slick-slide > div,
+.main-product-slider .product-card .product-slider .img-wrap,
+.main-product-slider .product-card .product-slider .img-wrap a,
+.main-product-slider .product-card .product-slider img {
+    border-radius: 10px !important;
+}
+
+/* استفاده از clip-path برای اطمینان از گرد شدن */
+.main-product-slider .product-card .product-slider {
+    clip-path: inset(0 0 0 0 round 10px);
+    -webkit-clip-path: inset(0 0 0 0 round 10px);
+}
+
+/* اجبار overflow hidden برای گرد شدن پایین */
+.main-product-slider .slick-slide .product-slider {
+    overflow: hidden !important;
+    position: relative;
+}
+
+.main-product-slider .slick-slide .product-slider::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px transparent;
 }
 
 /* Slick Dots - کاروسل اصلی */
