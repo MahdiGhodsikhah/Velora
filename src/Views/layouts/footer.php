@@ -16,7 +16,7 @@
                     <i class="fas fa-leaf" aria-hidden="true"></i>
                     Shop<span>Velora</span>
                 </a>
-                <p>فروشگاه تخصصی پوشاک و اکسسوری با طرح‌های پاییزی. بهترین کیفیت با قیمت مناسب.</p>
+                <p>فروشگاه تخصصی پوشاک و اکسسوری فصلی. بهترین کیفیت با قیمت مناسب.</p>
                 <div class="footer-social">
                     <a href="#" aria-label="اینستاگرام"><i class="fab fa-instagram" aria-hidden="true"></i></a>
                     <a href="#" aria-label="تلگرام"><i class="fab fa-telegram" aria-hidden="true"></i></a>
@@ -52,17 +52,17 @@
             <div class="footer-col">
                 <h3 class="footer-heading">تماس با ما</h3>
                 <ul class="footer-contact">
-                    <li><i class="fas fa-phone-alt" aria-hidden="true"></i> <span>۰۲۱-۱۲۳۴۵۶۷۸</span></li>
-                    <li><i class="fas fa-envelope" aria-hidden="true"></i> <span>info@autumnshop.ir</span></li>
-                    <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span>تهران، خیابان ولیعصر</span></li>
-                    <li><i class="fas fa-clock" aria-hidden="true"></i> <span>شنبه تا پنجشنبه ۹-۱۸</span></li>
+                    <li><i class="fas fa-phone-alt" aria-hidden="true"></i> <span>۰۹۹۲۹۹۵۴۸۴۴</span></li>
+                    <li><i class="fas fa-envelope" aria-hidden="true"></i> <span>mahdi84m17@gmail.com</span></li>
+                    <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span>مشهد، خیابان امامت</span></li>
+                    <li><i class="fas fa-clock" aria-hidden="true"></i> <span>شنبه تا جمعه ۸-۱۰</span></li>
                 </ul>
             </div>
         </div>
 
         <!-- خط پایین -->
         <div class="footer-bottom">
-            <p>© تمامی حقوق برای فروشگاه پاییزی شگفت‌انگیز محفوظ است.</p>
+            <p>© تمامی حقوق برای فروشگاه VeloraShop محفوظ است.</p>
             <div class="footer-trust">
                 <span><i class="fas fa-shield-alt" aria-hidden="true"></i> خرید امن</span>
                 <span><i class="fas fa-undo" aria-hidden="true"></i> ضمانت برگشت</span>

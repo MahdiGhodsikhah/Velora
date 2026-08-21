@@ -4,10 +4,10 @@ $base = defined('BASE_URL') ? BASE_URL : '';
 
 <div class="leaves" aria-hidden="true">
     <div class="set">
-        <div style="left:20%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_01.png" alt=""></div>
-        <div style="left:50%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_02.png" alt=""></div>
-        <div style="left:70%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_03.png" alt=""></div>
-        <div style="left:10%"><img src="<?= $base ?>/assets/images/auth/autumn/leaf_04.png" alt=""></div>
+        <div style="left:20%"><img src="<?= $base ?>/assets/images/auth/autumn/autumn_leaves_01.png" alt=""></div>
+        <div style="left:50%"><img src="<?= $base ?>/assets/images/auth/autumn/autumn_leaves_02.png" alt=""></div>
+        <div style="left:70%"><img src="<?= $base ?>/assets/images/auth/autumn/autumn_leaves_03.png" alt=""></div>
+        <div style="left:10%"><img src="<?= $base ?>/assets/images/auth/autumn/autumn_leaves_04.png" alt=""></div>
     </div>
 </div>
 

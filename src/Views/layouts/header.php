@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?= Security::e($pageDesc ?? 'فروشگاه پاییزی شگفت‌انگیز') ?>">
+    <meta name="description" content="<?= Security::e($pageDesc ?? 'فروشگاه VeloraShop') ?>">
     <meta name="robots" content="index,follow">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <?php if (!isset($_SESSION['csrf_token'])): $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); endif; ?>
     <meta name="csrf-token" content="<?= $_SESSION['csrf_token'] ?>">
 
-    <title><?= Security::e($pageTitle ?? 'فروشگاه پاییزی') ?></title>
+    <title><?= Security::e($pageTitle ?? 'فروشگاه VeloraShop') ?></title>
 
     <!-- فونت وزیرمتن -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

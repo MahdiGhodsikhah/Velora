@@ -235,7 +235,7 @@
                         </div>
                         <div class="contact-details">
                             <h3>آدرس دفتر</h3>
-                            <p>تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+                            <p>مشهد، امامت ۱۵، پلاک ۷۵</p>
                         </div>
                     </div>
                     
@@ -245,7 +245,7 @@
                         </div>
                         <div class="contact-details">
                             <h3>تلفن تماس</h3>
-                            <p>۰۲۱-۱۲۳۴۵۶۷۸</p>
+                            <p>۰۹۹۲۹۹۵۴۸۴۴</p>
                         </div>
                     </div>
                     
@@ -255,7 +255,7 @@
                         </div>
                         <div class="contact-details">
                             <h3>ایمیل</h3>
-                            <p>info@velora.shop</p>
+                            <p>mahdi84m17@gmail.com</p>
                         </div>
                     </div>
                     
@@ -265,7 +265,7 @@
                         </div>
                         <div class="contact-details">
                             <h3>ساعت کاری</h3>
-                            <p>شنبه تا پنجشنبه، ۹ صبح تا ۶ عصر</p>
+                            <p>شنبه تا جمعه ۸-۱۰</p>
                         </div>
                     </div>
                 </div>
