@@ -25,6 +25,21 @@ $base = defined('BASE_URL') ? BASE_URL : '';
         </div>
     </div>
 
+    <?php if (isset($_GET['q']) && !empty(trim($_GET['q']))): ?>
+    <!-- نمایش نتیجه جستجو -->
+    <div class="search-results-info">
+        <div class="search-results-inner">
+            <i class="fas fa-search"></i>
+            <span>نتایج جستجو برای: <strong><?= Security::e($_GET['q']) ?></strong></span>
+            <?php if (($total ?? 0) === 0): ?>
+                <a href="<?= $base ?>/products" class="btn-clear-search">
+                    <i class="fas fa-times"></i> پاک کردن جستجو
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <!-- Layout اصلی -->
     <div class="products-layout">
         <!-- Sidebar فیلتر -->
@@ -123,9 +138,14 @@ $base = defined('BASE_URL') ? BASE_URL : '';
             <!-- حالت خالی -->
             <div class="no-products-full" role="status">
                 <i class="fas fa-box-open" aria-hidden="true"></i>
-                <p>هیچ محصولی در این دسته‌بندی وجود ندارد.</p>
+                <?php if (isset($_GET['q']) && !empty(trim($_GET['q']))): ?>
+                    <p>متأسفانه هیچ محصولی با عبارت جستجوی شما یافت نشد.</p>
+                    <p class="search-suggestion">لطفاً با کلمات دیگری جستجو کنید یا همه محصولات را مشاهده کنید.</p>
+                <?php else: ?>
+                    <p>هیچ محصولی در این دسته‌بندی وجود ندارد.</p>
+                <?php endif; ?>
                 <a href="<?= $base ?>/products" class="btn-back">
-                    <i class="fas fa-arrow-left"></i>
+                    <!-- <i class="fas fa-arrow-left"></i> -->
                     <span>مشاهده همه محصولات</span>
                 </a>
             </div>
@@ -146,7 +166,8 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                 <?php
                 $catParam = isset($_GET['cat']) ? '&cat=' . (int)$_GET['cat'] : '';
                 $seasonParam = isset($_GET['season']) ? '&season=' . urlencode($_GET['season']) : '';
-                $params = $catParam . $seasonParam;
+                $searchParam = isset($_GET['q']) ? '&q=' . urlencode($_GET['q']) : '';
+                $params = $catParam . $seasonParam . $searchParam;
                 
                 for ($p = 1; $p <= ($totalPages ?? 1); $p++): ?>
                 <a href="<?= $base ?>/products?page=<?= $p . $params ?>"

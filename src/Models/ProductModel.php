@@ -148,6 +148,37 @@ class ProductModel {
     }
 
     /**
+     * جستجو در محصولات با صفحه‌بندی
+     */
+    public function searchWithPagination(string $query, int $limit = 12, int $offset = 0): array {
+        $q = db_escape($query);
+        $limit  = (int)$limit;
+        $offset = (int)$offset;
+        return db_fetch_all(
+            "SELECT p.*, c.`name` AS category_name, c.`slug` AS category_slug
+             FROM `products` p
+             JOIN `categories` c ON p.`category_id` = c.`id`
+             WHERE p.`is_active` = 1
+               AND (p.`name` LIKE '%$q%' OR p.`description` LIKE '%$q%' OR p.`short_desc` LIKE '%$q%')
+             ORDER BY p.`is_featured` DESC, p.`rating_avg` DESC
+             LIMIT $limit OFFSET $offset"
+        );
+    }
+
+    /**
+     * تعداد نتایج جستجو
+     */
+    public function countSearch(string $query): int {
+        $q = db_escape($query);
+        $row = db_fetch_one(
+            "SELECT COUNT(*) AS cnt FROM `products` p
+             WHERE p.`is_active` = 1
+               AND (p.`name` LIKE '%$q%' OR p.`description` LIKE '%$q%' OR p.`short_desc` LIKE '%$q%')"
+        );
+        return (int)($row['cnt'] ?? 0);
+    }
+
+    /**
      * افزایش تعداد بازدید
      */
     public function incrementViews(int $id): void {

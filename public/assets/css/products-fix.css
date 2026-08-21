@@ -35,6 +35,16 @@
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px !important;
     }
+    
+    /* وسط کردن toolbar و محتوا در تبلت */
+    .products-page .products-content {
+        max-width: 800px !important;
+        margin: 0 auto !important;
+    }
+    
+    .products-page .products-content .products-toolbar {
+        justify-content: center !important;
+    }
 }
 
 /* Mobile Large */
@@ -43,6 +53,11 @@
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 16px !important;
     }
+    
+    /* وسط کردن در موبایل بزرگ */
+    .products-page .products-content {
+        max-width: 100% !important;
+    }
 }
 
 /* Mobile */
@@ -50,5 +65,91 @@
     .products-page .products-content .products-grid {
         grid-template-columns: 1fr !important;
         gap: 16px !important;
+    }
+}
+
+/* استایل نتایج جستجو */
+.search-results-info {
+    background: linear-gradient(135deg, var(--accent-light), var(--primary-light));
+    padding: 16px 0;
+    margin: 30px 160px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.search-results-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.search-results-info i {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.search-results-info span {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.95);
+    flex: 1;
+}
+
+.search-results-info strong {
+    color: #fff;
+    font-weight: 700;
+    padding: 0 5px;
+}
+
+.btn-clear-search {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgb(255 137 51 / 86%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-clear-search:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+.search-suggestion {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .search-results-info {
+        padding: 12px 0;
+        margin-bottom: 20px;
+    }
+    
+    .search-results-inner {
+        /* flex-direction: column; */
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .search-results-info span {
+        font-size: 14px;
+        width: 100%;
+    }
+    
+    .btn-clear-search {
+        width: 100%;
+        justify-content: center;
     }
 }

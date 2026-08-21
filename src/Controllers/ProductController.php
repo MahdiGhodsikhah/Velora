@@ -20,11 +20,12 @@ class ProductController {
         $themeManager = ThemeManager::getInstance();
         $themeManager->clearProductTheme();
 
-        $catId  = isset($_GET['cat'])    ? (int)$_GET['cat']  : 0;
-        $season = isset($_GET['season']) ? trim($_GET['season']) : '';
-        $page   = isset($_GET['page'])   ? max(1, (int)$_GET['page']) : 1;
-        $limit  = 9; // تعداد محصولات در هر صفحه
-        $offset = ($page - 1) * $limit;
+        $catId      = isset($_GET['cat'])    ? (int)$_GET['cat']  : 0;
+        $season     = isset($_GET['season']) ? trim($_GET['season']) : '';
+        $searchQuery = isset($_GET['q'])     ? trim($_GET['q']) : '';
+        $page       = isset($_GET['page'])   ? max(1, (int)$_GET['page']) : 1;
+        $limit      = 9; // تعداد محصولات در هر صفحه
+        $offset     = ($page - 1) * $limit;
 
         // اعتبارسنجی season
         $validSeasons = ['spring', 'summer', 'autumn', 'winter', 'all'];
@@ -33,7 +34,11 @@ class ProductController {
         }
 
         // دریافت محصولات بر اساس فیلتر
-        if ($season) {
+        if (!empty($searchQuery)) {
+            // جستجو
+            $products = $this->productModel->searchWithPagination($searchQuery, $limit, $offset);
+            $total    = $this->productModel->countSearch($searchQuery);
+        } elseif ($season) {
             $products = $this->productModel->getBySeason($season, $limit, $offset);
             $total    = $this->productModel->countBySeason($season);
         } elseif ($catId > 0) {
