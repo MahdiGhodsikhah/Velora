@@ -2,7 +2,8 @@
 /* Slider */
 .slick-loading .slick-list
 {
-    background: #fff url('./ajax-loader.gif') center center no-repeat;
+    background: #fff;
+    opacity: 0.6;
 }
 
 /* Icons */

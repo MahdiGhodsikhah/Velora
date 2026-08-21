@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/base/animations.css">
     
     <!-- Components -->
-    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/alert.css">
+    <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/notification.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/button.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/card.css">
     <link rel="stylesheet" href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/css/components/features.css">
@@ -65,14 +65,7 @@
     <!-- تعریف BASE_URL برای JavaScript -->
     <script>
         window.BASE_URL = '<?= defined('BASE_URL') ? BASE_URL : '' ?>';
-        console.log('🌐 BASE_URL loaded:', window.BASE_URL);
-        
-        // تست AJAX
-        $(document).ready(function() {
-            console.log('✅ jQuery loaded');
-            console.log('🔗 Current URL:', window.location.href);
-            console.log('🎯 BASE_URL:', window.BASE_URL);
-        });
     </script>
+
 </head>
 <body>
