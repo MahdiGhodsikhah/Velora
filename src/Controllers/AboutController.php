@@ -11,8 +11,8 @@ class AboutController {
         $themeManager = ThemeManager::getInstance();
         $themeManager->clearProductTheme();
 
-        $pageTitle = 'درباره ما - فروشگاه Velora';
-        $pageDesc  = 'آشنایی با فروشگاه پاییزی Velora و خدمات ما';
+        $pageTitle = 'درباره ما - VeloraShop';
+        $pageDesc  = 'آشنایی با VeloraShop و خدمات ما';
 
         require BASE_PATH . '/src/Views/layouts/header.php';
         require BASE_PATH . '/src/Views/layouts/navbar.php';

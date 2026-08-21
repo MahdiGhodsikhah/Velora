@@ -37,8 +37,8 @@ class HomeController {
         }
         unset($productList); // آزادسازی رفرنس
 
-        $pageTitle = 'فروشگاه پاییزی شگفت‌انگیز';
-        $pageDesc  = 'جدیدترین مدل‌های پوشاک، کفش و اکسسوری با طرح‌های پاییزی';
+        $pageTitle = 'VeloraShop';
+        $pageDesc  = 'جدیدترین مدل‌های پوشاک، کفش و اکسسوری فصلی';
 
         require BASE_PATH . '/src/Views/layouts/header.php';
         require BASE_PATH . '/src/Views/layouts/navbar.php';

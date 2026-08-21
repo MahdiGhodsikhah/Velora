@@ -57,7 +57,7 @@ class ProductController {
         }
         unset($p);
 
-        $pageTitle = 'محصولات - فروشگاه پاییزی';
+        $pageTitle = 'محصولات - VeloraShop';
         $pageDesc  = 'مشاهده و خرید انواع محصولات پاییزی';
 
         require BASE_PATH . '/src/Views/layouts/header.php';
@@ -107,7 +107,7 @@ class ProductController {
             unset($p);
         }
 
-        $pageTitle = Security::e($product['name']) . ' - فروشگاه پاییزی';
+        $pageTitle = Security::e($product['name']) . ' - VeloraShop';
         $pageDesc  = Security::e($product['short_desc'] ?? $product['name']);
 
         require BASE_PATH . '/src/Views/layouts/minimal-header.php';
