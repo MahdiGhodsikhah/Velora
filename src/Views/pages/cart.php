@@ -125,10 +125,10 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                     </span>
                 </div>
 
-                <?php if ($subtotal < 500000): ?>
+                <?php if ($subtotal < 1000000): ?>
                 <div class="free-shipping-notice">
                     <i class="fas fa-info-circle"></i>
-                    با خرید <?= number_format(500000 - $subtotal) ?> تومان دیگر، ارسال رایگان!
+                    با خرید <?= number_format(1000000 - $subtotal) ?> تومان دیگر، ارسال رایگان!
                 </div>
                 <?php endif; ?>
 
@@ -155,13 +155,13 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                 </a>
 
                 <!-- کد تخفیف -->
-                <div class="coupon-section">
+                <!-- <div class="coupon-section">
                     <h3>کد تخفیف</h3>
                     <form class="coupon-form">
                         <input type="text" placeholder="کد تخفیف را وارد کنید" class="coupon-input">
                         <button type="submit" class="btn-apply-coupon">اعمال</button>
                     </form>
-                </div>
+                </div> -->
             </div>
 
         </div>

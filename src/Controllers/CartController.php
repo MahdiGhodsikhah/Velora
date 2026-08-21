@@ -24,7 +24,7 @@ class CartController {
             $subtotal += $price * $item['quantity'];
         }
         
-        $shipping = $subtotal > 500000 ? 0 : 30000; // ارسال رایگان برای خرید بالای 500 هزار
+        $shipping = $subtotal > 1000000 ? 0 : 30000; // ارسال رایگان برای خرید بالای 1000 میلیون
         $tax = $subtotal * 0.09; // 9% مالیات
         $total = $subtotal + $shipping + $tax;
 

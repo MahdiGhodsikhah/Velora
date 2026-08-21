@@ -189,7 +189,7 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                         <div class="review-item">
                             <div class="review-product">
                                 <?php if (!empty($review['main_image'])): ?>
-                                <img src="<?= Security::e($review['main_image']) ?>" alt="<?= Security::e($review['product_name']) ?>">
+                                <img src="<?= $base ?><?= Security::e($review['main_image']) ?>" alt="<?= Security::e($review['product_name']) ?>">
                                 <?php endif; ?>
                                 <div class="review-details">
                                     <a href="<?= $base ?>/products/<?= Security::e($review['product_slug']) ?>" class="product-name">

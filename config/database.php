@@ -7,7 +7,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'autumn_shop');
+define('DB_NAME', 'velora_shop');
 define('DB_CHARSET', 'utf8mb4');
 
 /**

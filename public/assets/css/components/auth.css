@@ -28,11 +28,12 @@
 }
 
 .auth-section .girl {
+    width: 600px;
     position: absolute;
     scale: 0.65;
     pointer-events: none;
     z-index: 50;
-    animation: animateGirl 10s linear infinite;
+    animation: animateGirl 17s linear infinite;
 }
 
 @keyframes animateGirl {

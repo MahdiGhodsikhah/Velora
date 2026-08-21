@@ -12,7 +12,7 @@ $base = defined('BASE_URL') ? BASE_URL : '';
 </div>
 
 <section class="auth-section">
-    <img src="<?= $base ?>/assets/images/auth/autumn/bg.jpg" alt="" class="bg" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/autumn/bg.png" alt="" class="bg" aria-hidden="true">
     <img src="<?= $base ?>/assets/images/auth/autumn/trees.png" alt="" class="trees" aria-hidden="true">
     <img src="<?= $base ?>/assets/images/auth/autumn/girl.png" alt="" class="girl" aria-hidden="true">
 
