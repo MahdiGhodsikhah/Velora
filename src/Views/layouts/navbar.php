@@ -60,6 +60,11 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                 'autumn' => 'پاییز',
                 'winter' => 'زمستان'
             ];
+            
+            // حفظ پارامترهای موجود URL (مثل جستجو، فیلتر، صفحه و...)
+            $currentParams = $_GET;
+            unset($currentParams['theme']); // حذف theme برای اینکه با theme جدید جایگزین شود
+            $queryString = !empty($currentParams) ? '&' . http_build_query($currentParams) : '';
             ?>
             <div class="theme-switcher has-dropdown">
                 <button class="icon-btn theme-btn" aria-label="تغییر تم" aria-expanded="false">
@@ -70,22 +75,22 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                 <ul class="dropdown-menu dropdown-theme" role="menu">
                     <li class="theme-menu-header">انتخاب تم</li>
                     <li role="none" class="<?= $currentTheme === 'spring' ? 'active' : '' ?>">
-                        <a href="?theme=spring" role="menuitem" class="theme-spring">
+                        <a href="?theme=spring<?= $queryString ?>" role="menuitem" class="theme-spring">
                             <i class="fas fa-seedling" aria-hidden="true"></i> بهار
                         </a>
                     </li>
                     <li role="none" class="<?= $currentTheme === 'summer' ? 'active' : '' ?>">
-                        <a href="?theme=summer" role="menuitem" class="theme-summer">
+                        <a href="?theme=summer<?= $queryString ?>" role="menuitem" class="theme-summer">
                             <i class="fas fa-sun" aria-hidden="true"></i> تابستان
                         </a>
                     </li>
                     <li role="none" class="<?= $currentTheme === 'autumn' ? 'active' : '' ?>">
-                        <a href="?theme=autumn" role="menuitem" class="theme-autumn">
+                        <a href="?theme=autumn<?= $queryString ?>" role="menuitem" class="theme-autumn">
                             <i class="fas fa-leaf" aria-hidden="true"></i> پاییز
                         </a>
                     </li>
                     <li role="none" class="<?= $currentTheme === 'winter' ? 'active' : '' ?>">
-                        <a href="?theme=winter" role="menuitem" class="theme-winter">
+                        <a href="?theme=winter<?= $queryString ?>" role="menuitem" class="theme-winter">
                             <i class="fas fa-snowflake" aria-hidden="true"></i> زمستان
                         </a>
                     </li>
