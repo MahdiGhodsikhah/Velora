@@ -248,8 +248,8 @@ $colors = $leafColors[$season] ?? $leafColors['autumn'];
                 <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
                 
                 <div class="form-group">
-                    <label for="review-rating">امتیاز شما <span class="required">*</span></label>
-                    <div class="star-rating-input" id="starRatingInput">
+                    <label id="review-rating-label">امتیاز شما <span class="required">*</span></label>
+                    <div class="star-rating-input" id="starRatingInput" role="radiogroup" aria-labelledby="review-rating-label" aria-required="true">
                         <?php for ($s = 5; $s >= 1; $s--): ?>
                         <input type="radio" name="rating" id="star<?= $s ?>" value="<?= $s ?>" required>
                         <label for="star<?= $s ?>" title="<?= $s ?> ستاره"><i class="fas fa-star"></i></label>
