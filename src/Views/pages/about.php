@@ -36,11 +36,11 @@
                         <span>داستان ما</span>
                     </div>
                     <h2 class="about-title">
-                        فروشگاه پاییزی 
+                        فروشگاه
                         <span class="title-gradient">Velora Shop</span>
                     </h2>
                     <p class="about-lead">
-                        ما در فروشگاه Velora با افتخار ارائه‌دهنده بهترین محصولات پوشاک، کفش و اکسسوری با طرح‌های منحصر به فرد پاییزی هستیم. 
+                        ما در فروشگاه Velora با افتخار ارائه‌دهنده بهترین محصولات پوشاک، کفش و اکسسوری با طرح‌های منحصر به فرد پاییزی هستیم.
                         هدف ما ایجاد تجربه‌ای فراموش‌نشدنی در خرید آنلاین برای شماست.
                     </p>
                     <div class="about-highlights">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <p class="about-description">
-                        از سال ۱۴۰۰ فعالیت خود را آغاز کرده‌ایم و توانسته‌ایم اعتماد بیش از ۱۲,۰۰۰ مشتری را جلب کنیم. 
+                        از سال ۱۴۰۰ فعالیت خود را آغاز کرده‌ایم و توانسته‌ایم اعتماد بیش از ۱۲,۰۰۰ مشتری را جلب کنیم.
                         تیم ما با دقت و علاقه، محصولاتی با کیفیت بالا و قیمت مناسب برای شما انتخاب می‌کند.
                     </p>
                 </div>
@@ -131,13 +131,13 @@
                     <span>مزایای خرید از Velora</span>
                 </div>
                 <h2 class="section-title-big">
-                    چرا 
+                    چرا
                     <span class="title-gradient">Velora</span>
                     را انتخاب کنید؟
                 </h2>
                 <p class="section-subtitle">ما بهترین تجربه خرید آنلاین را برای شما فراهم می‌کنیم</p>
             </div>
-            
+
             <div class="features-modern-grid">
                 <div class="feature-modern-card">
                     <div class="feature-visual">
@@ -150,7 +150,7 @@
                         <p>تمام محصولات ما از برندهای معتبر و با ضمانت کیفیت اصالت ارائه می‌شوند</p>
                     </div>
                 </div>
-                
+
                 <div class="feature-modern-card">
                     <div class="feature-visual">
                         <div class="feature-icon-wrapper">
@@ -162,7 +162,7 @@
                         <p>ارسال رایگان به سراسر کشور و تحویل سریع محصولات در کمترین زمان ممکن</p>
                     </div>
                 </div>
-                
+
                 <div class="feature-modern-card">
                     <div class="feature-visual">
                         <div class="feature-icon-wrapper">
@@ -174,7 +174,7 @@
                         <p>۷ روز ضمانت بازگشت کالا و بازپرداخت وجه بدون هیچ شرط و شروطی</p>
                     </div>
                 </div>
-                
+
                 <div class="feature-modern-card">
                     <div class="feature-visual">
                         <div class="feature-icon-wrapper">
@@ -186,7 +186,7 @@
                         <p>پشتیبانی همه‌روزه و پاسخگویی سریع به سوالات و نیازهای شما</p>
                     </div>
                 </div>
-                
+
                 <div class="feature-modern-card">
                     <div class="feature-visual">
                         <div class="feature-icon-wrapper">
@@ -198,7 +198,7 @@
                         <p>سیستم پرداخت کاملاً امن و محافظت شده از اطلاعات شخصی شما</p>
                     </div>
                 </div>
-                
+
                 <div class="feature-modern-card">
                     <div class="feature-visual">
                         <div class="feature-icon-wrapper">
@@ -222,12 +222,12 @@
                         <span>در ارتباط باشیم</span>
                     </div>
                     <h2 class="section-title-big">
-                        راه‌های 
+                        راه‌های
                         <span class="title-gradient">ارتباطی</span>
                     </h2>
                     <p class="section-subtitle">ما همیشه برای پاسخگویی به سوالات شما آماده هستیم</p>
                 </div>
-                
+
                 <div class="contact-modern-grid">
                     <div class="contact-modern-card">
                         <div class="contact-icon">
@@ -238,7 +238,7 @@
                             <p>مشهد، امامت ۱۵، پلاک ۷۵</p>
                         </div>
                     </div>
-                    
+
                     <div class="contact-modern-card">
                         <div class="contact-icon">
                             <i class="fas fa-phone-alt"></i>
@@ -248,7 +248,7 @@
                             <p>۰۹۹۲۹۹۵۴۸۴۴</p>
                         </div>
                     </div>
-                    
+
                     <div class="contact-modern-card">
                         <div class="contact-icon">
                             <i class="fas fa-envelope"></i>
@@ -258,7 +258,7 @@
                             <p>mahdi84m17@gmail.com</p>
                         </div>
                     </div>
-                    
+
                     <div class="contact-modern-card">
                         <div class="contact-icon">
                             <i class="fas fa-clock"></i>
@@ -269,7 +269,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="contact-cta">
                     <a href="<?= $base ?>/products" class="btn-cta-modern">
                         <span>مشاهده محصولات</span>
