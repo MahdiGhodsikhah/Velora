@@ -8,8 +8,8 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     <div class="navbar-inner">
         <!-- لوگو -->
         <a href="<?= $base ?>/" class="navbar-logo" aria-label="صفحه اصلی">
-            <span class="logo-icon"><i class="fas fa-leaf" aria-hidden="true"></i></span>
-            <span class="logo-text">Velora<span class="logo-accent"> Shop</span></span>
+            <img src="<?= $base ?>/assets/images/navbar/logo.png" alt="Velora Logo" class="navbar-logo-icon">
+            <!-- <img src="<?= $base ?>/assets/images/navbar/typography.png" alt="Velora Shop" class="navbar-logo-text"> -->
         </a>
 
         <!-- منوی اصلی -->
