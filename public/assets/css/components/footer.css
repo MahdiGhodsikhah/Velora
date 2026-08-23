@@ -62,12 +62,9 @@
    ======================================= */
 
 .footer-logo {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--footer-logo-color);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 16px;
     transition: var(--transition);
     text-decoration: none;
@@ -78,8 +75,20 @@
     filter: var(--footer-logo-glow);
 }
 
+.footer-logo-image {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.footer-logo:hover .footer-logo-image {
+    transform: scale(1.05);
+}
+
 .footer-logo i {
     color: var(--primary);
+    font-size: 1.5rem;
     animation: leafRotate 4s ease-in-out infinite;
 }
 
@@ -87,11 +96,6 @@
     0%, 100% { transform: rotate(0deg); }
     25% { transform: rotate(-10deg); }
     75% { transform: rotate(10deg); }
-}
-
-.footer-logo span {
-    color: var(--accent);
-    text-shadow: var(--footer-text-glow);
 }
 
 .footer-about p {
@@ -383,6 +387,10 @@
         justify-content: center;
     }
     
+    .footer-logo-image {
+        height: 36px;
+    }
+    
     .footer-social {
         justify-content: center;
     }
@@ -455,8 +463,12 @@
         gap: 30px;
     }
     
-    .footer-logo {
-        font-size: 1.4rem;
+    .footer-logo-image {
+        height: 32px;
+    }
+    
+    .footer-logo i {
+        font-size: 1.2rem;
     }
     
     .footer-about p {

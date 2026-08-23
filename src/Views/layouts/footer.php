@@ -14,7 +14,7 @@
             <div class="footer-col footer-about">
                 <a href="<?= $base ?>/" class="footer-logo">
                     <i class="fas fa-leaf" aria-hidden="true"></i>
-                    Shop<span>Velora</span>
+                    <img src="<?= $base ?>/assets/images/footer/typography.png" alt="Velora Shop" class="footer-logo-image">
                 </a>
                 <p>فروشگاه تخصصی پوشاک و اکسسوری فصلی. بهترین کیفیت با قیمت مناسب.</p>
                 <div class="footer-social">
