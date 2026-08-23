@@ -84,9 +84,17 @@ class ProductController {
             return;
         }
 
-        if (!empty($product['season'])) {
-            $themeManager = ThemeManager::getInstance();
+        // فقط اگر محصول فصل خاصی داشته باشه (نه all_seasons) و تم محصول set بشه
+        // برای محصولات all_seasons یا اگر کاربر تم انتخاب کرده، تم کاربر حفظ میشه
+        $themeManager = ThemeManager::getInstance();
+        $validSeasons = ['spring', 'summer', 'autumn', 'winter'];
+        
+        // فقط اگر محصول فصل معتبر داشته باشه (نه all یا all_seasons) تم محصول رو set کن
+        if (!empty($product['season']) && in_array($product['season'], $validSeasons)) {
             $themeManager->setProductTheme($product['season']);
+        } else {
+            // برای محصولات all_seasons یا بدون فصل، تم محصول رو پاک کن تا تم کاربر حفظ بشه
+            $themeManager->clearProductTheme();
         }
 
         $this->productModel->incrementViews((int)$product['id']);

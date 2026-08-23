@@ -6,15 +6,23 @@
 $base = defined('BASE_URL') ? BASE_URL : '';
 $galleryAll = array_merge([$product['main_image']], $product['gallery_arr']);
 
-// رنگ‌های برگ‌های متحرک با توجه به فصل محصول
-$season = $product['season'] ?? 'autumn';
+// استفاده از تم فعال کاربر برای برگ‌ها (نه فصل محصول)
+// اگر محصول برای همه فصل‌ها باشه یا کاربر تم خاصی انتخاب کرده باشه
+$themeManager = ThemeManager::getInstance();
+$activeTheme = $themeManager->getActiveTheme(); // تم فعلی که کاربر انتخاب کرده
+$productSeason = $product['season'] ?? 'autumn';
+
+// اگر محصول برای همه فصل‌ها هست یا کاربر تم دستی انتخاب کرده، از تم فعال استفاده کن
+// در غیر این صورت از فصل محصول استفاده کن
+$displaySeason = $activeTheme;
+
 $leafColors = [
     'autumn' => ['#d97706', '#dc2626', '#fbbf24', '#ea580c', '#f59e0b'],
     'winter' => ['#3b82f6', '#60a5fa', '#93c5fd', '#2563eb', '#dbeafe'],
     'spring' => ['#10b981', '#34d399', '#6ee7b7', '#059669', '#a7f3d0'],
     'summer' => ['#f59e0b', '#fbbf24', '#fde047', '#d97706', '#fef3c7']
 ];
-$colors = $leafColors[$season] ?? $leafColors['autumn'];
+$colors = $leafColors[$displaySeason] ?? $leafColors['autumn'];
 ?>
 <!-- لینک CSS اختصاصی صفحه محصول -->
 <link rel="stylesheet" href="<?= $base ?>/assets/css/product-single.css">
@@ -98,7 +106,7 @@ $colors = $leafColors[$season] ?? $leafColors['autumn'];
             <div class="product-rating" aria-label="امتیاز: <?= (float)$product['rating_avg'] ?> از ۵">
                 <?php
                 $avg = round((float)$product['rating_avg'], 1);
-                $starColor = match($season) {
+                $starColor = match($displaySeason) {
                     'autumn' => '#fbbf24',
                     'winter' => '#93c5fd',
                     'spring' => '#a7f3d0',
