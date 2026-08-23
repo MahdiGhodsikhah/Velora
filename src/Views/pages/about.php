@@ -74,7 +74,7 @@
                             <span>۱۲+ هزار مشتری</span>
                         </div>
                         <div class="about-main-visual">
-                            <i class="fas fa-shopping-bag visual-icon"></i>
+                            <img src="<?= $base ?>/assets/images/about/typography.png" alt="Velora Shop" class="visual-image">
                         </div>
                     </div>
                 </div>

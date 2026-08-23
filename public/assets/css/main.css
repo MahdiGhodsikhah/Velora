@@ -640,11 +640,15 @@ input:focus-visible {
     100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
-.visual-icon {
-    font-size: 10rem;
-    color: rgba(255, 255, 255, 0.9);
+.visual-image {
+    max-width: 70%;
+    max-height: 70%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     z-index: 1;
     animation: floatUpDown 4s ease-in-out infinite;
+    filter: brightness(1.1) drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
 }
 
 .floating-badge {
@@ -1635,8 +1639,9 @@ input:focus-visible {
     .about-image-wrapper {
         max-width: 350px;
     }
-    .visual-icon {
-        font-size: 7rem;
+    .visual-image {
+        max-width: 65%;
+        max-height: 65%;
     }
     .floating-badge {
         font-size: 0.8rem;
@@ -1743,8 +1748,9 @@ input:focus-visible {
     .about-image-wrapper {
         max-width: 280px;
     }
-    .visual-icon {
-        font-size: 5rem;
+    .visual-image {
+        max-width: 60%;
+        max-height: 60%;
     }
     .floating-badge {
         display: none;
