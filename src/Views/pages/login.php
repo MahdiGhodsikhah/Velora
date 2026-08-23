@@ -1,20 +1,24 @@
 <?php
 $base = defined('BASE_URL') ? BASE_URL : '';
+
+// دریافت تم فعال از ThemeManager
+$themeManager = ThemeManager::getInstance();
+$currentTheme = $themeManager->getActiveTheme();
 ?>
 
 <div class="leaves" aria-hidden="true">
     <div class="set">
-        <div style="left:20%"><img src="<?= $base ?>/assets/images/auth/winter/winter_leaves_01.png" alt=""></div>
-        <div style="left:50%"><img src="<?= $base ?>/assets/images/auth/winter/winter_leaves_02.png" alt=""></div>
-        <div style="left:70%"><img src="<?= $base ?>/assets/images/auth/winter/winter_leaves_03.png" alt=""></div>
-        <div style="left:10%"><img src="<?= $base ?>/assets/images/auth/winter/winter_leaves_04.png" alt=""></div>
+        <div style="left:20%"><img src="<?= $base ?>/assets/images/auth/<?= $currentTheme ?>/<?= $currentTheme ?>_leaves_01.png" alt=""></div>
+        <div style="left:50%"><img src="<?= $base ?>/assets/images/auth/<?= $currentTheme ?>/<?= $currentTheme ?>_leaves_02.png" alt=""></div>
+        <div style="left:70%"><img src="<?= $base ?>/assets/images/auth/<?= $currentTheme ?>/<?= $currentTheme ?>_leaves_03.png" alt=""></div>
+        <div style="left:10%"><img src="<?= $base ?>/assets/images/auth/<?= $currentTheme ?>/<?= $currentTheme ?>_leaves_04.png" alt=""></div>
     </div>
 </div>
 
 <section class="auth-section">
-    <img src="<?= $base ?>/assets/images/auth/winter/bg.png" alt="" class="bg" aria-hidden="true">
-    <img src="<?= $base ?>/assets/images/auth/winter/trees.png" alt="" class="trees" aria-hidden="true">
-    <img src="<?= $base ?>/assets/images/auth/winter/girl.png" alt="" class="girl" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/<?= $currentTheme ?>/bg.png" alt="" class="bg" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/<?= $currentTheme ?>/trees.png" alt="" class="trees" aria-hidden="true">
+    <img src="<?= $base ?>/assets/images/auth/<?= $currentTheme ?>/girl.png" alt="" class="girl" aria-hidden="true">
 
     <div class="auth-card" role="main">
         <h1>ورود به حساب کاربری</h1>
