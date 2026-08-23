@@ -1031,73 +1031,7 @@ input:focus-visible {
     left: 0;
 }
 
-/* پاییزی */
-.season-autumn:hover::before,
-.season-autumn.active::before {
-    background: linear-gradient(135deg, #d97706, #92400e);
-}
-.season-autumn:hover,
-.season-autumn.active {
-    color: #fff;
-}
-.season-autumn i {
-    color: #d97706;
-}
-.season-autumn:hover i,
-.season-autumn.active i {
-    color: #fbbf24;
-}
-
-/* بهاری */
-.season-spring:hover::before,
-.season-spring.active::before {
-    background: linear-gradient(135deg, #10b981, #059669);
-}
-.season-spring:hover,
-.season-spring.active {
-    color: #fff;
-}
-.season-spring i {
-    color: #10b981;
-}
-.season-spring:hover i,
-.season-spring.active i {
-    color: #d1fae5;
-}
-
-/* تابستانی */
-.season-summer:hover::before,
-.season-summer.active::before {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-}
-.season-summer:hover,
-.season-summer.active {
-    color: #fff;
-}
-.season-summer i {
-    color: #f59e0b;
-}
-.season-summer:hover i,
-.season-summer.active i {
-    color: #fef3c7;
-}
-
-/* زمستانی */
-.season-winter:hover::before,
-.season-winter.active::before {
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-}
-.season-winter:hover,
-.season-winter.active {
-    color: #fff;
-}
-.season-winter i {
-    color: #3b82f6;
-}
-.season-winter:hover i,
-.season-winter.active i {
-    color: #dbeafe;
-}
+/* توجه: استایل‌های فیلترهای فصلی (season-*) در products.css تعریف شده‌اند */
 
 .products-content { flex:1; min-width:0; }
 .products-toolbar {

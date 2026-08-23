@@ -101,19 +101,3 @@
     --auth-input-focus-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
     --auth-toggle-color: #8b5a3a;
 }
-
-.season-autumn:hover::before,
-.season-autumn.active::before {
-    background: linear-gradient(135deg, #d97706, #92400e);
-}
-.season-autumn:hover,
-.season-autumn.active {
-    color: #fff;
-}
-.season-autumn i {
-    color: #d97706;
-}
-.season-autumn:hover i,
-.season-autumn.active i {
-    color: #fbbf24;
-}

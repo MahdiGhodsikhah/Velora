@@ -217,21 +217,57 @@
     filter: var(--icon-glow);
 }
 
-/* فیلترهای فصلی با رنگ‌های مخصوص */
+/* فیلترهای فصلی با رنگ‌های مخصوص - رنگ‌ها ثابت و مستقل از تم */
 .filter-seasons a.season-spring::before {
     background: linear-gradient(135deg, #98d98e 0%, #52b788 100%);
+}
+
+.filter-seasons a.season-spring i {
+    color: #10b981 !important;
+}
+
+.filter-seasons a.season-spring:hover i,
+.filter-seasons a.season-spring.active i {
+    color: #d1fae5 !important;
 }
 
 .filter-seasons a.season-summer::before {
     background: linear-gradient(135deg, #ffd60a 0%, #ff9a00 100%);
 }
 
+.filter-seasons a.season-summer i {
+    color: #f59e0b !important;
+}
+
+.filter-seasons a.season-summer:hover i,
+.filter-seasons a.season-summer.active i {
+    color: #fef3c7 !important;
+}
+
 .filter-seasons a.season-autumn::before {
     background: linear-gradient(135deg, #ff6b35 0%, #e63946 100%);
 }
 
+.filter-seasons a.season-autumn i {
+    color: #d97706 !important;
+}
+
+.filter-seasons a.season-autumn:hover i,
+.filter-seasons a.season-autumn.active i {
+    color: #fbbf24 !important;
+}
+
 .filter-seasons a.season-winter::before {
     background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+}
+
+.filter-seasons a.season-winter i {
+    color: #3b82f6 !important;
+}
+
+.filter-seasons a.season-winter:hover i,
+.filter-seasons a.season-winter.active i {
+    color: #dbeafe !important;
 }
 
 /* ===== محتوای اصلی ===== */
