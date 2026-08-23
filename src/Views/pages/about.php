@@ -71,7 +71,7 @@
                         </div>
                         <div class="floating-badge badge-2">
                             <i class="fas fa-users"></i>
-                            <span>+۱۲ هزار مشتری</span>
+                            <span>۱۲+ هزار مشتری</span>
                         </div>
                         <div class="about-main-visual">
                             <i class="fas fa-shopping-bag visual-icon"></i>
