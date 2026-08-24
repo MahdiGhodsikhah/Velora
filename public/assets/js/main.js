@@ -547,6 +547,102 @@ $(document).ready(function () {
     });
 
     // =================================================================
+    // 6.5. اشتراک‌گذاری محصول (Share Button)
+    // =================================================================
+    console.log('🔗 Setting up share button handlers...');
+    
+    $(document).on('click', '.share-btn', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🔗 Share button clicked!');
+        
+        const $btn = $(this);
+        const url = $btn.data('url');
+        
+        if (!url) {
+            console.error('❌ No URL found on share button');
+            showNotification('خطا در دریافت لینک محصول', 'error');
+            return;
+        }
+        
+        // ساخت URL کامل
+        const fullUrl = url.startsWith('http') ? url : window.location.origin + url;
+        console.log('📋 Copying URL:', fullUrl);
+        
+        // کپی کردن به clipboard
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            // روش مدرن
+            navigator.clipboard.writeText(fullUrl)
+                .then(function() {
+                    console.log('✅ URL copied successfully!');
+                    showNotification('لینک محصول کپی شد', 'success');
+                    
+                    // انیمیشن موقت برای دکمه
+                    const originalIcon = $btn.find('i').attr('class');
+                    $btn.find('i').attr('class', 'fas fa-check');
+                    
+                    setTimeout(function() {
+                        $btn.find('i').attr('class', originalIcon);
+                    }, 1500);
+                })
+                .catch(function(err) {
+                    console.error('❌ Failed to copy:', err);
+                    fallbackCopyTextToClipboard(fullUrl, $btn);
+                });
+        } else {
+            // fallback برای مرورگرهای قدیمی
+            fallbackCopyTextToClipboard(fullUrl, $btn);
+        }
+    });
+    
+    // تابع fallback برای کپی کردن در مرورگرهای قدیمی
+    function fallbackCopyTextToClipboard(text, $btn) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        
+        // پنهان کردن textarea
+        textArea.style.position = 'fixed';
+        textArea.style.top = '0';
+        textArea.style.left = '0';
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = '0';
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        textArea.style.opacity = '0';
+        
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                console.log('✅ Fallback: URL copied successfully!');
+                showNotification('لینک محصول کپی شد', 'success');
+                
+                // انیمیشن موقت
+                const originalIcon = $btn.find('i').attr('class');
+                $btn.find('i').attr('class', 'fas fa-check');
+                
+                setTimeout(function() {
+                    $btn.find('i').attr('class', originalIcon);
+                }, 1500);
+            } else {
+                console.error('❌ Fallback: Unable to copy');
+                showNotification('خطا در کپی کردن لینک', 'error');
+            }
+        } catch (err) {
+            console.error('❌ Fallback: Copy failed', err);
+            showNotification('مرورگر شما از کپی کردن پشتیبانی نمی‌کند', 'error');
+        }
+        
+        document.body.removeChild(textArea);
+    }
+
+    // =================================================================
     // ۷. افزودن به سبد خرید
     // =================================================================
     
