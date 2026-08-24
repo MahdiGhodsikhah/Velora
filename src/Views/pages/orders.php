@@ -73,7 +73,8 @@ unset($order);
                             ?>
                         </div>
                     </div>
-                    <div>
+                    <div class="order-status-wrapper">
+                        <span class="order-status-label">وضعیت:</span>
                         <span class="order-status" style="background-color: <?= $statusColors[$order['status']] ?>">
                             <?= $statusLabels[$order['status']] ?>
                         </span>
