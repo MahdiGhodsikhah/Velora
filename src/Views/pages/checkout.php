@@ -71,28 +71,20 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                         <h3><i class="fas fa-credit-card"></i> روش پرداخت</h3>
                         
                         <div class="payment-methods">
-                            <label class="payment-method-item">
+                            <label class="payment-method-item selected">
                                 <input type="radio" name="payment_method" value="online" checked>
                                 <div class="payment-method-content">
                                     <i class="fas fa-credit-card"></i>
                                     <div class="payment-method-text">
                                         <h4>پرداخت آنلاین</h4>
-                                        <p>پرداخت امن با کارت بانکی</p>
-                                    </div>
-                                </div>
-                            </label>
-                            
-                            <label class="payment-method-item">
-                                <input type="radio" name="payment_method" value="cash">
-                                <div class="payment-method-content">
-                                    <i class="fas fa-money-bill"></i>
-                                    <div class="payment-method-text">
-                                        <h4>پرداخت در محل</h4>
-                                        <p>پرداخت نقدی هنگام تحویل</p>
+                                        <p>پرداخت امن با کارت بانکی از طریق درگاه معتبر</p>
                                     </div>
                                 </div>
                             </label>
                         </div>
+                        <small style="display: block; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
+                            <i class="fas fa-shield-alt"></i> پرداخت شما با رمزنگاری SSL محافظت می‌شود
+                        </small>
                     </div>
 
                     <!-- یادداشت سفارش -->

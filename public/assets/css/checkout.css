@@ -1,12 +1,35 @@
 .checkout-page {
     padding: 2rem 0;
     min-height: 60vh;
+    background: var(--body-bg);
+    position: relative;
+}
+
+.checkout-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--body-overlay);
+    pointer-events: none;
 }
 
 .checkout-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.page-header h1 {
+    color: var(--text-dark);
+}
+
+.page-header p {
+    color: var(--text-muted);
 }
 
 .checkout-layout {
@@ -17,10 +40,10 @@
 }
 
 .checkout-form {
-    background: #fff;
+    background: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-primary);
 }
 
 .form-section {
@@ -30,9 +53,9 @@
 .form-section h3 {
     font-size: 1.25rem;
     margin-bottom: 1rem;
-    color: #2c3e50;
+    color: var(--text-dark);
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e74c3c;
+    border-bottom: 2px solid var(--primary);
 }
 
 .form-group {
@@ -43,27 +66,30 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: #2c3e50;
+    color: var(--text-dark);
 }
 
 .form-group label .required {
-    color: #e74c3c;
+    color: var(--primary);
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
     font-size: 1rem;
     transition: border-color 0.3s;
+    background: var(--card-bg);
+    color: var(--text-dark);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #e74c3c;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--button-ripple);
 }
 
 .form-group textarea {
@@ -74,7 +100,7 @@
 .form-group small {
     display: block;
     margin-top: 0.25rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
     font-size: 0.875rem;
 }
 
@@ -97,15 +123,17 @@
     display: flex;
     align-items: center;
     padding: 1rem;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
     cursor: pointer;
     transition: all 0.3s;
+    background: var(--card-bg);
 }
 
 .payment-method-item:hover {
-    border-color: #e74c3c;
-    background-color: #fff5f5;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-button);
 }
 
 .payment-method-item input[type="radio"] {
@@ -113,20 +141,17 @@
     height: 20px;
     margin-left: 1rem;
     cursor: pointer;
-    accent-color: #e74c3c;
+    accent-color: var(--primary);
 }
 
 .payment-method-item input[type="radio"]:checked ~ .payment-method-content {
-    color: #e74c3c;
-}
-
-.payment-method-item input[type="radio"]:checked {
-    border-color: #e74c3c;
+    color: var(--primary);
 }
 
 .payment-method-item.selected {
-    border-color: #e74c3c;
-    background-color: #fff5f5;
+    border-color: var(--primary);
+    background: var(--card-overlay);
+    box-shadow: var(--shadow-button);
 }
 
 .payment-method-content {
@@ -138,27 +163,28 @@
 
 .payment-method-content i {
     font-size: 1.5rem;
-    color: #e74c3c;
+    color: var(--primary);
+    filter: var(--icon-glow);
 }
 
 .payment-method-text h4 {
     margin: 0 0 0.25rem 0;
     font-size: 1rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--text-dark);
 }
 
 .payment-method-text p {
     margin: 0;
     font-size: 0.875rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
 }
 
 .order-summary-box {
-    background: #fff;
+    background: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-primary);
     height: fit-content;
     position: sticky;
     top: 100px;
@@ -167,7 +193,7 @@
 .order-summary-box h3 {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
-    color: #2c3e50;
+    color: var(--text-dark);
 }
 
 .order-items {
@@ -176,13 +202,23 @@
     margin-bottom: 1.5rem;
 }
 
+.order-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.order-items::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
 .order-item {
     display: flex;
     gap: 1rem;
     padding: 0.75rem;
     margin-bottom: 0.5rem;
-    background: #f8f9fa;
-    border-radius: 8px;
+    background: var(--card-overlay);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
 }
 
 .order-item-image {
@@ -205,27 +241,28 @@
 
 .order-item-name {
     font-weight: 500;
-    color: #2c3e50;
+    color: var(--text-dark);
     margin-bottom: 0.25rem;
 }
 
 .order-item-price {
-    color: #7f8c8d;
+    color: var(--text-muted);
 }
 
 .order-summary-row {
     display: flex;
     justify-content: space-between;
     padding: 0.75rem 0;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dark);
 }
 
 .order-summary-row.total {
-    border-top: 2px solid #e74c3c;
+    border-top: 2px solid var(--primary);
     border-bottom: none;
     font-size: 1.25rem;
     font-weight: bold;
-    color: #e74c3c;
+    color: var(--primary);
     padding-top: 1rem;
     margin-top: 0.5rem;
 }
@@ -233,19 +270,21 @@
 .btn-submit-order {
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    background: var(--gradient-primary);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: all 0.3s;
     margin-top: 1rem;
+    box-shadow: var(--shadow-button);
 }
 
 .btn-submit-order:hover {
     transform: translateY(-2px);
+    box-shadow: var(--shadow-button-hover);
 }
 
 .btn-submit-order:disabled {
@@ -256,20 +295,20 @@
 
 .alert {
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     margin-bottom: 1rem;
 }
 
 .alert-danger {
-    background-color: #fee;
-    color: #c33;
-    border: 1px solid #fcc;
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--primary);
+    border: 1px solid var(--primary);
 }
 
 .alert-success {
-    background-color: #efe;
-    color: #3c3;
-    border: 1px solid #cfc;
+    background-color: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+    border: 1px solid #27ae60;
 }
 
 @media (max-width: 768px) {
