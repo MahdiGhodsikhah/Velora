@@ -18,7 +18,7 @@ $base = defined('BASE_URL') ? BASE_URL : '';
                 <i class="fas fa-heart"></i>
                 علاقه‌مندی‌های من
             </h1>
-            <p><?= count($wishlistProducts) ?> محصول در لیست علاقه‌مندی‌های شما</p>
+            <p><?= $total ?? 0 ?> محصول در لیست علاقه‌مندی‌های شما</p>
         </div>
 
         <?php if (!empty($wishlistProducts)): ?>
@@ -26,9 +26,25 @@ $base = defined('BASE_URL') ? BASE_URL : '';
         <!-- گرید محصولات -->
         <div class="products-grid">
             <?php foreach ($wishlistProducts as $product): ?>
+            <div role="listitem">
                 <?php require BASE_PATH . '/src/Views/partials/product-card.php'; ?>
+            </div>
             <?php endforeach; ?>
         </div>
+
+        <!-- صفحه‌بندی -->
+        <?php if (($totalPages ?? 1) > 1): ?>
+        <nav class="pagination-nav" aria-label="صفحه‌بندی">
+            <?php for ($p = 1; $p <= ($totalPages ?? 1); $p++): ?>
+            <a href="<?= $base ?>/wishlist?page=<?= $p ?>"
+               class="page-btn <?= ($page ?? 1) === $p ? 'active' : '' ?>"
+               aria-label="صفحه <?= $p ?>"
+               <?= ($page ?? 1) === $p ? 'aria-current="page"' : '' ?>>
+                <?= $p ?>
+            </a>
+            <?php endfor; ?>
+        </nav>
+        <?php endif; ?>
 
         <?php else: ?>
         
@@ -48,128 +64,6 @@ $base = defined('BASE_URL') ? BASE_URL : '';
     </div>
 
 </main>
-
-<style>
-/* استایل‌های اضافی برای صفحه wishlist */
-.wishlist-page {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: 40px 20px 80px;
-}
-
-.wishlist-container {
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.page-header {
-    text-align: center;
-    margin-bottom: 50px;
-    padding: 30px 20px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.page-header h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #2c3e50;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.page-header h1 i {
-    color: #e53e3e;
-}
-
-.page-header p {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-}
-
-.products-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.products-grid > * {
-    flex: 1 1 calc(33.333% - 17px);
-    min-width: 280px;
-    max-width: 100%;
-}
-
-.empty-wishlist {
-    text-align: center;
-    padding: 80px 20px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.empty-wishlist i {
-    font-size: 6rem;
-    color: #e53e3e;
-    margin-bottom: 25px;
-    opacity: 0.3;
-}
-
-.empty-wishlist h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
-.empty-wishlist p {
-    font-size: 1.1rem;
-    color: #7f8c8d;
-    margin-bottom: 30px;
-}
-
-.btn-browse-products {
-    display: inline-block;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 15px 40px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.btn-browse-products:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .wishlist-page {
-        padding: 20px 15px 60px;
-    }
-    
-    .page-header h1 {
-        font-size: 1.8rem;
-    }
-    
-    .products-grid {
-        gap: 20px;
-    }
-    
-    .products-grid > * {
-        flex: 1 1 100%;
-        min-width: 100%;
-    }
-}
-</style>
 
 <script>
 $(document).ready(function() {

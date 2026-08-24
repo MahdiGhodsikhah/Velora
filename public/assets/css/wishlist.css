@@ -4,13 +4,27 @@
 
 .wishlist-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    background: var(--body-bg);
     padding: 40px 20px 80px;
+    position: relative;
+}
+
+.wishlist-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--body-overlay);
+    pointer-events: none;
 }
 
 .wishlist-container {
     max-width: 1400px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 /* هدر صفحه */
@@ -22,7 +36,7 @@
 .page-header h1 {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #2c3e50;
+    color: var(--text-dark);
     margin-bottom: 10px;
     display: flex;
     align-items: center;
@@ -31,8 +45,9 @@
 }
 
 .page-header h1 i {
-    color: #e74c3c;
+    color: var(--primary);
     animation: heartbeat 1.5s ease-in-out infinite;
+    filter: var(--icon-glow);
 }
 
 @keyframes heartbeat {
@@ -43,221 +58,91 @@
 
 .page-header p {
     font-size: 1.1rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
 }
 
 /* گرید محصولات */
-.wishlist-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.wishlist-product-card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.wishlist-product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* دکمه حذف */
-.btn-remove-wishlist {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 50%;
-    color: #e74c3c;
-    font-size: 1.2rem;
-    cursor: pointer;
-    z-index: 10;
+.products-grid {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.btn-remove-wishlist:hover {
-    background: #e74c3c;
-    color: #fff;
-    transform: rotate(90deg) scale(1.1);
-}
-
-/* تصویر محصول */
-.product-image-link {
-    display: block;
-    overflow: hidden;
-    aspect-ratio: 1;
-}
-
-.product-image-link img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.wishlist-product-card:hover .product-image-link img {
-    transform: scale(1.1);
-}
-
-/* اطلاعات محصول */
-.product-info-wishlist {
-    padding: 25px;
-}
-
-.product-category {
-    font-size: 0.85rem;
-    color: #e67e22;
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    letter-spacing: 0.5px;
-}
-
-.product-title-wishlist {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #2c3e50;
-    display: block;
-    margin-bottom: 15px;
-    text-decoration: none;
-    line-height: 1.4;
-    min-height: 50px;
-}
-
-.product-title-wishlist:hover {
-    color: #e67e22;
-}
-
-/* قیمت */
-.product-price-wishlist {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 15px;
+    gap: 25px;
+    margin-bottom: 40px;
 }
 
-.old-price {
-    font-size: 0.95rem;
-    color: #999;
-    text-decoration: line-through;
+.products-grid > * {
+    flex: 1 1 calc(33.333% - 17px);
+    min-width: 280px;
+    max-width: 100%;
 }
 
-.current-price {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #e67e22;
-}
-
-.discount-badge {
-    background: #e74c3c;
-    color: #fff;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-
-/* امتیاز */
-.product-rating-wishlist {
+/* صفحه‌بندی */
+.pagination-nav {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 4px;
-    margin-bottom: 15px;
-    color: #fbbf24;
-    font-size: 0.95rem;
+    gap: 10px;
+    margin-top: 40px;
+    padding: 20px;
 }
 
-.rating-count {
-    font-size: 0.85rem;
-    color: #7f8c8d;
-    margin-right: 5px;
-}
-
-/* دکمه‌ها */
-.product-actions-wishlist {
-    margin-bottom: 15px;
-}
-
-.btn-add-to-cart {
-    width: 100%;
-    padding: 14px 20px;
-    background: linear-gradient(135deg, #e67e22 0%, #e74c3c 100%);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s;
+.page-btn {
+    min-width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    font-family: 'Vazirmatn', sans-serif;
+    background: var(--card-bg);
+    color: var(--text-dark);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0 15px;
 }
 
-.btn-add-to-cart:hover:not(.disabled) {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+.page-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-button);
 }
 
-.btn-add-to-cart.disabled {
-    background: #bdc3c7;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* تاریخ افزودن */
-.added-date {
-    font-size: 0.8rem;
-    color: #95a5a6;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding-top: 15px;
-    border-top: 1px solid #ecf0f1;
+.page-btn.active {
+    background: var(--gradient-primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: var(--shadow-button);
 }
 
 /* حالت خالی */
 .empty-wishlist {
     text-align: center;
     padding: 80px 20px;
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-primary);
 }
 
 .empty-wishlist i {
     font-size: 6rem;
-    color: #e74c3c;
+    color: var(--primary);
     margin-bottom: 25px;
     opacity: 0.3;
+    filter: var(--icon-glow);
 }
 
 .empty-wishlist h2 {
     font-size: 2rem;
     font-weight: 800;
-    color: #2c3e50;
+    color: var(--text-dark);
     margin-bottom: 15px;
 }
 
 .empty-wishlist p {
     font-size: 1.15rem;
-    color: #7f8c8d;
+    color: var(--text-muted);
     margin-bottom: 30px;
 }
 
@@ -265,7 +150,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #e67e22 0%, #e74c3c 100%);
+    background: var(--gradient-primary);
     color: #fff;
     padding: 16px 40px;
     border-radius: 30px;
@@ -273,12 +158,12 @@
     font-weight: 700;
     font-size: 1.05rem;
     transition: all 0.3s;
-    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+    box-shadow: var(--shadow-button);
 }
 
 .btn-browse-products:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(230, 126, 34, 0.5);
+    box-shadow: var(--shadow-button-hover);
     color: #fff;
 }
 
@@ -292,9 +177,13 @@
         font-size: 1.8rem;
     }
 
-    .wishlist-grid {
-        grid-template-columns: 1fr;
+    .products-grid {
         gap: 20px;
+    }
+    
+    .products-grid > * {
+        flex: 1 1 100%;
+        min-width: 100%;
     }
 
     .empty-wishlist {
@@ -307,5 +196,16 @@
 
     .empty-wishlist h2 {
         font-size: 1.5rem;
+    }
+    
+    .pagination-nav {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .page-btn {
+        min-width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
     }
 }

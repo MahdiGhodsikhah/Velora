@@ -419,7 +419,19 @@ class UserController {
         $themeManager->clearProductTheme();
 
         $userId = (int)$_SESSION['user_id'];
-        $wishlistProducts = $this->userModel->getWishlist($userId);
+        
+        // صفحه‌بندی
+        $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+        $limit = 9; // تعداد محصولات در هر صفحه
+        $offset = ($page - 1) * $limit;
+        
+        // دریافت همه محصولات علاقه‌مندی
+        $allWishlistProducts = $this->userModel->getWishlist($userId);
+        $total = count($allWishlistProducts);
+        $totalPages = (int)ceil($total / $limit);
+        
+        // برش محصولات بر اساس صفحه
+        $wishlistProducts = array_slice($allWishlistProducts, $offset, $limit);
 
         foreach ($wishlistProducts as &$p) {
             $p['gallery_arr'] = json_decode($p['gallery'] ?? '[]', true) ?: [];
