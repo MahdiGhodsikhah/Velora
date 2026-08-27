@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 24, 2026 at 05:17 AM
+-- Generation Time: Aug 27, 2026 at 05:58 PM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   UNIQUE KEY `order_number` (`order_number`),
   KEY `idx_user_orders` (`user_id`),
   KEY `idx_order_num` (`order_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `orders`
@@ -149,7 +149,8 @@ INSERT INTO `orders` (`id`, `user_id`, `order_number`, `status`, `total_amount`,
 (13, 2, 'ORD-20260813-2E087334', 'pending', 2038300, 0, 0, 'مشهد رسالت', '9149172740', 'cash', 'unpaid', '', '2026-08-13 21:36:10', NULL),
 (16, 2, 'ORD-20260817-70272870', 'pending', 1111800, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'paid', '', '2026-08-17 08:32:08', '2026-08-17 08:33:14'),
 (17, 2, 'ORD-20260817-76283C25', 'shipped', 2038300, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-17 09:49:55', '2026-08-21 15:54:53'),
-(18, 2, 'ORD-20260822-4A4F2D0E', 'pending', 2686850, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-22 09:13:47', NULL);
+(18, 2, 'ORD-20260822-4A4F2D0E', 'pending', 2686850, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-22 09:13:47', NULL),
+(19, 2, 'ORD-20260824-EFD48948', 'pending', 3891300, 0, 0, 'مشهد رسالت', '9149172740', 'online', 'unpaid', '', '2026-08-24 21:19:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -169,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   PRIMARY KEY (`id`),
   KEY `idx_order_items` (`order_id`),
   KEY `fk_item_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `order_items`
@@ -195,7 +196,9 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `product_name`, `unit
 (17, 13, 2, 'کتونی اسپرت مردانه آدیداس', 1870000, 1, 1870000),
 (21, 16, 27, 'شومیز زنانه کژوال', 1020000, 1, 1020000),
 (22, 17, 2, 'کتونی اسپرت مردانه نایک', 1870000, 1, 1870000),
-(23, 18, 23, 'کاپشن مردانه سبک', 2465000, 1, 2465000);
+(23, 18, 23, 'کاپشن مردانه سبک', 2465000, 1, 2465000),
+(24, 19, 33, 'شلوار پارچه‌ای زنانه', 1105000, 2, 2210000),
+(25, 19, 22, 'سویشرت مردانه کژوال', 1360000, 1, 1360000);
 
 -- --------------------------------------------------------
 
@@ -242,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `short_desc`, `sku`, `price`, `sale_price`, `discount_pct`, `stock_qty`, `main_image`, `gallery`, `rating_avg`, `rating_count`, `is_featured`, `season`, `is_active`, `views`, `created_at`, `updated_at`) VALUES
-(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product_1_main_1786890774_7b705668.jpg', '[\"/assets/images/products/product_1_gallery_1_1786890774_058c2505.jpg\", \"/assets/images/products/product_1_gallery_2_1786890774_2d0e29f4.jpg\"]', 0.00, 0, 1, 'autumn', 1, 159, '2026-06-09 15:55:19', '2026-08-21 15:58:10'),
+(1, 1, 'هودی پاییزی مردانه برند نایک', 'nike-autumn-hoodie', 'هودی گرم و شیک مردانه با طرح منحصر‌به‌فرد برند نایک. مناسب فصل پاییز و زمستان. جنس پنبه ۸۰٪ پلی‌استر ۲۰٪.', 'هودی مردانه نایک - گرم و شیک', 'SKU-M-001', 1200000, 960000, 20, 32, '/assets/images/products/product_1_main_1786890774_7b705668.jpg', '[\"/assets/images/products/product_1_gallery_1_1786890774_058c2505.jpg\", \"/assets/images/products/product_1_gallery_2_1786890774_2d0e29f4.jpg\"]', 0.00, 0, 1, 'autumn', 1, 160, '2026-06-09 15:55:19', '2026-08-24 21:12:54'),
 (2, 3, 'کتونی اسپرت مردانه نایک', 'nike-sport-sneakers', 'کفش اسپرت مردانه آدیداس با سولت ضخیم و طراحی ارگونومیک. مناسب پیاده‌روی و ورزش‌های سبک.', 'کتونی آدیداس - راحت و بادوام', 'SKU-S-001', 2200000, 1870000, 15, 25, '/assets/images/products/product_2_main_1786888148_e9d366c6.jpg', '[\"/assets/images/products/product_2_gallery_1_1786888148_69dc27bf.jpg\"]', 0.00, 0, 1, 'spring', 1, 71, '2026-06-09 15:55:19', '2026-08-17 12:06:14'),
 (3, 4, 'ساعت مچی کلاسیک لوکس', 'luxury-classic-watch', 'ساعت مچی مردانه با طراحی کلاسیک و بدنه استیل ضدزنگ. مقاوم در برابر آب تا ۵۰ متر.', 'ساعت کلاسیک - استیل ضدزنگ', 'SKU-A-001', 3500000, 3150000, 10, 16, '/assets/images/products/product_3_main_1786889444_58eb727c.jpg', '[\"/assets/images/products/product_3_gallery_1_1786889444_6cd67e11.jpg\", \"/assets/images/products/product_3_gallery_2_1786889444_4daf73c1.jpg\"]', 0.00, 0, 1, 'summer', 1, 158, '2026-06-09 15:55:19', '2026-08-21 13:31:03'),
 (4, 2, 'پالتو زنانه پاییزی', 'womens-autumn-coat', 'پالتو زنانه شیک با طرح پاییزی. جنس ترکیبی پشم و پلی‌استر. مناسب محیط‌های رسمی و نیمه‌رسمی.', 'پالتو زنانه - شیک و گرم', 'SKU-W-001', 2800000, 2520000, 10, 15, '/assets/images/products/product_4_main_1786888967_6fa93370.jpg', '[\"/assets/images/products/product_4_gallery_1_1786888967_967d0f7c.jpg\"]', 0.00, 0, 1, 'autumn', 1, 11, '2026-06-09 15:55:19', '2026-08-16 23:09:42'),
@@ -250,14 +253,14 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `slug`, `description`, `sho
 (6, 1, 'شلوار جین اسلیم مردانه', 'mens-slim-jeans', 'شلوار جین مردانه با برش اسلیم فیت. مناسب استفاده روزمره. جنس دنیم با اضافه الاستین.', 'جین اسلیم - راحت و شیک', 'SKU-M-002', 980000, 784000, 20, 59, '/assets/images/products/product_6_main_1786888823_42dd3d81.jpg', '[\"/assets/images/products/product_6_gallery_1_1786888823_a6d4ea56.jpg\", \"/assets/images/products/product_6_gallery_2_1786888823_21f49380.jpg\"]', 5.00, 1, 0, 'all', 1, 91, '2026-06-09 15:55:19', '2026-08-23 23:32:14'),
 (7, 3, 'بوت چرم طبیعی زنانه', 'womens-leather-boot', 'بوت زنانه از چرم طبیعی گاو با آستر پارچه‌ای گرم. مناسب فصل سرد. پاشنه ۵ سانتی‌متر.', 'بوت چرم زنانه - گرم و مد روز', 'SKU-S-002', 4200000, 3570000, 15, 12, '/assets/images/products/product_7_main_1786888375_507b02d3.jpg', '[\"/assets/images/products/product_7_gallery_1_1786888375_c9150374.jpg\"]', 0.00, 0, 1, 'winter', 1, 9, '2026-06-09 15:55:19', '2026-08-16 19:07:08'),
 (8, 4, 'کیف دستی چرمی مردانه', 'mens-leather-handbag', 'کیف دستی مردانه از چرم مصنوعی با کیفیت بالا. دارای چندین جیب داخلی و قفل امنیتی.', 'کیف چرمی - سبک و کاربردی', 'SKU-A-002', 1500000, 1275000, 15, 34, '/assets/images/products/product_8_main_1786890181_bc506aba.jpg', '[\"/assets/images/products/product_8_gallery_1_1786890181_34601d5c.jpg\", \"/assets/images/products/product_8_gallery_2_1786890181_77c3fa39.jpg\", \"/assets/images/products/product_8_gallery_3_1786890181_a2fe6ff7.jpg\", \"/assets/images/products/product_8_gallery_4_1786890181_ca6cb326.jpg\"]', 4.00, 1, 0, 'winter', 1, 48, '2026-06-09 15:55:19', '2026-08-16 23:10:32'),
-(19, 1, 'تی‌شرت ساده مردانه', 'mens-basic-tshirt', 'تی‌شرت ساده مردانه با طراحی مینیمال و پارچه‌ای نرم و راحت. مناسب استفاده روزمره و استایل‌های مختلف.', 'تی‌شرت مردانه - ساده و راحت', 'SKU-M-003', 750000, 637500, 15, 48, '/assets/images/products/product_19_main_1786907200_aeb92cf2.jpg', NULL, 0.00, 0, 1, 'summer', 1, 6, '2026-08-16 21:32:56', '2026-08-23 23:32:02'),
-(22, 1, 'سویشرت مردانه کژوال', 'mens-casual-sweatshirt', 'سویشرت مردانه کژوال با طراحی راحت و گرم، مناسب استفاده روزمره و استایل‌های پاییزی.', 'سویشرت مردانه - کژوال و گرم', 'SKU-M-006', 1600000, 1360000, 15, 22, '/assets/images/products/product_22_main_1786907211_ff5f676a.jpg', NULL, 0.00, 0, 1, 'autumn', 1, 3, '2026-08-16 21:32:56', '2026-08-22 09:09:31'),
+(19, 1, 'تی‌شرت ساده مردانه', 'mens-basic-tshirt', 'تی‌شرت ساده مردانه با طراحی مینیمال و پارچه‌ای نرم و راحت. مناسب استفاده روزمره و استایل‌های مختلف.', 'تی‌شرت مردانه - ساده و راحت', 'SKU-M-003', 750000, 637500, 15, 48, '/assets/images/products/product_19_main_1786907200_aeb92cf2.jpg', NULL, 0.00, 0, 1, 'summer', 1, 9, '2026-08-16 21:32:56', '2026-08-24 21:13:24'),
+(22, 1, 'سویشرت مردانه کژوال', 'mens-casual-sweatshirt', 'سویشرت مردانه کژوال با طراحی راحت و گرم، مناسب استفاده روزمره و استایل‌های پاییزی.', 'سویشرت مردانه - کژوال و گرم', 'SKU-M-006', 1600000, 1360000, 15, 21, '/assets/images/products/product_22_main_1786907211_ff5f676a.jpg', NULL, 0.00, 0, 1, 'autumn', 1, 3, '2026-08-16 21:32:56', '2026-08-24 21:19:45'),
 (23, 1, 'کاپشن مردانه سبک', 'mens-light-jacket', 'کاپشن مردانه سبک با طراحی کاربردی و مناسب برای روزهای سرد. انتخابی مناسب برای استایل روزمره زمستانی.', 'کاپشن مردانه - سبک و گرم', 'SKU-M-007', 2900000, 2465000, 15, 17, '/assets/images/products/product_23_main_1786907386_8704fb05.jpg', '[\"/assets/images/products/product_23_gallery_1_1786907386_4f9ca2d6.jpg\"]', 0.00, 0, 1, 'winter', 1, 4, '2026-08-16 21:32:56', '2026-08-22 09:13:47'),
-(27, 2, 'شومیز زنانه کژوال', 'womens-casual-blouse', 'شومیز زنانه کژوال با طراحی ظریف و راحت، مناسب استفاده روزمره و استایل‌های بهاری.', 'شومیز زنانه - کژوال و ظریف', 'SKU-W-002', 1200000, 1020000, 15, 23, '/assets/images/products/product_27_main_1786908050_c815b371.jpg', NULL, 0.00, 0, 1, 'spring', 1, 5, '2026-08-16 21:32:56', '2026-08-23 23:31:53'),
-(30, 2, 'کت زنانه مینیمال', 'womens-minimal-blazer', 'کت زنانه مینیمال با طراحی ساده و شیک، مناسب استایل‌های رسمی و نیمه‌رسمی.', 'کت زنانه - مینیمال و شیک', 'SKU-W-005', 2750000, 2337500, 15, 14, '/assets/images/products/product_30_main_1786908061_f7ad0ad9.jpg', '[\"/assets/images/products/product_30_gallery_1_1786908061_475a6811.jpg\"]', 0.00, 0, 1, 'spring', 1, 1, '2026-08-16 21:32:56', '2026-08-18 23:50:51'),
+(27, 2, 'شومیز زنانه کژوال', 'womens-casual-blouse', 'شومیز زنانه کژوال با طراحی ظریف و راحت، مناسب استفاده روزمره و استایل‌های بهاری.', 'شومیز زنانه - کژوال و ظریف', 'SKU-W-002', 1200000, 1020000, 15, 23, '/assets/images/products/product_27_main_1786908050_c815b371.jpg', NULL, 0.00, 0, 1, 'spring', 1, 6, '2026-08-16 21:32:56', '2026-08-24 20:31:12'),
+(30, 2, 'کت زنانه مینیمال', 'womens-minimal-blazer', 'کت زنانه مینیمال با طراحی ساده و شیک، مناسب استایل‌های رسمی و نیمه‌رسمی.', 'کت زنانه - مینیمال و شیک', 'SKU-W-005', 2750000, 2337500, 15, 14, '/assets/images/products/product_30_main_1786908061_f7ad0ad9.jpg', '[\"/assets/images/products/product_30_gallery_1_1786908061_475a6811.jpg\"]', 0.00, 0, 1, 'spring', 1, 2, '2026-08-16 21:32:56', '2026-08-24 20:31:07'),
 (31, 2, 'بارانی زنانه کلاسیک', 'womens-classic-trench', 'بارانی زنانه کلاسیک با طراحی شیک و کاربردی، مناسب روزهای خنک و بارانی پاییز.', 'بارانی زنانه - کلاسیک و شیک', 'SKU-W-006', 2950000, 2507500, 15, 11, '/assets/images/products/product_31_main_1786908597_2cf6a51e.jpg', NULL, 0.00, 0, 1, 'autumn', 1, 1, '2026-08-16 21:32:56', '2026-08-21 15:42:40'),
-(33, 2, 'شلوار پارچه‌ای زنانه', 'womens-wide-leg-pants', 'شلوار پارچه‌ای زنانه با فرم وایدلگ و طراحی راحت، مناسب استایل‌های روزمره و نیمه‌رسمی.', 'شلوار زنانه - وایدلگ و راحت', 'SKU-W-008', 1300000, 1105000, 15, 28, '/assets/images/products/product_33_main_1786908607_be5e61c8.jpg', NULL, 0.00, 0, 1, 'spring', 1, 2, '2026-08-16 21:32:56', '2026-08-21 13:51:12'),
-(41, 3, 'نیم‌بوت مردانه چرمی', 'mens-leather-ankle-boots', 'نیم‌بوت مردانه چرمی با طراحی مقاوم و شیک، مناسب فصل زمستان و روزهای سرد.', 'نیم‌بوت مردانه - چرمی و گرم', 'SKU-S-009', 3600000, 3060000, 15, 9, '/assets/images/products/product_41_main_1786908615_506a69bd.jpg', '[\"/assets/images/products/product_41_gallery_1_1786908776_e02b2b29.jpg\", \"/assets/images/products/product_41_gallery_2_1786908776_4965d3f7.jpg\"]', 0.00, 0, 1, 'winter', 1, 4, '2026-08-16 21:32:56', '2026-08-21 13:48:58'),
+(33, 2, 'شلوار پارچه‌ای زنانه', 'womens-wide-leg-pants', 'شلوار پارچه‌ای زنانه با فرم وایدلگ و طراحی راحت، مناسب استایل‌های روزمره و نیمه‌رسمی.', 'شلوار زنانه - وایدلگ و راحت', 'SKU-W-008', 1300000, 1105000, 15, 26, '/assets/images/products/product_33_main_1786908607_be5e61c8.jpg', NULL, 0.00, 0, 1, 'spring', 1, 6, '2026-08-16 21:32:56', '2026-08-24 21:19:45'),
+(41, 3, 'نیم‌بوت مردانه چرمی', 'mens-leather-ankle-boots', 'نیم‌بوت مردانه چرمی با طراحی مقاوم و شیک، مناسب فصل زمستان و روزهای سرد.', 'نیم‌بوت مردانه - چرمی و گرم', 'SKU-S-009', 3600000, 3060000, 15, 9, '/assets/images/products/product_41_main_1786908615_506a69bd.jpg', '[\"/assets/images/products/product_41_gallery_1_1786908776_e02b2b29.jpg\", \"/assets/images/products/product_41_gallery_2_1786908776_4965d3f7.jpg\"]', 0.00, 0, 1, 'winter', 1, 5, '2026-08-16 21:32:56', '2026-08-24 21:13:07'),
 (48, 4, 'عینک آفتابی کلاسیک', 'classic-sunglasses', 'عینک آفتابی کلاسیک با طراحی ساده و جذاب، مناسب استفاده روزمره و استایل‌های تابستانی.', 'عینک آفتابی - کلاسیک و شیک', 'SKU-A-008', 1300000, 1105000, 15, 30, '/assets/images/products/product_48_main_1786908623_54fb9e0c.jpg', '[\"/assets/images/products/product_48_gallery_1_1786908851_84ed9d37.jpg\"]', 0.00, 0, 1, 'summer', 1, 0, '2026-08-16 21:32:56', '2026-08-16 23:04:11'),
 (49, 4, 'شال زنانه بافت', 'womens-knitted-scarf', 'شال زنانه بافت با طراحی گرم و زیبا، مناسب استفاده در روزهای سرد و استایل‌های زمستانی.', 'شال زنانه - بافت و گرم', 'SKU-A-009', 700000, 560000, 20, 38, '/assets/images/products/product_49_main_1786908635_7b0979d4.jpg', '[\"/assets/images/products/product_49_gallery_1_1786908635_de6fe7d5.jpg\"]', 0.00, 0, 1, 'winter', 1, 1, '2026-08-16 21:32:56', '2026-08-16 23:41:30');
 
@@ -280,13 +283,14 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_product_rev` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `reviews`
 --
 
 INSERT INTO `reviews` (`id`, `product_id`, `user_id`, `author_name`, `rating`, `title`, `body`, `is_approved`, `created_at`) VALUES
+(18, 33, 2, NULL, 5, '', 'محصول بسیار با کیفیتی', 0, '2026-08-24 21:12:31'),
 (16, 8, 2, NULL, 4, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-08-14 13:17:38'),
 (17, 6, 2, NULL, 5, 'محصول خیلی خوبیه', 'محصول عالی هست واقعا ارزش خرید دارد', 1, '2026-08-14 13:17:56');
 
@@ -358,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone`, `address`, `postal_code`, `password_hash`, `full_name`, `profile_image`, `preferred_theme`, `job`, `birth_date`, `role`, `is_active`, `login_attempts`, `locked_until`, `last_login`, `created_at`, `updated_at`) VALUES
-(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1786625096.jpg', 'summer', 'دانشجو', NULL, 'admin', 1, 0, NULL, '2026-08-23 23:31:37', '2026-06-30 12:59:51', '2026-08-23 23:31:37'),
+(2, 'mahdi', 'mahdi84m17@gmail.com', '09929954844', 'مشهد رسالت', '9149172740', '$2y$12$EUxezRKyu0omZbrXlP0dn.sLlGDxxbUHn7dANflD5e.N2Izd1h9Aq', 'مهدی قدسی خواه', '/uploads/profiles/profile_2_mahdi_1787840198.jpg', 'summer', 'دانشجو', NULL, 'admin', 1, 0, NULL, '2026-08-27 17:04:58', '2026-06-30 12:59:51', '2026-08-27 17:46:38'),
 (3, 'ali', 'ali@gmail.com', 'temp_3', NULL, NULL, '$2y$12$6.6NolqrdCRTJki0zuKERuru6LlcHAQHdw8UECeX1Rxjdma7ndCI.', NULL, NULL, 'automatic', NULL, NULL, 'customer', 1, 0, NULL, '2026-07-17 23:35:34', '2026-07-16 22:13:50', '2026-07-18 00:07:14'),
 (4, 'ali2', '', 'temp_4', NULL, NULL, '$2y$12$UWEQfVbOP6CrLnQLXFrG.OIofpW21Hhy3rRdOuspu7imKNN.w3ifu', NULL, NULL, 'automatic', NULL, NULL, 'customer', 1, 0, NULL, NULL, '2026-07-17 23:35:54', '2026-07-18 00:07:14'),
 (6, 'user89514957', '', '09929954843', NULL, NULL, '$2y$12$lVHhi1o0GOmbk.icGdKpKuv25RWQSf32DARjF4N85/w.feDLPWC96', NULL, NULL, 'automatic', NULL, NULL, 'customer', 1, 4, NULL, '2026-07-18 00:24:49', '2026-07-18 00:07:54', '2026-07-22 09:35:35');
@@ -396,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_wish_user_product` (`user_id`,`product_id`),
   KEY `fk_wish_product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_persian_ci;
 
 --
 -- Dumping data for table `wishlist`
@@ -404,12 +408,14 @@ CREATE TABLE IF NOT EXISTS `wishlist` (
 
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`, `added_at`) VALUES
 (46, 2, 8, '2026-07-07 15:44:38'),
-(48, 2, 2, '2026-07-22 10:20:10'),
 (50, 2, 5, '2026-08-04 23:49:36'),
 (58, 2, 4, '2026-08-13 13:02:19'),
 (60, 2, 6, '2026-08-13 13:05:53'),
 (61, 2, 1, '2026-08-13 13:13:16'),
-(66, 2, 3, '2026-08-13 13:27:09');
+(71, 2, 22, '2026-08-24 20:13:43'),
+(72, 2, 23, '2026-08-24 20:13:44'),
+(75, 2, 31, '2026-08-24 20:14:00'),
+(80, 2, 33, '2026-08-24 21:12:08');
 
 --
 -- Constraints for dumped tables
