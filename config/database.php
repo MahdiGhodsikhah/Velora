@@ -22,8 +22,6 @@ function db_connect() {
             die(json_encode(['error' => 'خطا در اتصال به پایگاه داده']));
         }
         mysqli_set_charset($conn, DB_CHARSET);
-        mysqli_query($conn, "SET NAMES 'utf8mb4'");
-        mysqli_query($conn, "SET CHARACTER SET utf8mb4");
     }
     return $conn;
 }
@@ -50,7 +48,7 @@ function db_query($sql) {
 }
 
 /**
- * واکشی یک ردیف
+ * دریافت یک رکورد
  */
 function db_fetch_one($sql) {
     $result = db_query($sql);
@@ -61,7 +59,7 @@ function db_fetch_one($sql) {
 }
 
 /**
- * واکشی تمام ردیف‌ها
+ * دریافت تمام رکوردها
  */
 function db_fetch_all($sql) {
     $result = db_query($sql);
