@@ -1,50 +1,6 @@
-/* =======================================
-   استایل اصلی - فروشگاه پاییزی شگفت‌انگیز
-   ======================================= */
-
-:root {
-    /* رنگ‌های پاییزی غنی */
-    --primary:        #d97706;
-    --primary-dark:   #92400e;
-    --primary-light:  #fbbf24;
-    --secondary:      #78350f;
-    --accent:         #dc2626;
-    --accent-light:   #ef4444;
-    --gold:           #f59e0b;
-    --autumn-red:     #b91c1c;
-    --autumn-orange:  #ea580c;
-    --autumn-yellow:  #fde047;
-    --autumn-brown:   #713f12;
-
-    /* پس‌زمینه و متن */
-    --body-bg:        linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%);
-    --card-bg:        #ffffff;
-    --text-dark:      #451a03;
-    --text-muted:     #78350f;
-    --text-light:     #92400e;
-    --border-color:   #fed7aa;
-
-    /* سایه */
-    --shadow-sm:      0 4px 12px rgba(0,0,0,0.06);
-    --shadow-md:      0 8px 24px rgba(0,0,0,0.10);
-    --shadow-lg:      0 15px 40px rgba(0,0,0,0.12);
-    --shadow-orange:  0 10px 30px rgba(230,126,34,0.25);
-
-    /* ترانزیشن */
-    --transition:     all 0.35s cubic-bezier(0.4,0,0.2,1);
-    --transition-fast:all 0.2s ease;
-
-    /* بردر ریدیاس */
-    --radius-sm:  8px;
-    --radius-md:  14px;
-    --radius-lg:  22px;
-    --radius-xl:  32px;
-    --radius-full:9999px;
-
-    /* اندازه‌ها */
-    --navbar-h:   72px;
-    --container:  1240px;
-}
+/* متغیرهای CSS مشترک در base/variables.css تعریف شده‌اند */
+/* متغیرهای وابسته به تم در فایل‌های theme (spring.css, summer.css, autumn.css, winter.css) تعریف شده‌اند */
+/* ThemeManager همیشه یکی از فایل‌های theme را لود می‌کند */
 
 /* ریست */
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }

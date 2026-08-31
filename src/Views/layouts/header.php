@@ -66,10 +66,5 @@
     <script>
         window.BASE_URL = '<?= defined('BASE_URL') ? BASE_URL : '' ?>';
     </script>
-    
-    <!-- Debug Script for Products Page - Can be removed after testing -->
-    <?php if(isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'products') !== false): ?>
-    <script src="<?= defined('BASE_URL') ? BASE_URL : '' ?>/assets/js/products-debug.js"></script>
-    <?php endif; ?>
 </head>
 <body>

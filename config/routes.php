@@ -1,4 +1,5 @@
 <?php
+
 /**
  * سیستم روتینگ پروژه
  * مسیریابی URL ها به کنترلرها و اکشن‌ها
@@ -25,14 +26,14 @@ $routes = [
     'GET:/about'                => ['AboutController', 'index'],
 
     // پروفایل کاربر
-    'GET:/dashboard'            => ['UserController', 'dashboard'],
-    'GET:/profile'              => ['UserController', 'profile'],
-    'POST:/profile'             => ['UserController', 'updateProfile'],
-    'POST:/profile/update'      => ['UserController', 'updateProfile'],
+    'GET:/dashboard'                => ['UserController', 'dashboard'],
+    'GET:/profile'                  => ['UserController', 'profile'],
+    'POST:/profile'                 => ['UserController', 'updateProfile'],
+    'POST:/profile/update'          => ['UserController', 'updateProfile'],
     'POST:/profile/change-password' => ['UserController', 'changePassword'],
     'POST:/profile/upload-image'    => ['UserController', 'uploadProfileImage'],
     'POST:/profile/remove-image'    => ['UserController', 'removeProfileImage'],
-    'GET:/wishlist'             => ['UserController', 'wishlist'],
+    'GET:/wishlist'                 => ['UserController', 'wishlist'],
 
     // سبد خرید
     'GET:/cart'                 => ['CartController', 'index'],
@@ -53,26 +54,26 @@ $routes = [
     'GET:/wishlist/status'      => ['WishlistController', 'getStatus'],
 
     // پنل ادمین
-    'GET:/admin'                     => ['AdminController', 'dashboard'],
-    'GET:/admin/dashboard'           => ['AdminController', 'dashboard'],
-    'GET:/admin/products'            => ['AdminController', 'products'],
-    'GET:/admin/products/create'     => ['AdminController', 'createProduct'],
-    'POST:/admin/products/create'    => ['AdminController', 'storeProduct'],
-    'GET:/admin/products/edit/{id}'  => ['AdminController', 'editProduct'],
-    'POST:/admin/products/edit/{id}' => ['AdminController', 'updateProduct'],
-    'POST:/admin/products/delete'    => ['AdminController', 'deleteProduct'],
-    'GET:/admin/orders'              => ['AdminController', 'orders'],
-    'GET:/admin/orders/view/{id}'    => ['AdminController', 'viewOrder'],
+    'GET:/admin'                       => ['AdminController', 'dashboard'],
+    'GET:/admin/dashboard'             => ['AdminController', 'dashboard'],
+    'GET:/admin/products'              => ['AdminController', 'products'],
+    'GET:/admin/products/create'       => ['AdminController', 'createProduct'],
+    'POST:/admin/products/create'      => ['AdminController', 'storeProduct'],
+    'GET:/admin/products/edit/{id}'    => ['AdminController', 'editProduct'],
+    'POST:/admin/products/edit/{id}'   => ['AdminController', 'updateProduct'],
+    'POST:/admin/products/delete'      => ['AdminController', 'deleteProduct'],
+    'GET:/admin/orders'                => ['AdminController', 'orders'],
+    'GET:/admin/orders/view/{id}'      => ['AdminController', 'viewOrder'],
     'POST:/admin/orders/update-status' => ['AdminController', 'updateOrderStatus'],
-    'POST:/admin/orders/delete'      => ['AdminController', 'deleteOrder'],
-    'GET:/admin/users'               => ['AdminController', 'users'],
-    'GET:/admin/reviews'             => ['AdminController', 'reviews'],
-    'GET:/admin/reviews/edit/{id}'   => ['AdminController', 'editReview'],
-    'POST:/admin/reviews/edit/{id}'  => ['AdminController', 'updateReview'],
-    'POST:/admin/reviews/approve'    => ['AdminController', 'approveReview'],
-    'POST:/admin/reviews/delete'     => ['AdminController', 'deleteReview'],
-    'GET:/admin/theme-settings'      => ['AdminController', 'themeSettings'],
-    'POST:/admin/theme-settings'     => ['AdminController', 'themeSettings'],
+    'POST:/admin/orders/delete'        => ['AdminController', 'deleteOrder'],
+    'GET:/admin/users'                 => ['AdminController', 'users'],
+    'GET:/admin/reviews'               => ['AdminController', 'reviews'],
+    'GET:/admin/reviews/edit/{id}'     => ['AdminController', 'editReview'],
+    'POST:/admin/reviews/edit/{id}'    => ['AdminController', 'updateReview'],
+    'POST:/admin/reviews/approve'      => ['AdminController', 'approveReview'],
+    'POST:/admin/reviews/delete'       => ['AdminController', 'deleteReview'],
+    'GET:/admin/theme-settings'        => ['AdminController', 'themeSettings'],
+    'POST:/admin/theme-settings'       => ['AdminController', 'themeSettings'],
 
     'GET:/404'                  => ['ErrorController', 'notFound'],
 ];
