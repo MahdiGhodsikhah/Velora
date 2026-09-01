@@ -2,25 +2,17 @@
  * اسکریپت صفحه سبد خرید
  */
 
-// اطمینان از load شدن jQuery
 if (typeof jQuery === 'undefined') {
-    console.error('❌ jQuery is not loaded for cart!');
+    // jQuery is not loaded
 } else {
-    console.log('✅ jQuery is loaded for cart');
-    
     jQuery(document).ready(function($) {
-        console.log('🛒 Cart page scripts loaded');
-        console.log('Cart items count:', $('.cart-item').length);
-        console.log('BASE_URL:', window.BASE_URL);
-        
+
         // افزایش تعداد
         $(document).on('click', '.qty-plus', function() {
             const productId = $(this).data('id');
             const $input = $(this).siblings('.qty-input');
             const max = parseInt($input.attr('max'));
             let val = parseInt($input.val()) || 1;
-            
-            console.log('➕ Plus clicked:', { productId, val, max });
             
             if (val < max) {
                 val++;
@@ -35,8 +27,6 @@ if (typeof jQuery === 'undefined') {
             const $input = $(this).siblings('.qty-input');
             let val = parseInt($input.val()) || 1;
             
-            console.log('➖ Minus clicked:', { productId, val });
-            
             if (val > 1) {
                 val--;
                 $input.val(val);
@@ -49,18 +39,13 @@ if (typeof jQuery === 'undefined') {
             const productId = $(this).data('id');
             const $item = $(this).closest('.cart-item');
             
-            console.log('🗑️ Remove clicked:', productId);
-            
             if (confirm('آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟')) {
-                console.log('Sending remove request to:', window.BASE_URL + '/cart/remove');
-                
                 $.ajax({
                     url: (window.BASE_URL || '') + '/cart/remove',
                     method: 'POST',
                     data: { product_id: productId },
                     dataType: 'json',
                     success: function(res) {
-                        console.log('✅ Remove response:', res);
                         if (res && res.success) {
                             $item.fadeOut(400, function() {
                                 $(this).remove();
@@ -78,8 +63,6 @@ if (typeof jQuery === 'undefined') {
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error('❌ Remove error:', status, error);
-                        console.error('Response:', xhr.responseText);
                         if (typeof showNotification === 'function') {
                             showNotification('خطا در حذف محصول', 'error');
                         } else {
@@ -92,24 +75,18 @@ if (typeof jQuery === 'undefined') {
 
         // به‌روزرسانی سبد
         function updateCart(productId, quantity) {
-            console.log('🔄 Updating cart:', { productId, quantity });
-            console.log('Sending to:', window.BASE_URL + '/cart/update');
-            
             $.ajax({
                 url: (window.BASE_URL || '') + '/cart/update',
                 method: 'POST',
                 data: { product_id: productId, quantity: quantity },
                 dataType: 'json',
                 success: function(res) {
-                    console.log('✅ Update response:', res);
                     if (res && res.success) {
                         recalculateTotals();
                         updateCartBadge(res.cart_count);
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('❌ Update error:', status, error);
-                    console.error('Response:', xhr.responseText);
                     if (typeof showNotification === 'function') {
                         showNotification('خطا در به‌روزرسانی سبد', 'error');
                     } else {
@@ -118,7 +95,7 @@ if (typeof jQuery === 'undefined') {
                 }
             });
         }
-
+        
         // محاسبه مجدد مجموع
         function recalculateTotals() {
             let subtotal = 0;
@@ -133,7 +110,7 @@ if (typeof jQuery === 'undefined') {
                 subtotal += total;
             });
 
-            const shipping = subtotal > 500000 ? 0 : 30000;
+            const shipping = subtotal > 1000000 ? 0 : 30000;
             const tax = subtotal * 0.09;
             const total = subtotal + shipping + tax;
 
@@ -148,8 +125,8 @@ if (typeof jQuery === 'undefined') {
             }
 
             // پیام ارسال رایگان
-            if (subtotal < 500000) {
-                const remaining = 500000 - subtotal;
+            if (subtotal < 1000000) {
+                const remaining = 1000000 - subtotal;
                 $('.free-shipping-notice').show().html(
                     '<i class="fas fa-info-circle"></i> با خرید ' + 
                     remaining.toLocaleString('fa-IR') + 
@@ -159,7 +136,7 @@ if (typeof jQuery === 'undefined') {
                 $('.free-shipping-notice').hide();
             }
         }
-
+        
         // به‌روزرسانی badge
         function updateCartBadge(count) {
             if (count > 0) {
@@ -172,7 +149,7 @@ if (typeof jQuery === 'undefined') {
                 $('.badge-count').remove();
             }
         }
-
+        
         // اعمال کد تخفیف
         $('.coupon-form').on('submit', function(e) {
             e.preventDefault();
@@ -200,8 +177,6 @@ if (typeof jQuery === 'undefined') {
                 data: { coupon_code: couponCode },
                 dataType: 'json',
                 success: function(res) {
-                    console.log('✅ Coupon response:', res);
-                    
                     if (res && res.success) {
                         // نمایش پیام موفقیت
                         if (typeof showNotification === 'function') {
@@ -213,10 +188,9 @@ if (typeof jQuery === 'undefined') {
                         // محاسبه مجدد با تخفیف
                         if (res.discount_amount) {
                             recalculateTotals();
-                            // TODO: نمایش مقدار تخفیف در UI
                         }
                         
-                        // پاک کردن input
+                                                
                         $input.val('');
                     } else {
                         // نمایش پیام خطا
@@ -228,9 +202,6 @@ if (typeof jQuery === 'undefined') {
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('❌ Coupon error:', status, error);
-                    console.error('Response:', xhr.responseText);
-                    
                     // نمایش پیام خطا
                     if (typeof showNotification === 'function') {
                         showNotification('کد تخفیف نامعتبر است یا منقضی شده', 'error');

@@ -4,16 +4,9 @@
  */
 'use strict';
 
-console.log('🚀 main.js loaded successfully!');
-
 $(document).ready(function () {
 
-    console.log('✅ jQuery Document Ready!');
-    console.log('BASE_URL:', window.BASE_URL);
-
-    // =================================================================
-    // ۱. ناوبری - همبرگر و اسکرول
-    // =================================================================
+    // ناوبری - همبرگر و اسکرول
     const $navbar    = $('#mainNavbar');
     const $hamburger = $('#hamburgerBtn');
     const $mobileMenu= $('#mobileMenu');
@@ -85,14 +78,9 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-    // =================================================================
     // Dropdown منوها - Hover + Click با رفع مشکل بسته نشدن
-    // =================================================================
-    
-    console.log('🔽 Setting up dropdown handlers...');
     
     let isDesktop = $(window).width() > 1024;
-    console.log('isDesktop:', isDesktop);
     
     // تشخیص تغییر سایز صفحه
     $(window).on('resize', function() {
@@ -124,8 +112,6 @@ $(document).ready(function () {
         const $parent = $(this).parent('.has-dropdown');
         const wasOpen = $parent.hasClass('clicked');
         
-        console.log('🔽 Dropdown clicked, wasOpen:', wasOpen);
-        
         // بستن تمام dropdownها
         $('.has-dropdown').removeClass('clicked keep-open');
         $('.has-dropdown > a, .has-dropdown > button').attr('aria-expanded', 'false');
@@ -134,21 +120,14 @@ $(document).ready(function () {
         if (!wasOpen) {
             $parent.addClass('clicked');
             $(this).attr('aria-expanded', 'true');
-            console.log('✅ Opening dropdown');
-        } else {
-            console.log('❌ Closing dropdown');
         }
     });
     
     // بستن dropdown با کلیک خارج
     $(document).on('click', function(e) {
         if (!$(e.target).closest('.has-dropdown').length) {
-            const hadOpen = $('.has-dropdown.clicked').length > 0;
             $('.has-dropdown').removeClass('clicked keep-open');
             $('.has-dropdown > a, .has-dropdown > button').attr('aria-expanded', 'false');
-            if (hadOpen) {
-                console.log('🔽 Closed all dropdowns (click outside)');
-            }
         }
     });
     
@@ -156,12 +135,8 @@ $(document).ready(function () {
     $('.dropdown-menu').on('click', function(e) {
         e.stopPropagation();
     });
-    
-    console.log('✅ Dropdown handlers ready!');
 
-    // =================================================================
     // Theme Switcher - Handle page reload for theme change
-    // =================================================================
     
     $('.dropdown-theme a').on('click', function(e) {
         e.preventDefault();
@@ -189,9 +164,7 @@ $(document).ready(function () {
         window.location.href = themeUrl;
     });
 
-    // =================================================================
-    // ۲. هدر انیمیشنی - برگ‌های ریزان (با Font Awesome)
-    // =================================================================
+    // هدر انیمیشنی - برگ‌های ریزان (با Font Awesome)
     const leafIcons = ['fas fa-leaf', 'fas fa-seedling', 'fab fa-pagelines', 'fas fa-spa'];
     const $leavesContainer = $('#fallingLeaves');
 
@@ -227,9 +200,7 @@ $(document).ready(function () {
         $leavesContainer[0].appendChild(leaf);
     }
 
-    // =================================================================
-    // ۳. ذرات متحرک هدر
-    // =================================================================
+    // ذرات متحرک هدر
     const $particlesContainer = $('#heroParticles');
     if ($particlesContainer.length) {
         for (let i = 0; i < 25; i++) {
@@ -257,9 +228,7 @@ $(document).ready(function () {
         }
     }
 
-    // =================================================================
-    // ۴. اسلایدر بنر هدر
-    // =================================================================
+    // اسلایدر بنر هدر
     let currentSlide = 0;
     let slideTimer   = null;
     const $slides    = $('.hero-slide');
@@ -325,9 +294,7 @@ $(document).ready(function () {
         startSlideTimer();
     }
 
-    // =================================================================
-    // ۵. کاروسل محصولات (Slick)
-    // =================================================================
+    // کاروسل محصولات (Slick)
     
     // اسلایدر تصاویر داخل کارت محصول
     function initProductImageSliders() {
@@ -442,10 +409,7 @@ $(document).ready(function () {
         });
     }
 
-    // =================================================================
-    // ۶. علاقه‌مندی (Wishlist)
-    // =================================================================
-    console.log('❤️ Setting up wishlist handlers...');
+    // علاقه‌مندی (Wishlist)
     
     // بارگذاری وضعیت wishlist برای کاربران لاگین شده
     function loadWishlistStatus() {
@@ -455,8 +419,6 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (res) {
                 if (res && res.wishlist && Array.isArray(res.wishlist)) {
-                    console.log('✅ Wishlist loaded:', res.wishlist);
-                    
                     // علامت‌گذاری محصولات موجود در wishlist
                     res.wishlist.forEach(function(productId) {
                         $('.wishlist-btn[data-id="' + productId + '"]').addClass('active').find('i').removeClass('far').addClass('fas');
@@ -464,8 +426,6 @@ $(document).ready(function () {
                 }
             },
             error: function(xhr) {
-                // اگر کاربر لاگین نیست، خطا نمی‌دهیم
-                console.log('ℹ️ Wishlist status not loaded (user not logged in or error)');
             }
         });
     }
@@ -475,15 +435,11 @@ $(document).ready(function () {
     
     $(document).on('click', '.wishlist-btn', function (e) {
         e.preventDefault();
-        console.log('❤️ Wishlist button clicked!');
         
         const $btn = $(this);
         const productId = parseInt($btn.data('id'), 10);
         
-        console.log('Product ID:', productId);
-        
         if (!productId) {
-            console.log('❌ No product ID');
             return;
         }
 
@@ -497,8 +453,6 @@ $(document).ready(function () {
             $icon.toggleClass('far fas');
         }
 
-        console.log('Sending to:', window.BASE_URL + '/wishlist/toggle');
-        
         // ارسال به سرور (AJAX)
         $.ajax({
             url: (window.BASE_URL || '') + '/wishlist/toggle',
@@ -507,18 +461,12 @@ $(document).ready(function () {
             data: JSON.stringify({ product_id: productId }),
             dataType: 'json',
             success: function (res) {
-                console.log('✅ Wishlist response:', res);
-                
                 if (res && res.success) {
                     // نمایش پیام
                     if (res.message) {
                         showNotification(res.message, 'success');
                     }
-                    
-                    // حذف redirect - فقط پیام نشان بده
-                    // اگر کاربر لاگین نیست، فقط پیام نمایش داده می‌شود
                 } else {
-                    // ریورت در صورت خطا
                     $btn.toggleClass('active');
                     if ($icon.length) {
                         $icon.toggleClass('far fas');
@@ -527,15 +475,9 @@ $(document).ready(function () {
                     if (res && res.message) {
                         showNotification(res.message, 'error');
                     }
-                    
-                    // حذف redirect - فقط پیام
                 }
             },
             error: function (xhr, status, error) {
-                console.error('❌ Wishlist AJAX Error:', status, error);
-                console.error('Response:', xhr.responseText);
-                
-                // ریورت در صورت خطا
                 $btn.toggleClass('active');
                 if ($icon.length) {
                     $icon.toggleClass('far fas');
@@ -546,35 +488,28 @@ $(document).ready(function () {
         });
     });
 
-    // =================================================================
-    // 6.5. اشتراک‌گذاری محصول (Share Button)
-    // =================================================================
-    console.log('🔗 Setting up share button handlers...');
+    // اشتراک‌گذاری محصول (Share Button)
     
     $(document).on('click', '.share-btn', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('🔗 Share button clicked!');
         
         const $btn = $(this);
         const url = $btn.data('url');
         
         if (!url) {
-            console.error('❌ No URL found on share button');
             showNotification('خطا در دریافت لینک محصول', 'error');
             return;
         }
         
         // ساخت URL کامل
         const fullUrl = url.startsWith('http') ? url : window.location.origin + url;
-        console.log('📋 Copying URL:', fullUrl);
         
         // کپی کردن به clipboard
         if (navigator.clipboard && navigator.clipboard.writeText) {
             // روش مدرن
             navigator.clipboard.writeText(fullUrl)
                 .then(function() {
-                    console.log('✅ URL copied successfully!');
                     showNotification('لینک محصول کپی شد', 'success');
                     
                     // انیمیشن موقت برای دکمه
@@ -586,7 +521,6 @@ $(document).ready(function () {
                     }, 1500);
                 })
                 .catch(function(err) {
-                    console.error('❌ Failed to copy:', err);
                     fallbackCopyTextToClipboard(fullUrl, $btn);
                 });
         } else {
@@ -620,7 +554,6 @@ $(document).ready(function () {
         try {
             const successful = document.execCommand('copy');
             if (successful) {
-                console.log('✅ Fallback: URL copied successfully!');
                 showNotification('لینک محصول کپی شد', 'success');
                 
                 // انیمیشن موقت
@@ -631,46 +564,34 @@ $(document).ready(function () {
                     $btn.find('i').attr('class', originalIcon);
                 }, 1500);
             } else {
-                console.error('❌ Fallback: Unable to copy');
                 showNotification('خطا در کپی کردن لینک', 'error');
             }
         } catch (err) {
-            console.error('❌ Fallback: Copy failed', err);
             showNotification('مرورگر شما از کپی کردن پشتیبانی نمی‌کند', 'error');
         }
         
         document.body.removeChild(textArea);
     }
 
-    // =================================================================
-    // ۷. افزودن به سبد خرید
-    // =================================================================
-    
-    console.log('🛒 Setting up cart handlers...');
+    // افزودن به سبد خرید
     
     $(document).on('click', '.btn-add', function (e) {
         e.preventDefault();
-        console.log('🛒 Add to cart clicked!');
         
         const $btn = $(this);
         if ($btn.hasClass('disabled') || $btn.is(':disabled')) {
-            console.log('❌ Button is disabled');
             return;
         }
 
         const productId = parseInt($btn.data('product-id'), 10);
-        console.log('Product ID:', productId);
         
         if (!productId) {
-            console.log('❌ No product ID');
             showNotification('شناسه محصول یافت نشد', 'error');
             return;
         }
 
         const originalHtml = $btn.html();
         $btn.html('<i class="fas fa-spinner fa-spin"></i> در حال افزودن...').prop('disabled', true);
-
-        console.log('Sending to:', window.BASE_URL + '/cart/add');
         
         $.ajax({
             url:    (window.BASE_URL || '') + '/cart/add',
@@ -678,12 +599,9 @@ $(document).ready(function () {
             data:   { product_id: productId, quantity: 1 },
             dataType: 'json',
             success: function (res) {
-                console.log('✅ Cart response:', res);
-                
                 if (res && res.success) {
                     $btn.html('<i class="fas fa-check"></i> افزوده شد');
                     
-                    // نمایش notification - همیشه نمایش داده می‌شود
                     showNotification(res.message || 'محصول به سبد خرید اضافه شد', 'success');
                     
                     // به‌روزرسانی badge سبد خرید
@@ -700,7 +618,6 @@ $(document).ready(function () {
                         $btn.html(originalHtml).prop('disabled', false);
                     }, 2000);
                 } else {
-                    console.log('❌ Response not successful:', res);
                     $btn.html('<i class="fas fa-times"></i> خطا').prop('disabled', false);
                     showNotification(res.message || 'خطا در افزودن محصول', 'error');
                     setTimeout(function () { 
@@ -709,17 +626,13 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, status, error) {
-                console.error('❌ AJAX Error:', status, error);
-                console.error('Response:', xhr.responseText);
                 $btn.html(originalHtml).prop('disabled', false);
                 showNotification('خطا در ارتباط با سرور', 'error');
             }
         });
     });
 
-    // =================================================================
-    // ۸. شمارنده آمار هدر و صفحه درباره ما (Count Up)
-    // =================================================================
+    // شمارنده آمار هدر و صفحه درباره ما (Count Up)
     function animateCountUp() {
         $('.stat-num, .stat-number').each(function () {
             const $this  = $(this);
@@ -761,13 +674,10 @@ $(document).ready(function () {
         }
     }
 
-    // =================================================================
-    // ۹. نوتیفیکیشن‌ها
-    // =================================================================
+    // نوتیفیکیشن‌ها
     
     // تابع نمایش نوتیفیکیشن - دقیقاً مثل product-single.js (Vanilla JS)
     window.showNotification = function(message, type) {
-        console.log('📢 Showing notification:', message, type);
         
         type = type || 'info';
         
@@ -807,11 +717,6 @@ $(document).ready(function () {
         }, 3000);
     };
     
-    // تست notification در console
-    console.log('✅ showNotification function is ready!');
-    console.log('Test it with: showNotification("تست پیام", "success")');
-    
-    // تبدیل alert‌های موجود به notification - فقط alert‌های خارج از modal
     setTimeout(function() {
         $('.alert').not('.modal .alert, .modal .alert-info').each(function() {
             const $alert = $(this);
@@ -840,9 +745,7 @@ $(document).ready(function () {
         });
     });
 
-    // =================================================================
-    // ۱۰. لازی‌لود تصاویر
-    // =================================================================
+    // لازی‌لود تصاویر
     if ('loading' in HTMLImageElement.prototype) {
         $('img[loading="lazy"]').each(function () {
             if (this.dataset.src) {
@@ -851,9 +754,7 @@ $(document).ready(function () {
         });
     }
 
-    // =================================================================
-    // ۱۱. انیمیشن اسکرول (Scroll Reveal)
-    // =================================================================
+    // انیمیشن اسکرول (Scroll Reveal)
     if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {

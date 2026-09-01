@@ -4,15 +4,10 @@
  */
 'use strict';
 
-console.log('🎯 product-single.js loaded');
-
 // صبر برای لود شدن DOM
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ Product single page initialized');
     
-    // =================================================================
-    // ۱. مدیریت گالری تصاویر
-    // =================================================================
+    // مدیریت گالری تصاویر
     const thumbButtons = document.querySelectorAll('.thumb-btn');
     const mainImg = document.getElementById('mainGalleryImg');
     
@@ -36,9 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // =================================================================
-    // ۲. مدیریت تعداد محصول (Quantity)
-    // =================================================================
+    // مدیریت تعداد محصول (Quantity)
     const qtyInput = document.querySelector('.qty-input');
     const qtyPlus = document.querySelector('.qty-plus');
     const qtyMinus = document.querySelector('.qty-minus');
@@ -48,12 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const max = parseInt(qtyInput.getAttribute('max')) || 99;
             let val = parseInt(qtyInput.value) || 1;
             
-            console.log('➕ Plus clicked - current:', val, 'max:', max);
-            
             if (val < max) {
                 val++;
                 qtyInput.value = val;
-                console.log('New value:', val);
             }
         });
     }
@@ -62,12 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
         qtyMinus.addEventListener('click', function() {
             let val = parseInt(qtyInput.value) || 1;
             
-            console.log('➖ Minus clicked - current:', val);
-            
             if (val > 1) {
                 val--;
                 qtyInput.value = val;
-                console.log('New value:', val);
             }
         });
     }
@@ -93,16 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // =================================================================
-    // ۳. افزودن به سبد خرید
-    // =================================================================
+    // افزودن به سبد خرید
     const addToCartBtn = document.querySelector('.btn-add-single');
     
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', function() {
-            // چک کردن disabled بودن دکمه
             if (this.classList.contains('disabled') || this.disabled) {
-                console.log('❌ Button is disabled');
                 return;
             }
             
@@ -110,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const qty = parseInt(qtyInput ? qtyInput.value : 1);
             
             if (!productId) {
-                console.error('❌ No product ID found');
                 return;
             }
             
@@ -118,10 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال افزودن...';
             this.disabled = true;
             
-            console.log('🛒 Adding to cart:', { productId, qty });
-            console.log('Sending to:', window.BASE_URL + '/cart/add');
-            
-            // ارسال درخواست AJAX با Fetch API
             fetch((window.BASE_URL || '') + '/cart/add', {
                 method: 'POST',
                 headers: {
@@ -133,8 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(function(data) {
-                console.log('✅ Cart response:', data);
-                
                 if (data && data.success) {
                     addToCartBtn.innerHTML = '<i class="fas fa-check"></i> افزوده شد';
                     
@@ -163,8 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(function(error) {
-                console.error('❌ AJAX Error:', error);
-                
                 addToCartBtn.innerHTML = originalHtml;
                 addToCartBtn.disabled = false;
                 
@@ -173,18 +147,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // =================================================================
-    // ۴. افزودن به علاقه‌مندی (Wishlist)
-    // =================================================================
+    // افزودن به علاقه‌مندی (Wishlist)
     
-    // توجه: event handler اصلی برای wishlist در main.js هست
-    // اینجا فقط رفتار خاص صفحه محصول را اضافه می‌کنیم
-    
-    console.log('✅ Wishlist handling setup for product page');
-    
-    // =================================================================
-    // ۵. شمارنده کاراکتر برای فرم نظر
-    // =================================================================
+    // شمارنده کاراکتر برای فرم نظر
     const reviewBody = document.getElementById('review-body');
     const charCount = document.getElementById('charCount');
     
@@ -194,9 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // =================================================================
-    // ۶. ستاره‌های امتیاز در فرم نظر
-    // =================================================================
+    // ستاره‌های امتیاز در فرم نظر
     const ratingLabels = document.querySelectorAll('.star-rating-input label');
     const ratingText = document.getElementById('ratingText');
     const ratingInputs = document.querySelectorAll('.star-rating-input input');
@@ -230,9 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // =================================================================
-    // ۷. توابع کمکی
-    // =================================================================
+    // توابع کمکی
     
     // استفاده از تابع showNotification که در main.js تعریف شده
     // اگر main.js لود نشده، تابع خودمون رو تعریف می‌کنیم
@@ -300,21 +261,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // =================================================================
-    // ۹. Initialize کردن کاروسل محصولات مشابه (Slick)
-    // =================================================================
+    // Initialize کردن کاروسل محصولات مشابه (Slick)
     
-    // چک کردن وجود jQuery و Slick برای کاروسل
     function initSimilarProductsCarousel() {
-        // چک کردن jQuery
         if (typeof jQuery === 'undefined') {
-            console.log('⏳ jQuery not loaded yet for carousel, retrying...');
             return false;
         }
         
-        // چک کردن Slick
         if (typeof jQuery.fn.slick === 'undefined') {
-            console.log('⏳ Slick not loaded yet, retrying...');
             return false;
         }
         
@@ -346,10 +300,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     ]
                 });
                 
-                console.log('✅ کاروسل محصولات مشابه با موفقیت initialize شد!');
                 return true;
             } catch (error) {
-                console.error('❌ خطا در initialize کردن کاروسل:', error);
                 return false;
             }
         }
@@ -357,13 +309,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
     
-    // تلاش برای initialize کردن کاروسل با چند مرحله
     let carouselInitAttempts = 0;
     const maxCarouselAttempts = 10;
     
     function tryInitCarousel() {
         if (carouselInitAttempts >= maxCarouselAttempts) {
-            console.log('❌ Unable to initialize carousel after ' + maxCarouselAttempts + ' attempts');
             return;
         }
         
@@ -374,8 +324,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // شروع تلاش برای initialize کردن کاروسل
     setTimeout(tryInitCarousel, 100);
-    
-    console.log('✅ Product single page fully initialized!');
 });
