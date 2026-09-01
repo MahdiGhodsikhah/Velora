@@ -41,7 +41,7 @@ class CheckoutController {
             $subtotal += $price * $item['quantity'];
         }
         
-        $shipping = $subtotal > 500000 ? 0 : 30000;
+        $shipping = $subtotal > 1000000 ? 0 : 30000;
         $tax = $subtotal * 0.09;
         $total = $subtotal + $shipping + $tax;
 
