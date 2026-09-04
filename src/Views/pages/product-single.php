@@ -1,4 +1,5 @@
 <?php
+/** @var array $product */
 /**
  * صفحه محصول منفرد - با رنگ‌بندی فصلی
  * الگو گرفته شده از 1/products page
@@ -324,5 +325,5 @@ $colors = $leafColors[$displaySeason] ?? $leafColors['autumn'];
 
 </main>
 
-<!-- اسکریپت اختصاصی صفحه محصول (بدون وابستگی به jQuery) -->
+<!-- اسکریپت اختصاصی صفحه محصول -->
 <script src="<?= $base ?>/assets/js/product-single.js"></script>

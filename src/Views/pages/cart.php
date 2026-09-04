@@ -1,4 +1,8 @@
 <?php
+/** @var int|float|string $subtotal */
+/** @var int|float|string $shipping */
+/** @var int|float|string $tax */
+/** @var int|float|string $total */
 /**
  * صفحه سبد خرید
  */

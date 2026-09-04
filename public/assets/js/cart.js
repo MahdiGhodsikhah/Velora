@@ -5,15 +5,15 @@
 if (typeof jQuery === 'undefined') {
     // jQuery is not loaded
 } else {
-    jQuery(document).ready(function($) {
+    jQuery(document).ready(function ($) {
 
         // افزایش تعداد
-        $(document).on('click', '.qty-plus', function() {
+        $(document).on('click', '.qty-plus', function () {
             const productId = $(this).data('id');
             const $input = $(this).siblings('.qty-input');
             const max = parseInt($input.attr('max'));
             let val = parseInt($input.val()) || 1;
-            
+
             if (val < max) {
                 val++;
                 $input.val(val);
@@ -22,11 +22,11 @@ if (typeof jQuery === 'undefined') {
         });
 
         // کاهش تعداد
-        $(document).on('click', '.qty-minus', function() {
+        $(document).on('click', '.qty-minus', function () {
             const productId = $(this).data('id');
             const $input = $(this).siblings('.qty-input');
             let val = parseInt($input.val()) || 1;
-            
+
             if (val > 1) {
                 val--;
                 $input.val(val);
@@ -35,34 +35,36 @@ if (typeof jQuery === 'undefined') {
         });
 
         // حذف محصول
-        $(document).on('click', '.btn-remove-item', function() {
+        $(document).on('click', '.btn-remove-item', function () {
             const productId = $(this).data('id');
             const $item = $(this).closest('.cart-item');
-            
+
             if (confirm('آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟')) {
                 $.ajax({
                     url: (window.BASE_URL || '') + '/cart/remove',
                     method: 'POST',
                     data: { product_id: productId },
                     dataType: 'json',
-                    success: function(res) {
+                    success: function (res) {
                         if (res && res.success) {
-                            $item.fadeOut(400, function() {
+                            $item.fadeOut(400, function () {
                                 $(this).remove();
                                 if ($('.cart-item').length === 0) {
-                                    location.reload();
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 2000);
                                 } else {
                                     recalculateTotals();
                                 }
                             });
                             updateCartBadge(res.cart_count);
-                            
+
                             if (typeof showNotification === 'function') {
                                 showNotification('محصول از سبد خرید حذف شد', 'success');
                             }
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         if (typeof showNotification === 'function') {
                             showNotification('خطا در حذف محصول', 'error');
                         } else {
@@ -80,13 +82,13 @@ if (typeof jQuery === 'undefined') {
                 method: 'POST',
                 data: { product_id: productId, quantity: quantity },
                 dataType: 'json',
-                success: function(res) {
+                success: function (res) {
                     if (res && res.success) {
                         recalculateTotals();
                         updateCartBadge(res.cart_count);
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     if (typeof showNotification === 'function') {
                         showNotification('خطا در به‌روزرسانی سبد', 'error');
                     } else {
@@ -95,17 +97,17 @@ if (typeof jQuery === 'undefined') {
                 }
             });
         }
-        
+
         // محاسبه مجدد مجموع
         function recalculateTotals() {
             let subtotal = 0;
-            
-            $('.cart-item').each(function() {
+
+            $('.cart-item').each(function () {
                 const $item = $(this);
                 const price = parseFloat($item.find('.total-price').data('price'));
                 const quantity = parseInt($item.find('.qty-input').val());
                 const total = price * quantity;
-                
+
                 $item.find('.total-price').text(total.toLocaleString('fa-IR'));
                 subtotal += total;
             });
@@ -117,7 +119,7 @@ if (typeof jQuery === 'undefined') {
             $('.subtotal-amount').text(subtotal.toLocaleString('fa-IR') + ' تومان');
             $('.tax-amount').text(tax.toLocaleString('fa-IR') + ' تومان');
             $('.total-amount').text(total.toLocaleString('fa-IR') + ' تومان');
-            
+
             if (shipping > 0) {
                 $('.shipping-amount').html(shipping.toLocaleString('fa-IR') + ' تومان');
             } else {
@@ -128,15 +130,15 @@ if (typeof jQuery === 'undefined') {
             if (subtotal < 1000000) {
                 const remaining = 1000000 - subtotal;
                 $('.free-shipping-notice').show().html(
-                    '<i class="fas fa-info-circle"></i> با خرید ' + 
-                    remaining.toLocaleString('fa-IR') + 
+                    '<i class="fas fa-info-circle"></i> با خرید ' +
+                    remaining.toLocaleString('fa-IR') +
                     ' تومان دیگر، ارسال رایگان!'
                 );
             } else {
                 $('.free-shipping-notice').hide();
             }
         }
-        
+
         // به‌روزرسانی badge
         function updateCartBadge(count) {
             if (count > 0) {
@@ -149,16 +151,16 @@ if (typeof jQuery === 'undefined') {
                 $('.badge-count').remove();
             }
         }
-        
+
         // اعمال کد تخفیف
         // $('.coupon-form').on('submit', function(e) {
         //     e.preventDefault();
-            
+
         //     const $form = $(this);
         //     const $input = $form.find('.coupon-input');
         //     const $button = $form.find('.btn-apply-coupon');
         //     const couponCode = $input.val().trim();
-            
+
         //     if (!couponCode) {
         //         if (typeof showNotification === 'function') {
         //             showNotification('لطفا کد تخفیف را وارد کنید', 'error');
@@ -167,10 +169,10 @@ if (typeof jQuery === 'undefined') {
         //         }
         //         return;
         //     }
-            
+
         //     // غیرفعال کردن دکمه
         //     $button.prop('disabled', true).text('در حال بررسی...');
-            
+
         //     $.ajax({
         //         url: (window.BASE_URL || '') + '/cart/apply-coupon',
         //         method: 'POST',
@@ -184,13 +186,13 @@ if (typeof jQuery === 'undefined') {
         //                 } else {
         //                     alert(res.message || 'کد تخفیف با موفقیت اعمال شد');
         //                 }
-                        
+
         //                 // محاسبه مجدد با تخفیف
         //                 if (res.discount_amount) {
         //                     recalculateTotals();
         //                 }
-                        
-                                                
+
+
         //                 $input.val('');
         //             } else {
         //                 // نمایش پیام خطا

@@ -1,6 +1,6 @@
 /**
  * اسکریپت صفحه محصول منفرد
- * پیاده‌سازی Vanilla JavaScript بدون وابستگی به jQuery
+ * پیاده‌سازی Vanilla JavaScript
  */
 'use strict';
 
@@ -147,8 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // افزودن به علاقه‌مندی (Wishlist)
-    
     // شمارنده کاراکتر برای فرم نظر
     const reviewBody = document.getElementById('review-body');
     const charCount = document.getElementById('charCount');
@@ -164,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ratingText = document.getElementById('ratingText');
     const ratingInputs = document.querySelectorAll('.star-rating-input input');
     
+    // متن وقتی هاور میشه
     ratingLabels.forEach(function(label) {
         label.addEventListener('mouseenter', function() {
             const rating = this.previousElementSibling.value;
@@ -173,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // چیزی انتخاب کرده 
     const starRatingInput = document.querySelector('.star-rating-input');
     if (starRatingInput && ratingText) {
         starRatingInput.addEventListener('mouseleave', function() {
@@ -185,6 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // وقتی چیزی انتخاب میکنه
     ratingInputs.forEach(function(input) {
         input.addEventListener('change', function() {
             if (ratingText) {
@@ -204,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // در غیر این صورت، Vanilla JS implementation
+        // در غیر این صورت،
         type = type || 'info';
         
         // حذف نوتیفیکیشن‌های قبلی

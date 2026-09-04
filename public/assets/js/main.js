@@ -364,7 +364,10 @@ $(document).ready(function () {
     });
 
     // اسلایدر اصلی محصولات (کاروسل بزرگ)
-    if ($('.main-product-slider').length) {
+    // اگر در صفحه محصول هستیم، product-single.js مسئول initialize کردن کاروسل است
+    const isProductSinglePage = $('.product-single-page').length > 0;
+    
+    if ($('.main-product-slider').length && !isProductSinglePage) {
         $('.main-product-slider').each(function () {
             if (!$(this).hasClass('slick-initialized')) {
                 // حذف lazy loading از تصاویر کاروسل قبل از initialize
