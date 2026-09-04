@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال افزودن...';
             this.disabled = true;
             
+            // fetch برای ارسال درخواست به سرور هست
             fetch((window.BASE_URL || '') + '/cart/add', {
                 method: 'POST',
                 headers: {

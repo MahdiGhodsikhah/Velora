@@ -679,7 +679,7 @@ $(document).ready(function () {
 
     // نوتیفیکیشن‌ها
     
-    // تابع نمایش نوتیفیکیشن - دقیقاً مثل product-single.js (Vanilla JS)
+    // تابع نمایش نوتیفیکیشن - دقیقاً مثل (Vanilla JS)
     window.showNotification = function(message, type) {
         
         type = type || 'info';
