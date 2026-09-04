@@ -79,17 +79,22 @@ class ThemeManager {
         $result = db_fetch_one("SELECT `preferred_theme` FROM `users` WHERE `id` = $userId LIMIT 1");
         return $result['preferred_theme'] ?? null;
     }
-    
+
+    // تم براساس فصل سال شمسی
     private function getCurrentSeasonTheme(): string {
-        $month = (int)date('n');
+        // پارامتر 'en' برای دریافت اعداد انگلیسی به جای فارسی
+        $persianMonth = (int)jdate('n', '', '', 'Asia/Tehran', 'en');
         
-        if ($month >= 3 && $month <= 5) {
+        if ($persianMonth >= 1 && $persianMonth <= 3) {
             return 'spring';
-        } elseif ($month >= 6 && $month <= 8) {
+        }
+        elseif ($persianMonth >= 4 && $persianMonth <= 6) {
             return 'summer';
-        } elseif ($month >= 9 && $month <= 11) {
+        }
+        elseif ($persianMonth >= 7 && $persianMonth <= 9) {
             return 'autumn';
-        } else {
+        }
+        else {
             return 'winter';
         }
     }
