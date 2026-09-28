@@ -1,8 +1,9 @@
 <?php
 
 class ThemeManager {
-    
-    private static ?ThemeManager $instance = null;
+    // Singleton Pattern
+    // قرار است از این کلاس فقط یک نمونه اصلی در برنامه داشته باشیم.
+    private static ?ThemeManager $instance = null; // یعنی این متغیر می‌تواند ThemeManager یا null باشد.
     private string $activeTheme;
     private array $themeConfig;
     private array $availableThemes = ['spring', 'summer', 'autumn', 'winter'];
@@ -34,6 +35,8 @@ class ThemeManager {
     
     private function resolveTheme(): string {
         // اگر کاربر از navbar تم جدید انتخاب کرده
+        //    /login?theme=winter
+        // $_GET['theme']  = winter
         if (isset($_GET['theme']) && in_array($_GET['theme'], $this->availableThemes)) {
             $_SESSION['user_selected_theme'] = $_GET['theme'];
             unset($_SESSION['product_theme']);
@@ -118,10 +121,10 @@ class ThemeManager {
         $this->activeTheme = $this->resolveTheme();
     }
     
-    public function clearUserSelectedTheme(): void {
-        unset($_SESSION['user_selected_theme']);
-        $this->activeTheme = $this->resolveTheme();
-    }
+    // public function clearUserSelectedTheme(): void {
+    //     unset($_SESSION['user_selected_theme']);
+    //     $this->activeTheme = $this->resolveTheme();
+    // }
     
     public function getThemeCssPath(): string {
         $theme = $this->activeTheme;
@@ -136,16 +139,16 @@ class ThemeManager {
         return $path;
     }
     
-    public function getThemeAssetsPath(string $type = 'images'): string {
-        $theme = $this->activeTheme;
-        return BASE_URL . '/assets/' . $type . '/themes/' . $theme;
-    }
+    // public function getThemeAssetsPath(string $type = 'images'): string {
+    //     $theme = $this->activeTheme;
+    //     return BASE_URL . '/assets/' . $type . '/themes/' . $theme;
+    // }
     
-    public function getAvailableThemes(): array {
-        return $this->availableThemes;
-    }
+    // public function getAvailableThemes(): array {
+    //     return $this->availableThemes;
+    // }
     
-    public function isValidTheme(string $theme): bool {
-        return in_array($theme, $this->availableThemes);
-    }
+    // public function isValidTheme(string $theme): bool {
+    //     return in_array($theme, $this->availableThemes);
+    // }
 }

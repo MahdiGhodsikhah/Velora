@@ -32,7 +32,7 @@
                                         if (function_exists('jdf_strftime')) {
                                             echo jdf_strftime('%d %B %Y', strtotime($user['created_at']));
                                         } else {
-                                            echo date('Y/m/d', strtotime($user['created_at']));
+                                            echo jdate('Y/m/d', strtotime($user['created_at']));
                                         }
                                         ?>
                             </p>

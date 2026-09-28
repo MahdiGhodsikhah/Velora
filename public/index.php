@@ -70,11 +70,11 @@ require_once BASE_PATH . '/src/Controllers/AdminController.php';
 // روتینگ
 // -------------------------------------------------------------------
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-$uri    = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
+$uri    = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH); // PHP_URL_PATH فقط قسمت مسیر
 
 // حذف پیشوند base URL (case-insensitive)
 $base = '/Velora/public';
-if (stripos($uri, $base) === 0) {
+if (stripos($uri, $base) === 0) { // stripos() نسبت به حروف کوچیک و بزرگ حساس نیست
     $uri = substr($uri, strlen($base));
 }
 if (empty($uri)) $uri = '/';

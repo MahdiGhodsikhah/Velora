@@ -7,6 +7,7 @@ ErrorDocument 404 /Velora/public/index.php
 # --- Rewrite ---
 RewriteEngine On
 
+# --- فایل فیزیکی هست؟ ---
 # فایل‌های static را مستقیم سرو کن
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d

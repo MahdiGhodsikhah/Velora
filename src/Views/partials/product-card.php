@@ -1,4 +1,5 @@
 <?php
+/** @var array $product */
 /**
  * کامپوننت کارت محصول
  * متغیرهای مورد نیاز: $product (array)

@@ -153,8 +153,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const charCount = document.getElementById('charCount');
     
     if (reviewBody && charCount) {
-        reviewBody.addEventListener('input', function() {
-            charCount.textContent = this.value.length;
+        // هر وقت کاربر داخل reviewBody چیزی تایپ کند، پاک کند یا تغییر بدهد، این تابع اجرا شود.
+        reviewBody.addEventListener('input', function() { // input اسم یک رویداد هست
+            charCount.textContent = this.value.length; // this = reviewBody
         });
     }
     

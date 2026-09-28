@@ -96,7 +96,7 @@ class AuthController {
         if (!Security::verify_password($password, $user['password_hash'])) {
             $this->userModel->incrementLoginAttempts((int)$user['id']);
 
-            // قفل کردن بعد از ۵ تلاش ناموفق
+            // قفل کردن بعد از 4 تلاش ناموفق
             if ((int)$user['login_attempts'] >= 4) {
                 $this->userModel->lockAccount((int)$user['id'], 15);
                 $_SESSION['auth_error'] = 'حساب شما به مدت ۱۵ دقیقه قفل شد.';

@@ -1,4 +1,7 @@
 <?php
+/** @var array $product */
+/** @var array $categories */
+
 $isEdit = isset($product);
 $formAction = $isEdit 
     ? BASE_URL . '/admin/products/edit/' . $product['id'] 

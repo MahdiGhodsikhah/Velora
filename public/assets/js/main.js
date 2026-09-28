@@ -164,6 +164,7 @@ $(document).ready(function () {
         window.location.href = themeUrl;
     });
 
+
     // هدر انیمیشنی - برگ‌های ریزان (با Font Awesome)
     const leafIcons = ['fas fa-leaf', 'fas fa-seedling', 'fab fa-pagelines', 'fas fa-spa'];
     const $leavesContainer = $('#fallingLeaves');
@@ -228,30 +229,33 @@ $(document).ready(function () {
         }
     }
 
+    
     // اسلایدر بنر هدر
-    let currentSlide = 0;
-    let slideTimer   = null;
+    let currentSlide = 0;                      // شماره اسلاید فعلی
+    let slideTimer   = null;                   // تایمر تغییر خودکار
     const $slides    = $('.hero-slide');
     const $dots      = $('.hero-dot');
     const $arrowPrev = $('.hero-arrow-prev');
     const $arrowNext = $('.hero-arrow-next');
-    const SLIDE_DELAY = 5000;
+    const SLIDE_DELAY = 5000;                  // 5 ثانیه تاخیر
 
+    // تغییر اسلاید
     function goToSlide(index) {
         if ($slides.length === 0) return;
         $slides.removeClass('active');
         $dots.removeClass('active').attr('aria-selected', 'false');
-
+        // محاسبه شماره اسلاید
         currentSlide = (index + $slides.length) % $slides.length;
+        // اضافه کردن active به اسلاید جدید
         $slides.eq(currentSlide).addClass('active');
         $dots.eq(currentSlide).addClass('active').attr('aria-selected', 'true');
     }
 
     function startSlideTimer() {
-        clearInterval(slideTimer);
+        clearInterval(slideTimer);    // پاک کردن تایمر قبلی
         slideTimer = setInterval(function () {
-            goToSlide(currentSlide + 1);
-        }, SLIDE_DELAY);
+            goToSlide(currentSlide + 1);  // رفتن به اسلاید بعدی
+        }, SLIDE_DELAY);   // هر 5 ثانیه
     }
 
     if ($slides.length > 1) {
@@ -286,7 +290,7 @@ $(document).ready(function () {
 
         // Pause اسلایدر با هاور
         $('.hero-banner-slider').on('mouseenter', function () {
-            clearInterval(slideTimer);
+            clearInterval(slideTimer);   // توقف تایمر
         }).on('mouseleave', function () {
             startSlideTimer();
         });
@@ -494,11 +498,11 @@ $(document).ready(function () {
     // اشتراک‌گذاری محصول (Share Button)
     
     $(document).on('click', '.share-btn', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault(); // رفتار پیش فرض متوقف میشه
+        e.stopPropagation();// نمی‌گذارد event کلیک به عناصر والد منتقل شود.
         
-        const $btn = $(this);
-        const url = $btn.data('url');
+        const $btn = $(this); // گرفتن خود دکمه
+        const url = $btn.data('url');// گرفتن URL
         
         if (!url) {
             showNotification('خطا در دریافت لینک محصول', 'error');
@@ -516,7 +520,7 @@ $(document).ready(function () {
                     showNotification('لینک محصول کپی شد', 'success');
                     
                     // انیمیشن موقت برای دکمه
-                    const originalIcon = $btn.find('i').attr('class');
+                    const originalIcon = $btn.find('i').attr('class'); // ذخیره کلاس فعلی آیکون
                     $btn.find('i').attr('class', 'fas fa-check');
                     
                     setTimeout(function() {
@@ -534,7 +538,7 @@ $(document).ready(function () {
     
     // تابع fallback برای کپی کردن در مرورگرهای قدیمی
     function fallbackCopyTextToClipboard(text, $btn) {
-        const textArea = document.createElement('textarea');
+        const textArea = document.createElement('textarea'); // ساخت textarea موقت
         textArea.value = text;
         
         // پنهان کردن textarea
@@ -550,8 +554,8 @@ $(document).ready(function () {
         textArea.style.background = 'transparent';
         textArea.style.opacity = '0';
         
-        document.body.appendChild(textArea);
-        textArea.focus();
+        document.body.appendChild(textArea); // textarea را موقتاً به <body> اضافه می‌کند.
+        textArea.focus(); // اول textarea را فعال می‌کند، بعد متن داخلش را انتخاب می‌کند.
         textArea.select();
         
         try {
@@ -642,9 +646,9 @@ $(document).ready(function () {
             const target = parseInt($this.data('target'), 10);
             if (!target || $this.data('animated')) return;
 
-            $this.data('animated', true);
+            $this.data('animated', true); // علامت‌گذاری به عنوان اجراشده
             const duration = 2000;
-            const step     = target / (duration / 16);
+            const step     = target / (duration / 16); //  فرض کرده تقریباً هر 16 میلی‌ثانیه یک بار عدد را افزایش بدهد
             let current    = 0;
 
             const timer = setInterval(function () {
@@ -653,6 +657,8 @@ $(document).ready(function () {
                     current = target;
                     clearInterval(timer);
                 }
+                // قسمت اعشاری را حذف می‌کند.
+                // toLocaleString : عدد را با قالب فارسی نمایش می‌دهد.
                 $this.text(Math.floor(current).toLocaleString('fa-IR'));
             }, 16);
         });
@@ -720,6 +726,7 @@ $(document).ready(function () {
         }, 3000);
     };
     
+    // تبدیل
     setTimeout(function() {
         $('.alert').not('.modal .alert, .modal .alert-info').each(function() {
             const $alert = $(this);
@@ -763,30 +770,32 @@ $(document).ready(function () {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('revealed');
-                    revealObserver.unobserve(entry.target);
+                    revealObserver.unobserve(entry.target);  // دیگر این عنصر را زیر نظر نگیر
                 }
             });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.12 // تقریباً وقتی ۱۲٪ عنصر وارد محدوده مشاهده شود
+            , rootMargin: '0px 0px -40px 0px' }); // محدوده مشاهده را کمی تغییر می‌دهد؛ اینجا پایین محدوده را ۴۰ پیکسل بالاتر می‌آورد تا انیمیشن کمی دیرتر و نزدیک‌تر به داخل صفحه شروع شود.
 
+        // هر عنصر یکی یکی داخل el قرار میگیره
         document.querySelectorAll('.feature-item, .category-card, .product-card, .feature-card').forEach(function (el) {
             el.classList.add('will-reveal');
             revealObserver.observe(el);
         });
 
         // انیمیشن ورود برای فوتر
-        const footerObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('footer-visible');
-                    footerObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+        // const footerObserver = new IntersectionObserver(function (entries) {
+        //     entries.forEach(function (entry) {
+        //         if (entry.isIntersecting) {
+        //             entry.target.classList.add('footer-visible');
+        //             footerObserver.unobserve(entry.target);
+        //         }
+        //     });
+        // }, { threshold: 0.1 });
 
-        const footer = document.querySelector('.site-footer');
-        if (footer) {
-            footerObserver.observe(footer);
-        }
+        // const footer = document.querySelector('.site-footer');
+        // if (footer) {
+        //     footerObserver.observe(footer);
+        // }
     }
 
 }); // end ready

@@ -87,6 +87,7 @@ class AdminController {
     public function createProduct(): void {
         $this->checkAdminAccess();
         
+        // دریافت لیست دسته‌بندی‌ها از دیتابیس
         $categories = $this->productModel->getAllCategories();
         
         $pageTitle = 'افزودن محصول جدید';
@@ -148,7 +149,9 @@ class AdminController {
         
         if ($productId) {
             // مدیریت آپلود گالری تصاویر (چند عکس)
+            // [0] یعنی اسم اولین فایل.
             if (!empty($_FILES['gallery_images']['name'][0])) {
+                // ساخت آرایه برای مسیر عکس‌ها
                 $galleryPaths = [];
                 $filesCount = count($_FILES['gallery_images']['name']);
                 
@@ -161,7 +164,8 @@ class AdminController {
                             'error' => $_FILES['gallery_images']['error'][$i],
                             'size' => $_FILES['gallery_images']['size'][$i]
                         ];
-                        
+                        // $file اطلاعات فایل.
+                        // $productId 
                         $uploadResult = $this->uploadProductImage($file, $productId, 'gallery_' . ($i + 1));
                         if ($uploadResult['success']) {
                             $galleryPaths[] = $uploadResult['path'];

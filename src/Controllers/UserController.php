@@ -201,12 +201,14 @@ class UserController {
             }
             $data['profile_image'] = null;
         }
+        // $_FILES['profile_image']   array super global (files)
+        // name
+        // size
+        // tmp_name
+        // error
+        // type
         elseif (!empty($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-            $uploadResult = ImageUploader::uploadProfileImage(
-                $_FILES['profile_image'], 
-                $userId,
-                $user['username'] ?? ''
-            );
+            $uploadResult = ImageUploader::uploadProfileImage($_FILES['profile_image'], $userId, $user['username'] ?? '');
             
             if ($uploadResult['success']) {
                 // حذف عکس قبلی

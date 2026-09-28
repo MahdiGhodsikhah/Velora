@@ -1,4 +1,7 @@
 <?php
+/** @var array $user */
+/** @var array $stats */
+
 /**
  * صفحه پنل کاربری - داشبورد
  */

@@ -112,6 +112,7 @@ class ProductController {
             foreach ($similarProducts as &$p) {
                 $p['gallery_arr'] = json_decode($p['gallery'] ?? '[]', true) ?: [];
             }
+            // به دلیل حذف آخرین رفرنس
             unset($p);
         }
 
@@ -169,7 +170,7 @@ class ProductController {
 
         if (empty($body)) {
             $errors[] = 'متن نظر الزامی است.';
-        } elseif (mb_strlen($body) < 10) {
+        } elseif (mb_strlen($body) < 10) { // mb_strlen هر حرف فارسی یک بایت حساب میشه
             $errors[] = 'متن نظر باید حداقل ۱۰ کاراکتر باشد.';
         } elseif (mb_strlen($body) > 1000) {
             $errors[] = 'متن نظر نباید بیشتر از ۱۰۰۰ کاراکتر باشد.';
@@ -180,7 +181,7 @@ class ProductController {
         }
 
         if (!empty($errors)) {
-            $_SESSION['error'] = implode('<br>', $errors);
+            $_SESSION['error'] = implode('<br>', $errors); // تبدیل آرایه به استرینگ
             header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? BASE_URL . '/'));
             exit;
         }

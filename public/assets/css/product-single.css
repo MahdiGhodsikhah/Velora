@@ -4,13 +4,14 @@
    رنگ‌ها با توجه به فصل محصول تغییر می‌کنند
    ======================================= */
 
-/* برگ‌های متحرک - با جلوگیری از افزایش ارتفاع صفحه */
+/* برگ‌های متحرک */
 .leaf {
+    /* برگ‌ها حتی با scroll کردن، همیشه در جایگاه خودشون هستن. */
     position: fixed;
-    z-index: 1;
+    z-index: 1;    /* پشت محتوا */
     pointer-events: none;
     border-radius: 50% 0;
-    will-change: transform;
+    will-change: transform;    /* بهینه‌سازی performance */
     top: -100px; /* شروع از بالای صفحه */
 }
 
@@ -32,7 +33,8 @@
 }
 
 .leaf {
-    animation: fall linear infinite;
+    /* linear: سرعت ثابت (بدون شتاب/کُندی) */
+    animation: fall linear infinite;  
 }
 
 /* صفحه محصول منفرد */

@@ -141,15 +141,17 @@
 }
 
 .hero-slide.active .slide-bg {
+    /* ease-out: سرعت اول تند، آخر آهسته
+       forwards: بعد از پایان، در حالت آخر بمونه */
     animation: zoomIn 8s ease-out forwards;
 }
 
 @keyframes zoomIn {
     0% {
-        transform: scale(1);
+        transform: scale(1);    /* شروع: سایز عادی */
     }
     100% {
-        transform: scale(1.1);
+        transform: scale(1.1);  /* پایان: 10% بزرگ‌تر */
     }
 }
 

@@ -101,9 +101,11 @@ function dispatch_route(string $method, string $uri): array {
         [$route_method, $route_path] = explode(':', $route, 2);
         if (strtoupper($method) !== $route_method) continue;
 
+        // تبدیل {id}
         $pattern = preg_replace('/\{[a-z_]+\}/', '([^/]+)', $route_path);
         $pattern = '#^' . $pattern . '$#';
         if (preg_match($pattern, $uri, $matches)) {
+            // حذف اولین عنصر 
             array_shift($matches);
             return ['controller' => $target[0], 'action' => $target[1], 'params' => $matches];
         }

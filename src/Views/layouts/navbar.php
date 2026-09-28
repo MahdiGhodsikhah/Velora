@@ -61,9 +61,11 @@ $cartCount  = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                 'winter' => 'زمستان'
             ];
             
+            // نمونه Query String = ?category=shoes&page=2&theme=winter
             // حفظ پارامترهای موجود URL (مثل جستجو، فیلتر، صفحه و...)
             $currentParams = $_GET;
             unset($currentParams['theme']); // حذف theme برای اینکه با theme جدید جایگزین شود
+            // آرایه PHP را دوباره به Query String تبدیل می‌کند
             $queryString = !empty($currentParams) ? '&' . http_build_query($currentParams) : '';
             ?>
             <div class="theme-switcher has-dropdown">
